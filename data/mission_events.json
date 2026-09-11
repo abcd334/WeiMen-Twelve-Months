@@ -1,0 +1,3354 @@
+{
+  "intel": {
+    "ledger": "舊帳上出現與烈川堂糧車相同的押印。",
+    "pattern": "烈川堂設擂時，總同時派人測量後山通道。",
+    "leak": "外洩抄件的墨跡出自山外，不能據此斷言門內有人通敵。",
+    "route": "烈川堂運糧路線與官府封山日期重疊。",
+    "witness": "渡口證人見過烈川堂偽造青崖門名帖。",
+    "seal": "敵派密札上的印記能與舊帳互相核對。"
+  },
+  "flags": {
+    "villagers_helped": "已援助山下村民",
+    "alliance": "已出席武林盟會",
+    "repaired": "兵器已整修",
+    "paid": "已補發月錢",
+    "transparent": "已公開帳冊",
+    "enemy_pattern": "已調查敵方行動",
+    "watched": "已核對外洩抄件",
+    "restricted": "已限制一名弟子行動",
+    "confession": "已召集公開議事",
+    "refuge": "已庇護來客",
+    "debt_settled": "已清理舊債",
+    "training": "已整理演練抄本"
+  },
+  "events": [
+    {
+      "id": "inventory",
+      "title": "清點山門",
+      "description": "庫房短缺，兵器失修，弟子又被拖欠月錢。四個人各站在一張舊帳旁，等你排出先後。",
+      "tags": [],
+      "trigger": {
+        "min_month": 2,
+        "max_month": 11,
+        "min_reputation": 0
+      },
+      "options": [
+        {
+          "id": "pay",
+          "label": "優先補發月錢",
+          "skill": "diplomacy",
+          "count": 1,
+          "risk": "low",
+          "cost": 8,
+          "visible_hint": "逐戶核對欠餉；暫緩修繕。",
+          "affected_resources": [
+            "reputation",
+            "treasury"
+          ],
+          "focus": "reputation",
+          "success": {
+            "reputation": [
+              4,
+              8
+            ],
+            "treasury": [
+              1,
+              5
+            ]
+          },
+          "failure": {
+            "reputation": [
+              -5,
+              -1
+            ],
+            "treasury": [
+              -3,
+              1
+            ]
+          },
+          "difficulty": 3.3,
+          "background_modifiers": {
+            "trade": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [
+            "paid"
+          ],
+          "intel": [],
+          "delayed": null,
+          "success_text": "優先補發月錢有了進展。逐戶核對欠餉，這次的安排已落實。",
+          "failure_text": "優先補發月錢未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：逐戶核對欠餉，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        },
+        {
+          "id": "repair",
+          "label": "優先修繕兵器",
+          "skill": "combat",
+          "count": 2,
+          "risk": "low",
+          "cost": 5,
+          "visible_hint": "修好守山器械；欠餉仍需另想辦法。",
+          "affected_resources": [
+            "defense"
+          ],
+          "focus": "defense",
+          "success": {
+            "defense": [
+              11,
+              15
+            ]
+          },
+          "failure": {
+            "defense": [
+              -5,
+              -1
+            ]
+          },
+          "difficulty": 3.3,
+          "background_modifiers": {
+            "sect": 0.65,
+            "combat": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [
+            "repaired"
+          ],
+          "intel": [],
+          "delayed": null,
+          "success_text": "優先修繕兵器有了進展。修好守山器械，這次的安排已落實。",
+          "failure_text": "優先修繕兵器未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：修好守山器械，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        },
+        {
+          "id": "ledger",
+          "label": "公開帳冊，共同節衣縮食",
+          "skill": "strategy",
+          "count": 1,
+          "risk": "medium",
+          "cost": 0,
+          "visible_hint": "查清收支可節省糧餉；公開舊帳也可能引起爭執。",
+          "affected_resources": [
+            "treasury",
+            "reputation"
+          ],
+          "focus": "treasury",
+          "success": {
+            "treasury": [
+              9,
+              13
+            ],
+            "reputation": [
+              1,
+              5
+            ]
+          },
+          "failure": {
+            "treasury": [
+              -3,
+              1
+            ],
+            "reputation": [
+              -5,
+              -1
+            ]
+          },
+          "difficulty": 4.4,
+          "background_modifiers": {
+            "trade": 0.65,
+            "investigation": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [
+            "transparent"
+          ],
+          "intel": [
+            "ledger"
+          ],
+          "delayed": null,
+          "success_text": "公開帳冊，共同節衣縮食有了進展。查清收支可節省糧餉，這次的安排已落實。",
+          "failure_text": "公開帳冊，共同節衣縮食未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：查清收支可節省糧餉，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        }
+      ],
+      "key_decision": true,
+      "future_links": [
+        "ledger",
+        "paid",
+        "repaired"
+      ],
+      "fixed_month": 1
+    },
+    {
+      "id": "provocation",
+      "title": "烈川堂挑釁",
+      "description": "烈川堂在山下設擂嘲諷，偏偏後山也出現陌生足跡。村民問青崖門是否還有人能作主。",
+      "tags": [
+        "hostile"
+      ],
+      "trigger": {
+        "min_month": 2,
+        "max_month": 11,
+        "min_reputation": 0
+      },
+      "options": [
+        {
+          "id": "duel",
+          "label": "派弟子應戰",
+          "skill": "combat",
+          "count": 2,
+          "risk": "high",
+          "cost": 0,
+          "visible_hint": "勝負會影響地方觀感；擂臺刀劍容易傷人。",
+          "affected_resources": [
+            "reputation",
+            "defense"
+          ],
+          "focus": "reputation",
+          "success": {
+            "reputation": [
+              12,
+              16
+            ],
+            "defense": [
+              5,
+              9
+            ]
+          },
+          "failure": {
+            "reputation": [
+              -5,
+              -1
+            ],
+            "defense": [
+              -5,
+              -1
+            ]
+          },
+          "difficulty": 5.2,
+          "background_modifiers": {
+            "combat": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [],
+          "intel": [],
+          "delayed": null,
+          "success_text": "派弟子應戰有了進展。勝負會影響地方觀感，這次的安排已落實。",
+          "failure_text": "派弟子應戰未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：勝負會影響地方觀感，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        },
+        {
+          "id": "appeal",
+          "label": "向地方長老申訴",
+          "skill": "diplomacy",
+          "count": 1,
+          "risk": "low",
+          "cost": 2,
+          "visible_hint": "帶證據請長老調停；敵方仍可能另尋破口。",
+          "affected_resources": [
+            "reputation",
+            "treasury"
+          ],
+          "focus": "reputation",
+          "success": {
+            "reputation": [
+              6,
+              10
+            ],
+            "treasury": [
+              7,
+              11
+            ]
+          },
+          "failure": {
+            "reputation": [
+              -5,
+              -1
+            ],
+            "treasury": [
+              -3,
+              1
+            ]
+          },
+          "difficulty": 3.3,
+          "background_modifiers": {
+            "official": 0.65,
+            "village": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [],
+          "intel": [],
+          "delayed": null,
+          "success_text": "向地方長老申訴有了進展。帶證據請長老調停，這次的安排已落實。",
+          "failure_text": "向地方長老申訴未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：帶證據請長老調停，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        },
+        {
+          "id": "investigate",
+          "label": "暗中調查真正目的",
+          "skill": "strategy",
+          "count": 2,
+          "risk": "medium",
+          "cost": 3,
+          "visible_hint": "追查後山足跡；眼前的嘲諷只能暫忍。",
+          "affected_resources": [
+            "defense"
+          ],
+          "focus": "defense",
+          "success": {
+            "defense": [
+              7,
+              11
+            ]
+          },
+          "failure": {
+            "defense": [
+              -5,
+              -1
+            ]
+          },
+          "difficulty": 4.4,
+          "background_modifiers": {
+            "enemy": 0.65,
+            "investigation": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [
+            "enemy_pattern"
+          ],
+          "intel": [
+            "pattern"
+          ],
+          "delayed": null,
+          "success_text": "暗中調查真正目的有了進展。追查後山足跡，這次的安排已落實。",
+          "failure_text": "暗中調查真正目的未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：追查後山足跡，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        }
+      ],
+      "key_decision": true,
+      "future_links": [
+        "pattern",
+        "suspicion"
+      ],
+      "fixed_month": 4
+    },
+    {
+      "id": "suspicion",
+      "title": "門內疑雲",
+      "description": "山外流傳青崖門的換防抄件。紙上的名字可疑，墨跡卻未核實；任何指控都還缺一塊證據。",
+      "tags": [
+        "hostile"
+      ],
+      "trigger": {
+        "min_month": 2,
+        "max_month": 11,
+        "min_reputation": 0
+      },
+      "options": [
+        {
+          "id": "restrict",
+          "label": "立即限制一名弟子行動",
+          "skill": "combat",
+          "count": 1,
+          "risk": "low",
+          "cost": 0,
+          "visible_hint": "所選弟子負責交代並暫停下月派遣；此舉不能證明其通敵。",
+          "affected_resources": [
+            "defense",
+            "reputation"
+          ],
+          "focus": "defense",
+          "success": {
+            "defense": [
+              9,
+              13
+            ],
+            "reputation": [
+              -5,
+              -3
+            ]
+          },
+          "failure": {
+            "defense": [
+              -5,
+              -1
+            ],
+            "reputation": [
+              -5,
+              -1
+            ]
+          },
+          "difficulty": 3.3,
+          "background_modifiers": {
+            "sect": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [
+            "restricted"
+          ],
+          "intel": [],
+          "delayed": null,
+          "success_text": "立即限制一名弟子行動有了進展。所選弟子負責交代並暫停下月派遣，這次的安排已落實。",
+          "failure_text": "立即限制一名弟子行動未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：所選弟子負責交代並暫停下月派遣，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ],
+          "special": "restrict"
+        },
+        {
+          "id": "watch",
+          "label": "派另一名弟子暗中監視",
+          "skill": "strategy",
+          "count": 1,
+          "risk": "medium",
+          "cost": 4,
+          "visible_hint": "比對出入與墨跡；需要留出調查盤纏。",
+          "affected_resources": [
+            "defense"
+          ],
+          "focus": "defense",
+          "success": {
+            "defense": [
+              4,
+              8
+            ]
+          },
+          "failure": {
+            "defense": [
+              -5,
+              -1
+            ]
+          },
+          "difficulty": 4.4,
+          "background_modifiers": {
+            "investigation": 0.65,
+            "enemy": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [
+            "watched"
+          ],
+          "intel": [
+            "leak"
+          ],
+          "delayed": null,
+          "success_text": "派另一名弟子暗中監視有了進展。比對出入與墨跡，這次的安排已落實。",
+          "failure_text": "派另一名弟子暗中監視未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：比對出入與墨跡，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        },
+        {
+          "id": "open",
+          "label": "公開說明，請眾人自行坦白",
+          "skill": "diplomacy",
+          "count": 2,
+          "risk": "medium",
+          "cost": 0,
+          "visible_hint": "公開不完整的證據；未涉案的人也會承受目光。",
+          "affected_resources": [
+            "reputation",
+            "treasury"
+          ],
+          "focus": "reputation",
+          "success": {
+            "reputation": [
+              7,
+              11
+            ],
+            "treasury": [
+              3,
+              7
+            ]
+          },
+          "failure": {
+            "reputation": [
+              -5,
+              -1
+            ],
+            "treasury": [
+              -3,
+              1
+            ]
+          },
+          "difficulty": 4.4,
+          "background_modifiers": {
+            "sect": 0.65,
+            "village": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [
+            "confession"
+          ],
+          "intel": [
+            "leak"
+          ],
+          "delayed": null,
+          "success_text": "公開說明，請眾人自行坦白有了進展。公開不完整的證據，這次的安排已落實。",
+          "failure_text": "公開說明，請眾人自行坦白未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：公開不完整的證據，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        }
+      ],
+      "key_decision": true,
+      "future_links": [
+        "leak",
+        "restricted",
+        "finale"
+      ],
+      "fixed_month": 8
+    },
+    {
+      "id": "flood",
+      "title": "山下水災",
+      "description": "暴雨沖垮河堤，村民在祠堂避水。糧車卡在對岸，山門自己的倉房也還漏雨。",
+      "tags": [],
+      "trigger": {
+        "min_month": 2,
+        "max_month": 11,
+        "min_reputation": 0
+      },
+      "options": [
+        {
+          "id": "rescue",
+          "label": "涉水救援與診治",
+          "skill": "medicine",
+          "count": 2,
+          "risk": "medium",
+          "cost": 3,
+          "visible_hint": "先救受困村民；水勢仍可能造成傷勢。",
+          "affected_resources": [
+            "reputation",
+            "treasury"
+          ],
+          "focus": "reputation",
+          "success": {
+            "reputation": [
+              11,
+              15
+            ],
+            "treasury": [
+              5,
+              9
+            ]
+          },
+          "failure": {
+            "reputation": [
+              -5,
+              -1
+            ],
+            "treasury": [
+              -3,
+              1
+            ]
+          },
+          "difficulty": 4.4,
+          "background_modifiers": {
+            "medicine": 0.65,
+            "village": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [
+            "villagers_helped"
+          ],
+          "intel": [],
+          "delayed": {
+            "after": 2,
+            "effects": {
+              "treasury": 7
+            },
+            "text": "受援村民送來重新收成的糧食。"
+          },
+          "success_text": "涉水救援與診治有了進展。先救受困村民，這次的安排已落實。",
+          "failure_text": "涉水救援與診治未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：先救受困村民，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        },
+        {
+          "id": "haul",
+          "label": "架繩搶運糧車",
+          "skill": "combat",
+          "count": 2,
+          "risk": "high",
+          "cost": 0,
+          "visible_hint": "把糧食運過急流；拉繩的人暴露在落石下。",
+          "affected_resources": [
+            "treasury"
+          ],
+          "focus": "treasury",
+          "success": {
+            "treasury": [
+              17,
+              21
+            ]
+          },
+          "failure": {
+            "treasury": [
+              -3,
+              1
+            ]
+          },
+          "difficulty": 5.2,
+          "background_modifiers": {
+            "travel": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [],
+          "intel": [],
+          "delayed": null,
+          "success_text": "架繩搶運糧車有了進展。把糧食運過急流，這次的安排已落實。",
+          "failure_text": "架繩搶運糧車未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：把糧食運過急流，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        },
+        {
+          "id": "coordinate",
+          "label": "借舟分批轉移",
+          "skill": "diplomacy",
+          "count": 1,
+          "risk": "low",
+          "cost": 2,
+          "visible_hint": "以地方人情調度舟船；仍有人得多等一晚。",
+          "affected_resources": [
+            "reputation",
+            "defense"
+          ],
+          "focus": "reputation",
+          "success": {
+            "reputation": [
+              5,
+              9
+            ],
+            "defense": [
+              2,
+              6
+            ]
+          },
+          "failure": {
+            "reputation": [
+              -5,
+              -1
+            ],
+            "defense": [
+              -5,
+              -1
+            ]
+          },
+          "difficulty": 3.3,
+          "background_modifiers": {
+            "village": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [
+            "villagers_helped"
+          ],
+          "intel": [],
+          "delayed": null,
+          "success_text": "借舟分批轉移有了進展。以地方人情調度舟船，這次的安排已落實。",
+          "failure_text": "借舟分批轉移未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：以地方人情調度舟船，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        }
+      ],
+      "key_decision": true,
+      "future_links": [
+        "villagers_helped",
+        "finale"
+      ]
+    },
+    {
+      "id": "caravan",
+      "title": "商隊護送",
+      "description": "鹽商願付護送錢，近道卻穿過兩處斷崖。",
+      "tags": [
+        "high_reward"
+      ],
+      "trigger": {
+        "min_month": 2,
+        "max_month": 11,
+        "min_reputation": 1
+      },
+      "options": [
+        {
+          "id": "road",
+          "label": "走官道護送",
+          "skill": "combat",
+          "count": 2,
+          "risk": "medium",
+          "cost": 1,
+          "visible_hint": "官道有匪徒；商隊需要能守住隊形的人。",
+          "affected_resources": [
+            "treasury",
+            "reputation"
+          ],
+          "focus": "treasury",
+          "success": {
+            "treasury": [
+              16,
+              20
+            ],
+            "reputation": [
+              1,
+              5
+            ]
+          },
+          "failure": {
+            "treasury": [
+              -3,
+              1
+            ],
+            "reputation": [
+              -5,
+              -1
+            ]
+          },
+          "difficulty": 4.4,
+          "background_modifiers": {
+            "combat": 0.65,
+            "travel": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [],
+          "intel": [],
+          "delayed": null,
+          "success_text": "走官道護送有了進展。官道有匪徒，這次的安排已落實。",
+          "failure_text": "走官道護送未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：官道有匪徒，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        },
+        {
+          "id": "contract",
+          "label": "重議契約分段護送",
+          "skill": "diplomacy",
+          "count": 1,
+          "risk": "low",
+          "cost": 0,
+          "visible_hint": "降低承諾以換取穩定工錢；報酬也較少。",
+          "affected_resources": [
+            "treasury"
+          ],
+          "focus": "treasury",
+          "success": {
+            "treasury": [
+              9,
+              13
+            ]
+          },
+          "failure": {
+            "treasury": [
+              -3,
+              1
+            ]
+          },
+          "difficulty": 3.3,
+          "background_modifiers": {
+            "trade": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [],
+          "intel": [],
+          "delayed": null,
+          "success_text": "重議契約分段護送有了進展。降低承諾以換取穩定工錢，這次的安排已落實。",
+          "failure_text": "重議契約分段護送未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：降低承諾以換取穩定工錢，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        },
+        {
+          "id": "cliff",
+          "label": "冒險搶走斷崖近道",
+          "skill": "combat",
+          "count": 2,
+          "risk": "lethal",
+          "cost": 0,
+          "visible_hint": "致命風險：崖道崩落可能使同行弟子死亡。",
+          "affected_resources": [
+            "treasury"
+          ],
+          "focus": "treasury",
+          "success": {
+            "treasury": [
+              25,
+              29
+            ]
+          },
+          "failure": {
+            "treasury": [
+              -3,
+              1
+            ]
+          },
+          "difficulty": 5.6,
+          "background_modifiers": {
+            "travel": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [],
+          "intel": [],
+          "delayed": null,
+          "success_text": "冒險搶走斷崖近道有了進展。致命風險：崖道崩落可能使同行弟子死亡。，這次的安排已落實。",
+          "failure_text": "冒險搶走斷崖近道未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：致命風險：崖道崩落可能使同行弟子死亡。，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        }
+      ],
+      "key_decision": false,
+      "future_links": []
+    },
+    {
+      "id": "duel_private",
+      "title": "弟子私鬥",
+      "description": "兩班值勤者為失物互相指責，爭執已傳到山下。",
+      "tags": [],
+      "trigger": {
+        "min_month": 2,
+        "max_month": 11,
+        "min_reputation": 0
+      },
+      "options": [
+        {
+          "id": "mediate",
+          "label": "派人調解並補缺勤",
+          "skill": "diplomacy",
+          "count": 2,
+          "risk": "low",
+          "cost": 2,
+          "visible_hint": "聽完雙方再重排班次；需要有人善後。",
+          "affected_resources": [
+            "reputation",
+            "defense"
+          ],
+          "focus": "reputation",
+          "success": {
+            "reputation": [
+              5,
+              9
+            ],
+            "defense": [
+              3,
+              7
+            ]
+          },
+          "failure": {
+            "reputation": [
+              -5,
+              -1
+            ],
+            "defense": [
+              -5,
+              -1
+            ]
+          },
+          "difficulty": 3.3,
+          "background_modifiers": {
+            "sect": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [],
+          "intel": [],
+          "delayed": null,
+          "success_text": "派人調解並補缺勤有了進展。聽完雙方再重排班次，這次的安排已落實。",
+          "failure_text": "派人調解並補缺勤未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：聽完雙方再重排班次，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        },
+        {
+          "id": "drill",
+          "label": "改以共同演練定分工",
+          "skill": "combat",
+          "count": 2,
+          "risk": "medium",
+          "cost": 0,
+          "visible_hint": "演練能釐清職責；傷疲會影響配合。",
+          "affected_resources": [
+            "defense"
+          ],
+          "focus": "defense",
+          "success": {
+            "defense": [
+              10,
+              14
+            ]
+          },
+          "failure": {
+            "defense": [
+              -5,
+              -1
+            ]
+          },
+          "difficulty": 4.4,
+          "background_modifiers": {
+            "combat": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [],
+          "intel": [],
+          "delayed": null,
+          "success_text": "改以共同演練定分工有了進展。演練能釐清職責，這次的安排已落實。",
+          "failure_text": "改以共同演練定分工未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：演練能釐清職責，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        },
+        {
+          "id": "audit",
+          "label": "清查物資與失物",
+          "skill": "strategy",
+          "count": 1,
+          "risk": "medium",
+          "cost": 0,
+          "visible_hint": "先核對失物去處；被查問者可能不悅。",
+          "affected_resources": [
+            "treasury"
+          ],
+          "focus": "treasury",
+          "success": {
+            "treasury": [
+              10,
+              14
+            ]
+          },
+          "failure": {
+            "treasury": [
+              -3,
+              1
+            ]
+          },
+          "difficulty": 4.4,
+          "background_modifiers": {
+            "investigation": 0.65,
+            "trade": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [],
+          "intel": [],
+          "delayed": null,
+          "success_text": "清查物資與失物有了進展。先核對失物去處，這次的安排已落實。",
+          "failure_text": "清查物資與失物未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：先核對失物去處，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        }
+      ],
+      "key_decision": false,
+      "future_links": []
+    },
+    {
+      "id": "old_debt",
+      "title": "前任掌門舊債",
+      "description": "一位旅人持舊借據登門，落款像前掌門，利息卻算了兩遍。",
+      "tags": [],
+      "trigger": {
+        "min_month": 2,
+        "max_month": 11,
+        "min_reputation": 0
+      },
+      "options": [
+        {
+          "id": "settle",
+          "label": "償付本金換取人證",
+          "skill": "diplomacy",
+          "count": 1,
+          "risk": "low",
+          "cost": 7,
+          "visible_hint": "止住追討可保住名聲；庫房需要承擔支出。",
+          "affected_resources": [
+            "reputation"
+          ],
+          "focus": "reputation",
+          "success": {
+            "reputation": [
+              8,
+              12
+            ]
+          },
+          "failure": {
+            "reputation": [
+              -5,
+              -1
+            ]
+          },
+          "difficulty": 3.3,
+          "background_modifiers": {
+            "trade": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [
+            "debt_settled"
+          ],
+          "intel": [
+            "witness"
+          ],
+          "delayed": null,
+          "success_text": "償付本金換取人證有了進展。止住追討可保住名聲，這次的安排已落實。",
+          "failure_text": "償付本金換取人證未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：止住追討可保住名聲，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        },
+        {
+          "id": "verify",
+          "label": "查驗借據押印",
+          "skill": "strategy",
+          "count": 1,
+          "risk": "medium",
+          "cost": 0,
+          "visible_hint": "重算舊帳；押印也許能追出來路。",
+          "affected_resources": [
+            "treasury"
+          ],
+          "focus": "treasury",
+          "success": {
+            "treasury": [
+              11,
+              15
+            ]
+          },
+          "failure": {
+            "treasury": [
+              -3,
+              1
+            ]
+          },
+          "difficulty": 4.4,
+          "background_modifiers": {
+            "investigation": 0.65,
+            "trade": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [],
+          "intel": [
+            "ledger"
+          ],
+          "delayed": null,
+          "success_text": "查驗借據押印有了進展。重算舊帳，這次的安排已落實。",
+          "failure_text": "查驗借據押印未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：重算舊帳，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        },
+        {
+          "id": "work",
+          "label": "以守夜勞務抵債",
+          "skill": "combat",
+          "count": 2,
+          "risk": "medium",
+          "cost": 0,
+          "visible_hint": "派人守貨抵債；門內輪值會更吃緊。",
+          "affected_resources": [
+            "defense",
+            "treasury"
+          ],
+          "focus": "defense",
+          "success": {
+            "defense": [
+              5,
+              9
+            ],
+            "treasury": [
+              5,
+              9
+            ]
+          },
+          "failure": {
+            "defense": [
+              -5,
+              -1
+            ],
+            "treasury": [
+              -3,
+              1
+            ]
+          },
+          "difficulty": 4.4,
+          "background_modifiers": {
+            "travel": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [],
+          "intel": [],
+          "delayed": null,
+          "success_text": "以守夜勞務抵債有了進展。派人守貨抵債，這次的安排已落實。",
+          "failure_text": "以守夜勞務抵債未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：派人守貨抵債，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        }
+      ],
+      "key_decision": true,
+      "future_links": [
+        "ledger",
+        "witness"
+      ]
+    },
+    {
+      "id": "manual",
+      "title": "神秘武學殘卷",
+      "description": "行腳書販帶來一卷缺頁劍譜，說是青崖門散失之物。",
+      "tags": [],
+      "trigger": {
+        "min_month": 2,
+        "max_month": 11,
+        "min_reputation": 0
+      },
+      "options": [
+        {
+          "id": "practice",
+          "label": "循殘卷試演劍路",
+          "skill": "combat",
+          "count": 2,
+          "risk": "high",
+          "cost": 2,
+          "visible_hint": "缺頁劍路可能反傷練習者。",
+          "affected_resources": [
+            "defense"
+          ],
+          "focus": "defense",
+          "success": {
+            "defense": [
+              13,
+              17
+            ]
+          },
+          "failure": {
+            "defense": [
+              -5,
+              -1
+            ]
+          },
+          "difficulty": 5.2,
+          "background_modifiers": {
+            "combat": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [
+            "training"
+          ],
+          "intel": [],
+          "delayed": null,
+          "success_text": "循殘卷試演劍路有了進展。缺頁劍路可能反傷練習者。，這次的安排已落實。",
+          "failure_text": "循殘卷試演劍路未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：缺頁劍路可能反傷練習者。，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        },
+        {
+          "id": "annotate",
+          "label": "整理脈絡與缺頁",
+          "skill": "strategy",
+          "count": 1,
+          "risk": "low",
+          "cost": 3,
+          "visible_hint": "先整理章法；需要付出抄錄成本。",
+          "affected_resources": [
+            "defense"
+          ],
+          "focus": "defense",
+          "success": {
+            "defense": [
+              6,
+              10
+            ]
+          },
+          "failure": {
+            "defense": [
+              -5,
+              -1
+            ]
+          },
+          "difficulty": 3.3,
+          "background_modifiers": {
+            "sect": 0.65,
+            "investigation": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [
+            "training"
+          ],
+          "intel": [],
+          "delayed": null,
+          "success_text": "整理脈絡與缺頁有了進展。先整理章法，這次的安排已落實。",
+          "failure_text": "整理脈絡與缺頁未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：先整理章法，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        },
+        {
+          "id": "copy",
+          "label": "交換抄本換取糧餉",
+          "skill": "diplomacy",
+          "count": 1,
+          "risk": "medium",
+          "cost": 0,
+          "visible_hint": "換取眼前糧餉；部分門人不願武學外流。",
+          "affected_resources": [
+            "treasury",
+            "reputation"
+          ],
+          "focus": "treasury",
+          "success": {
+            "treasury": [
+              12,
+              16
+            ],
+            "reputation": [
+              -3,
+              -1
+            ]
+          },
+          "failure": {
+            "treasury": [
+              -3,
+              1
+            ],
+            "reputation": [
+              -5,
+              -1
+            ]
+          },
+          "difficulty": 4.4,
+          "background_modifiers": {
+            "trade": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [],
+          "intel": [],
+          "delayed": null,
+          "success_text": "交換抄本換取糧餉有了進展。換取眼前糧餉，這次的安排已落實。",
+          "failure_text": "交換抄本換取糧餉未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：換取眼前糧餉，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        }
+      ],
+      "key_decision": false,
+      "future_links": []
+    },
+    {
+      "id": "herbs",
+      "title": "山中藥材成熟",
+      "description": "後山藥草正熟，晴日只有幾天。採藥與巡山只能分配同一批人。",
+      "tags": [],
+      "trigger": {
+        "min_month": 2,
+        "max_month": 11,
+        "min_reputation": 0
+      },
+      "options": [
+        {
+          "id": "pick",
+          "label": "採藥供門內並出售餘量",
+          "skill": "medicine",
+          "count": 2,
+          "risk": "low",
+          "cost": 0,
+          "visible_hint": "懂藥性才能避開混生毒草。",
+          "affected_resources": [
+            "treasury"
+          ],
+          "focus": "treasury",
+          "success": {
+            "treasury": [
+              11,
+              15
+            ]
+          },
+          "failure": {
+            "treasury": [
+              -3,
+              1
+            ]
+          },
+          "difficulty": 3.3,
+          "background_modifiers": {
+            "medicine": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [],
+          "intel": [],
+          "delayed": null,
+          "success_text": "採藥供門內並出售餘量有了進展。懂藥性才能避開混生毒草。，這次的安排已落實。",
+          "failure_text": "採藥供門內並出售餘量未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：懂藥性才能避開混生毒草。，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        },
+        {
+          "id": "patrol",
+          "label": "沿藥徑加強巡山",
+          "skill": "strategy",
+          "count": 1,
+          "risk": "medium",
+          "cost": 1,
+          "visible_hint": "藥徑也能繞過哨點；趁此補查通路。",
+          "affected_resources": [
+            "defense"
+          ],
+          "focus": "defense",
+          "success": {
+            "defense": [
+              10,
+              14
+            ]
+          },
+          "failure": {
+            "defense": [
+              -5,
+              -1
+            ]
+          },
+          "difficulty": 4.4,
+          "background_modifiers": {
+            "village": 0.65,
+            "investigation": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [],
+          "intel": [
+            "route"
+          ],
+          "delayed": null,
+          "success_text": "沿藥徑加強巡山有了進展。藥徑也能繞過哨點，這次的安排已落實。",
+          "failure_text": "沿藥徑加強巡山未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：藥徑也能繞過哨點，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        },
+        {
+          "id": "clinic",
+          "label": "開設山下義診",
+          "skill": "medicine",
+          "count": 1,
+          "risk": "low",
+          "cost": 3,
+          "visible_hint": "將藥用在村民身上；門內存藥會少一批。",
+          "affected_resources": [
+            "reputation"
+          ],
+          "focus": "reputation",
+          "success": {
+            "reputation": [
+              9,
+              13
+            ]
+          },
+          "failure": {
+            "reputation": [
+              -5,
+              -1
+            ]
+          },
+          "difficulty": 3.3,
+          "background_modifiers": {
+            "medicine": 0.65,
+            "village": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [
+            "villagers_helped"
+          ],
+          "intel": [],
+          "delayed": null,
+          "success_text": "開設山下義診有了進展。將藥用在村民身上，這次的安排已落實。",
+          "failure_text": "開設山下義診未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：將藥用在村民身上，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        }
+      ],
+      "key_decision": false,
+      "future_links": []
+    },
+    {
+      "id": "requisition",
+      "title": "官府徵調",
+      "description": "縣衙徵用車馬修路，公文日期與烈川堂糧車進山的日子重疊。",
+      "tags": [],
+      "trigger": {
+        "min_month": 2,
+        "max_month": 11,
+        "min_reputation": 0
+      },
+      "options": [
+        {
+          "id": "labor",
+          "label": "派員協助換取糧票",
+          "skill": "combat",
+          "count": 2,
+          "risk": "medium",
+          "cost": 0,
+          "visible_hint": "以工抵役；體力與出勤都要付出。",
+          "affected_resources": [
+            "treasury",
+            "reputation"
+          ],
+          "focus": "treasury",
+          "success": {
+            "treasury": [
+              13,
+              17
+            ],
+            "reputation": [
+              3,
+              7
+            ]
+          },
+          "failure": {
+            "treasury": [
+              -3,
+              1
+            ],
+            "reputation": [
+              -5,
+              -1
+            ]
+          },
+          "difficulty": 4.4,
+          "background_modifiers": {
+            "official": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [],
+          "intel": [],
+          "delayed": null,
+          "success_text": "派員協助換取糧票有了進展。以工抵役，這次的安排已落實。",
+          "failure_text": "派員協助換取糧票未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：以工抵役，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        },
+        {
+          "id": "records",
+          "label": "核對徵調名冊",
+          "skill": "strategy",
+          "count": 1,
+          "risk": "medium",
+          "cost": 1,
+          "visible_hint": "公文上的路段與日期值得查證。",
+          "affected_resources": [
+            "defense",
+            "treasury"
+          ],
+          "focus": "defense",
+          "success": {
+            "defense": [
+              6,
+              10
+            ],
+            "treasury": [
+              3,
+              7
+            ]
+          },
+          "failure": {
+            "defense": [
+              -5,
+              -1
+            ],
+            "treasury": [
+              -3,
+              1
+            ]
+          },
+          "difficulty": 4.4,
+          "background_modifiers": {
+            "official": 0.65,
+            "investigation": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [],
+          "intel": [
+            "route"
+          ],
+          "delayed": null,
+          "success_text": "核對徵調名冊有了進展。公文上的路段與日期值得查證。，這次的安排已落實。",
+          "failure_text": "核對徵調名冊未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：公文上的路段與日期值得查證。，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        },
+        {
+          "id": "negotiate",
+          "label": "爭取縮減徵調",
+          "skill": "diplomacy",
+          "count": 1,
+          "risk": "low",
+          "cost": 2,
+          "visible_hint": "提出門派困境；縣衙只接受具體安排。",
+          "affected_resources": [
+            "treasury"
+          ],
+          "focus": "treasury",
+          "success": {
+            "treasury": [
+              7,
+              11
+            ]
+          },
+          "failure": {
+            "treasury": [
+              -3,
+              1
+            ]
+          },
+          "difficulty": 3.3,
+          "background_modifiers": {
+            "official": 0.65,
+            "trade": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [],
+          "intel": [],
+          "delayed": null,
+          "success_text": "爭取縮減徵調有了進展。提出門派困境，這次的安排已落實。",
+          "failure_text": "爭取縮減徵調未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：提出門派困境，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        }
+      ],
+      "key_decision": false,
+      "future_links": []
+    },
+    {
+      "id": "refugees",
+      "title": "流民投靠",
+      "description": "幾戶逃荒者請求暫住外院，其中有人願修補山路。",
+      "tags": [],
+      "trigger": {
+        "min_month": 2,
+        "max_month": 11,
+        "min_reputation": 0
+      },
+      "options": [
+        {
+          "id": "shelter",
+          "label": "供糧安置並診治",
+          "skill": "medicine",
+          "count": 1,
+          "risk": "low",
+          "cost": 6,
+          "visible_hint": "先顧溫飽與病患；糧倉得分出一份。",
+          "affected_resources": [
+            "reputation",
+            "defense"
+          ],
+          "focus": "reputation",
+          "success": {
+            "reputation": [
+              10,
+              14
+            ],
+            "defense": [
+              1,
+              5
+            ]
+          },
+          "failure": {
+            "reputation": [
+              -5,
+              -1
+            ],
+            "defense": [
+              -5,
+              -1
+            ]
+          },
+          "difficulty": 3.3,
+          "background_modifiers": {
+            "village": 0.65,
+            "medicine": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [
+            "villagers_helped"
+          ],
+          "intel": [],
+          "delayed": null,
+          "success_text": "供糧安置並診治有了進展。先顧溫飽與病患，這次的安排已落實。",
+          "failure_text": "供糧安置並診治未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：先顧溫飽與病患，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        },
+        {
+          "id": "work",
+          "label": "安排修路換取食宿",
+          "skill": "strategy",
+          "count": 2,
+          "risk": "medium",
+          "cost": 2,
+          "visible_hint": "分工得當能修通山路；也要避免過勞。",
+          "affected_resources": [
+            "defense",
+            "treasury"
+          ],
+          "focus": "defense",
+          "success": {
+            "defense": [
+              11,
+              15
+            ],
+            "treasury": [
+              2,
+              6
+            ]
+          },
+          "failure": {
+            "defense": [
+              -5,
+              -1
+            ],
+            "treasury": [
+              -3,
+              1
+            ]
+          },
+          "difficulty": 4.4,
+          "background_modifiers": {
+            "village": 0.65,
+            "sect": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [],
+          "intel": [],
+          "delayed": null,
+          "success_text": "安排修路換取食宿有了進展。分工得當能修通山路，這次的安排已落實。",
+          "failure_text": "安排修路換取食宿未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：分工得當能修通山路，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        },
+        {
+          "id": "refer",
+          "label": "聯絡鄰村分攤安置",
+          "skill": "diplomacy",
+          "count": 1,
+          "risk": "low",
+          "cost": 0,
+          "visible_hint": "請鄰村分攤；青崖門也需承擔協調。",
+          "affected_resources": [
+            "reputation",
+            "treasury"
+          ],
+          "focus": "reputation",
+          "success": {
+            "reputation": [
+              5,
+              9
+            ],
+            "treasury": [
+              3,
+              7
+            ]
+          },
+          "failure": {
+            "reputation": [
+              -5,
+              -1
+            ],
+            "treasury": [
+              -3,
+              1
+            ]
+          },
+          "difficulty": 3.3,
+          "background_modifiers": {
+            "village": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [
+            "villagers_helped"
+          ],
+          "intel": [],
+          "delayed": null,
+          "success_text": "聯絡鄰村分攤安置有了進展。請鄰村分攤，這次的安排已落實。",
+          "failure_text": "聯絡鄰村分攤安置未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：請鄰村分攤，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        }
+      ],
+      "key_decision": false,
+      "future_links": []
+    },
+    {
+      "id": "donation",
+      "title": "富商附帶條件的捐贈",
+      "description": "富商願出資，條件是青崖門替他看守有爭議的倉地。",
+      "tags": [
+        "aid",
+        "high_reward"
+      ],
+      "trigger": {
+        "min_month": 2,
+        "max_month": 11,
+        "min_reputation": 1
+      },
+      "options": [
+        {
+          "id": "accept",
+          "label": "接下守倉契約",
+          "skill": "combat",
+          "count": 2,
+          "risk": "medium",
+          "cost": 0,
+          "visible_hint": "糧餉可解燃眉之急；地方聲名將受牽連。",
+          "affected_resources": [
+            "treasury",
+            "reputation"
+          ],
+          "focus": "treasury",
+          "success": {
+            "treasury": [
+              20,
+              24
+            ],
+            "reputation": [
+              -8,
+              -6
+            ]
+          },
+          "failure": {
+            "treasury": [
+              -3,
+              1
+            ],
+            "reputation": [
+              -5,
+              -1
+            ]
+          },
+          "difficulty": 4.4,
+          "background_modifiers": {
+            "trade": 0.65,
+            "combat": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [],
+          "intel": [],
+          "delayed": {
+            "after": 2,
+            "effects": {
+              "reputation": -5
+            },
+            "text": "守倉爭議傳開，地方長輩要求青崖門說明。"
+          },
+          "success_text": "接下守倉契約有了進展。糧餉可解燃眉之急，這次的安排已落實。",
+          "failure_text": "接下守倉契約未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：糧餉可解燃眉之急，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        },
+        {
+          "id": "revise",
+          "label": "改約為公開借糧",
+          "skill": "diplomacy",
+          "count": 1,
+          "risk": "medium",
+          "cost": 0,
+          "visible_hint": "協商取消爭議差事；對方可能收回提議。",
+          "affected_resources": [
+            "treasury",
+            "reputation"
+          ],
+          "focus": "treasury",
+          "success": {
+            "treasury": [
+              12,
+              16
+            ],
+            "reputation": [
+              1,
+              5
+            ]
+          },
+          "failure": {
+            "treasury": [
+              -3,
+              1
+            ],
+            "reputation": [
+              -5,
+              -1
+            ]
+          },
+          "difficulty": 4.4,
+          "background_modifiers": {
+            "trade": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [],
+          "intel": [],
+          "delayed": null,
+          "success_text": "改約為公開借糧有了進展。協商取消爭議差事，這次的安排已落實。",
+          "failure_text": "改約為公開借糧未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：協商取消爭議差事，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        },
+        {
+          "id": "inquire",
+          "label": "查明倉地歸屬",
+          "skill": "strategy",
+          "count": 1,
+          "risk": "low",
+          "cost": 2,
+          "visible_hint": "先還地方一份可核對的地契。",
+          "affected_resources": [
+            "reputation",
+            "defense"
+          ],
+          "focus": "reputation",
+          "success": {
+            "reputation": [
+              8,
+              12
+            ],
+            "defense": [
+              1,
+              5
+            ]
+          },
+          "failure": {
+            "reputation": [
+              -5,
+              -1
+            ],
+            "defense": [
+              -5,
+              -1
+            ]
+          },
+          "difficulty": 3.3,
+          "background_modifiers": {
+            "official": 0.65,
+            "investigation": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [],
+          "intel": [],
+          "delayed": null,
+          "success_text": "查明倉地歸屬有了進展。先還地方一份可核對的地契。，這次的安排已落實。",
+          "failure_text": "查明倉地歸屬未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：先還地方一份可核對的地契。，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        }
+      ],
+      "key_decision": true,
+      "future_links": [
+        "delayed"
+      ]
+    },
+    {
+      "id": "wounded",
+      "title": "弟子重傷",
+      "description": "一名外院習武少年被倒塌木架壓傷。四名核心弟子必須分擔診治與追查工作。",
+      "tags": [],
+      "trigger": {
+        "min_month": 2,
+        "max_month": 11,
+        "min_reputation": 0
+      },
+      "options": [
+        {
+          "id": "treat",
+          "label": "急救並教人照護",
+          "skill": "medicine",
+          "count": 1,
+          "risk": "medium",
+          "cost": 4,
+          "visible_hint": "傷者需要懂醫術的人；藥材不能省。",
+          "affected_resources": [
+            "reputation",
+            "defense"
+          ],
+          "focus": "reputation",
+          "success": {
+            "reputation": [
+              8,
+              12
+            ],
+            "defense": [
+              2,
+              6
+            ]
+          },
+          "failure": {
+            "reputation": [
+              -5,
+              -1
+            ],
+            "defense": [
+              -5,
+              -1
+            ]
+          },
+          "difficulty": 4.4,
+          "background_modifiers": {
+            "medicine": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [],
+          "intel": [],
+          "delayed": null,
+          "success_text": "急救並教人照護有了進展。傷者需要懂醫術的人，這次的安排已落實。",
+          "failure_text": "急救並教人照護未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：傷者需要懂醫術的人，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        },
+        {
+          "id": "repair",
+          "label": "檢查支架並封鎖危處",
+          "skill": "strategy",
+          "count": 2,
+          "risk": "low",
+          "cost": 2,
+          "visible_hint": "防止第二次坍塌；治傷只能先請山下郎中。",
+          "affected_resources": [
+            "defense"
+          ],
+          "focus": "defense",
+          "success": {
+            "defense": [
+              11,
+              15
+            ]
+          },
+          "failure": {
+            "defense": [
+              -5,
+              -1
+            ]
+          },
+          "difficulty": 3.3,
+          "background_modifiers": {
+            "sect": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [],
+          "intel": [],
+          "delayed": null,
+          "success_text": "檢查支架並封鎖危處有了進展。防止第二次坍塌，這次的安排已落實。",
+          "failure_text": "檢查支架並封鎖危處未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：防止第二次坍塌，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        },
+        {
+          "id": "seek",
+          "label": "往山下請醫並募藥",
+          "skill": "diplomacy",
+          "count": 1,
+          "risk": "low",
+          "cost": 0,
+          "visible_hint": "靠人情補足藥費；醫者趕來仍需時間。",
+          "affected_resources": [
+            "treasury",
+            "reputation"
+          ],
+          "focus": "treasury",
+          "success": {
+            "treasury": [
+              7,
+              11
+            ],
+            "reputation": [
+              3,
+              7
+            ]
+          },
+          "failure": {
+            "treasury": [
+              -3,
+              1
+            ],
+            "reputation": [
+              -5,
+              -1
+            ]
+          },
+          "difficulty": 3.3,
+          "background_modifiers": {
+            "village": 0.65,
+            "trade": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [],
+          "intel": [],
+          "delayed": null,
+          "success_text": "往山下請醫並募藥有了進展。靠人情補足藥費，這次的安排已落實。",
+          "failure_text": "往山下請醫並募藥未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：靠人情補足藥費，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        }
+      ],
+      "key_decision": false,
+      "future_links": []
+    },
+    {
+      "id": "assembly",
+      "title": "武林盟會邀請",
+      "description": "地方盟會邀青崖門議事，席間也會交換烈川堂近日的行蹤。",
+      "tags": [
+        "aid"
+      ],
+      "trigger": {
+        "min_month": 2,
+        "max_month": 11,
+        "min_reputation": 1
+      },
+      "options": [
+        {
+          "id": "attend",
+          "label": "攜禮參會爭取聯盟",
+          "skill": "diplomacy",
+          "count": 2,
+          "risk": "medium",
+          "cost": 5,
+          "visible_hint": "席位要靠立場與承諾爭取。",
+          "affected_resources": [
+            "reputation"
+          ],
+          "focus": "reputation",
+          "success": {
+            "reputation": [
+              13,
+              17
+            ]
+          },
+          "failure": {
+            "reputation": [
+              -5,
+              -1
+            ]
+          },
+          "difficulty": 4.4,
+          "background_modifiers": {
+            "official": 0.65,
+            "trade": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [
+            "alliance"
+          ],
+          "intel": [],
+          "delayed": null,
+          "success_text": "攜禮參會爭取聯盟有了進展。席位要靠立場與承諾爭取。，這次的安排已落實。",
+          "failure_text": "攜禮參會爭取聯盟未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：席位要靠立場與承諾爭取。，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        },
+        {
+          "id": "listen",
+          "label": "遣人旁聽交換情報",
+          "skill": "strategy",
+          "count": 1,
+          "risk": "low",
+          "cost": 2,
+          "visible_hint": "少作承諾，多核對消息來源。",
+          "affected_resources": [
+            "reputation"
+          ],
+          "focus": "reputation",
+          "success": {
+            "reputation": [
+              3,
+              7
+            ]
+          },
+          "failure": {
+            "reputation": [
+              -5,
+              -1
+            ]
+          },
+          "difficulty": 3.3,
+          "background_modifiers": {
+            "investigation": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [
+            "alliance"
+          ],
+          "intel": [
+            "seal"
+          ],
+          "delayed": null,
+          "success_text": "遣人旁聽交換情報有了進展。少作承諾，多核對消息來源。，這次的安排已落實。",
+          "failure_text": "遣人旁聽交換情報未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：少作承諾，多核對消息來源。，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        },
+        {
+          "id": "service",
+          "label": "提供會場護衛換酬",
+          "skill": "combat",
+          "count": 2,
+          "risk": "medium",
+          "cost": 0,
+          "visible_hint": "擔任護衛可收工錢；不保證取得議事席位。",
+          "affected_resources": [
+            "treasury",
+            "reputation"
+          ],
+          "focus": "treasury",
+          "success": {
+            "treasury": [
+              15,
+              19
+            ],
+            "reputation": [
+              1,
+              5
+            ]
+          },
+          "failure": {
+            "treasury": [
+              -3,
+              1
+            ],
+            "reputation": [
+              -5,
+              -1
+            ]
+          },
+          "difficulty": 4.4,
+          "background_modifiers": {
+            "combat": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [],
+          "intel": [],
+          "delayed": null,
+          "success_text": "提供會場護衛換酬有了進展。擔任護衛可收工錢，這次的安排已落實。",
+          "failure_text": "提供會場護衛換酬未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：擔任護衛可收工錢，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        }
+      ],
+      "key_decision": true,
+      "future_links": [
+        "alliance",
+        "seal",
+        "finale"
+      ]
+    },
+    {
+      "id": "asylum",
+      "title": "敵派弟子求庇護",
+      "description": "一名烈川堂離隊者帶傷求宿，說追兵將至，但還未證實他的說法。",
+      "tags": [
+        "hostile"
+      ],
+      "trigger": {
+        "min_month": 2,
+        "max_month": 11,
+        "min_reputation": 0
+      },
+      "options": [
+        {
+          "id": "heal",
+          "label": "診治並核對身分",
+          "skill": "medicine",
+          "count": 1,
+          "risk": "medium",
+          "cost": 4,
+          "visible_hint": "先處理傷勢再問證據；保護來客可能招來追索。",
+          "affected_resources": [
+            "reputation"
+          ],
+          "focus": "reputation",
+          "success": {
+            "reputation": [
+              6,
+              10
+            ]
+          },
+          "failure": {
+            "reputation": [
+              -5,
+              -1
+            ]
+          },
+          "difficulty": 4.4,
+          "background_modifiers": {
+            "medicine": 0.65,
+            "enemy": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [
+            "refuge"
+          ],
+          "intel": [
+            "witness"
+          ],
+          "delayed": null,
+          "success_text": "診治並核對身分有了進展。先處理傷勢再問證據，這次的安排已落實。",
+          "failure_text": "診治並核對身分未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：先處理傷勢再問證據，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        },
+        {
+          "id": "interview",
+          "label": "在山外查驗口供",
+          "skill": "strategy",
+          "count": 2,
+          "risk": "medium",
+          "cost": 0,
+          "visible_hint": "比對路線與名帖；消息仍需客觀佐證。",
+          "affected_resources": [
+            "defense",
+            "treasury"
+          ],
+          "focus": "defense",
+          "success": {
+            "defense": [
+              6,
+              10
+            ],
+            "treasury": [
+              2,
+              6
+            ]
+          },
+          "failure": {
+            "defense": [
+              -5,
+              -1
+            ],
+            "treasury": [
+              -3,
+              1
+            ]
+          },
+          "difficulty": 4.4,
+          "background_modifiers": {
+            "enemy": 0.65,
+            "investigation": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [],
+          "intel": [
+            "seal"
+          ],
+          "delayed": null,
+          "success_text": "在山外查驗口供有了進展。比對路線與名帖，這次的安排已落實。",
+          "failure_text": "在山外查驗口供未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：比對路線與名帖，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        },
+        {
+          "id": "return",
+          "label": "護送至中立驛站",
+          "skill": "diplomacy",
+          "count": 1,
+          "risk": "low",
+          "cost": 1,
+          "visible_hint": "委由第三方接手；可能失去進一步線索。",
+          "affected_resources": [
+            "reputation",
+            "treasury"
+          ],
+          "focus": "reputation",
+          "success": {
+            "reputation": [
+              4,
+              8
+            ],
+            "treasury": [
+              5,
+              9
+            ]
+          },
+          "failure": {
+            "reputation": [
+              -5,
+              -1
+            ],
+            "treasury": [
+              -3,
+              1
+            ]
+          },
+          "difficulty": 3.3,
+          "background_modifiers": {
+            "travel": 0.65,
+            "official": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [],
+          "intel": [],
+          "delayed": null,
+          "success_text": "護送至中立驛站有了進展。委由第三方接手，這次的安排已落實。",
+          "failure_text": "護送至中立驛站未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：委由第三方接手，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        }
+      ],
+      "key_decision": true,
+      "future_links": [
+        "witness",
+        "seal",
+        "refuge"
+      ]
+    },
+    {
+      "id": "grain",
+      "title": "糧商抬價",
+      "description": "糧商忽然提高山路運價，庫房的餘糧撐不了太久。",
+      "tags": [],
+      "trigger": {
+        "min_month": 2,
+        "max_month": 11,
+        "min_reputation": 0
+      },
+      "options": [
+        {
+          "id": "bargain",
+          "label": "聯合鄰村議價",
+          "skill": "diplomacy",
+          "count": 1,
+          "risk": "medium",
+          "cost": 0,
+          "visible_hint": "合購壓低價格；得處理各村需求。",
+          "affected_resources": [
+            "treasury"
+          ],
+          "focus": "treasury",
+          "success": {
+            "treasury": [
+              13,
+              17
+            ]
+          },
+          "failure": {
+            "treasury": [
+              -3,
+              1
+            ]
+          },
+          "difficulty": 4.4,
+          "background_modifiers": {
+            "trade": 0.65,
+            "village": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [],
+          "intel": [],
+          "delayed": null,
+          "success_text": "聯合鄰村議價有了進展。合購壓低價格，這次的安排已落實。",
+          "failure_text": "聯合鄰村議價未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：合購壓低價格，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        },
+        {
+          "id": "forage",
+          "label": "組隊採集替代糧食",
+          "skill": "medicine",
+          "count": 2,
+          "risk": "low",
+          "cost": 0,
+          "visible_hint": "辨識可食植物；山門巡查人手會減少。",
+          "affected_resources": [
+            "treasury"
+          ],
+          "focus": "treasury",
+          "success": {
+            "treasury": [
+              8,
+              12
+            ]
+          },
+          "failure": {
+            "treasury": [
+              -3,
+              1
+            ]
+          },
+          "difficulty": 3.3,
+          "background_modifiers": {
+            "medicine": 0.65,
+            "village": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [],
+          "intel": [],
+          "delayed": null,
+          "success_text": "組隊採集替代糧食有了進展。辨識可食植物，這次的安排已落實。",
+          "failure_text": "組隊採集替代糧食未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：辨識可食植物，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        },
+        {
+          "id": "supply",
+          "label": "追查封路來源",
+          "skill": "strategy",
+          "count": 1,
+          "risk": "high",
+          "cost": 1,
+          "visible_hint": "封路未必只是生意；追查者可能遭攔截。",
+          "affected_resources": [
+            "treasury",
+            "defense"
+          ],
+          "focus": "treasury",
+          "success": {
+            "treasury": [
+              16,
+              20
+            ],
+            "defense": [
+              2,
+              6
+            ]
+          },
+          "failure": {
+            "treasury": [
+              -3,
+              1
+            ],
+            "defense": [
+              -5,
+              -1
+            ]
+          },
+          "difficulty": 5.2,
+          "background_modifiers": {
+            "investigation": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [],
+          "intel": [
+            "route"
+          ],
+          "delayed": null,
+          "success_text": "追查封路來源有了進展。封路未必只是生意，這次的安排已落實。",
+          "failure_text": "追查封路來源未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：封路未必只是生意，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        }
+      ],
+      "key_decision": false,
+      "future_links": []
+    },
+    {
+      "id": "retreat",
+      "title": "長老要求閉關",
+      "description": "長老要求借走內院閉關，並願傳授一套守山心得。",
+      "tags": [],
+      "trigger": {
+        "min_month": 2,
+        "max_month": 11,
+        "min_reputation": 0
+      },
+      "options": [
+        {
+          "id": "learn",
+          "label": "安排弟子跟隨演練",
+          "skill": "combat",
+          "count": 2,
+          "risk": "medium",
+          "cost": 3,
+          "visible_hint": "密集演練耗費體力；可補足守山缺口。",
+          "affected_resources": [
+            "defense"
+          ],
+          "focus": "defense",
+          "success": {
+            "defense": [
+              12,
+              16
+            ]
+          },
+          "failure": {
+            "defense": [
+              -5,
+              -1
+            ]
+          },
+          "difficulty": 4.4,
+          "background_modifiers": {
+            "sect": 0.65,
+            "combat": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [
+            "training"
+          ],
+          "intel": [],
+          "delayed": null,
+          "success_text": "安排弟子跟隨演練有了進展。密集演練耗費體力，這次的安排已落實。",
+          "failure_text": "安排弟子跟隨演練未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：密集演練耗費體力，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        },
+        {
+          "id": "copy",
+          "label": "抄錄心得維持巡務",
+          "skill": "strategy",
+          "count": 1,
+          "risk": "low",
+          "cost": 1,
+          "visible_hint": "循序整理要點；成果不會立刻齊備。",
+          "affected_resources": [
+            "defense",
+            "treasury"
+          ],
+          "focus": "defense",
+          "success": {
+            "defense": [
+              6,
+              10
+            ],
+            "treasury": [
+              2,
+              6
+            ]
+          },
+          "failure": {
+            "defense": [
+              -5,
+              -1
+            ],
+            "treasury": [
+              -3,
+              1
+            ]
+          },
+          "difficulty": 3.3,
+          "background_modifiers": {
+            "sect": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [
+            "training"
+          ],
+          "intel": [],
+          "delayed": null,
+          "success_text": "抄錄心得維持巡務有了進展。循序整理要點，這次的安排已落實。",
+          "failure_text": "抄錄心得維持巡務未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：循序整理要點，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        },
+        {
+          "id": "fund",
+          "label": "請長老主持地方講席",
+          "skill": "diplomacy",
+          "count": 1,
+          "risk": "medium",
+          "cost": 0,
+          "visible_hint": "延後閉關換取講席捐助；需說服長老。",
+          "affected_resources": [
+            "treasury",
+            "reputation"
+          ],
+          "focus": "treasury",
+          "success": {
+            "treasury": [
+              13,
+              17
+            ],
+            "reputation": [
+              3,
+              7
+            ]
+          },
+          "failure": {
+            "treasury": [
+              -3,
+              1
+            ],
+            "reputation": [
+              -5,
+              -1
+            ]
+          },
+          "difficulty": 4.4,
+          "background_modifiers": {
+            "official": 0.65,
+            "trade": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [],
+          "intel": [],
+          "delayed": null,
+          "success_text": "請長老主持地方講席有了進展。延後閉關換取講席捐助，這次的安排已落實。",
+          "failure_text": "請長老主持地方講席未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：延後閉關換取講席捐助，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        }
+      ],
+      "key_decision": false,
+      "future_links": []
+    },
+    {
+      "id": "murder",
+      "title": "山下命案",
+      "description": "渡口出現死者，身旁有青崖門名帖。未驗過的傳言已先進了村。",
+      "tags": [
+        "hostile"
+      ],
+      "trigger": {
+        "min_month": 2,
+        "max_month": 11,
+        "min_reputation": 0
+      },
+      "options": [
+        {
+          "id": "examine",
+          "label": "驗傷辨明死因",
+          "skill": "medicine",
+          "count": 1,
+          "risk": "medium",
+          "cost": 2,
+          "visible_hint": "從傷勢查證；不先接受傳言指控。",
+          "affected_resources": [
+            "reputation"
+          ],
+          "focus": "reputation",
+          "success": {
+            "reputation": [
+              8,
+              12
+            ]
+          },
+          "failure": {
+            "reputation": [
+              -5,
+              -1
+            ]
+          },
+          "difficulty": 4.4,
+          "background_modifiers": {
+            "medicine": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [],
+          "intel": [
+            "witness"
+          ],
+          "delayed": null,
+          "success_text": "驗傷辨明死因有了進展。從傷勢查證，這次的安排已落實。",
+          "failure_text": "驗傷辨明死因未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：從傷勢查證，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        },
+        {
+          "id": "trail",
+          "label": "追查名帖與足跡",
+          "skill": "strategy",
+          "count": 2,
+          "risk": "high",
+          "cost": 1,
+          "visible_hint": "追查者可能遇到阻撓；名帖能留下客觀線索。",
+          "affected_resources": [
+            "defense",
+            "reputation"
+          ],
+          "focus": "defense",
+          "success": {
+            "defense": [
+              8,
+              12
+            ],
+            "reputation": [
+              5,
+              9
+            ]
+          },
+          "failure": {
+            "defense": [
+              -5,
+              -1
+            ],
+            "reputation": [
+              -5,
+              -1
+            ]
+          },
+          "difficulty": 5.2,
+          "background_modifiers": {
+            "investigation": 0.65,
+            "enemy": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [],
+          "intel": [
+            "seal"
+          ],
+          "delayed": null,
+          "success_text": "追查名帖與足跡有了進展。追查者可能遇到阻撓，這次的安排已落實。",
+          "failure_text": "追查名帖與足跡未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：追查者可能遇到阻撓，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        },
+        {
+          "id": "assist",
+          "label": "協助官府封存現場",
+          "skill": "diplomacy",
+          "count": 1,
+          "risk": "low",
+          "cost": 0,
+          "visible_hint": "交給官府處理並領協辦糧票；暫失主動查案機會。",
+          "affected_resources": [
+            "reputation",
+            "treasury"
+          ],
+          "focus": "reputation",
+          "success": {
+            "reputation": [
+              4,
+              8
+            ],
+            "treasury": [
+              5,
+              9
+            ]
+          },
+          "failure": {
+            "reputation": [
+              -5,
+              -1
+            ],
+            "treasury": [
+              -3,
+              1
+            ]
+          },
+          "difficulty": 3.3,
+          "background_modifiers": {
+            "official": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [],
+          "intel": [],
+          "delayed": null,
+          "success_text": "協助官府封存現場有了進展。交給官府處理並領協辦糧票，這次的安排已落實。",
+          "failure_text": "協助官府封存現場未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：交給官府處理並領協辦糧票，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        }
+      ],
+      "key_decision": true,
+      "future_links": [
+        "witness",
+        "seal"
+      ]
+    },
+    {
+      "id": "treasure",
+      "title": "寶藏傳聞",
+      "description": "廢礦中傳出舊庫藏的消息，木樁腐朽，附近還有陌生人的新腳印。",
+      "tags": [
+        "high_reward"
+      ],
+      "trigger": {
+        "min_month": 2,
+        "max_month": 11,
+        "min_reputation": 1
+      },
+      "options": [
+        {
+          "id": "enter",
+          "label": "深入礦底搶運庫藏",
+          "skill": "combat",
+          "count": 2,
+          "risk": "lethal",
+          "cost": 0,
+          "visible_hint": "致命風險：礦道坍塌可能造成弟子死亡。",
+          "affected_resources": [
+            "treasury",
+            "defense"
+          ],
+          "focus": "treasury",
+          "success": {
+            "treasury": [
+              28,
+              32
+            ],
+            "defense": [
+              3,
+              7
+            ]
+          },
+          "failure": {
+            "treasury": [
+              -3,
+              1
+            ],
+            "defense": [
+              -5,
+              -1
+            ]
+          },
+          "difficulty": 5.6,
+          "background_modifiers": {
+            "combat": 0.65,
+            "travel": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [],
+          "intel": [],
+          "delayed": null,
+          "success_text": "深入礦底搶運庫藏有了進展。致命風險：礦道坍塌可能造成弟子死亡。，這次的安排已落實。",
+          "failure_text": "深入礦底搶運庫藏未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：致命風險：礦道坍塌可能造成弟子死亡。，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        },
+        {
+          "id": "survey",
+          "label": "勘查外圍安全路線",
+          "skill": "strategy",
+          "count": 1,
+          "risk": "medium",
+          "cost": 1,
+          "visible_hint": "只取安全處的遺物；深入部分留待日後。",
+          "affected_resources": [
+            "treasury",
+            "defense"
+          ],
+          "focus": "treasury",
+          "success": {
+            "treasury": [
+              12,
+              16
+            ],
+            "defense": [
+              3,
+              7
+            ]
+          },
+          "failure": {
+            "treasury": [
+              -3,
+              1
+            ],
+            "defense": [
+              -5,
+              -1
+            ]
+          },
+          "difficulty": 4.4,
+          "background_modifiers": {
+            "investigation": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [],
+          "intel": [],
+          "delayed": null,
+          "success_text": "勘查外圍安全路線有了進展。只取安全處的遺物，這次的安排已落實。",
+          "failure_text": "勘查外圍安全路線未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：只取安全處的遺物，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        },
+        {
+          "id": "sell_map",
+          "label": "把路線交地方共同管理",
+          "skill": "diplomacy",
+          "count": 1,
+          "risk": "low",
+          "cost": 0,
+          "visible_hint": "分享資訊換取報酬；放棄獨占庫藏。",
+          "affected_resources": [
+            "treasury",
+            "reputation"
+          ],
+          "focus": "treasury",
+          "success": {
+            "treasury": [
+              6,
+              10
+            ],
+            "reputation": [
+              4,
+              8
+            ]
+          },
+          "failure": {
+            "treasury": [
+              -3,
+              1
+            ],
+            "reputation": [
+              -5,
+              -1
+            ]
+          },
+          "difficulty": 3.3,
+          "background_modifiers": {
+            "official": 0.65,
+            "trade": 0.65
+          },
+          "ability_modifier": 1,
+          "flags": [],
+          "intel": [],
+          "delayed": null,
+          "success_text": "把路線交地方共同管理有了進展。分享資訊換取報酬，這次的安排已落實。",
+          "failure_text": "把路線交地方共同管理未能如期完成，同行者帶回了具體阻礙與損失。",
+          "cue_templates": [
+            "{name}：分享資訊換取報酬，下回仍得先看清局面。",
+            "{name}把今日經過逐項寫下，請你核對。"
+          ],
+          "extra_hints": [
+            {
+              "requires_intel": "pattern",
+              "text": "先前調查顯示敵方常用正面喧鬧掩護側路行動；可留意本次人員動線。"
+            }
+          ]
+        }
+      ],
+      "key_decision": true,
+      "future_links": [
+        "major_outcome"
+      ]
+    },
+    {
+      "id": "finale",
+      "title": "斷劍臺決戰",
+      "description": "烈川堂登上斷劍臺。十二個月留下的人、證據與承諾，此刻一同決定青崖門的去向。",
+      "tags": [
+        "hostile"
+      ],
+      "trigger": {
+        "min_month": 2,
+        "max_month": 11,
+        "min_reputation": 0
+      },
+      "options": [],
+      "key_decision": true,
+      "future_links": [],
+      "fixed_month": 12
+    }
+  ]
+}

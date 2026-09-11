@@ -1,0 +1,119 @@
+"""Private simulation models and explicit, allow-listed player projections."""
+from dataclasses import dataclass, field
+from random import Random
+
+SKILLS = {"combat": "武力", "strategy": "智略", "medicine": "醫術", "diplomacy": "交涉"}
+RESOURCES = {"treasury": "糧餉", "defense": "山門防備", "reputation": "江湖聲望"}
+RISK_NAMES = {"low": "低", "medium": "中", "high": "高", "lethal": "致命風險"}
+
+
+@dataclass
+class Character:
+    id: str
+    name: str
+    age: int
+    role: str
+    skills: dict
+    personality: str
+    background: dict
+    goal: str
+    fear_text: str
+    secret: dict
+    signature: str
+    arc: str
+    trust: int = 55
+    stress: int = 20
+    loyalty: int = 60
+    ambition: int = 40
+    fear: int = 30
+    relationships: dict = field(default_factory=dict)
+    fatigue: int = 0
+    injury: int = 0
+    blocked_until: int = 0
+    status: str = "active"
+    stage: int = 0
+    appearances: int = 0
+    choices: list = field(default_factory=list)
+    experiences: list = field(default_factory=list)
+    history: list = field(default_factory=list)
+    recent: str = "初來議事，仍在觀望。"
+    goal_progress: int = 0
+    leave_intent: bool = False
+    betrayal_intent: bool = False
+
+    def actionable(self, month):
+        return self.status == "active" and self.injury < 2 and self.blocked_until < month
+
+    def physical(self, month):
+        if self.status != "active":
+            return {"dead": "死亡", "left": "離開門派", "defected": "已投靠烈川堂"}[self.status]
+        if self.blocked_until >= month:
+            return "無法行動（暫停派遣）"
+        if self.injury >= 2:
+            return "重傷，需留門休養"
+        parts = ["輕傷"] if self.injury else []
+        if self.fatigue >= 35:
+            parts.append("疲勞" if self.fatigue < 65 else "十分疲憊")
+        return "、".join(parts) or "健康"
+
+    def public(self, month):
+        # Never derive this from asdict(): new private fields must stay private by default.
+        return {"id": self.id, "name": self.name, "age": self.age, "role": SKILLS[self.role],
+                "skills": {SKILLS[k]: v for k, v in self.skills.items()},
+                "personality": self.personality, "background": self.background["summary"],
+                "signature": self.signature, "physical": self.physical(month),
+                "actionable": self.actionable(month), "recent": self.recent,
+                "experiences": list(self.experiences)}
+
+
+@dataclass
+class Cue:
+    id: str
+    month: int
+    character_id: str
+    category: str
+    strength: str
+    text: str
+    evidence: dict
+
+    def public(self):
+        return {"month": self.month, "character_id": self.character_id, "text": self.text,
+                "kind": {"strong": "可核對事實", "weak": "言行觀察", "noise": "日常片段"}[self.strength]}
+
+
+@dataclass
+class GameState:
+    seed: int
+    rng: Random
+    characters: list
+    resources: dict = field(default_factory=lambda: {"treasury": 50, "defense": 35, "reputation": 30})
+    month: int = 0
+    phase: str = "new"
+    event_id: str = ""
+    seen_events: list = field(default_factory=list)
+    flags: set = field(default_factory=set)
+    intel: dict = field(default_factory=dict)
+    observations: list = field(default_factory=list)
+    logs: list = field(default_factory=list)
+    facts: list = field(default_factory=list)
+    decisions: list = field(default_factory=list)
+    pending: list = field(default_factory=list)
+    resolved: set = field(default_factory=set)
+    last_participants: list = field(default_factory=list)
+    night_character: str = ""
+    last_result: list = field(default_factory=list)
+    ending: str = ""
+    ending_reason: str = ""
+    ending_evidence: list = field(default_factory=list)
+    major_outcomes: list = field(default_factory=list)
+    option_stats: list = field(default_factory=list)
+    counters: dict = field(default_factory=lambda: {"left": 0, "defected": 0, "severe_injury": 0, "dead": 0})
+
+    def character(self, character_id):
+        return next(c for c in self.characters if c.id == character_id)
+
+    def active(self):
+        return [c for c in self.characters if c.status == "active"]
+
+    def actionable(self):
+        return [c for c in self.characters if c.actionable(self.month)]

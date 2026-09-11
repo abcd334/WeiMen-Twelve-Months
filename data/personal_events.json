@@ -1,0 +1,478 @@
+{
+  "arcs": [
+    {
+      "id": "hidden_identity",
+      "title": "身分隱瞞",
+      "stages": [
+        "{name}留下一頁撕去落款的抄件：「我的過去若被問起，你願意先聽我說完嗎？」",
+        "{name}想核對舊檔，卻需要挪用抄書與巡山的人手。",
+        "{name}把重新整理的舊檔放在案上，等你決定是否留下這份紀錄。"
+      ],
+      "choices": [
+        {
+          "id": "support",
+          "label": "撥糧讓其親自查舊檔",
+          "tradeoffs": [
+            "人物需要",
+            "糧餉支出"
+          ],
+          "cost": 5,
+          "effects": {
+            "defense": -1
+          },
+          "psych": {
+            "trust": 10,
+            "stress": -13,
+            "loyalty": 5
+          },
+          "reaction": "{name}收下安排，卻提醒你門內的缺口仍得補上。",
+          "delayed": null
+        },
+        {
+          "id": "discipline",
+          "label": "依門規登記來歷並查證",
+          "tradeoffs": [
+            "門派秩序",
+            "人物距離"
+          ],
+          "cost": 0,
+          "effects": {
+            "defense": 3,
+            "treasury": 2
+          },
+          "psych": {
+            "trust": -8,
+            "stress": 6,
+            "loyalty": -4
+          },
+          "reaction": "{name}把規矩逐字記下；未被處理的私事仍擱在案邊。",
+          "delayed": null
+        },
+        {
+          "id": "defer",
+          "label": "暫不追問，約定日後覆核",
+          "tradeoffs": [
+            "眼前彈性",
+            "延後負擔"
+          ],
+          "cost": 0,
+          "effects": {},
+          "psych": {
+            "trust": 2,
+            "stress": 6,
+            "loyalty": -2
+          },
+          "reaction": "{name}答應先做眼前的事，也請你不要忘記今日的約定。",
+          "delayed": {
+            "after": 2,
+            "effects": {
+              "treasury": -3,
+              "defense": -1
+            },
+            "text": "先前延後的人事安排如今需要補上盤纏與值勤。"
+          }
+        }
+      ],
+      "resolutions": {
+        "support": "多次得到實際協助後，終於願意把未來也寫進青崖門的名冊。",
+        "discipline": "幾次請求都落回規矩之內，私事與門內責任之間的裂縫仍未補起。",
+        "defer": "數次約定仍待兌現，決定先把自己的去處留白。"
+      }
+    },
+    {
+      "id": "family_debt",
+      "title": "家族舊債",
+      "stages": [
+        "{name}將一張山下收據折起：「家中有些事，恐怕要耽誤值勤。」",
+        "{name}請求一筆周轉，否則只能多接山外差事。",
+        "{name}帶回債主的最後回覆，這幾月的安排終於要有交代。"
+      ],
+      "choices": [
+        {
+          "id": "support",
+          "label": "撥糧周轉，延後門內採買",
+          "tradeoffs": [
+            "人物需要",
+            "糧餉支出"
+          ],
+          "cost": 5,
+          "effects": {
+            "defense": -1
+          },
+          "psych": {
+            "trust": 10,
+            "stress": -13,
+            "loyalty": 5
+          },
+          "reaction": "{name}收下安排，卻提醒你門內的缺口仍得補上。",
+          "delayed": null
+        },
+        {
+          "id": "discipline",
+          "label": "要求依規自行清償並值勤",
+          "tradeoffs": [
+            "門派秩序",
+            "人物距離"
+          ],
+          "cost": 0,
+          "effects": {
+            "defense": 3,
+            "treasury": 2
+          },
+          "psych": {
+            "trust": -8,
+            "stress": 6,
+            "loyalty": -4
+          },
+          "reaction": "{name}把規矩逐字記下；未被處理的私事仍擱在案邊。",
+          "delayed": null
+        },
+        {
+          "id": "defer",
+          "label": "准其緩辦，門派承擔日後奔波",
+          "tradeoffs": [
+            "眼前彈性",
+            "延後負擔"
+          ],
+          "cost": 0,
+          "effects": {},
+          "psych": {
+            "trust": 2,
+            "stress": 6,
+            "loyalty": -2
+          },
+          "reaction": "{name}答應先做眼前的事，也請你不要忘記今日的約定。",
+          "delayed": {
+            "after": 2,
+            "effects": {
+              "treasury": -3,
+              "defense": -1
+            },
+            "text": "先前延後的人事安排如今需要補上盤纏與值勤。"
+          }
+        }
+      ],
+      "resolutions": {
+        "support": "多次得到實際協助後，終於願意把未來也寫進青崖門的名冊。",
+        "discipline": "幾次請求都落回規矩之內，私事與門內責任之間的裂縫仍未補起。",
+        "defer": "數次約定仍待兌現，決定先把自己的去處留白。"
+      }
+    },
+    {
+      "id": "fear_failure",
+      "title": "對失敗的恐懼",
+      "stages": [
+        "{name}重抄出勤名冊：「若再少回來一個人，算誰的錯？」",
+        "{name}請求停勤演練，山門卻正需要輪值人手。",
+        "{name}重新拿起任務簿，逐一核對自己答應過的事。"
+      ],
+      "choices": [
+        {
+          "id": "support",
+          "label": "付藥糧安排休養與演練",
+          "tradeoffs": [
+            "人物需要",
+            "糧餉支出"
+          ],
+          "cost": 5,
+          "effects": {
+            "defense": -1
+          },
+          "psych": {
+            "trust": 10,
+            "stress": -13,
+            "loyalty": 5
+          },
+          "reaction": "{name}收下安排，卻提醒你門內的缺口仍得補上。",
+          "delayed": null
+        },
+        {
+          "id": "discipline",
+          "label": "維持輪值並公開核對責任",
+          "tradeoffs": [
+            "門派秩序",
+            "人物距離"
+          ],
+          "cost": 0,
+          "effects": {
+            "defense": 3,
+            "treasury": 2
+          },
+          "psych": {
+            "trust": -8,
+            "stress": 6,
+            "loyalty": -4
+          },
+          "reaction": "{name}把規矩逐字記下；未被處理的私事仍擱在案邊。",
+          "delayed": null
+        },
+        {
+          "id": "defer",
+          "label": "暫緩考核，留下後續補勤",
+          "tradeoffs": [
+            "眼前彈性",
+            "延後負擔"
+          ],
+          "cost": 0,
+          "effects": {},
+          "psych": {
+            "trust": 2,
+            "stress": 6,
+            "loyalty": -2
+          },
+          "reaction": "{name}答應先做眼前的事，也請你不要忘記今日的約定。",
+          "delayed": {
+            "after": 2,
+            "effects": {
+              "treasury": -3,
+              "defense": -1
+            },
+            "text": "先前延後的人事安排如今需要補上盤纏與值勤。"
+          }
+        }
+      ],
+      "resolutions": {
+        "support": "多次得到實際協助後，終於願意把未來也寫進青崖門的名冊。",
+        "discipline": "幾次請求都落回規矩之內，私事與門內責任之間的裂縫仍未補起。",
+        "defer": "數次約定仍待兌現，決定先把自己的去處留白。"
+      }
+    },
+    {
+      "id": "recognition",
+      "title": "權力與認同",
+      "stages": [
+        "{name}在議事門外站了很久：「我只能聽命，還是也能提案？」",
+        "{name}希望主持一次門內分工，必須給出人手與糧餉。",
+        "{name}攤開自己的分工冊，這次要談的是今後的位置。"
+      ],
+      "choices": [
+        {
+          "id": "support",
+          "label": "給其人手試行提案",
+          "tradeoffs": [
+            "人物需要",
+            "糧餉支出"
+          ],
+          "cost": 5,
+          "effects": {
+            "defense": -1
+          },
+          "psych": {
+            "trust": 10,
+            "stress": -13,
+            "loyalty": 5
+          },
+          "reaction": "{name}收下安排，卻提醒你門內的缺口仍得補上。",
+          "delayed": null
+        },
+        {
+          "id": "discipline",
+          "label": "按現行規矩共同審議",
+          "tradeoffs": [
+            "門派秩序",
+            "人物距離"
+          ],
+          "cost": 0,
+          "effects": {
+            "defense": 3,
+            "treasury": 2
+          },
+          "psych": {
+            "trust": -8,
+            "stress": 6,
+            "loyalty": -4
+          },
+          "reaction": "{name}把規矩逐字記下；未被處理的私事仍擱在案邊。",
+          "delayed": null
+        },
+        {
+          "id": "defer",
+          "label": "先給口頭空間，延後落實",
+          "tradeoffs": [
+            "眼前彈性",
+            "延後負擔"
+          ],
+          "cost": 0,
+          "effects": {},
+          "psych": {
+            "trust": 2,
+            "stress": 6,
+            "loyalty": -2
+          },
+          "reaction": "{name}答應先做眼前的事，也請你不要忘記今日的約定。",
+          "delayed": {
+            "after": 2,
+            "effects": {
+              "treasury": -3,
+              "defense": -1
+            },
+            "text": "先前延後的人事安排如今需要補上盤纏與值勤。"
+          }
+        }
+      ],
+      "resolutions": {
+        "support": "多次得到實際協助後，終於願意把未來也寫進青崖門的名冊。",
+        "discipline": "幾次請求都落回規矩之內，私事與門內責任之間的裂縫仍未補起。",
+        "defer": "數次約定仍待兌現，決定先把自己的去處留白。"
+      }
+    },
+    {
+      "id": "protect_other",
+      "title": "保護另一名弟子",
+      "stages": [
+        "{name}問起{other}的歸期，自己的晚飯卻一直沒動。",
+        "{name}請求替{other}減少差遣，但缺下的工作仍要有人做。",
+        "{name}把兩人的值勤表放在一起，等你回應先前的承諾。"
+      ],
+      "choices": [
+        {
+          "id": "support",
+          "label": "付糧僱短工讓同門喘息",
+          "tradeoffs": [
+            "人物需要",
+            "糧餉支出"
+          ],
+          "cost": 5,
+          "effects": {
+            "defense": -1
+          },
+          "psych": {
+            "trust": 10,
+            "stress": -13,
+            "loyalty": 5
+          },
+          "reaction": "{name}收下安排，卻提醒你門內的缺口仍得補上。",
+          "delayed": null
+        },
+        {
+          "id": "discipline",
+          "label": "仍按名冊輪值並查明爭議",
+          "tradeoffs": [
+            "門派秩序",
+            "人物距離"
+          ],
+          "cost": 0,
+          "effects": {
+            "defense": 3,
+            "treasury": 2
+          },
+          "psych": {
+            "trust": -8,
+            "stress": 6,
+            "loyalty": -4
+          },
+          "reaction": "{name}把規矩逐字記下；未被處理的私事仍擱在案邊。",
+          "delayed": null
+        },
+        {
+          "id": "defer",
+          "label": "暫准調班，承擔下月缺口",
+          "tradeoffs": [
+            "眼前彈性",
+            "延後負擔"
+          ],
+          "cost": 0,
+          "effects": {},
+          "psych": {
+            "trust": 2,
+            "stress": 6,
+            "loyalty": -2
+          },
+          "reaction": "{name}答應先做眼前的事，也請你不要忘記今日的約定。",
+          "delayed": {
+            "after": 2,
+            "effects": {
+              "treasury": -3,
+              "defense": -1
+            },
+            "text": "先前延後的人事安排如今需要補上盤纏與值勤。"
+          }
+        }
+      ],
+      "resolutions": {
+        "support": "多次得到實際協助後，終於願意把未來也寫進青崖門的名冊。",
+        "discipline": "幾次請求都落回規矩之內，私事與門內責任之間的裂縫仍未補起。",
+        "defer": "數次約定仍待兌現，決定先把自己的去處留白。"
+      }
+    },
+    {
+      "id": "enemy_ties",
+      "title": "與敵派的舊關係",
+      "stages": [
+        "{name}提起烈川堂的一處渡口：「那裡還住著我認識的人。」",
+        "{name}想赴約核實消息，卻不願讓所有舊識都被當成敵人。",
+        "{name}將幾封往返信擺在案上，問青崖門還容不容得下自己的過去。"
+      ],
+      "choices": [
+        {
+          "id": "support",
+          "label": "付旅費陪同核實舊識安危",
+          "tradeoffs": [
+            "人物需要",
+            "糧餉支出"
+          ],
+          "cost": 5,
+          "effects": {
+            "defense": -1
+          },
+          "psych": {
+            "trust": 10,
+            "stress": -13,
+            "loyalty": 5
+          },
+          "reaction": "{name}收下安排，卻提醒你門內的缺口仍得補上。",
+          "delayed": null
+        },
+        {
+          "id": "discipline",
+          "label": "依規留檔查證並限制私行",
+          "tradeoffs": [
+            "門派秩序",
+            "人物距離"
+          ],
+          "cost": 0,
+          "effects": {
+            "defense": 3,
+            "treasury": 2
+          },
+          "psych": {
+            "trust": -8,
+            "stress": 6,
+            "loyalty": -4
+          },
+          "reaction": "{name}把規矩逐字記下；未被處理的私事仍擱在案邊。",
+          "delayed": null
+        },
+        {
+          "id": "defer",
+          "label": "先信其說法，延後查證",
+          "tradeoffs": [
+            "眼前彈性",
+            "延後負擔"
+          ],
+          "cost": 0,
+          "effects": {},
+          "psych": {
+            "trust": 2,
+            "stress": 6,
+            "loyalty": -2
+          },
+          "reaction": "{name}答應先做眼前的事，也請你不要忘記今日的約定。",
+          "delayed": {
+            "after": 2,
+            "effects": {
+              "treasury": -3,
+              "defense": -1
+            },
+            "text": "先前延後的人事安排如今需要補上盤纏與值勤。"
+          }
+        }
+      ],
+      "resolutions": {
+        "support": "多次得到實際協助後，終於願意把未來也寫進青崖門的名冊。",
+        "discipline": "幾次請求都落回規矩之內，私事與門內責任之間的裂縫仍未補起。",
+        "defer": "數次約定仍待兌現，決定先把自己的去處留白。"
+      }
+    }
+  ]
+}
