@@ -209,7 +209,7 @@ def test_false_strong_cue_rejected_and_templates_do_not_repeat():
     assert all(a.text != b.text for a, b in zip(cues, cues[1:]))
 
 
-@pytest.mark.parametrize("seed,kind", [(0, "left"), (2, "left"), (6, "defected"), (21, "defected"), (24, "defected")])
+@pytest.mark.parametrize("seed,kind", [(0, "left"), (13, "left"), (99, "defected"), (113, "defected"), (224, "defected")])
 def test_natural_fixed_seed_permanent_consequences_have_prior_evidence(seed, kind):
     state = play_game(seed, "conservative_policy")
     outcomes = audit_outcomes(state)
@@ -258,7 +258,7 @@ def test_night_tradeoffs_are_distinct_and_personality_changes_response():
     state = new_game(11)
     for arc in load_data()[2]["arcs"]:
         assert len({tuple(c["tradeoffs"]) for c in arc["choices"]}) >= 2
-        discipline = next(c for c in arc["choices"] if c["id"] == "discipline")
+        discipline = next(c for c in arc["choices"] if c["approach"] == "discipline")
         char = state.characters[0]
         char.personality = "剛直"
         straight = response_effects(char, discipline)

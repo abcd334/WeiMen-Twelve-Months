@@ -6,392 +6,392 @@
     "random_policy": {
       "endings": {
         "揭破陰謀": {
-          "count": 9,
-          "percent": 3.6
+          "count": 43,
+          "percent": 17.2
         },
         "聯盟退敵": {
           "count": 2,
           "percent": 0.8
         },
         "正面取勝": {
-          "count": 10,
-          "percent": 4.0
+          "count": 15,
+          "percent": 6.0
         },
         "慘勝守山": {
-          "count": 42,
-          "percent": 16.8
+          "count": 40,
+          "percent": 16.0
         },
         "門派覆滅": {
-          "count": 187,
-          "percent": 74.8
+          "count": 150,
+          "percent": 60.0
         }
       },
       "averages": {
-        "remaining": 3.64,
-        "treasury": 6.92,
-        "defense": 44.09,
-        "reputation": 32.04
+        "remaining": 3.76,
+        "treasury": 11.14,
+        "defense": 48.88,
+        "reputation": 33.68
       },
       "outcomes": {
-        "left": 62,
-        "defected": 3,
-        "severe_injury": 119,
-        "dead": 24
+        "left": 33,
+        "defected": 1,
+        "severe_injury": 134,
+        "dead": 27
       },
       "options": {
         "assembly/attend": {
-          "selected": 29,
-          "success": 15
-        },
-        "assembly/listen": {
-          "selected": 31,
-          "success": 14
-        },
-        "assembly/service": {
-          "selected": 50,
-          "success": 21
-        },
-        "asylum/heal": {
-          "selected": 22,
-          "success": 0
-        },
-        "asylum/interview": {
-          "selected": 29,
-          "success": 10
-        },
-        "asylum/return": {
-          "selected": 40,
-          "success": 21
-        },
-        "caravan/cliff": {
-          "selected": 29,
-          "success": 6
-        },
-        "caravan/contract": {
-          "selected": 43,
-          "success": 19
-        },
-        "caravan/road": {
-          "selected": 33,
+          "selected": 30,
           "success": 16
         },
-        "donation/accept": {
+        "assembly/listen": {
+          "selected": 27,
+          "success": 12
+        },
+        "assembly/service": {
+          "selected": 32,
+          "success": 15
+        },
+        "asylum/heal": {
+          "selected": 32,
+          "success": 9
+        },
+        "asylum/interview": {
+          "selected": 38,
+          "success": 23
+        },
+        "asylum/return": {
+          "selected": 32,
+          "success": 14
+        },
+        "caravan/cliff": {
           "selected": 51,
-          "success": 17
+          "success": 14
+        },
+        "caravan/contract": {
+          "selected": 44,
+          "success": 20
+        },
+        "caravan/road": {
+          "selected": 49,
+          "success": 21
+        },
+        "donation/accept": {
+          "selected": 43,
+          "success": 20
         },
         "donation/inquire": {
-          "selected": 25,
-          "success": 11
+          "selected": 26,
+          "success": 9
         },
         "donation/revise": {
-          "selected": 38,
+          "selected": 31,
           "success": 5
         },
         "duel_private/audit": {
-          "selected": 27,
-          "success": 7
+          "selected": 33,
+          "success": 14
         },
         "duel_private/drill": {
-          "selected": 33,
-          "success": 20
+          "selected": 27,
+          "success": 11
         },
         "duel_private/mediate": {
-          "selected": 34,
-          "success": 21
+          "selected": 40,
+          "success": 25
         },
         "flood/coordinate": {
-          "selected": 39,
-          "success": 18
+          "selected": 23,
+          "success": 13
         },
         "flood/haul": {
-          "selected": 40,
+          "selected": 28,
           "success": 8
         },
         "flood/rescue": {
-          "selected": 25,
-          "success": 10
-        },
-        "grain/bargain": {
-          "selected": 25,
-          "success": 8
-        },
-        "grain/forage": {
-          "selected": 29,
-          "success": 16
-        },
-        "grain/supply": {
-          "selected": 35,
-          "success": 3
-        },
-        "herbs/clinic": {
-          "selected": 33,
-          "success": 11
-        },
-        "herbs/patrol": {
-          "selected": 24,
-          "success": 3
-        },
-        "herbs/pick": {
-          "selected": 40,
-          "success": 27
-        },
-        "inventory/ledger": {
-          "selected": 88,
-          "success": 21
-        },
-        "inventory/pay": {
-          "selected": 89,
-          "success": 35
-        },
-        "inventory/repair": {
-          "selected": 73,
-          "success": 42
-        },
-        "manual/annotate": {
-          "selected": 32,
-          "success": 15
-        },
-        "manual/copy": {
-          "selected": 27,
-          "success": 7
-        },
-        "manual/practice": {
-          "selected": 37,
-          "success": 10
-        },
-        "murder/assist": {
-          "selected": 40,
-          "success": 20
-        },
-        "murder/examine": {
-          "selected": 39,
-          "success": 9
-        },
-        "murder/trail": {
-          "selected": 32,
-          "success": 9
-        },
-        "old_debt/settle": {
-          "selected": 38,
-          "success": 13
-        },
-        "old_debt/verify": {
-          "selected": 44,
-          "success": 5
-        },
-        "old_debt/work": {
-          "selected": 27,
-          "success": 11
-        },
-        "provocation/appeal": {
-          "selected": 79,
-          "success": 42
-        },
-        "provocation/duel": {
-          "selected": 82,
-          "success": 17
-        },
-        "provocation/investigate": {
-          "selected": 89,
-          "success": 32
-        },
-        "refugees/refer": {
-          "selected": 36,
-          "success": 18
-        },
-        "refugees/shelter": {
-          "selected": 26,
-          "success": 6
-        },
-        "refugees/work": {
-          "selected": 38,
-          "success": 9
-        },
-        "requisition/labor": {
-          "selected": 42,
-          "success": 16
-        },
-        "requisition/negotiate": {
-          "selected": 36,
-          "success": 14
-        },
-        "requisition/records": {
-          "selected": 29,
-          "success": 7
-        },
-        "retreat/copy": {
-          "selected": 30,
-          "success": 15
-        },
-        "retreat/fund": {
-          "selected": 27,
-          "success": 10
-        },
-        "retreat/learn": {
-          "selected": 30,
-          "success": 13
-        },
-        "suspicion/open": {
-          "selected": 70,
-          "success": 34
-        },
-        "suspicion/restrict": {
-          "selected": 73,
-          "success": 28
-        },
-        "suspicion/watch": {
-          "selected": 50,
-          "success": 14
-        },
-        "treasure/enter": {
-          "selected": 41,
-          "success": 6
-        },
-        "treasure/sell_map": {
           "selected": 28,
           "success": 12
         },
-        "treasure/survey": {
-          "selected": 30,
-          "success": 8
+        "grain/bargain": {
+          "selected": 32,
+          "success": 12
         },
-        "wounded/repair": {
-          "selected": 30,
-          "success": 21
-        },
-        "wounded/seek": {
-          "selected": 26,
+        "grain/forage": {
+          "selected": 22,
           "success": 16
         },
-        "wounded/treat": {
-          "selected": 33,
+        "grain/supply": {
+          "selected": 47,
+          "success": 2
+        },
+        "herbs/clinic": {
+          "selected": 35,
+          "success": 18
+        },
+        "herbs/patrol": {
+          "selected": 38,
+          "success": 11
+        },
+        "herbs/pick": {
+          "selected": 36,
+          "success": 24
+        },
+        "inventory/ledger": {
+          "selected": 88,
+          "success": 19
+        },
+        "inventory/pay": {
+          "selected": 89,
+          "success": 33
+        },
+        "inventory/repair": {
+          "selected": 73,
+          "success": 52
+        },
+        "manual/annotate": {
+          "selected": 21,
+          "success": 9
+        },
+        "manual/copy": {
+          "selected": 31,
+          "success": 10
+        },
+        "manual/practice": {
+          "selected": 27,
+          "success": 5
+        },
+        "murder/assist": {
+          "selected": 41,
+          "success": 22
+        },
+        "murder/examine": {
+          "selected": 47,
+          "success": 14
+        },
+        "murder/trail": {
+          "selected": 49,
+          "success": 17
+        },
+        "old_debt/settle": {
+          "selected": 49,
+          "success": 24
+        },
+        "old_debt/verify": {
+          "selected": 61,
+          "success": 19
+        },
+        "old_debt/work": {
+          "selected": 49,
+          "success": 21
+        },
+        "provocation/appeal": {
+          "selected": 78,
+          "success": 37
+        },
+        "provocation/duel": {
+          "selected": 86,
+          "success": 18
+        },
+        "provocation/investigate": {
+          "selected": 86,
+          "success": 41
+        },
+        "refugees/refer": {
+          "selected": 21,
+          "success": 11
+        },
+        "refugees/shelter": {
+          "selected": 26,
+          "success": 13
+        },
+        "refugees/work": {
+          "selected": 36,
+          "success": 22
+        },
+        "requisition/labor": {
+          "selected": 59,
+          "success": 24
+        },
+        "requisition/negotiate": {
+          "selected": 52,
+          "success": 28
+        },
+        "requisition/records": {
+          "selected": 64,
+          "success": 21
+        },
+        "retreat/copy": {
+          "selected": 30,
+          "success": 18
+        },
+        "retreat/fund": {
+          "selected": 32,
           "success": 8
+        },
+        "retreat/learn": {
+          "selected": 31,
+          "success": 14
+        },
+        "suspicion/open": {
+          "selected": 90,
+          "success": 45
+        },
+        "suspicion/restrict": {
+          "selected": 70,
+          "success": 37
+        },
+        "suspicion/watch": {
+          "selected": 57,
+          "success": 21
+        },
+        "treasure/enter": {
+          "selected": 37,
+          "success": 9
+        },
+        "treasure/sell_map": {
+          "selected": 39,
+          "success": 23
+        },
+        "treasure/survey": {
+          "selected": 35,
+          "success": 5
+        },
+        "wounded/repair": {
+          "selected": 32,
+          "success": 25
+        },
+        "wounded/seek": {
+          "selected": 28,
+          "success": 15
+        },
+        "wounded/treat": {
+          "selected": 18,
+          "success": 0
         }
       }
     },
     "highest_skill_policy": {
       "endings": {
         "揭破陰謀": {
-          "count": 76,
-          "percent": 30.4
+          "count": 190,
+          "percent": 76.0
         },
         "聯盟退敵": {
-          "count": 59,
-          "percent": 23.6
+          "count": 15,
+          "percent": 6.0
         },
         "正面取勝": {
-          "count": 27,
-          "percent": 10.8
+          "count": 18,
+          "percent": 7.2
         },
         "慘勝守山": {
-          "count": 85,
-          "percent": 34.0
+          "count": 19,
+          "percent": 7.6
         },
         "門派覆滅": {
-          "count": 3,
-          "percent": 1.2
+          "count": 8,
+          "percent": 3.2
         }
       },
       "averages": {
-        "remaining": 3.84,
-        "treasury": 36.86,
-        "defense": 61.48,
-        "reputation": 59.57
+        "remaining": 3.97,
+        "treasury": 41.9,
+        "defense": 66.31,
+        "reputation": 56.74
       },
       "outcomes": {
-        "left": 38,
+        "left": 5,
         "defected": 0,
-        "severe_injury": 26,
-        "dead": 1
+        "severe_injury": 27,
+        "dead": 2
       },
       "options": {
         "assembly/attend": {
-          "selected": 13,
-          "success": 12
+          "selected": 5,
+          "success": 4
         },
         "assembly/listen": {
-          "selected": 80,
-          "success": 74
+          "selected": 76,
+          "success": 73
         },
         "assembly/service": {
-          "selected": 28,
-          "success": 25
+          "selected": 12,
+          "success": 11
         },
         "asylum/heal": {
-          "selected": 31,
-          "success": 23
+          "selected": 28,
+          "success": 26
         },
         "asylum/interview": {
-          "selected": 16,
-          "success": 14
+          "selected": 19,
+          "success": 18
         },
         "asylum/return": {
-          "selected": 86,
-          "success": 85
+          "selected": 71,
+          "success": 69
         },
         "caravan/cliff": {
-          "selected": 17,
-          "success": 13
+          "selected": 28,
+          "success": 15
         },
         "caravan/contract": {
-          "selected": 98,
-          "success": 93
+          "selected": 133,
+          "success": 126
         },
         "donation/accept": {
-          "selected": 12,
-          "success": 10
+          "selected": 14,
+          "success": 12
         },
         "donation/inquire": {
-          "selected": 35,
-          "success": 34
+          "selected": 38,
+          "success": 37
         },
         "donation/revise": {
-          "selected": 75,
-          "success": 54
+          "selected": 65,
+          "success": 47
         },
         "duel_private/audit": {
-          "selected": 98,
+          "selected": 85,
           "success": 67
         },
         "duel_private/drill": {
-          "selected": 15,
-          "success": 13
-        },
-        "duel_private/mediate": {
-          "selected": 11,
-          "success": 11
-        },
-        "flood/coordinate": {
-          "selected": 96,
-          "success": 89
-        },
-        "flood/haul": {
-          "selected": 24,
+          "selected": 12,
           "success": 12
         },
+        "duel_private/mediate": {
+          "selected": 3,
+          "success": 2
+        },
+        "flood/coordinate": {
+          "selected": 92,
+          "success": 86
+        },
+        "flood/haul": {
+          "selected": 16,
+          "success": 13
+        },
         "flood/rescue": {
-          "selected": 8,
-          "success": 7
+          "selected": 5,
+          "success": 4
         },
         "grain/bargain": {
-          "selected": 99,
-          "success": 72
+          "selected": 80,
+          "success": 60
         },
         "grain/forage": {
-          "selected": 7,
-          "success": 7
+          "selected": 5,
+          "success": 5
         },
         "grain/supply": {
-          "selected": 39,
-          "success": 25
+          "selected": 35,
+          "success": 23
         },
         "herbs/clinic": {
-          "selected": 23,
-          "success": 22
+          "selected": 19,
+          "success": 19
         },
         "herbs/patrol": {
-          "selected": 85,
-          "success": 65
+          "selected": 98,
+          "success": 86
         },
         "herbs/pick": {
           "selected": 8,
@@ -399,519 +399,527 @@
         },
         "inventory/ledger": {
           "selected": 178,
-          "success": 111
+          "success": 112
         },
         "inventory/pay": {
           "selected": 63,
-          "success": 60
+          "success": 59
         },
         "inventory/repair": {
           "selected": 9,
           "success": 9
         },
         "manual/annotate": {
-          "selected": 29,
-          "success": 27
+          "selected": 21,
+          "success": 20
         },
         "manual/copy": {
-          "selected": 86,
-          "success": 64
+          "selected": 76,
+          "success": 59
         },
         "manual/practice": {
+          "selected": 2,
+          "success": 2
+        },
+        "murder/assist": {
+          "selected": 93,
+          "success": 86
+        },
+        "murder/examine": {
+          "selected": 38,
+          "success": 29
+        },
+        "murder/trail": {
           "selected": 12,
           "success": 10
         },
-        "murder/assist": {
-          "selected": 83,
-          "success": 74
-        },
-        "murder/examine": {
-          "selected": 30,
-          "success": 23
-        },
-        "murder/trail": {
-          "selected": 6,
-          "success": 4
-        },
         "old_debt/settle": {
+          "selected": 46,
+          "success": 42
+        },
+        "old_debt/verify": {
+          "selected": 116,
+          "success": 95
+        },
+        "old_debt/work": {
+          "selected": 13,
+          "success": 10
+        },
+        "provocation/appeal": {
+          "selected": 169,
+          "success": 163
+        },
+        "provocation/duel": {
+          "selected": 46,
+          "success": 30
+        },
+        "provocation/investigate": {
+          "selected": 35,
+          "success": 34
+        },
+        "refugees/refer": {
+          "selected": 81,
+          "success": 79
+        },
+        "refugees/shelter": {
           "selected": 25,
           "success": 25
         },
-        "old_debt/verify": {
-          "selected": 72,
-          "success": 59
-        },
-        "old_debt/work": {
-          "selected": 10,
-          "success": 8
-        },
-        "provocation/appeal": {
-          "selected": 182,
-          "success": 168
-        },
-        "provocation/duel": {
-          "selected": 52,
-          "success": 38
-        },
-        "provocation/investigate": {
-          "selected": 16,
-          "success": 15
-        },
-        "refugees/refer": {
-          "selected": 96,
-          "success": 92
-        },
-        "refugees/shelter": {
-          "selected": 22,
-          "success": 22
-        },
         "refugees/work": {
-          "selected": 7,
-          "success": 7
+          "selected": 9,
+          "success": 8
         },
         "requisition/labor": {
-          "selected": 9,
-          "success": 9
+          "selected": 16,
+          "success": 14
         },
         "requisition/negotiate": {
-          "selected": 38,
-          "success": 38
+          "selected": 46,
+          "success": 43
         },
         "requisition/records": {
-          "selected": 81,
-          "success": 58
+          "selected": 116,
+          "success": 90
         },
         "retreat/copy": {
-          "selected": 40,
-          "success": 38
+          "selected": 35,
+          "success": 34
         },
         "retreat/fund": {
-          "selected": 77,
-          "success": 65
+          "selected": 74,
+          "success": 54
         },
         "retreat/learn": {
-          "selected": 8,
-          "success": 8
+          "selected": 1,
+          "success": 1
         },
         "suspicion/open": {
-          "selected": 16,
-          "success": 15
+          "selected": 5,
+          "success": 3
         },
         "suspicion/restrict": {
-          "selected": 159,
-          "success": 146
+          "selected": 145,
+          "success": 141
         },
         "suspicion/watch": {
-          "selected": 75,
-          "success": 62
+          "selected": 100,
+          "success": 87
         },
         "treasure/enter": {
-          "selected": 11,
+          "selected": 12,
           "success": 9
         },
         "treasure/sell_map": {
-          "selected": 81,
-          "success": 74
+          "selected": 71,
+          "success": 69
         },
         "treasure/survey": {
-          "selected": 32,
-          "success": 22
+          "selected": 36,
+          "success": 28
         },
         "wounded/repair": {
-          "selected": 6,
-          "success": 6
+          "selected": 14,
+          "success": 14
         },
         "wounded/seek": {
-          "selected": 104,
-          "success": 100
+          "selected": 69,
+          "success": 66
         },
         "wounded/treat": {
-          "selected": 30,
-          "success": 21
+          "selected": 23,
+          "success": 18
         }
       }
     },
     "conservative_policy": {
       "endings": {
         "揭破陰謀": {
-          "count": 0,
-          "percent": 0.0
-        },
-        "聯盟退敵": {
-          "count": 85,
-          "percent": 34.0
-        },
-        "正面取勝": {
           "count": 20,
           "percent": 8.0
         },
+        "聯盟退敵": {
+          "count": 67,
+          "percent": 26.8
+        },
+        "正面取勝": {
+          "count": 31,
+          "percent": 12.4
+        },
         "慘勝守山": {
-          "count": 141,
-          "percent": 56.4
+          "count": 116,
+          "percent": 46.4
         },
         "門派覆滅": {
-          "count": 4,
-          "percent": 1.6
+          "count": 16,
+          "percent": 6.4
         }
       },
       "averages": {
-        "remaining": 3.42,
-        "treasury": 28.66,
-        "defense": 63.16,
-        "reputation": 61.55
+        "remaining": 3.75,
+        "treasury": 22.58,
+        "defense": 65.0,
+        "reputation": 58.04
       },
       "outcomes": {
-        "left": 126,
-        "defected": 20,
+        "left": 60,
+        "defected": 3,
         "severe_injury": 0,
         "dead": 0
       },
       "options": {
         "assembly/listen": {
-          "selected": 135,
-          "success": 42
+          "selected": 99,
+          "success": 34
         },
         "asylum/return": {
-          "selected": 124,
-          "success": 90
+          "selected": 117,
+          "success": 87
         },
         "caravan/contract": {
-          "selected": 117,
-          "success": 91
+          "selected": 150,
+          "success": 114
         },
         "donation/inquire": {
-          "selected": 147,
-          "success": 56
+          "selected": 124,
+          "success": 40
         },
         "duel_private/audit": {
-          "selected": 1,
+          "selected": 2,
           "success": 1
         },
         "duel_private/mediate": {
-          "selected": 121,
-          "success": 96
+          "selected": 103,
+          "success": 87
         },
         "flood/coordinate": {
-          "selected": 110,
-          "success": 85
+          "selected": 109,
+          "success": 86
         },
         "grain/forage": {
-          "selected": 114,
-          "success": 85
+          "selected": 135,
+          "success": 108
         },
         "herbs/clinic": {
-          "selected": 125,
-          "success": 101
+          "selected": 112,
+          "success": 85
         },
         "herbs/pick": {
-          "selected": 4,
-          "success": 2
+          "selected": 6,
+          "success": 6
         },
         "inventory/pay": {
           "selected": 250,
           "success": 213
         },
         "manual/annotate": {
-          "selected": 118,
-          "success": 44
+          "selected": 96,
+          "success": 31
+        },
+        "manual/copy": {
+          "selected": 1,
+          "success": 0
         },
         "murder/assist": {
-          "selected": 120,
-          "success": 88
+          "selected": 148,
+          "success": 123
         },
         "old_debt/settle": {
-          "selected": 129,
-          "success": 93
+          "selected": 162,
+          "success": 121
         },
         "old_debt/verify": {
-          "selected": 2,
+          "selected": 1,
           "success": 0
         },
         "provocation/appeal": {
           "selected": 250,
-          "success": 214
+          "success": 136
         },
         "refugees/refer": {
-          "selected": 91,
+          "selected": 88,
           "success": 78
         },
         "refugees/shelter": {
-          "selected": 31,
-          "success": 28
+          "selected": 27,
+          "success": 26
         },
         "requisition/negotiate": {
-          "selected": 122,
-          "success": 93
+          "selected": 174,
+          "success": 141
         },
         "retreat/copy": {
-          "selected": 123,
-          "success": 46
+          "selected": 115,
+          "success": 45
         },
         "suspicion/restrict": {
-          "selected": 250,
-          "success": 100
+          "selected": 249,
+          "success": 86
         },
         "treasure/sell_map": {
-          "selected": 133,
-          "success": 104
+          "selected": 114,
+          "success": 95
         },
         "wounded/seek": {
-          "selected": 132,
-          "success": 106
+          "selected": 101,
+          "success": 78
         }
       }
     },
     "resource_guard_policy": {
       "endings": {
         "揭破陰謀": {
-          "count": 9,
-          "percent": 3.6
+          "count": 101,
+          "percent": 40.4
         },
         "聯盟退敵": {
-          "count": 30,
-          "percent": 12.0
+          "count": 12,
+          "percent": 4.8
         },
         "正面取勝": {
-          "count": 46,
-          "percent": 18.4
+          "count": 41,
+          "percent": 16.4
         },
         "慘勝守山": {
-          "count": 163,
-          "percent": 65.2
+          "count": 95,
+          "percent": 38.0
         },
         "門派覆滅": {
-          "count": 2,
-          "percent": 0.8
+          "count": 1,
+          "percent": 0.4
         }
       },
       "averages": {
-        "remaining": 3.68,
-        "treasury": 39.06,
-        "defense": 62.66,
-        "reputation": 52.71
+        "remaining": 3.88,
+        "treasury": 46.14,
+        "defense": 64.46,
+        "reputation": 54.45
       },
       "outcomes": {
-        "left": 74,
-        "defected": 6,
-        "severe_injury": 78,
-        "dead": 1
+        "left": 30,
+        "defected": 0,
+        "severe_injury": 110,
+        "dead": 0
       },
       "options": {
         "assembly/attend": {
-          "selected": 4,
-          "success": 4
+          "selected": 1,
+          "success": 1
         },
         "assembly/listen": {
-          "selected": 39,
-          "success": 34
+          "selected": 25,
+          "success": 23
         },
         "assembly/service": {
           "selected": 82,
-          "success": 50
+          "success": 51
         },
         "asylum/heal": {
-          "selected": 7,
-          "success": 5
+          "selected": 4,
+          "success": 3
         },
         "asylum/interview": {
-          "selected": 101,
-          "success": 74
+          "selected": 100,
+          "success": 81
         },
         "asylum/return": {
-          "selected": 18,
-          "success": 16
+          "selected": 27,
+          "success": 25
         },
         "caravan/cliff": {
-          "selected": 10,
+          "selected": 4,
           "success": 3
         },
         "caravan/contract": {
-          "selected": 114,
-          "success": 106
+          "selected": 145,
+          "success": 121
         },
         "caravan/road": {
           "selected": 4,
           "success": 4
         },
         "donation/accept": {
-          "selected": 11,
-          "success": 8
-        },
-        "donation/inquire": {
-          "selected": 42,
-          "success": 37
-        },
-        "donation/revise": {
-          "selected": 77,
-          "success": 50
-        },
-        "duel_private/audit": {
-          "selected": 83,
-          "success": 56
-        },
-        "duel_private/drill": {
           "selected": 10,
-          "success": 5
-        },
-        "duel_private/mediate": {
-          "selected": 42,
-          "success": 38
-        },
-        "flood/coordinate": {
-          "selected": 42,
-          "success": 39
-        },
-        "flood/haul": {
-          "selected": 76,
-          "success": 29
-        },
-        "flood/rescue": {
-          "selected": 3,
-          "success": 1
-        },
-        "grain/bargain": {
-          "selected": 95,
-          "success": 60
-        },
-        "grain/forage": {
-          "selected": 20,
-          "success": 20
-        },
-        "grain/supply": {
-          "selected": 12,
-          "success": 4
-        },
-        "herbs/clinic": {
-          "selected": 35,
-          "success": 29
-        },
-        "herbs/patrol": {
-          "selected": 9,
           "success": 7
         },
-        "herbs/pick": {
-          "selected": 69,
-          "success": 60
+        "donation/inquire": {
+          "selected": 37,
+          "success": 34
         },
-        "inventory/pay": {
-          "selected": 250,
-          "success": 213
+        "donation/revise": {
+          "selected": 79,
+          "success": 55
         },
-        "manual/annotate": {
+        "duel_private/audit": {
+          "selected": 77,
+          "success": 64
+        },
+        "duel_private/drill": {
+          "selected": 3,
+          "success": 3
+        },
+        "duel_private/mediate": {
+          "selected": 18,
+          "success": 16
+        },
+        "flood/coordinate": {
           "selected": 28,
           "success": 27
         },
+        "flood/haul": {
+          "selected": 86,
+          "success": 32
+        },
+        "flood/rescue": {
+          "selected": 4,
+          "success": 4
+        },
+        "grain/bargain": {
+          "selected": 105,
+          "success": 77
+        },
+        "grain/forage": {
+          "selected": 13,
+          "success": 11
+        },
+        "grain/supply": {
+          "selected": 7,
+          "success": 3
+        },
+        "herbs/clinic": {
+          "selected": 24,
+          "success": 21
+        },
+        "herbs/patrol": {
+          "selected": 20,
+          "success": 14
+        },
+        "herbs/pick": {
+          "selected": 78,
+          "success": 71
+        },
+        "inventory/pay": {
+          "selected": 250,
+          "success": 215
+        },
+        "manual/annotate": {
+          "selected": 6,
+          "success": 4
+        },
         "manual/copy": {
-          "selected": 102,
-          "success": 61
+          "selected": 93,
+          "success": 62
         },
         "manual/practice": {
           "selected": 1,
-          "success": 1
+          "success": 0
         },
         "murder/assist": {
-          "selected": 107,
-          "success": 88
+          "selected": 132,
+          "success": 114
         },
         "murder/examine": {
-          "selected": 11,
-          "success": 9
+          "selected": 12,
+          "success": 10
         },
         "murder/trail": {
-          "selected": 10,
-          "success": 6
+          "selected": 19,
+          "success": 8
         },
         "old_debt/settle": {
-          "selected": 29,
-          "success": 22
+          "selected": 49,
+          "success": 37
         },
         "old_debt/verify": {
-          "selected": 89,
-          "success": 59
+          "selected": 84,
+          "success": 56
         },
         "old_debt/work": {
-          "selected": 9,
-          "success": 7
+          "selected": 37,
+          "success": 27
         },
         "provocation/appeal": {
-          "selected": 91,
-          "success": 76
+          "selected": 79,
+          "success": 69
         },
         "provocation/duel": {
-          "selected": 134,
-          "success": 58
+          "selected": 156,
+          "success": 67
         },
         "provocation/investigate": {
-          "selected": 25,
-          "success": 17
+          "selected": 15,
+          "success": 13
         },
         "refugees/refer": {
-          "selected": 85,
-          "success": 68
+          "selected": 79,
+          "success": 73
         },
         "refugees/shelter": {
-          "selected": 14,
-          "success": 12
+          "selected": 9,
+          "success": 9
         },
         "refugees/work": {
-          "selected": 14,
-          "success": 10
+          "selected": 4,
+          "success": 2
         },
         "requisition/labor": {
-          "selected": 81,
-          "success": 44
+          "selected": 79,
+          "success": 55
         },
         "requisition/negotiate": {
-          "selected": 27,
-          "success": 23
+          "selected": 41,
+          "success": 36
         },
         "requisition/records": {
-          "selected": 16,
-          "success": 10
+          "selected": 41,
+          "success": 18
         },
         "retreat/copy": {
-          "selected": 32,
-          "success": 28
+          "selected": 16,
+          "success": 16
         },
         "retreat/fund": {
-          "selected": 74,
-          "success": 43
+          "selected": 90,
+          "success": 64
+        },
+        "retreat/learn": {
+          "selected": 1,
+          "success": 1
         },
         "suspicion/open": {
           "selected": 48,
-          "success": 32
+          "success": 38
         },
         "suspicion/restrict": {
-          "selected": 199,
-          "success": 166
+          "selected": 193,
+          "success": 175
         },
         "suspicion/watch": {
-          "selected": 3,
-          "success": 2
+          "selected": 9,
+          "success": 8
         },
         "treasure/enter": {
           "selected": 7,
-          "success": 1
+          "success": 4
         },
         "treasure/sell_map": {
-          "selected": 113,
-          "success": 97
+          "selected": 109,
+          "success": 99
         },
         "treasure/survey": {
-          "selected": 10,
-          "success": 6
+          "selected": 6,
+          "success": 3
         },
         "wounded/repair": {
-          "selected": 14,
-          "success": 12
+          "selected": 6,
+          "success": 5
         },
         "wounded/seek": {
-          "selected": 90,
-          "success": 74
+          "selected": 78,
+          "success": 72
         },
         "wounded/treat": {
-          "selected": 32,
-          "success": 15
+          "selected": 18,
+          "success": 9
         }
       }
     }
@@ -926,210 +934,166 @@
         {
           "month": 4,
           "strength": "strong",
-          "text": "聽人說話時習慣捻著一枚木扣。 拿出烈川堂允諾接納的信，說若門內再無位置便會過去。"
+          "text": "拿出烈川堂允諾接納的信，說若門內再無位置便會過去。"
         },
         {
           "month": 5,
           "strength": "strong",
-          "text": "聽人說話時習慣捻著一枚木扣。 當面表示已向烈川堂詢問投靠條件，交出的回信可以核對。"
+          "text": "當面表示已向烈川堂詢問投靠條件，交出的回信可以核對。"
         }
       ],
       "policy": "random_policy"
     },
     {
       "seed": 5,
-      "month": 5,
-      "name": "余如晦",
-      "kind": "left",
-      "warnings": [
-        {
-          "month": 3,
-          "strength": "strong",
-          "text": "出門前總先確認同行者帶了水。 將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
-        },
-        {
-          "month": 4,
-          "strength": "strong",
-          "text": "出門前總先確認同行者帶了水。 把未完的值勤逐項交給同門，明言離山之日已在考慮。"
-        }
-      ],
-      "policy": "random_policy"
-    },
-    {
-      "seed": 6,
       "month": 6,
-      "name": "陸晚嶺",
+      "name": "沈如晦",
       "kind": "left",
       "warnings": [
         {
           "month": 4,
           "strength": "strong",
-          "text": "每次領命都先複述約定的歸期。 拿來一份山外路引，請你確認離山交接。"
+          "text": "將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
         },
         {
           "month": 5,
           "strength": "strong",
-          "text": "每次領命都先複述約定的歸期。 將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
+          "text": "把未完的值勤逐項交給同門，明言離山之日已在考慮。"
         }
       ],
       "policy": "random_policy"
     },
     {
-      "seed": 13,
-      "month": 8,
-      "name": "蘇青禾",
-      "kind": "left",
-      "warnings": [
-        {
-          "month": 6,
-          "strength": "strong",
-          "text": "出門前總先確認同行者帶了水。 拿來一份山外路引，請你確認離山交接。"
-        },
-        {
-          "month": 7,
-          "strength": "strong",
-          "text": "出門前總先確認同行者帶了水。 把未完的值勤逐項交給同門，明言離山之日已在考慮。"
-        }
-      ],
+      "seed": 8,
+      "month": 11,
+      "name": "程初霽",
+      "kind": "dead",
+      "risk_notice": "致命風險：礦道坍塌可能造成弟子死亡。",
       "policy": "random_policy"
     },
     {
-      "seed": 18,
+      "seed": 16,
       "month": 9,
-      "name": "余晚嶺",
+      "name": "程素弦",
       "kind": "dead",
       "risk_notice": "致命風險：崖道崩落可能使同行弟子死亡。",
       "policy": "random_policy"
     },
     {
-      "seed": 19,
-      "month": 10,
-      "name": "岑懷朔",
-      "kind": "left",
-      "warnings": [
-        {
-          "month": 8,
-          "strength": "strong",
-          "text": "議事時總將茶盞轉到缺口朝內。 把未完的值勤逐項交給同門，明言離山之日已在考慮。"
-        },
-        {
-          "month": 9,
-          "strength": "strong",
-          "text": "議事時總將茶盞轉到缺口朝內。 拿來一份山外路引，請你確認離山交接。"
-        }
-      ],
+      "seed": 27,
+      "month": 3,
+      "name": "陸初霽",
+      "kind": "dead",
+      "risk_notice": "致命風險：崖道崩落可能使同行弟子死亡。",
       "policy": "random_policy"
     },
     {
-      "seed": 0,
+      "seed": 28,
+      "month": 5,
+      "name": "唐遠舟",
+      "kind": "dead",
+      "risk_notice": "致命風險：崖道崩落可能使同行弟子死亡。",
+      "policy": "random_policy"
+    },
+    {
+      "seed": 57,
       "month": 10,
-      "name": "顧晚嶺",
+      "name": "岑晚嶺",
       "kind": "left",
       "warnings": [
         {
           "month": 8,
           "strength": "strong",
-          "text": "總將地圖邊角壓上一枚白石。 拿來一份山外路引，請你確認離山交接。"
+          "text": "將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
         },
         {
           "month": 9,
           "strength": "strong",
-          "text": "總將地圖邊角壓上一枚白石。 將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
+          "text": "把未完的值勤逐項交給同門，明言離山之日已在考慮。"
         }
       ],
       "policy": "highest_skill_policy"
     },
     {
-      "seed": 1,
-      "month": 5,
-      "name": "裴映松",
+      "seed": 161,
+      "month": 7,
+      "name": "孟懷朔",
       "kind": "left",
       "warnings": [
         {
           "month": 3,
           "strength": "strong",
-          "text": "每逢道別便以兩指輕敲門框。 把未完的值勤逐項交給同門，明言離山之日已在考慮。"
+          "text": "將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
         },
         {
-          "month": 4,
+          "month": 6,
           "strength": "strong",
-          "text": "每逢道別便以兩指輕敲門框。 拿來一份山外路引，請你確認離山交接。"
+          "text": "把未完的值勤逐項交給同門，明言離山之日已在考慮。"
         }
       ],
       "policy": "highest_skill_policy"
     },
     {
-      "seed": 7,
-      "month": 5,
-      "name": "岑見川",
-      "kind": "left",
-      "warnings": [
-        {
-          "month": 3,
-          "strength": "strong",
-          "text": "議事時總將茶盞轉到缺口朝內。 拿來一份山外路引，請你確認離山交接。"
-        },
-        {
-          "month": 4,
-          "strength": "strong",
-          "text": "議事時總將茶盞轉到缺口朝內。 將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
-        }
-      ],
-      "policy": "highest_skill_policy"
-    },
-    {
-      "seed": 14,
+      "seed": 163,
       "month": 10,
-      "name": "裴懷朔",
+      "name": "蘇知遙",
       "kind": "left",
       "warnings": [
         {
           "month": 8,
           "strength": "strong",
-          "text": "重要的話總寫在窄紙上遞來。 將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
+          "text": "將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
         },
         {
           "month": 9,
           "strength": "strong",
-          "text": "重要的話總寫在窄紙上遞來。 拿來一份山外路引，請你確認離山交接。"
+          "text": "把未完的值勤逐項交給同門，明言離山之日已在考慮。"
         }
       ],
       "policy": "highest_skill_policy"
     },
     {
-      "seed": 21,
-      "month": 5,
-      "name": "江懷朔",
+      "seed": 227,
+      "month": 7,
+      "name": "顧映松",
+      "kind": "dead",
+      "risk_notice": "致命風險：崖道崩落可能使同行弟子死亡。",
+      "policy": "highest_skill_policy"
+    },
+    {
+      "seed": 240,
+      "month": 10,
+      "name": "岑聽瀾",
       "kind": "left",
       "warnings": [
         {
-          "month": 3,
+          "month": 8,
           "strength": "strong",
-          "text": "聽人說話時習慣捻著一枚木扣。 把未完的值勤逐項交給同門，明言離山之日已在考慮。"
+          "text": "將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
         },
         {
-          "month": 4,
+          "month": 9,
           "strength": "strong",
-          "text": "聽人說話時習慣捻著一枚木扣。 將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
+          "text": "把未完的值勤逐項交給同門，明言離山之日已在考慮。"
         }
       ],
       "policy": "highest_skill_policy"
     },
     {
-      "seed": 22,
+      "seed": 242,
       "month": 8,
-      "name": "唐映松",
+      "name": "黎見川",
       "kind": "left",
       "warnings": [
         {
           "month": 6,
           "strength": "strong",
-          "text": "固定稱你為「主事」，從不改口。 將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
+          "text": "將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
         },
         {
           "month": 7,
           "strength": "strong",
-          "text": "固定稱你為「主事」，從不改口。 拿來一份山外路引，請你確認離山交接。"
+          "text": "把未完的值勤逐項交給同門，明言離山之日已在考慮。"
         }
       ],
       "policy": "highest_skill_policy"
@@ -1143,221 +1107,221 @@
         {
           "month": 3,
           "strength": "strong",
-          "text": "重要的話總寫在窄紙上遞來。 拿來一份山外路引，請你確認離山交接。"
+          "text": "將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
         },
         {
           "month": 4,
           "strength": "strong",
-          "text": "重要的話總寫在窄紙上遞來。 將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
+          "text": "把未完的值勤逐項交給同門，明言離山之日已在考慮。"
         }
       ],
       "policy": "conservative_policy"
     },
     {
-      "seed": 2,
+      "seed": 13,
       "month": 10,
-      "name": "葉定秋",
+      "name": "孟行雪",
       "kind": "left",
       "warnings": [
         {
           "month": 8,
           "strength": "strong",
-          "text": "重要的話總寫在窄紙上遞來。 拿來一份山外路引，請你確認離山交接。"
+          "text": "將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
         },
         {
           "month": 9,
           "strength": "strong",
-          "text": "重要的話總寫在窄紙上遞來。 將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
+          "text": "把未完的值勤逐項交給同門，明言離山之日已在考慮。"
         }
       ],
       "policy": "conservative_policy"
     },
     {
-      "seed": 3,
-      "month": 10,
-      "name": "黎聽瀾",
+      "seed": 17,
+      "month": 8,
+      "name": "蘇青禾",
       "kind": "left",
       "warnings": [
         {
-          "month": 8,
+          "month": 6,
           "strength": "strong",
-          "text": "回答前總先以布擦過刀鞘。 將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
+          "text": "將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
         },
         {
-          "month": 9,
+          "month": 7,
           "strength": "strong",
-          "text": "回答前總先以布擦過刀鞘。 把未完的值勤逐項交給同門，明言離山之日已在考慮。"
+          "text": "把未完的值勤逐項交給同門，明言離山之日已在考慮。"
         }
       ],
       "policy": "conservative_policy"
     },
     {
-      "seed": 5,
-      "month": 10,
-      "name": "余如晦",
-      "kind": "left",
-      "warnings": [
-        {
-          "month": 8,
-          "strength": "strong",
-          "text": "出門前總先確認同行者帶了水。 把未完的值勤逐項交給同門，明言離山之日已在考慮。"
-        },
-        {
-          "month": 9,
-          "strength": "strong",
-          "text": "出門前總先確認同行者帶了水。 將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
-        }
-      ],
-      "policy": "conservative_policy"
-    },
-    {
-      "seed": 6,
-      "month": 4,
-      "name": "岑聽瀾",
-      "kind": "defected",
-      "warnings": [
-        {
-          "month": 2,
-          "strength": "strong",
-          "text": "聽人說話時習慣捻著一枚木扣。 當面表示已向烈川堂詢問投靠條件，交出的回信可以核對。"
-        },
-        {
-          "month": 3,
-          "strength": "strong",
-          "text": "聽人說話時習慣捻著一枚木扣。 承認已談過替烈川堂帶路的交換，仍在等你的答覆。"
-        }
-      ],
-      "policy": "conservative_policy"
-    },
-    {
-      "seed": 7,
+      "seed": 21,
       "month": 7,
-      "name": "岑見川",
+      "name": "黎晚嶺",
       "kind": "left",
       "warnings": [
         {
           "month": 5,
           "strength": "strong",
-          "text": "議事時總將茶盞轉到缺口朝內。 把未完的值勤逐項交給同門，明言離山之日已在考慮。"
+          "text": "將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
         },
         {
           "month": 6,
           "strength": "strong",
-          "text": "議事時總將茶盞轉到缺口朝內。 將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
+          "text": "把未完的值勤逐項交給同門，明言離山之日已在考慮。"
+        }
+      ],
+      "policy": "conservative_policy"
+    },
+    {
+      "seed": 23,
+      "month": 10,
+      "name": "蘇初霽",
+      "kind": "left",
+      "warnings": [
+        {
+          "month": 8,
+          "strength": "strong",
+          "text": "將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
+        },
+        {
+          "month": 9,
+          "strength": "strong",
+          "text": "把未完的值勤逐項交給同門，明言離山之日已在考慮。"
+        }
+      ],
+      "policy": "conservative_policy"
+    },
+    {
+      "seed": 28,
+      "month": 9,
+      "name": "孟定秋",
+      "kind": "left",
+      "warnings": [
+        {
+          "month": 6,
+          "strength": "strong",
+          "text": "將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
+        },
+        {
+          "month": 8,
+          "strength": "strong",
+          "text": "把未完的值勤逐項交給同門，明言離山之日已在考慮。"
         }
       ],
       "policy": "conservative_policy"
     },
     {
       "seed": 0,
-      "month": 10,
-      "name": "顧晚嶺",
+      "month": 5,
+      "name": "陸青禾",
       "kind": "left",
       "warnings": [
         {
-          "month": 8,
+          "month": 3,
           "strength": "strong",
-          "text": "總將地圖邊角壓上一枚白石。 將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
+          "text": "將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
         },
-        {
-          "month": 9,
-          "strength": "strong",
-          "text": "總將地圖邊角壓上一枚白石。 把未完的值勤逐項交給同門，明言離山之日已在考慮。"
-        }
-      ],
-      "policy": "resource_guard_policy"
-    },
-    {
-      "seed": 1,
-      "month": 9,
-      "name": "裴映松",
-      "kind": "left",
-      "warnings": [
-        {
-          "month": 7,
-          "strength": "strong",
-          "text": "每逢道別便以兩指輕敲門框。 拿來一份山外路引，請你確認離山交接。"
-        },
-        {
-          "month": 8,
-          "strength": "strong",
-          "text": "每逢道別便以兩指輕敲門框。 將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
-        }
-      ],
-      "policy": "resource_guard_policy"
-    },
-    {
-      "seed": 2,
-      "month": 10,
-      "name": "岑映松",
-      "kind": "left",
-      "warnings": [
-        {
-          "month": 8,
-          "strength": "strong",
-          "text": "出門前總先確認同行者帶了水。 將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
-        },
-        {
-          "month": 9,
-          "strength": "strong",
-          "text": "出門前總先確認同行者帶了水。 把未完的值勤逐項交給同門，明言離山之日已在考慮。"
-        }
-      ],
-      "policy": "resource_guard_policy"
-    },
-    {
-      "seed": 4,
-      "month": 8,
-      "name": "裴青禾",
-      "kind": "left",
-      "warnings": [
         {
           "month": 4,
           "strength": "strong",
-          "text": "固定稱你為「主事」，從不改口。 將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
-        },
-        {
-          "month": 5,
-          "strength": "strong",
-          "text": "固定稱你為「主事」，從不改口。 把未完的值勤逐項交給同門，明言離山之日已在考慮。"
+          "text": "把未完的值勤逐項交給同門，明言離山之日已在考慮。"
         }
       ],
       "policy": "resource_guard_policy"
     },
     {
       "seed": 6,
-      "month": 4,
+      "month": 10,
       "name": "岑聽瀾",
-      "kind": "defected",
+      "kind": "left",
       "warnings": [
         {
-          "month": 2,
+          "month": 8,
           "strength": "strong",
-          "text": "聽人說話時習慣捻著一枚木扣。 當面表示已向烈川堂詢問投靠條件，交出的回信可以核對。"
+          "text": "將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
         },
         {
-          "month": 3,
+          "month": 9,
           "strength": "strong",
-          "text": "聽人說話時習慣捻著一枚木扣。 承認已談過替烈川堂帶路的交換，仍在等你的答覆。"
+          "text": "把未完的值勤逐項交給同門，明言離山之日已在考慮。"
         }
       ],
       "policy": "resource_guard_policy"
     },
     {
-      "seed": 9,
+      "seed": 11,
+      "month": 10,
+      "name": "孟如晦",
+      "kind": "left",
+      "warnings": [
+        {
+          "month": 8,
+          "strength": "strong",
+          "text": "將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
+        },
+        {
+          "month": 9,
+          "strength": "strong",
+          "text": "把未完的值勤逐項交給同門，明言離山之日已在考慮。"
+        }
+      ],
+      "policy": "resource_guard_policy"
+    },
+    {
+      "seed": 12,
+      "month": 10,
+      "name": "陸素弦",
+      "kind": "left",
+      "warnings": [
+        {
+          "month": 8,
+          "strength": "strong",
+          "text": "將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
+        },
+        {
+          "month": 9,
+          "strength": "strong",
+          "text": "把未完的值勤逐項交給同門，明言離山之日已在考慮。"
+        }
+      ],
+      "policy": "resource_guard_policy"
+    },
+    {
+      "seed": 21,
       "month": 8,
-      "name": "程行雪",
+      "name": "黎晚嶺",
+      "kind": "left",
+      "warnings": [
+        {
+          "month": 6,
+          "strength": "strong",
+          "text": "將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
+        },
+        {
+          "month": 7,
+          "strength": "strong",
+          "text": "把未完的值勤逐項交給同門，明言離山之日已在考慮。"
+        }
+      ],
+      "policy": "resource_guard_policy"
+    },
+    {
+      "seed": 42,
+      "month": 7,
+      "name": "裴素弦",
       "kind": "left",
       "warnings": [
         {
           "month": 5,
           "strength": "strong",
-          "text": "坐下之前一定把旁邊的椅子拉正。 拿來一份山外路引，請你確認離山交接。"
+          "text": "將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
         },
         {
-          "month": 7,
+          "month": 6,
           "strength": "strong",
-          "text": "坐下之前一定把旁邊的椅子拉正。 將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
+          "text": "把未完的值勤逐項交給同門，明言離山之日已在考慮。"
         }
       ],
       "policy": "resource_guard_policy"
@@ -1366,8 +1330,8 @@
   "ending_leaders": {
     "揭破陰謀": [
       "highest_skill_policy",
-      "random_policy",
       "resource_guard_policy",
+      "random_policy",
       "conservative_policy"
     ],
     "聯盟退敵": [
@@ -1378,15 +1342,15 @@
     ],
     "正面取勝": [
       "resource_guard_policy",
-      "highest_skill_policy",
       "conservative_policy",
+      "highest_skill_policy",
       "random_policy"
     ],
     "慘勝守山": [
-      "resource_guard_policy",
       "conservative_policy",
-      "highest_skill_policy",
-      "random_policy"
+      "resource_guard_policy",
+      "random_policy",
+      "highest_skill_policy"
     ],
     "門派覆滅": [
       "random_policy",

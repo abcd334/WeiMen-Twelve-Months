@@ -1,21 +1,24 @@
 from pathlib import Path
 from random import Random
+import json
 
 from streamlit.testing.v1 import AppTest
+import pytest
 
 from simulate_balance import choose_day, choose_night
 
 APP = Path(__file__).resolve().parents[1] / "app.py"
 
 
-def test_streamlit_entire_game_reruns_and_feedback(tmp_path, monkeypatch):
+@pytest.mark.parametrize("seed", (0, 4, 6))
+def test_streamlit_entire_game_reruns_and_feedback(tmp_path, monkeypatch, seed):
     import feedback
     monkeypatch.setattr(feedback, "DEFAULT_PATH", tmp_path / "survey.jsonl")
     at = AppTest.from_file(str(APP), default_timeout=10).run()
     assert not at.exception
-    at.number_input(key="seed_input").set_value(42).run()
+    at.number_input(key="seed_input").set_value(seed).run()
     at.button(key="start").click().run()
-    policy_rng = Random(42 ^ 0x574549)
+    policy_rng = Random(seed ^ 0x574549)
     phases = set()
     for _ in range(60):
         assert not at.exception
@@ -54,6 +57,7 @@ def test_streamlit_entire_game_reruns_and_feedback(tmp_path, monkeypatch):
     submit.click().run()
     assert not at.exception and (tmp_path / "survey.jsonl").exists()
     assert len((tmp_path / "survey.jsonl").read_text(encoding="utf-8").splitlines()) == 1
+    assert json.loads((tmp_path / "survey.jsonl").read_text(encoding="utf-8"))["version"] == "0.4"
 
 
 def test_streamlit_home_seed_change_and_restart():

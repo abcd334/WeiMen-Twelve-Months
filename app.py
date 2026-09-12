@@ -34,10 +34,10 @@ def run_action(action, *args):
 def draw_sidebar(view):
     names = {c["id"]: c["name"] for c in view["characters"]}
     with st.sidebar:
-        st.header("青崖門手記")
+        st.header("掌門札記")
         st.caption(f"本局種子：{view['seed']}")
-        with st.expander("觀察札記", expanded=False):
-            st.caption("可核對事實是已觀察到的依據；言行觀察仍需比對；日常片段只記性格與情境。")
+        with st.expander("人物與異常", expanded=False):
+            st.caption("只記錄新的言行或事實；沒有新變化便不新增。重大警示若有後續進展，會另記一筆。")
             if not view["observations"]:
                 st.write("尚未留下觀察。")
             for cue in reversed(view["observations"]):
@@ -49,7 +49,7 @@ def draw_sidebar(view):
         with st.expander("事件紀錄"):
             for log in reversed(view["logs"]):
                 st.write(f"第 {log['month']} 月：{log['text']}")
-        with st.expander("已公開狀態旗標"):
+        with st.expander("已知往事"):
             for flag in view["flags"] or ["尚無已公開事項。"]:
                 st.write(flag)
         st.button("重新開始", on_click=restart)
@@ -57,7 +57,9 @@ def draw_sidebar(view):
 
 
 def draw_cards(view):
-    for column, char in zip(st.columns(4), view["characters"]):
+    columns = st.columns(2)
+    for index, char in enumerate(view["characters"]):
+        column = columns[index % 2]
         with column, st.container(border=True):
             st.subheader(char["name"])
             st.caption(f"{char['age']} 歲 · {char['role']}專長 · {char['personality']}")
@@ -65,16 +67,21 @@ def draw_cards(view):
             st.markdown(f"**{char['physical']}**")
             st.write(char["signature"])
             with st.expander("人物小傳與近況"):
-                st.write(char["background"])
-                st.write(char["recent"])
-                for experience in char["experiences"]:
-                    st.caption(experience)
+                st.write("小傳：" + char["background"])
+                when = f"（第 {char['recent_month']} 月）" if char["recent_month"] else ""
+                st.write("近況" + when + "：" + char["recent"])
+                if char["experiences"]:
+                    st.write("已知經歷：")
+                    for experience in char["experiences"]:
+                        st.write("• " + experience)
 
 
 def draw_day(state, view):
     event = view["event"]
     st.header(event["title"])
     st.write(event["description"])
+    for reaction in event.get("reactions", []):
+        st.write(reaction)
     for column, option in zip(st.columns(3), event["options"]):
         with column, st.container(border=True):
             st.markdown(f"**{option['label']}**")
@@ -102,6 +109,8 @@ def draw_day(state, view):
     preview = public_option(state, next(o for o in current_event(state)["options"] if o["id"] == option_id), members)
     for hint in preview["extra_hints"]:
         st.info(hint)
+    for reaction in preview["character_hooks"]:
+        st.write(reaction)
     valid = len(members) == option["count"] and option["cost"] <= view["resources"]["糧餉"]
     st.caption("確認後立即結算一次；未派遣者將有機會在次月休養。")
     if st.button("確認派遣", type="primary", disabled=not valid, key="confirm_day"):
@@ -110,7 +119,10 @@ def draw_day(state, view):
 
 def draw_night(state, view):
     scene = night_view(state)
-    st.header("夜間人物互動 · " + scene["name"])
+    st.header("夜間 · " + {"personal_scene": scene["name"], "relationship_scene": "同門之間", "mainline_scene": "追查舊事", "quiet_scene": "歇一口氣", "group_scene": "留下來的人"}[scene["kind"]])
+    st.subheader(scene["title"])
+    if scene["context"]:
+        st.write(scene["context"])
     st.write(scene["text"])
     choices = {c["id"]: c for c in scene["choices"]}
     for choice in choices.values():
@@ -126,10 +138,17 @@ def draw_night(state, view):
 def draw_ending(state):
     end = ending_view(state)
     st.header("青崖門結局 · " + end["ending"])
-    st.write(end["reason"])
+    st.write(end["final_scene"])
+    with st.expander("這一局的謎底與未解之處", expanded=True):
+        st.write(end["mystery_reveal"])
+        for callback in end["callbacks"]:
+            st.write(callback)
+        for callback in end["personal_callbacks"]:
+            st.write(callback)
     st.subheader("四名弟子的去向")
     for char in end["characters"]:
-        with st.expander(char["name"] + " · " + char["fate"], expanded=True):
+        with st.expander(char["name"], expanded=True):
+            st.write(char["epilogue"])
             st.markdown("**人物心跡（結局後解鎖）**")
             st.write(char["heart"])
             for cue in char["warnings"]:
@@ -179,11 +198,10 @@ def main():
     draw_sidebar(view)
     phase = {"day": "白天 · 門派事件", "day_result": "白天 · 結算", "night": "夜間 · 人物互動",
              "night_result": "夜間 · 結算", "ended": "結局"}[view["phase"]]
-    st.subheader(f"第 {view['month']} 月／十二月 · {phase}")
+    st.subheader(f"第 {view['month']} 月 · {view['chapter']}")
+    st.caption(phase)
     for col, (name, value) in zip(st.columns(3), view["resources"].items()):
         col.metric(name, value)
-    draw_cards(view)
-    st.divider()
     if view["phase"] == "day":
         for text in view["last_result"]:
             st.info(text)
@@ -194,7 +212,7 @@ def main():
         st.header("本階段結果")
         for line in view["last_result"]:
             st.write(line)
-        st.caption("新的言行已寫入側邊欄「觀察札記」。")
+        st.caption("新的言行或事實，可在側邊欄「掌門札記」查看。")
         if view["phase"] == "day_result":
             if st.button("進入夜間互動", key="next_phase", type="primary"):
                 run_action(start_night, state)
@@ -202,6 +220,8 @@ def main():
             run_action(begin_month, state)
     else:
         draw_ending(state)
+    with st.expander("門內眾人", expanded=False):
+        draw_cards(view)
 
 
 if __name__ == "__main__":

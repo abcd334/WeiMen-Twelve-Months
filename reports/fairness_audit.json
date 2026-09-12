@@ -1,5 +1,6 @@
 [
   {
+    "policy": "conservative_policy",
     "seed": 0,
     "month": 5,
     "name": "陸青禾",
@@ -8,133 +9,132 @@
       {
         "month": 3,
         "strength": "strong",
-        "text": "重要的話總寫在窄紙上遞來。 拿來一份山外路引，請你確認離山交接。"
+        "text": "將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
       },
       {
         "month": 4,
         "strength": "strong",
-        "text": "重要的話總寫在窄紙上遞來。 將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
+        "text": "把未完的值勤逐項交給同門，明言離山之日已在考慮。"
       }
-    ],
-    "policy": "conservative_policy"
+    ]
   },
   {
-    "seed": 0,
-    "month": 9,
-    "name": "岑青禾",
-    "kind": "left",
-    "warnings": [
-      {
-        "month": 7,
-        "strength": "strong",
-        "text": "每逢道別便以兩指輕敲門框。 拿來一份山外路引，請你確認離山交接。"
-      },
-      {
-        "month": 8,
-        "strength": "strong",
-        "text": "每逢道別便以兩指輕敲門框。 將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
-      }
-    ],
-    "policy": "conservative_policy"
-  },
-  {
-    "seed": 2,
+    "policy": "conservative_policy",
+    "seed": 13,
     "month": 10,
-    "name": "葉定秋",
+    "name": "孟行雪",
     "kind": "left",
     "warnings": [
       {
         "month": 8,
         "strength": "strong",
-        "text": "重要的話總寫在窄紙上遞來。 拿來一份山外路引，請你確認離山交接。"
+        "text": "將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
       },
       {
         "month": 9,
         "strength": "strong",
-        "text": "重要的話總寫在窄紙上遞來。 將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
+        "text": "把未完的值勤逐項交給同門，明言離山之日已在考慮。"
       }
-    ],
-    "policy": "conservative_policy"
+    ]
   },
   {
-    "seed": 6,
-    "month": 4,
-    "name": "岑聽瀾",
-    "kind": "defected",
-    "warnings": [
-      {
-        "month": 2,
-        "strength": "strong",
-        "text": "聽人說話時習慣捻著一枚木扣。 當面表示已向烈川堂詢問投靠條件，交出的回信可以核對。"
-      },
-      {
-        "month": 3,
-        "strength": "strong",
-        "text": "聽人說話時習慣捻著一枚木扣。 承認已談過替烈川堂帶路的交換，仍在等你的答覆。"
-      }
-    ],
-    "policy": "conservative_policy"
-  },
-  {
-    "seed": 21,
-    "month": 9,
-    "name": "黎晚嶺",
-    "kind": "defected",
-    "warnings": [
-      {
-        "month": 5,
-        "strength": "strong",
-        "text": "出門前總先確認同行者帶了水。 當面表示已向烈川堂詢問投靠條件，交出的回信可以核對。"
-      },
-      {
-        "month": 8,
-        "strength": "strong",
-        "text": "出門前總先確認同行者帶了水。 拿出烈川堂允諾接納的信，說若門內再無位置便會過去。"
-      }
-    ],
-    "policy": "conservative_policy"
-  },
-  {
-    "seed": 24,
+    "policy": "conservative_policy",
+    "seed": 17,
     "month": 8,
-    "name": "孟晚嶺",
-    "kind": "defected",
+    "name": "蘇青禾",
+    "kind": "left",
     "warnings": [
       {
         "month": 6,
         "strength": "strong",
-        "text": "坐下之前一定把旁邊的椅子拉正。 拿出烈川堂允諾接納的信，說若門內再無位置便會過去。"
+        "text": "將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
       },
       {
         "month": 7,
         "strength": "strong",
-        "text": "坐下之前一定把旁邊的椅子拉正。 承認已談過替烈川堂帶路的交換，仍在等你的答覆。"
+        "text": "把未完的值勤逐項交給同門，明言離山之日已在考慮。"
       }
-    ],
-    "policy": "conservative_policy"
+    ]
   },
   {
-    "seed": 18,
+    "policy": "conservative_policy",
+    "seed": 99,
     "month": 9,
-    "name": "余晚嶺",
-    "kind": "dead",
-    "risk_notice": "致命風險：崖道崩落可能使同行弟子死亡。",
-    "policy": "random_policy"
+    "name": "孟定秋",
+    "kind": "defected",
+    "warnings": [
+      {
+        "month": 7,
+        "strength": "strong",
+        "text": "拿出烈川堂允諾接納的信，說若門內再無位置便會過去。"
+      },
+      {
+        "month": 8,
+        "strength": "strong",
+        "text": "當面表示已向烈川堂詢問投靠條件，交出的回信可以核對。"
+      }
+    ]
   },
   {
-    "seed": 27,
-    "month": 5,
-    "name": "蘇聽瀾",
-    "kind": "dead",
-    "risk_notice": "致命風險：礦道坍塌可能造成弟子死亡。",
-    "policy": "random_policy"
-  },
-  {
-    "seed": 28,
+    "policy": "conservative_policy",
+    "seed": 113,
     "month": 6,
-    "name": "賀聽瀾",
+    "name": "黎青禾",
+    "kind": "defected",
+    "warnings": [
+      {
+        "month": 4,
+        "strength": "strong",
+        "text": "拿出烈川堂允諾接納的信，說若門內再無位置便會過去。"
+      },
+      {
+        "month": 5,
+        "strength": "strong",
+        "text": "當面表示已向烈川堂詢問投靠條件，交出的回信可以核對。"
+      }
+    ]
+  },
+  {
+    "policy": "conservative_policy",
+    "seed": 224,
+    "month": 10,
+    "name": "葉疏桐",
+    "kind": "defected",
+    "warnings": [
+      {
+        "month": 8,
+        "strength": "strong",
+        "text": "拿出烈川堂允諾接納的信，說若門內再無位置便會過去。"
+      },
+      {
+        "month": 9,
+        "strength": "strong",
+        "text": "當面表示已向烈川堂詢問投靠條件，交出的回信可以核對。"
+      }
+    ]
+  },
+  {
+    "policy": "random_policy",
+    "seed": 8,
+    "month": 11,
+    "name": "程初霽",
     "kind": "dead",
-    "risk_notice": "致命風險：礦道坍塌可能造成弟子死亡。",
-    "policy": "random_policy"
+    "risk_notice": "致命風險：礦道坍塌可能造成弟子死亡。"
+  },
+  {
+    "policy": "random_policy",
+    "seed": 16,
+    "month": 9,
+    "name": "程素弦",
+    "kind": "dead",
+    "risk_notice": "致命風險：崖道崩落可能使同行弟子死亡。"
+  },
+  {
+    "policy": "random_policy",
+    "seed": 27,
+    "month": 3,
+    "name": "陸初霽",
+    "kind": "dead",
+    "risk_notice": "致命風險：崖道崩落可能使同行弟子死亡。"
   }
 ]

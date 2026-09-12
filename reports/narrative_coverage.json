@@ -1,0 +1,371 @@
+{
+  "seeds": 200,
+  "policy": "resource_guard_policy",
+  "complete_games": 200,
+  "thread_distribution": {
+    "old_letters": 67,
+    "false_cards": 69,
+    "old_road": 64
+  },
+  "average_callbacks": 16.47,
+  "callback_coverage_percent": 100.0,
+  "spotlight_coverage_percent": 100.0,
+  "relationship_coverage_percent": 100.0,
+  "mainline_coverage_percent": 100.0,
+  "month8_grounded_percent": 100.0,
+  "group_complete_percent": 100.0,
+  "ending_callbacks_percent": 100.0,
+  "repeated_outcome_percent": 0.0,
+  "repeated_night_reaction_percent": 0.0,
+  "average_unique_texts": 44.0,
+  "thread_beat_coverage": {
+    "old_letters": {
+      "setup": 100.0,
+      "escalation": 100.0,
+      "payoff": 100.0
+    },
+    "false_cards": {
+      "setup": 100.0,
+      "escalation": 100.0,
+      "payoff": 100.0
+    },
+    "old_road": {
+      "setup": 100.0,
+      "escalation": 100.0,
+      "payoff": 100.0
+    }
+  },
+  "examples": [
+    {
+      "seed": 0,
+      "thread": "old_letters",
+      "month_reached": 12,
+      "callbacks_2_to_10": 16,
+      "spotlights_before_10": {
+        "c0": 4,
+        "c1": 4,
+        "c2": 5
+      },
+      "scene_counts": {
+        "personal_scene": 4,
+        "relationship_scene": 3,
+        "mainline_scene": 2,
+        "quiet_scene": 1,
+        "group_scene": 1
+      },
+      "beats": [
+        "escalation",
+        "payoff",
+        "setup"
+      ],
+      "mystery_complete": false,
+      "repeated_outcomes": 0,
+      "outcome_count": 11,
+      "repeated_reactions": 0,
+      "reaction_count": 10,
+      "unique_scene_texts": 44,
+      "month8_grounded": true,
+      "group_complete": true,
+      "ending_callback_count": 3,
+      "final_scene_length": 228,
+      "epilogue_lengths": [
+        121,
+        119,
+        119,
+        118
+      ],
+      "chain": [
+        {
+          "month": 1,
+          "beat": "setup",
+          "text": "郭問舟送來一張折過三次的驛站收件單，收件處靠近烈川堂。單上有前掌門慣用的核對記號，但沒有信件內容。"
+        },
+        {
+          "month": 2,
+          "beat": "setup",
+          "text": "郭問舟請你留下驛站收件單上的折痕位置，因為轉抄時那一角常被省掉。地址能指出信送向哪裡，還不能替信裡的話作答。"
+        },
+        {
+          "month": 4,
+          "beat": "escalation",
+          "text": "驛站留底顯示，同一條收件路線在前掌門失蹤前就已使用。路線是真的，至於現在傳的是消息、家書還是別的，單靠地址無法判斷。"
+        },
+        {
+          "month": 5,
+          "beat": "escalation",
+          "text": "郭問舟把舊留底的年份念給眾人聽，請大家別將不同時期的聯絡混在一起。前掌門的安排與現在的選擇，必須各自查證。"
+        },
+        {
+          "month": 7,
+          "beat": "escalation",
+          "text": "驛站通知回件得由原來的聯絡人確認。門內若有人被限制出入，誰能代領、對方是否願意交信，都要另作安排。"
+        },
+        {
+          "month": 8,
+          "beat": "escalation",
+          "text": "郭問舟在桌上留了兩個紙夾，一個放核對過的內容，一個放尚未查證的原話。他請你不要因為相信寄信的人，就省掉第二個紙夾。"
+        },
+        {
+          "month": 10,
+          "beat": "payoff",
+          "text": "郭問舟請眾人逐份核對手上已有的收件單與信件，沒有拿空白頁補數。地址、時間、用途，現在究竟查明了幾項？"
+        },
+        {
+          "month": 12,
+          "beat": "payoff",
+          "text": "決戰將近，有人想把整條通信說成通敵，也有人想一概稱作救人。郭問舟請雙方先指著已見過的內容說話，別替缺失的信下結論。"
+        }
+      ],
+      "callback_examples": [
+        {
+          "month": 3,
+          "source_id": "f1",
+          "text": "第 1 月留下的事又被提起：折過三次的驛站收件單仍留在議事桌上。當時的問題是：寄往烈川堂的信，到底替誰傳消息？"
+        },
+        {
+          "month": 3,
+          "source_id": "f5",
+          "text": "第 1 月留下的事又被提起：談到缺角的舊帳時，眾人重新核對了當時「優先補發月錢」留下的結果。"
+        },
+        {
+          "month": 4,
+          "source_id": "f7",
+          "text": "第 1 月留下的事又被提起：陸青禾提起「維持值勤，只准休班時接工」。當時定下的界線是：家債仍須在原有門務之外處理，催款單與班表分放兩邊。門派守住分工，也留下私人負擔。"
+        },
+        {
+          "month": 4,
+          "source_id": "f13",
+          "text": "第 2 月留下的事又被提起：談到重新縫口的來客包袱時，眾人重新核對了當時「護送至中立驛站」留下的結果。"
+        }
+      ],
+      "required_clues_found": [
+        "letter_receipt"
+      ]
+    },
+    {
+      "seed": 4,
+      "thread": "false_cards",
+      "month_reached": 12,
+      "callbacks_2_to_10": 17,
+      "spotlights_before_10": {
+        "c0": 4,
+        "c1": 4,
+        "c2": 3,
+        "c3": 4
+      },
+      "scene_counts": {
+        "personal_scene": 4,
+        "relationship_scene": 3,
+        "mainline_scene": 2,
+        "quiet_scene": 1,
+        "group_scene": 1
+      },
+      "beats": [
+        "escalation",
+        "payoff",
+        "setup"
+      ],
+      "mystery_complete": false,
+      "repeated_outcomes": 0,
+      "outcome_count": 11,
+      "repeated_reactions": 0,
+      "reaction_count": 10,
+      "unique_scene_texts": 44,
+      "month8_grounded": true,
+      "group_complete": true,
+      "ending_callback_count": 3,
+      "final_scene_length": 229,
+      "epilogue_lengths": [
+        119,
+        119,
+        128,
+        119
+      ],
+      "chain": [
+        {
+          "month": 1,
+          "beat": "setup",
+          "text": "程守禾送來一張青崖門名帖，說有人憑它借走糧車。名帖日期被刮過，門內卻找不到對應的用印記錄。"
+        },
+        {
+          "month": 2,
+          "beat": "setup",
+          "text": "程守禾請人把名帖留底送上山，特意圈出被刮掉的日期。他只要求先核清哪筆承諾出自門內，不肯讓一句口頭否認抹去整批貨。"
+        },
+        {
+          "month": 4,
+          "beat": "escalation",
+          "text": "第二張名帖出現在另一筆交易裡，借用的卻是同一輛糧車。裴知節請你先別爭名聲：「一個下午，同一輛車怎麼會在兩個渡口？」"
+        },
+        {
+          "month": 5,
+          "beat": "escalation",
+          "text": "程守禾不肯再照轉述簽收，要求所有新約留下經手人。先前一張名帖上的疑問，已變成每一筆交易都得多問的一句話。"
+        },
+        {
+          "month": 7,
+          "beat": "escalation",
+          "text": "裴知節請村民將親見與轉述分開。有人一直說青崖門答應過，問到誰接過名帖時，卻又指向另一個沒到場的人。"
+        },
+        {
+          "month": 8,
+          "beat": "escalation",
+          "text": "郭問舟將互有矛盾的日期分列兩欄，請你保留尚未核實的一邊。若只留下對門派有利的說法，明日便無從說服旁人。"
+        },
+        {
+          "month": 10,
+          "beat": "payoff",
+          "text": "程守禾把待查的名帖放在桌上，請你當面區分哪些承諾有留底，哪些只有抄件。紙上的矛盾可以追問，造假來源仍要靠證據。"
+        },
+        {
+          "month": 11,
+          "beat": "payoff",
+          "text": "裴知節請你先排好願意到場的證人，再整理可供核對的原件。名聲能否挽回，取決於明日是否答得出每一筆從哪裡來。"
+        },
+        {
+          "month": 12,
+          "beat": "payoff",
+          "text": "郭問舟用乾紙分隔名帖，沒有把缺失的用印記錄補齊。到了斷劍臺，已查明與仍存疑的部分都得攤開說。"
+        }
+      ],
+      "callback_examples": [
+        {
+          "month": 2,
+          "source_id": "f6",
+          "text": "郭問舟提起第 1 月的安排：「你那回選擇『優先補發月錢』，我還記得。這回我願意先把手上的原件留下，再談新的安排。」"
+        },
+        {
+          "month": 3,
+          "source_id": "f1",
+          "text": "第 1 月留下的事又被提起：日期被刮過的青崖門名帖仍留在議事桌上。當時的問題是：為什麼總有人說青崖門已經答應？"
+        },
+        {
+          "month": 3,
+          "source_id": "f6",
+          "text": "第 1 月留下的事又被提起：談到缺角的舊帳時，眾人重新核對了當時「優先補發月錢」留下的結果。"
+        },
+        {
+          "month": 4,
+          "source_id": "f8",
+          "text": "第 1 月留下的事又被提起：顧雲岫提起「維持值勤，只准休班時接工」。當時定下的界線是：家債仍須在原有門務之外處理，催款單與班表分放兩邊。門派守住分工，也留下私人負擔。"
+        }
+      ],
+      "required_clues_found": [
+        "card_original",
+        "card_ink"
+      ]
+    },
+    {
+      "seed": 6,
+      "thread": "old_road",
+      "month_reached": 12,
+      "callbacks_2_to_10": 17,
+      "spotlights_before_10": {
+        "c0": 4,
+        "c1": 4,
+        "c2": 4,
+        "c3": 4
+      },
+      "scene_counts": {
+        "personal_scene": 4,
+        "relationship_scene": 3,
+        "mainline_scene": 2,
+        "quiet_scene": 1,
+        "group_scene": 1
+      },
+      "beats": [
+        "escalation",
+        "payoff",
+        "setup"
+      ],
+      "mystery_complete": false,
+      "repeated_outcomes": 0,
+      "outcome_count": 11,
+      "repeated_reactions": 0,
+      "reaction_count": 10,
+      "unique_scene_texts": 44,
+      "month8_grounded": true,
+      "group_complete": true,
+      "ending_callback_count": 3,
+      "final_scene_length": 227,
+      "epilogue_lengths": [
+        119,
+        120,
+        125,
+        109
+      ],
+      "chain": [
+        {
+          "month": 1,
+          "beat": "setup",
+          "text": "前掌門留下的換防圖缺了一角，斷口旁寫著「商車不得過」。郭問舟認出那是舊路入口，卻不肯只憑這張圖斷定誰走過。"
+        },
+        {
+          "month": 2,
+          "beat": "setup",
+          "text": "郭問舟拿來一片與圖角同色的舊紙，請你先核對紙邊。他只記得前掌門曾在雨夜借走路簿，沒有看見回程。"
+        },
+        {
+          "month": 4,
+          "beat": "escalation",
+          "text": "同樣寬度的車轍出現在後山封路旁。葉秉衡在擂臺上催你應戰，郭問舟卻指著車轍說：「擂臺會散，路不會自己長出來。」"
+        },
+        {
+          "month": 5,
+          "beat": "escalation",
+          "text": "郭問舟在新畫的車轍旁標出村民常走的藥徑。兩條線只隔一道坡；守路、採藥和運糧，現在都得先講清楚通行範圍。"
+        },
+        {
+          "month": 7,
+          "beat": "escalation",
+          "text": "程守禾帶來一張運糧草單，指著繞路費說：若青崖門只守正門，後山仍得另請人看。路上的事已開始影響眼前的糧價。"
+        },
+        {
+          "month": 8,
+          "beat": "escalation",
+          "text": "郭問舟問起失蹤前借出的路簿，請你保留每份原件。他擔心的不是少一個名字，而是不同時間走過同一條路的人被混成一夥。"
+        },
+        {
+          "month": 10,
+          "beat": "payoff",
+          "text": "郭問舟將舊換防圖與目前找到的記錄並排，空白處仍留白。哪些路段曾放行、誰能作證，今晚只按已有記錄回答。"
+        },
+        {
+          "month": 11,
+          "beat": "payoff",
+          "text": "出發前有人想直接在圖上畫滿路線，郭問舟按住筆：「缺的那段就說缺。明日若有人反問，要能拿出親手查過的東西。」"
+        },
+        {
+          "month": 12,
+          "beat": "payoff",
+          "text": "舊路圖被收進防雨布套。郭問舟把已查的部分摺在外側，提醒你到斷劍臺時先說證據能支持到哪裡。"
+        }
+      ],
+      "callback_examples": [
+        {
+          "month": 2,
+          "source_id": "f7",
+          "text": "郭問舟提起第 1 月的安排：「你那回選擇『優先補發月錢』，我還記得。這回我願意先把手上的原件留下，再談新的安排。」"
+        },
+        {
+          "month": 3,
+          "source_id": "f1",
+          "text": "第 1 月留下的事又被提起：缺了一角的舊換防圖仍留在議事桌上。當時的問題是：烈川堂為什麼一直測量後山？"
+        },
+        {
+          "month": 3,
+          "source_id": "f7",
+          "text": "第 1 月留下的事又被提起：談到缺角的舊帳時，眾人重新核對了當時「優先補發月錢」留下的結果。"
+        },
+        {
+          "month": 4,
+          "source_id": "f9",
+          "text": "第 1 月留下的事又被提起：岑聽瀾提起「今晚一起拆。」。當時定下的界線是：信件或消息要經共同查核才採用；外部來往被更嚴格看待，但地址本身仍不能當作通敵證據。"
+        }
+      ],
+      "required_clues_found": [
+        "road_map"
+      ]
+    }
+  ]
+}

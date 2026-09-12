@@ -3,476 +3,3127 @@
     {
       "id": "hidden_identity",
       "title": "身分隱瞞",
+      "scenes": [
+        {
+          "id": "identity_first",
+          "title": "不完整的舊檔",
+          "text": "{name}帶來一頁沒有署名的舊檔：「我以前在哪裡做過事，門內有人在問。我願意交代，但不想讓傳言先替我定罪。」",
+          "choices": [
+            {
+              "id": "private_record_0",
+              "label": "安排私下核對，支付抄錄費",
+              "hint": "花糧餉核對來歷；今晚少一班巡守。",
+              "cost": 3,
+              "effects": {
+                "defense": -1
+              },
+              "tradeoffs": [
+                "協助人物",
+                "門內支出"
+              ],
+              "psych": {
+                "trust": 8,
+                "stress": -9,
+                "loyalty": 4
+              },
+              "recovery": 0,
+              "relationship_delta": 0,
+              "goal_progress": 1,
+              "delayed": null,
+              "reaction": "{name}逐項說明舊日經歷，並同意留下可供核對的抄本。",
+              "approach": "support",
+              "callback_flag": "hidden_identity/0/private_record_0",
+              "reactions": {
+                "supported": "{name}逐項說明舊日經歷，並同意留下可供核對的抄本。",
+                "suspected": "{name}逐項說明舊日經歷，並同意留下可供核對的抄本。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            },
+            {
+              "id": "public_record_0",
+              "label": "公開查證流程，仍照原表值勤",
+              "hint": "維持守備；人物必須在同門面前回答來歷。",
+              "cost": 0,
+              "effects": {
+                "defense": 2
+              },
+              "tradeoffs": [
+                "維持門務",
+                "個人需求受限"
+              ],
+              "psych": {
+                "trust": -7,
+                "stress": 5,
+                "loyalty": -3
+              },
+              "recovery": 0,
+              "relationship_delta": 0,
+              "goal_progress": 0,
+              "delayed": null,
+              "reaction": "{name}答應出席說明，但要求只談查證結果，不轉述猜測。",
+              "approach": "discipline",
+              "callback_flag": "hidden_identity/0/public_record_0",
+              "reactions": {
+                "supported": "{name}答應出席說明，但要求只談查證結果，不轉述猜測。",
+                "suspected": "{name}答應出席說明，但要求只談查證結果，不轉述猜測。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            },
+            {
+              "id": "promise_review_0",
+              "label": "暫不公開來歷，約定次月核對",
+              "hint": "眼前不支出；下月需要另外安排查證。",
+              "cost": 0,
+              "effects": {},
+              "tradeoffs": [
+                "保留彈性",
+                "後續代價"
+              ],
+              "psych": {
+                "trust": 1,
+                "stress": 3,
+                "loyalty": -1
+              },
+              "recovery": 0,
+              "relationship_delta": 0,
+              "goal_progress": 0,
+              "delayed": {
+                "after": 1,
+                "effects": {
+                  "treasury": -3
+                },
+                "text": "按先前約定，支付核對舊檔的抄錄費。"
+              },
+              "reaction": "{name}收回舊檔，和你約好下月再查，這次還沒有釐清來歷。",
+              "approach": "defer",
+              "callback_flag": "hidden_identity/0/promise_review_0",
+              "reactions": {
+                "supported": "{name}收回舊檔，和你約好下月再查，這次還沒有釐清來歷。",
+                "suspected": "{name}收回舊檔，和你約好下月再查，這次還沒有釐清來歷。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            }
+          ],
+          "kind": "arc",
+          "stage": 0,
+          "arc_id": "hidden_identity"
+        },
+        {
+          "id": "identity_compare",
+          "title": "證人的說法不同",
+          "text": "{name}帶來第二份記錄：「這裡寫的日期和我記得的不一樣。要請當年的辦事人作證，就得有人下山。」",
+          "choices": [
+            {
+              "id": "private_record_1",
+              "label": "付旅費陪同訪問證人",
+              "hint": "支出旅費並減少巡守，讓人物當面說明。",
+              "cost": 4,
+              "effects": {
+                "defense": -1
+              },
+              "tradeoffs": [
+                "協助人物",
+                "門內支出"
+              ],
+              "psych": {
+                "trust": 8,
+                "stress": -9,
+                "loyalty": 4
+              },
+              "recovery": 0,
+              "relationship_delta": 0,
+              "goal_progress": 1,
+              "delayed": null,
+              "reaction": "{name}與證人逐項比對日期，把不同之處留在記錄上，沒有要求你先相信任何一方。",
+              "approach": "support",
+              "callback_flag": "hidden_identity/1/private_record_1",
+              "reactions": {
+                "supported": "{name}與證人逐項比對日期，把不同之處留在記錄上，沒有要求你先相信任何一方。",
+                "suspected": "{name}與證人逐項比對日期，把不同之處留在記錄上，沒有要求你先相信任何一方。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            },
+            {
+              "id": "public_record_1",
+              "label": "請證人寄書面答覆，維持值勤",
+              "hint": "守備照常；人物暫時不能當面追問。",
+              "cost": 1,
+              "effects": {
+                "defense": 2
+              },
+              "tradeoffs": [
+                "維持門務",
+                "個人需求受限"
+              ],
+              "psych": {
+                "trust": -7,
+                "stress": 5,
+                "loyalty": -3
+              },
+              "recovery": 0,
+              "relationship_delta": 0,
+              "goal_progress": 0,
+              "delayed": null,
+              "reaction": "{name}寫好要問的問題，接受先等書面答覆。",
+              "approach": "discipline",
+              "callback_flag": "hidden_identity/1/public_record_1",
+              "reactions": {
+                "supported": "{name}寫好要問的問題，接受先等書面答覆。",
+                "suspected": "{name}寫好要問的問題，接受先等書面答覆。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            },
+            {
+              "id": "promise_review_1",
+              "label": "只核對眼前可查的部分",
+              "hint": "暫時保留疑點；需要日後補查，人物也暫緩說明。",
+              "cost": 0,
+              "effects": {},
+              "tradeoffs": [
+                "保留彈性",
+                "後續代價"
+              ],
+              "psych": {
+                "trust": 1,
+                "stress": 3,
+                "loyalty": -1
+              },
+              "recovery": 0,
+              "relationship_delta": 0,
+              "goal_progress": 0,
+              "delayed": {
+                "after": 2,
+                "effects": {
+                  "treasury": -2
+                },
+                "text": "補查舊檔上先前保留的日期，支出查證費。"
+              },
+              "reaction": "{name}把仍有疑問的日期圈出來，同意暫不對外宣稱已查清。",
+              "approach": "defer",
+              "callback_flag": "hidden_identity/1/promise_review_1",
+              "reactions": {
+                "supported": "{name}把仍有疑問的日期圈出來，同意暫不對外宣稱已查清。",
+                "suspected": "{name}把仍有疑問的日期圈出來，同意暫不對外宣稱已查清。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            }
+          ],
+          "kind": "arc",
+          "stage": 1,
+          "arc_id": "hidden_identity"
+        },
+        {
+          "id": "identity_result",
+          "title": "把查到的寫清楚",
+          "text": "{name}把之前談過的舊檔重新分好：「哪些查清了、哪些還沒有，能不能分開寫？我不想每次值勤都得再解釋一次。」",
+          "choices": [
+            {
+              "id": "private_record_2",
+              "label": "整理查證摘要，讓其恢復正常分工",
+              "hint": "付出整理費用，減少反覆盤問。",
+              "cost": 2,
+              "effects": {
+                "reputation": 2
+              },
+              "tradeoffs": [
+                "協助人物",
+                "門內支出"
+              ],
+              "psych": {
+                "trust": 8,
+                "stress": -9,
+                "loyalty": 4
+              },
+              "recovery": 0,
+              "relationship_delta": 0,
+              "goal_progress": 1,
+              "delayed": null,
+              "reaction": "{name}收下摘要，答應以後只補充新證據，不再反覆辯解同一件事。",
+              "approach": "support",
+              "callback_flag": "hidden_identity/2/private_record_2",
+              "reactions": {
+                "supported": "{name}收下摘要，答應以後只補充新證據，不再反覆辯解同一件事。",
+                "suspected": "{name}收下摘要，答應以後只補充新證據，不再反覆辯解同一件事。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            },
+            {
+              "id": "public_record_2",
+              "label": "保留審核，先依既定名冊辦事",
+              "hint": "照常輪值；人物仍需等待完整查證。",
+              "cost": 0,
+              "effects": {
+                "defense": 2
+              },
+              "tradeoffs": [
+                "維持門務",
+                "個人需求受限"
+              ],
+              "psych": {
+                "trust": -7,
+                "stress": 5,
+                "loyalty": -3
+              },
+              "recovery": 0,
+              "relationship_delta": 0,
+              "goal_progress": 0,
+              "delayed": null,
+              "reaction": "{name}照原表領取值勤，但再次請你把未查清的部分明列出來。",
+              "approach": "discipline",
+              "callback_flag": "hidden_identity/2/public_record_2",
+              "reactions": {
+                "supported": "{name}照原表領取值勤，但再次請你把未查清的部分明列出來。",
+                "suspected": "{name}照原表領取值勤，但再次請你把未查清的部分明列出來。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            },
+            {
+              "id": "promise_review_2",
+              "label": "讓其自行決定公開哪些舊事",
+              "hint": "保留個人界線；同門對缺少的說明仍可能有疑問。",
+              "cost": 0,
+              "effects": {
+                "reputation": -2
+              },
+              "tradeoffs": [
+                "保留彈性",
+                "後續代價"
+              ],
+              "psych": {
+                "trust": 1,
+                "stress": 3,
+                "loyalty": -1
+              },
+              "recovery": 0,
+              "relationship_delta": 0,
+              "goal_progress": 0,
+              "delayed": null,
+              "reaction": "{name}只交出願意公開的部分，承認這樣還不能回答所有疑問。",
+              "approach": "defer",
+              "callback_flag": "hidden_identity/2/promise_review_2",
+              "reactions": {
+                "supported": "{name}只交出願意公開的部分，承認這樣還不能回答所有疑問。",
+                "suspected": "{name}只交出願意公開的部分，承認這樣還不能回答所有疑問。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            }
+          ],
+          "kind": "arc",
+          "stage": 2,
+          "arc_id": "hidden_identity"
+        }
+      ],
       "stages": [
-        "{name}留下一頁撕去落款的抄件：「我的過去若被問起，你願意先聽我說完嗎？」",
-        "{name}想核對舊檔，卻需要挪用抄書與巡山的人手。",
-        "{name}把重新整理的舊檔放在案上，等你決定是否留下這份紀錄。"
+        "{name}帶來一頁沒有署名的舊檔：「我以前在哪裡做過事，門內有人在問。我願意交代，但不想讓傳言先替我定罪。」",
+        "{name}帶來第二份記錄：「這裡寫的日期和我記得的不一樣。要請當年的辦事人作證，就得有人下山。」",
+        "{name}把之前談過的舊檔重新分好：「哪些查清了、哪些還沒有，能不能分開寫？我不想每次值勤都得再解釋一次。」"
       ],
       "choices": [
         {
-          "id": "support",
-          "label": "撥糧讓其親自查舊檔",
-          "tradeoffs": [
-            "人物需要",
-            "糧餉支出"
-          ],
-          "cost": 5,
+          "id": "private_record_0",
+          "label": "安排私下核對，支付抄錄費",
+          "hint": "花糧餉核對來歷；今晚少一班巡守。",
+          "cost": 3,
           "effects": {
             "defense": -1
           },
+          "tradeoffs": [
+            "協助人物",
+            "門內支出"
+          ],
           "psych": {
-            "trust": 10,
-            "stress": -13,
-            "loyalty": 5
+            "trust": 8,
+            "stress": -9,
+            "loyalty": 4
           },
-          "reaction": "{name}收下安排，卻提醒你門內的缺口仍得補上。",
-          "delayed": null
+          "recovery": 0,
+          "relationship_delta": 0,
+          "goal_progress": 1,
+          "delayed": null,
+          "reaction": "{name}逐項說明舊日經歷，並同意留下可供核對的抄本。",
+          "approach": "support",
+          "callback_flag": "hidden_identity/0/private_record_0",
+          "reactions": {
+            "supported": "{name}逐項說明舊日經歷，並同意留下可供核對的抄本。",
+            "suspected": "{name}逐項說明舊日經歷，並同意留下可供核對的抄本。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+          }
         },
         {
-          "id": "discipline",
-          "label": "依門規登記來歷並查證",
-          "tradeoffs": [
-            "門派秩序",
-            "人物距離"
-          ],
+          "id": "public_record_0",
+          "label": "公開查證流程，仍照原表值勤",
+          "hint": "維持守備；人物必須在同門面前回答來歷。",
           "cost": 0,
           "effects": {
-            "defense": 3,
-            "treasury": 2
+            "defense": 2
           },
+          "tradeoffs": [
+            "維持門務",
+            "個人需求受限"
+          ],
           "psych": {
-            "trust": -8,
-            "stress": 6,
-            "loyalty": -4
+            "trust": -7,
+            "stress": 5,
+            "loyalty": -3
           },
-          "reaction": "{name}把規矩逐字記下；未被處理的私事仍擱在案邊。",
-          "delayed": null
+          "recovery": 0,
+          "relationship_delta": 0,
+          "goal_progress": 0,
+          "delayed": null,
+          "reaction": "{name}答應出席說明，但要求只談查證結果，不轉述猜測。",
+          "approach": "discipline",
+          "callback_flag": "hidden_identity/0/public_record_0",
+          "reactions": {
+            "supported": "{name}答應出席說明，但要求只談查證結果，不轉述猜測。",
+            "suspected": "{name}答應出席說明，但要求只談查證結果，不轉述猜測。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+          }
         },
         {
-          "id": "defer",
-          "label": "暫不追問，約定日後覆核",
-          "tradeoffs": [
-            "眼前彈性",
-            "延後負擔"
-          ],
+          "id": "promise_review_0",
+          "label": "暫不公開來歷，約定次月核對",
+          "hint": "眼前不支出；下月需要另外安排查證。",
           "cost": 0,
           "effects": {},
+          "tradeoffs": [
+            "保留彈性",
+            "後續代價"
+          ],
           "psych": {
-            "trust": 2,
-            "stress": 6,
-            "loyalty": -2
+            "trust": 1,
+            "stress": 3,
+            "loyalty": -1
           },
-          "reaction": "{name}答應先做眼前的事，也請你不要忘記今日的約定。",
+          "recovery": 0,
+          "relationship_delta": 0,
+          "goal_progress": 0,
           "delayed": {
-            "after": 2,
+            "after": 1,
             "effects": {
-              "treasury": -3,
-              "defense": -1
+              "treasury": -3
             },
-            "text": "先前延後的人事安排如今需要補上盤纏與值勤。"
+            "text": "按先前約定，支付核對舊檔的抄錄費。"
+          },
+          "reaction": "{name}收回舊檔，和你約好下月再查，這次還沒有釐清來歷。",
+          "approach": "defer",
+          "callback_flag": "hidden_identity/0/promise_review_0",
+          "reactions": {
+            "supported": "{name}收回舊檔，和你約好下月再查，這次還沒有釐清來歷。",
+            "suspected": "{name}收回舊檔，和你約好下月再查，這次還沒有釐清來歷。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
           }
         }
       ],
       "resolutions": {
-        "support": "多次得到實際協助後，終於願意把未來也寫進青崖門的名冊。",
-        "discipline": "幾次請求都落回規矩之內，私事與門內責任之間的裂縫仍未補起。",
-        "defer": "數次約定仍待兌現，決定先把自己的去處留白。"
+        "support": "舊檔採私下核對，公開分工不必等整段身世都攤開才安排。缺頁中的名字仍須查證。",
+        "discipline": "來歷依共同程序查核，原有值勤仍須承擔。規矩定了下來，卻不能代替缺頁中的證詞。",
+        "defer": "舊事保留一部分不公開，只核對眼前所需。這條界線留下了自主，也留下尚未問完的名字。"
       }
     },
     {
       "id": "family_debt",
       "title": "家族舊債",
+      "scenes": [
+        {
+          "id": "debt_first",
+          "title": "家書夾著催款單",
+          "text": "{name}把催款單攤在桌上：「家中這筆舊債又到期了。我想請半天假回信，若接山下零工，門內值勤就得調整。」",
+          "choices": [
+            {
+              "id": "household_loan_0",
+              "label": "借出周轉糧，讓其寫信安排還款",
+              "hint": "糧餉減少，人物能先處理家中債務。",
+              "cost": 5,
+              "effects": {},
+              "tradeoffs": [
+                "協助人物",
+                "門內支出"
+              ],
+              "psych": {
+                "trust": 8,
+                "stress": -9,
+                "loyalty": 4
+              },
+              "recovery": 0,
+              "relationship_delta": 0,
+              "goal_progress": 1,
+              "delayed": null,
+              "reaction": "{name}寫下借糧用途，說會先把家中的還款日期問清楚。",
+              "approach": "support",
+              "callback_flag": "family_debt/0/household_loan_0",
+              "reactions": {
+                "supported": "{name}寫下借糧用途，說會先把家中的還款日期問清楚。",
+                "suspected": "{name}寫下借糧用途，說會先把家中的還款日期問清楚。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            },
+            {
+              "id": "keep_shift_0",
+              "label": "維持值勤，只准休班時接工",
+              "hint": "門內得到完整輪值；人物處理家事的時間更少。",
+              "cost": 0,
+              "effects": {
+                "defense": 3,
+                "treasury": 1
+              },
+              "tradeoffs": [
+                "維持門務",
+                "個人需求受限"
+              ],
+              "psych": {
+                "trust": -7,
+                "stress": 5,
+                "loyalty": -3
+              },
+              "recovery": 0,
+              "relationship_delta": 0,
+              "goal_progress": 0,
+              "delayed": null,
+              "reaction": "{name}把零工安排到休班時，說短時間內沒法多還一些。",
+              "approach": "discipline",
+              "callback_flag": "family_debt/0/keep_shift_0",
+              "reactions": {
+                "supported": "{name}把零工安排到休班時，說短時間內沒法多還一些。",
+                "suspected": "{name}把零工安排到休班時，說短時間內沒法多還一些。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            },
+            {
+              "id": "outside_work_0",
+              "label": "准其下山接工，門內少排一班",
+              "hint": "保留糧餉，讓人物自行籌錢；今晚守備較薄。",
+              "cost": 0,
+              "effects": {
+                "defense": -3
+              },
+              "tradeoffs": [
+                "保留彈性",
+                "後續代價"
+              ],
+              "psych": {
+                "trust": 1,
+                "stress": 3,
+                "loyalty": -1
+              },
+              "recovery": 0,
+              "relationship_delta": 0,
+              "goal_progress": 1,
+              "delayed": null,
+              "reaction": "{name}接下山下的短工，答應在下次值勤前回來。",
+              "approach": "defer",
+              "callback_flag": "family_debt/0/outside_work_0",
+              "reactions": {
+                "supported": "{name}接下山下的短工，答應在下次值勤前回來。",
+                "suspected": "{name}接下山下的短工，答應在下次值勤前回來。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            }
+          ],
+          "kind": "arc",
+          "stage": 0,
+          "arc_id": "family_debt"
+        },
+        {
+          "id": "debt_plan",
+          "title": "借糧之後的安排",
+          "text": "{name}帶來一張還款草案：「不能每次都臨時求援。我想把還款、出勤和家中的開銷排在同一張表上。」",
+          "choices": [
+            {
+              "id": "household_loan_1",
+              "label": "付工錢代一班，讓其與家中談妥",
+              "hint": "支出替班費；人物能專心整理還款計畫。",
+              "cost": 4,
+              "effects": {},
+              "tradeoffs": [
+                "協助人物",
+                "門內支出"
+              ],
+              "psych": {
+                "trust": 8,
+                "stress": -9,
+                "loyalty": 4
+              },
+              "recovery": 0,
+              "relationship_delta": 0,
+              "goal_progress": 1,
+              "delayed": null,
+              "reaction": "{name}把還款與值勤分開安排，並交代哪些日期還需要家中答覆。",
+              "approach": "support",
+              "callback_flag": "family_debt/1/household_loan_1",
+              "reactions": {
+                "supported": "{name}把還款與值勤分開安排，並交代哪些日期還需要家中答覆。",
+                "suspected": "{name}把還款與值勤分開安排，並交代哪些日期還需要家中答覆。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            },
+            {
+              "id": "keep_shift_1",
+              "label": "先完成門內工作，再分期處理",
+              "hint": "門內收入與守備增加；還款會更慢。",
+              "cost": 0,
+              "effects": {
+                "treasury": 3,
+                "defense": 1
+              },
+              "tradeoffs": [
+                "維持門務",
+                "個人需求受限"
+              ],
+              "psych": {
+                "trust": -7,
+                "stress": 5,
+                "loyalty": -3
+              },
+              "recovery": 0,
+              "relationship_delta": 0,
+              "goal_progress": 0,
+              "delayed": null,
+              "reaction": "{name}接受分期處理，將原先想還的數目劃低。",
+              "approach": "discipline",
+              "callback_flag": "family_debt/1/keep_shift_1",
+              "reactions": {
+                "supported": "{name}接受分期處理，將原先想還的數目劃低。",
+                "suspected": "{name}接受分期處理，將原先想還的數目劃低。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            },
+            {
+              "id": "outside_work_1",
+              "label": "請村中長輩協調，欠下一份人情",
+              "hint": "眼前少動庫房；之後要回報長輩的幫忙。",
+              "cost": 1,
+              "effects": {},
+              "tradeoffs": [
+                "保留彈性",
+                "後續代價"
+              ],
+              "psych": {
+                "trust": 1,
+                "stress": 3,
+                "loyalty": -1
+              },
+              "recovery": 0,
+              "relationship_delta": 0,
+              "goal_progress": 0,
+              "delayed": {
+                "after": 2,
+                "effects": {
+                  "treasury": -2,
+                  "reputation": 2
+                },
+                "text": "回報先前協調家債的村中長輩，送去答謝糧。"
+              },
+              "reaction": "{name}請長輩協調還款期限，也提醒你這份人情往後得還。",
+              "approach": "defer",
+              "callback_flag": "family_debt/1/outside_work_1",
+              "reactions": {
+                "supported": "{name}請長輩協調還款期限，也提醒你這份人情往後得還。",
+                "suspected": "{name}請長輩協調還款期限，也提醒你這份人情往後得還。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            }
+          ],
+          "kind": "arc",
+          "stage": 1,
+          "arc_id": "family_debt"
+        },
+        {
+          "id": "debt_result",
+          "title": "家事與值勤的界線",
+          "text": "{name}帶著前幾次的安排來問：「往後催款再來，我該先向誰報備？我不想因為家事讓同門臨時接班。」",
+          "choices": [
+            {
+              "id": "household_loan_2",
+              "label": "明訂家事假與替班辦法",
+              "hint": "花糧餉請短工補班，讓安排可以持續。",
+              "cost": 3,
+              "effects": {
+                "defense": 1
+              },
+              "tradeoffs": [
+                "協助人物",
+                "門內支出"
+              ],
+              "psych": {
+                "trust": 8,
+                "stress": -9,
+                "loyalty": 4
+              },
+              "recovery": 0,
+              "relationship_delta": 0,
+              "goal_progress": 1,
+              "delayed": null,
+              "reaction": "{name}記下請假與替班方式，答應催款再來時先報備。",
+              "approach": "support",
+              "callback_flag": "family_debt/2/household_loan_2",
+              "reactions": {
+                "supported": "{name}記下請假與替班方式，答應催款再來時先報備。",
+                "suspected": "{name}記下請假與替班方式，答應催款再來時先報備。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            },
+            {
+              "id": "keep_shift_2",
+              "label": "仍按一般輪值，不另設例外",
+              "hint": "守備完整；人物須自行處理還款與值勤衝突。",
+              "cost": 0,
+              "effects": {
+                "defense": 3
+              },
+              "tradeoffs": [
+                "維持門務",
+                "個人需求受限"
+              ],
+              "psych": {
+                "trust": -7,
+                "stress": 5,
+                "loyalty": -3
+              },
+              "recovery": 0,
+              "relationship_delta": 0,
+              "goal_progress": 0,
+              "delayed": null,
+              "reaction": "{name}把自己的班次抄走，說若時間衝突，還款只能延後。",
+              "approach": "discipline",
+              "callback_flag": "family_debt/2/keep_shift_2",
+              "reactions": {
+                "supported": "{name}把自己的班次抄走，說若時間衝突，還款只能延後。",
+                "suspected": "{name}把自己的班次抄走，說若時間衝突，還款只能延後。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            },
+            {
+              "id": "outside_work_2",
+              "label": "准其暫少值勤，自行補足家用",
+              "hint": "門派少一部分守備；人物可多接零工。",
+              "cost": 0,
+              "effects": {
+                "defense": -3,
+                "treasury": 2
+              },
+              "tradeoffs": [
+                "保留彈性",
+                "後續代價"
+              ],
+              "psych": {
+                "trust": 1,
+                "stress": 3,
+                "loyalty": -1
+              },
+              "recovery": 0,
+              "relationship_delta": 0,
+              "goal_progress": 1,
+              "delayed": null,
+              "reaction": "{name}接下較少的班次，答應將多出的時間用在家中開支。",
+              "approach": "defer",
+              "callback_flag": "family_debt/2/outside_work_2",
+              "reactions": {
+                "supported": "{name}接下較少的班次，答應將多出的時間用在家中開支。",
+                "suspected": "{name}接下較少的班次，答應將多出的時間用在家中開支。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            }
+          ],
+          "kind": "arc",
+          "stage": 2,
+          "arc_id": "family_debt"
+        }
+      ],
       "stages": [
-        "{name}將一張山下收據折起：「家中有些事，恐怕要耽誤值勤。」",
-        "{name}請求一筆周轉，否則只能多接山外差事。",
-        "{name}帶回債主的最後回覆，這幾月的安排終於要有交代。"
+        "{name}把催款單攤在桌上：「家中這筆舊債又到期了。我想請半天假回信，若接山下零工，門內值勤就得調整。」",
+        "{name}帶來一張還款草案：「不能每次都臨時求援。我想把還款、出勤和家中的開銷排在同一張表上。」",
+        "{name}帶著前幾次的安排來問：「往後催款再來，我該先向誰報備？我不想因為家事讓同門臨時接班。」"
       ],
       "choices": [
         {
-          "id": "support",
-          "label": "撥糧周轉，延後門內採買",
-          "tradeoffs": [
-            "人物需要",
-            "糧餉支出"
-          ],
+          "id": "household_loan_0",
+          "label": "借出周轉糧，讓其寫信安排還款",
+          "hint": "糧餉減少，人物能先處理家中債務。",
           "cost": 5,
-          "effects": {
-            "defense": -1
-          },
+          "effects": {},
+          "tradeoffs": [
+            "協助人物",
+            "門內支出"
+          ],
           "psych": {
-            "trust": 10,
-            "stress": -13,
-            "loyalty": 5
+            "trust": 8,
+            "stress": -9,
+            "loyalty": 4
           },
-          "reaction": "{name}收下安排，卻提醒你門內的缺口仍得補上。",
-          "delayed": null
+          "recovery": 0,
+          "relationship_delta": 0,
+          "goal_progress": 1,
+          "delayed": null,
+          "reaction": "{name}寫下借糧用途，說會先把家中的還款日期問清楚。",
+          "approach": "support",
+          "callback_flag": "family_debt/0/household_loan_0",
+          "reactions": {
+            "supported": "{name}寫下借糧用途，說會先把家中的還款日期問清楚。",
+            "suspected": "{name}寫下借糧用途，說會先把家中的還款日期問清楚。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+          }
         },
         {
-          "id": "discipline",
-          "label": "要求依規自行清償並值勤",
-          "tradeoffs": [
-            "門派秩序",
-            "人物距離"
-          ],
+          "id": "keep_shift_0",
+          "label": "維持值勤，只准休班時接工",
+          "hint": "門內得到完整輪值；人物處理家事的時間更少。",
           "cost": 0,
           "effects": {
             "defense": 3,
-            "treasury": 2
+            "treasury": 1
           },
+          "tradeoffs": [
+            "維持門務",
+            "個人需求受限"
+          ],
           "psych": {
-            "trust": -8,
-            "stress": 6,
-            "loyalty": -4
+            "trust": -7,
+            "stress": 5,
+            "loyalty": -3
           },
-          "reaction": "{name}把規矩逐字記下；未被處理的私事仍擱在案邊。",
-          "delayed": null
+          "recovery": 0,
+          "relationship_delta": 0,
+          "goal_progress": 0,
+          "delayed": null,
+          "reaction": "{name}把零工安排到休班時，說短時間內沒法多還一些。",
+          "approach": "discipline",
+          "callback_flag": "family_debt/0/keep_shift_0",
+          "reactions": {
+            "supported": "{name}把零工安排到休班時，說短時間內沒法多還一些。",
+            "suspected": "{name}把零工安排到休班時，說短時間內沒法多還一些。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+          }
         },
         {
-          "id": "defer",
-          "label": "准其緩辦，門派承擔日後奔波",
-          "tradeoffs": [
-            "眼前彈性",
-            "延後負擔"
-          ],
+          "id": "outside_work_0",
+          "label": "准其下山接工，門內少排一班",
+          "hint": "保留糧餉，讓人物自行籌錢；今晚守備較薄。",
           "cost": 0,
-          "effects": {},
-          "psych": {
-            "trust": 2,
-            "stress": 6,
-            "loyalty": -2
+          "effects": {
+            "defense": -3
           },
-          "reaction": "{name}答應先做眼前的事，也請你不要忘記今日的約定。",
-          "delayed": {
-            "after": 2,
-            "effects": {
-              "treasury": -3,
-              "defense": -1
-            },
-            "text": "先前延後的人事安排如今需要補上盤纏與值勤。"
+          "tradeoffs": [
+            "保留彈性",
+            "後續代價"
+          ],
+          "psych": {
+            "trust": 1,
+            "stress": 3,
+            "loyalty": -1
+          },
+          "recovery": 0,
+          "relationship_delta": 0,
+          "goal_progress": 1,
+          "delayed": null,
+          "reaction": "{name}接下山下的短工，答應在下次值勤前回來。",
+          "approach": "defer",
+          "callback_flag": "family_debt/0/outside_work_0",
+          "reactions": {
+            "supported": "{name}接下山下的短工，答應在下次值勤前回來。",
+            "suspected": "{name}接下山下的短工，答應在下次值勤前回來。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
           }
         }
       ],
       "resolutions": {
-        "support": "多次得到實際協助後，終於願意把未來也寫進青崖門的名冊。",
-        "discipline": "幾次請求都落回規矩之內，私事與門內責任之間的裂縫仍未補起。",
-        "defer": "數次約定仍待兌現，決定先把自己的去處留白。"
+        "support": "門內願為家事騰出糧或人手，私人債務有了商量的餘地；這份照顧仍不能當作債款已清。",
+        "discipline": "家債仍須在原有門務之外處理，催款單與班表分放兩邊。門派守住分工，也留下私人負擔。",
+        "defer": "家事另找接工或人情的途徑處理，門內容許調整。能空出時間，並不代表欠款已經還清。"
       }
     },
     {
       "id": "fear_failure",
       "title": "對失敗的恐懼",
+      "scenes": [
+        {
+          "id": "fear_first",
+          "title": "出勤名冊改了又改",
+          "text": "{name}拿著名冊問：「萬一我判斷錯了，誰負責叫停？我需要知道什麼情況下可以帶人撤回。」",
+          "choices": [
+            {
+              "id": "rehearse_exit_0",
+              "label": "付糧安排一次撤退演練",
+              "hint": "少做一班巡守，用時間練習叫停與撤退。",
+              "cost": 3,
+              "effects": {
+                "defense": -1
+              },
+              "tradeoffs": [
+                "協助人物",
+                "門內支出"
+              ],
+              "psych": {
+                "trust": 8,
+                "stress": -9,
+                "loyalty": 4
+              },
+              "recovery": 16,
+              "relationship_delta": 0,
+              "goal_progress": 1,
+              "delayed": null,
+              "reaction": "{name}練過撤退口令後，說至少知道遇到危險時該怎麼帶人回來。",
+              "approach": "support",
+              "callback_flag": "fear_failure/0/rehearse_exit_0",
+              "reactions": {
+                "supported": "{name}練過撤退口令後，說至少知道遇到危險時該怎麼帶人回來。",
+                "suspected": "{name}練過撤退口令後，說至少知道遇到危險時該怎麼帶人回來。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            },
+            {
+              "id": "set_rules_0",
+              "label": "先說清撤退條件，再照表出勤",
+              "hint": "維持守備；沒有另外演練的時間。",
+              "cost": 0,
+              "effects": {
+                "defense": 2
+              },
+              "tradeoffs": [
+                "維持門務",
+                "個人需求受限"
+              ],
+              "psych": {
+                "trust": -7,
+                "stress": 5,
+                "loyalty": -3
+              },
+              "recovery": 0,
+              "relationship_delta": 0,
+              "goal_progress": 0,
+              "delayed": null,
+              "reaction": "{name}逐條複述撤退條件，仍擔心自己來不及判斷。",
+              "approach": "discipline",
+              "callback_flag": "fear_failure/0/set_rules_0",
+              "reactions": {
+                "supported": "{name}逐條複述撤退條件，仍擔心自己來不及判斷。",
+                "suspected": "{name}逐條複述撤退條件，仍擔心自己來不及判斷。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            },
+            {
+              "id": "take_second_0",
+              "label": "准其先擔任副手",
+              "hint": "減少其獨自判斷的負擔，但增加其他人的工作。",
+              "cost": 0,
+              "effects": {
+                "defense": -2
+              },
+              "tradeoffs": [
+                "保留彈性",
+                "後續代價"
+              ],
+              "psych": {
+                "trust": 1,
+                "stress": 3,
+                "loyalty": -1
+              },
+              "recovery": 8,
+              "relationship_delta": 0,
+              "goal_progress": 0,
+              "delayed": null,
+              "reaction": "{name}接受先做副手，答應遇到異常立即回報。",
+              "approach": "defer",
+              "callback_flag": "fear_failure/0/take_second_0",
+              "reactions": {
+                "supported": "{name}接受先做副手，答應遇到異常立即回報。",
+                "suspected": "{name}接受先做副手，答應遇到異常立即回報。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            }
+          ],
+          "kind": "arc",
+          "stage": 0,
+          "arc_id": "fear_failure"
+        },
+        {
+          "id": "fear_review",
+          "title": "把錯誤分成能補救的事",
+          "text": "{name}帶來最近任務的筆記：「能不能逐步看，哪些是我能改的、哪些是當時根本不知道的？只說下次小心，我還是不知道怎麼做。」",
+          "choices": [
+            {
+              "id": "rehearse_exit_1",
+              "label": "安排半日檢討與演練",
+              "hint": "付出替班糧，釐清分工並減輕疲勞。",
+              "cost": 4,
+              "effects": {},
+              "tradeoffs": [
+                "協助人物",
+                "門內支出"
+              ],
+              "psych": {
+                "trust": 8,
+                "stress": -9,
+                "loyalty": 4
+              },
+              "recovery": 18,
+              "relationship_delta": 0,
+              "goal_progress": 1,
+              "delayed": null,
+              "reaction": "{name}把問題分成準備、通報與撤退三項，終於能說出下一次要先做什麼。",
+              "approach": "support",
+              "callback_flag": "fear_failure/1/rehearse_exit_1",
+              "reactions": {
+                "supported": "{name}把問題分成準備、通報與撤退三項，終於能說出下一次要先做什麼。",
+                "suspected": "{name}把問題分成準備、通報與撤退三項，終於能說出下一次要先做什麼。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            },
+            {
+              "id": "set_rules_1",
+              "label": "把檢查步驟寫成出勤規矩",
+              "hint": "守備準備更完整；所有人都要多做檢查。",
+              "cost": 0,
+              "effects": {
+                "defense": 4
+              },
+              "tradeoffs": [
+                "維持門務",
+                "個人需求受限"
+              ],
+              "psych": {
+                "trust": -7,
+                "stress": 5,
+                "loyalty": -3
+              },
+              "recovery": 0,
+              "relationship_delta": 0,
+              "goal_progress": 0,
+              "delayed": null,
+              "reaction": "{name}照新步驟重整行囊，說多檢查一次雖麻煩，至少不必只靠臨場猜測。",
+              "approach": "discipline",
+              "callback_flag": "fear_failure/1/set_rules_1",
+              "reactions": {
+                "supported": "{name}照新步驟重整行囊，說多檢查一次雖麻煩，至少不必只靠臨場猜測。",
+                "suspected": "{name}照新步驟重整行囊，說多檢查一次雖麻煩，至少不必只靠臨場猜測。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            },
+            {
+              "id": "take_second_1",
+              "label": "讓其先旁觀他人處理一次",
+              "hint": "暫不要求其獨當一面；其他人的負擔增加。",
+              "cost": 0,
+              "effects": {
+                "defense": -2
+              },
+              "tradeoffs": [
+                "保留彈性",
+                "後續代價"
+              ],
+              "psych": {
+                "trust": 1,
+                "stress": 3,
+                "loyalty": -1
+              },
+              "recovery": 10,
+              "relationship_delta": 0,
+              "goal_progress": 0,
+              "delayed": null,
+              "reaction": "{name}答應先記錄同伴如何判斷，再回來討論。",
+              "approach": "defer",
+              "callback_flag": "fear_failure/1/take_second_1",
+              "reactions": {
+                "supported": "{name}答應先記錄同伴如何判斷，再回來討論。",
+                "suspected": "{name}答應先記錄同伴如何判斷，再回來討論。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            }
+          ],
+          "kind": "arc",
+          "stage": 1,
+          "arc_id": "fear_failure"
+        },
+        {
+          "id": "fear_result",
+          "title": "下一次由誰帶路",
+          "text": "{name}問起下一次任務：「我願意再試，但想先講清楚。要我帶隊、當副手，還是先留門準備？」",
+          "choices": [
+            {
+              "id": "rehearse_exit_2",
+              "label": "安排有經驗的人陪同練習",
+              "hint": "支出練習糧，讓其有機會逐步承擔。",
+              "cost": 3,
+              "effects": {},
+              "tradeoffs": [
+                "協助人物",
+                "門內支出"
+              ],
+              "psych": {
+                "trust": 8,
+                "stress": -9,
+                "loyalty": 4
+              },
+              "recovery": 0,
+              "relationship_delta": 0,
+              "goal_progress": 1,
+              "delayed": null,
+              "reaction": "{name}接受有人陪同練習，說會在每個轉折處先確認同行者是否跟上。",
+              "growth": "role",
+              "approach": "support",
+              "callback_flag": "fear_failure/2/rehearse_exit_2",
+              "reactions": {
+                "supported": "{name}接受有人陪同練習，說會在每個轉折處先確認同行者是否跟上。",
+                "suspected": "{name}接受有人陪同練習，說會在每個轉折處先確認同行者是否跟上。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            },
+            {
+              "id": "set_rules_2",
+              "label": "要求按現有職責帶隊",
+              "hint": "保持門內分工；人物仍要自行承擔臨場判斷。",
+              "cost": 0,
+              "effects": {
+                "defense": 3
+              },
+              "tradeoffs": [
+                "維持門務",
+                "個人需求受限"
+              ],
+              "psych": {
+                "trust": -7,
+                "stress": 5,
+                "loyalty": -3
+              },
+              "recovery": 0,
+              "relationship_delta": 0,
+              "goal_progress": 0,
+              "delayed": null,
+              "reaction": "{name}答應照原職責準備，也再次確認了可以撤回的條件。",
+              "approach": "discipline",
+              "callback_flag": "fear_failure/2/set_rules_2",
+              "reactions": {
+                "supported": "{name}答應照原職責準備，也再次確認了可以撤回的條件。",
+                "suspected": "{name}答應照原職責準備，也再次確認了可以撤回的條件。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            },
+            {
+              "id": "take_second_2",
+              "label": "先留門整理路線",
+              "hint": "保留較安全的工作，但減少外勤人手。",
+              "cost": 0,
+              "effects": {
+                "defense": -2
+              },
+              "tradeoffs": [
+                "保留彈性",
+                "後續代價"
+              ],
+              "psych": {
+                "trust": 1,
+                "stress": 3,
+                "loyalty": -1
+              },
+              "recovery": 15,
+              "relationship_delta": 0,
+              "goal_progress": 0,
+              "delayed": null,
+              "reaction": "{name}接手整理地圖，暫時不必獨自帶人出山。",
+              "approach": "defer",
+              "callback_flag": "fear_failure/2/take_second_2",
+              "reactions": {
+                "supported": "{name}接手整理地圖，暫時不必獨自帶人出山。",
+                "suspected": "{name}接手整理地圖，暫時不必獨自帶人出山。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            }
+          ],
+          "kind": "arc",
+          "stage": 2,
+          "arc_id": "fear_failure"
+        }
+      ],
       "stages": [
-        "{name}重抄出勤名冊：「若再少回來一個人，算誰的錯？」",
-        "{name}請求停勤演練，山門卻正需要輪值人手。",
-        "{name}重新拿起任務簿，逐一核對自己答應過的事。"
+        "{name}拿著名冊問：「萬一我判斷錯了，誰負責叫停？我需要知道什麼情況下可以帶人撤回。」",
+        "{name}帶來最近任務的筆記：「能不能逐步看，哪些是我能改的、哪些是當時根本不知道的？只說下次小心，我還是不知道怎麼做。」",
+        "{name}問起下一次任務：「我願意再試，但想先講清楚。要我帶隊、當副手，還是先留門準備？」"
       ],
       "choices": [
         {
-          "id": "support",
-          "label": "付藥糧安排休養與演練",
-          "tradeoffs": [
-            "人物需要",
-            "糧餉支出"
-          ],
-          "cost": 5,
+          "id": "rehearse_exit_0",
+          "label": "付糧安排一次撤退演練",
+          "hint": "少做一班巡守，用時間練習叫停與撤退。",
+          "cost": 3,
           "effects": {
             "defense": -1
           },
+          "tradeoffs": [
+            "協助人物",
+            "門內支出"
+          ],
           "psych": {
-            "trust": 10,
-            "stress": -13,
-            "loyalty": 5
+            "trust": 8,
+            "stress": -9,
+            "loyalty": 4
           },
-          "reaction": "{name}收下安排，卻提醒你門內的缺口仍得補上。",
-          "delayed": null
+          "recovery": 16,
+          "relationship_delta": 0,
+          "goal_progress": 1,
+          "delayed": null,
+          "reaction": "{name}練過撤退口令後，說至少知道遇到危險時該怎麼帶人回來。",
+          "approach": "support",
+          "callback_flag": "fear_failure/0/rehearse_exit_0",
+          "reactions": {
+            "supported": "{name}練過撤退口令後，說至少知道遇到危險時該怎麼帶人回來。",
+            "suspected": "{name}練過撤退口令後，說至少知道遇到危險時該怎麼帶人回來。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+          }
         },
         {
-          "id": "discipline",
-          "label": "維持輪值並公開核對責任",
-          "tradeoffs": [
-            "門派秩序",
-            "人物距離"
-          ],
+          "id": "set_rules_0",
+          "label": "先說清撤退條件，再照表出勤",
+          "hint": "維持守備；沒有另外演練的時間。",
           "cost": 0,
           "effects": {
-            "defense": 3,
-            "treasury": 2
+            "defense": 2
           },
+          "tradeoffs": [
+            "維持門務",
+            "個人需求受限"
+          ],
           "psych": {
-            "trust": -8,
-            "stress": 6,
-            "loyalty": -4
+            "trust": -7,
+            "stress": 5,
+            "loyalty": -3
           },
-          "reaction": "{name}把規矩逐字記下；未被處理的私事仍擱在案邊。",
-          "delayed": null
+          "recovery": 0,
+          "relationship_delta": 0,
+          "goal_progress": 0,
+          "delayed": null,
+          "reaction": "{name}逐條複述撤退條件，仍擔心自己來不及判斷。",
+          "approach": "discipline",
+          "callback_flag": "fear_failure/0/set_rules_0",
+          "reactions": {
+            "supported": "{name}逐條複述撤退條件，仍擔心自己來不及判斷。",
+            "suspected": "{name}逐條複述撤退條件，仍擔心自己來不及判斷。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+          }
         },
         {
-          "id": "defer",
-          "label": "暫緩考核，留下後續補勤",
-          "tradeoffs": [
-            "眼前彈性",
-            "延後負擔"
-          ],
+          "id": "take_second_0",
+          "label": "准其先擔任副手",
+          "hint": "減少其獨自判斷的負擔，但增加其他人的工作。",
           "cost": 0,
-          "effects": {},
-          "psych": {
-            "trust": 2,
-            "stress": 6,
-            "loyalty": -2
+          "effects": {
+            "defense": -2
           },
-          "reaction": "{name}答應先做眼前的事，也請你不要忘記今日的約定。",
-          "delayed": {
-            "after": 2,
-            "effects": {
-              "treasury": -3,
-              "defense": -1
-            },
-            "text": "先前延後的人事安排如今需要補上盤纏與值勤。"
+          "tradeoffs": [
+            "保留彈性",
+            "後續代價"
+          ],
+          "psych": {
+            "trust": 1,
+            "stress": 3,
+            "loyalty": -1
+          },
+          "recovery": 8,
+          "relationship_delta": 0,
+          "goal_progress": 0,
+          "delayed": null,
+          "reaction": "{name}接受先做副手，答應遇到異常立即回報。",
+          "approach": "defer",
+          "callback_flag": "fear_failure/0/take_second_0",
+          "reactions": {
+            "supported": "{name}接受先做副手，答應遇到異常立即回報。",
+            "suspected": "{name}接受先做副手，答應遇到異常立即回報。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
           }
         }
       ],
       "resolutions": {
-        "support": "多次得到實際協助後，終於願意把未來也寫進青崖門的名冊。",
-        "discipline": "幾次請求都落回規矩之內，私事與門內責任之間的裂縫仍未補起。",
-        "defer": "數次約定仍待兌現，決定先把自己的去處留白。"
+        "support": "練習與陪伴成為處理失誤的辦法，下一次出勤前有了可試的步驟。是否敢再領隊，仍須看臨場。",
+        "discipline": "撤退條件與檢查步驟被放進職責裡，恐懼有了能說出口的界線，也有必須接下的工作。",
+        "defer": "暫從旁觀、副手或留門整理開始，先不強迫站到最前。這份緩衝沒有替下一次出發作答。"
       }
     },
     {
       "id": "recognition",
       "title": "權力與認同",
+      "scenes": [
+        {
+          "id": "voice_first",
+          "title": "提案總在散會後",
+          "text": "{name}在散會後遞來一份巡守提案：「我有不同的安排。能不能留一點時間讓我講完，再決定用不用？」",
+          "choices": [
+            {
+              "id": "fund_proposal_0",
+              "label": "給糧試行一段巡線",
+              "hint": "支出試行費，讓人物證明提案是否可行。",
+              "cost": 4,
+              "effects": {
+                "defense": 2
+              },
+              "tradeoffs": [
+                "協助人物",
+                "門內支出"
+              ],
+              "psych": {
+                "trust": 8,
+                "stress": -9,
+                "loyalty": 4
+              },
+              "recovery": 0,
+              "relationship_delta": 0,
+              "goal_progress": 1,
+              "delayed": null,
+              "reaction": "{name}接下試行範圍，答應帶回路程與值勤時間供你核對。",
+              "approach": "support",
+              "callback_flag": "recognition/0/fund_proposal_0",
+              "reactions": {
+                "supported": "{name}接下試行範圍，答應帶回路程與值勤時間供你核對。",
+                "suspected": "{name}接下試行範圍，答應帶回路程與值勤時間供你核對。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            },
+            {
+              "id": "joint_review_0",
+              "label": "在全體議事時共同審查",
+              "hint": "維持共同決策；提案必須接受其他人的修改。",
+              "cost": 0,
+              "effects": {
+                "defense": 2
+              },
+              "tradeoffs": [
+                "維持門務",
+                "個人需求受限"
+              ],
+              "psych": {
+                "trust": -7,
+                "stress": 5,
+                "loyalty": -3
+              },
+              "recovery": 0,
+              "relationship_delta": 0,
+              "goal_progress": 0,
+              "delayed": null,
+              "reaction": "{name}答應在眾人面前說明，也接受其他人提出修改。",
+              "approach": "discipline",
+              "callback_flag": "recognition/0/joint_review_0",
+              "reactions": {
+                "supported": "{name}答應在眾人面前說明，也接受其他人提出修改。",
+                "suspected": "{name}答應在眾人面前說明，也接受其他人提出修改。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            },
+            {
+              "id": "promise_seat_0",
+              "label": "先收下提案，稍後再審",
+              "hint": "眼前不改分工；下月需要抽人整理。",
+              "cost": 0,
+              "effects": {},
+              "tradeoffs": [
+                "保留彈性",
+                "後續代價"
+              ],
+              "psych": {
+                "trust": 1,
+                "stress": 3,
+                "loyalty": -1
+              },
+              "recovery": 0,
+              "relationship_delta": 0,
+              "goal_progress": 0,
+              "delayed": {
+                "after": 1,
+                "effects": {
+                  "defense": -2
+                },
+                "text": "補開先前答應的提案討論，暫抽一班巡守。"
+              },
+              "reaction": "{name}把提案留下，請你給一個確定的回覆時間。",
+              "approach": "defer",
+              "callback_flag": "recognition/0/promise_seat_0",
+              "reactions": {
+                "supported": "{name}把提案留下，請你給一個確定的回覆時間。",
+                "suspected": "{name}把提案留下，請你給一個確定的回覆時間。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            }
+          ],
+          "kind": "arc",
+          "stage": 0,
+          "arc_id": "recognition"
+        },
+        {
+          "id": "voice_limit",
+          "title": "想要負責，也想能作決定",
+          "text": "{name}指著分工表：「如果出事要我負責，哪些事情我可以自己決定？每一步都回來請示，路上會耽誤。」",
+          "choices": [
+            {
+              "id": "fund_proposal_1",
+              "label": "授權小範圍調度並備用糧",
+              "hint": "花糧餉讓其嘗試調度；事後必須回報。",
+              "cost": 3,
+              "effects": {
+                "defense": 2
+              },
+              "tradeoffs": [
+                "協助人物",
+                "門內支出"
+              ],
+              "psych": {
+                "trust": 8,
+                "stress": -9,
+                "loyalty": 4
+              },
+              "recovery": 0,
+              "relationship_delta": 0,
+              "goal_progress": 1,
+              "delayed": null,
+              "reaction": "{name}把能自行決定的範圍逐條記下，答應每次調整都留下理由。",
+              "approach": "support",
+              "callback_flag": "recognition/1/fund_proposal_1",
+              "reactions": {
+                "supported": "{name}把能自行決定的範圍逐條記下，答應每次調整都留下理由。",
+                "suspected": "{name}把能自行決定的範圍逐條記下，答應每次調整都留下理由。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            },
+            {
+              "id": "joint_review_1",
+              "label": "維持請示制度，但訂明回報時限",
+              "hint": "守備流程更清楚；人物仍無法自行調整。",
+              "cost": 0,
+              "effects": {
+                "defense": 3
+              },
+              "tradeoffs": [
+                "維持門務",
+                "個人需求受限"
+              ],
+              "psych": {
+                "trust": -7,
+                "stress": 5,
+                "loyalty": -3
+              },
+              "recovery": 0,
+              "relationship_delta": 0,
+              "goal_progress": 0,
+              "delayed": null,
+              "reaction": "{name}接受新的回報時限，但說急事來時仍希望能少等一些。",
+              "approach": "discipline",
+              "callback_flag": "recognition/1/joint_review_1",
+              "reactions": {
+                "supported": "{name}接受新的回報時限，但說急事來時仍希望能少等一些。",
+                "suspected": "{name}接受新的回報時限，但說急事來時仍希望能少等一些。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            },
+            {
+              "id": "promise_seat_1",
+              "label": "只准臨時調整，再共同檢查",
+              "hint": "留下彈性；後續覆核需要人手。",
+              "cost": 0,
+              "effects": {},
+              "tradeoffs": [
+                "保留彈性",
+                "後續代價"
+              ],
+              "psych": {
+                "trust": 1,
+                "stress": 3,
+                "loyalty": -1
+              },
+              "recovery": 0,
+              "relationship_delta": 0,
+              "goal_progress": 0,
+              "delayed": {
+                "after": 1,
+                "effects": {
+                  "treasury": -2
+                },
+                "text": "覆核先前准許的臨時調度，支出整理工錢。"
+              },
+              "reaction": "{name}同意只處理急事，並把每次臨時更動帶回覆核。",
+              "approach": "defer",
+              "callback_flag": "recognition/1/promise_seat_1",
+              "reactions": {
+                "supported": "{name}同意只處理急事，並把每次臨時更動帶回覆核。",
+                "suspected": "{name}同意只處理急事，並把每次臨時更動帶回覆核。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            }
+          ],
+          "kind": "arc",
+          "stage": 1,
+          "arc_id": "recognition"
+        },
+        {
+          "id": "voice_result",
+          "title": "議事桌要不要留一席",
+          "text": "{name}帶著先前的分工表來問：「往後的議事，我是有固定職責，還是每次都要另外請准？」",
+          "choices": [
+            {
+              "id": "fund_proposal_2",
+              "label": "明訂議事職責，給付辦事糧",
+              "hint": "門內多一筆支出；人物能持續參與。",
+              "cost": 3,
+              "effects": {
+                "reputation": 2
+              },
+              "tradeoffs": [
+                "協助人物",
+                "門內支出"
+              ],
+              "psych": {
+                "trust": 8,
+                "stress": -9,
+                "loyalty": 4
+              },
+              "recovery": 0,
+              "relationship_delta": 0,
+              "goal_progress": 1,
+              "delayed": null,
+              "reaction": "{name}收下固定職責，說會先準備資料再提案，不讓議事只剩爭論。",
+              "approach": "support",
+              "callback_flag": "recognition/2/fund_proposal_2",
+              "reactions": {
+                "supported": "{name}收下固定職責，說會先準備資料再提案，不讓議事只剩爭論。",
+                "suspected": "{name}收下固定職責，說會先準備資料再提案，不讓議事只剩爭論。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            },
+            {
+              "id": "joint_review_2",
+              "label": "輪流主持，按每月任務分工",
+              "hint": "維持所有人的參與；人物沒有固定席位。",
+              "cost": 0,
+              "effects": {
+                "defense": 2
+              },
+              "tradeoffs": [
+                "維持門務",
+                "個人需求受限"
+              ],
+              "psych": {
+                "trust": -7,
+                "stress": 5,
+                "loyalty": -3
+              },
+              "recovery": 0,
+              "relationship_delta": 0,
+              "goal_progress": 0,
+              "delayed": null,
+              "reaction": "{name}接受輪流主持，問清楚自己的下一次安排。",
+              "approach": "discipline",
+              "callback_flag": "recognition/2/joint_review_2",
+              "reactions": {
+                "supported": "{name}接受輪流主持，問清楚自己的下一次安排。",
+                "suspected": "{name}接受輪流主持，問清楚自己的下一次安排。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            },
+            {
+              "id": "promise_seat_2",
+              "label": "保留旁聽與提案，不承諾席位",
+              "hint": "眼前少改制度；人物的位置仍不確定。",
+              "cost": 0,
+              "effects": {
+                "reputation": -1
+              },
+              "tradeoffs": [
+                "保留彈性",
+                "後續代價"
+              ],
+              "psych": {
+                "trust": 1,
+                "stress": 3,
+                "loyalty": -1
+              },
+              "recovery": 0,
+              "relationship_delta": 0,
+              "goal_progress": 0,
+              "delayed": null,
+              "reaction": "{name}答應繼續提案，但說仍不清楚自己往後能負責什麼。",
+              "approach": "defer",
+              "callback_flag": "recognition/2/promise_seat_2",
+              "reactions": {
+                "supported": "{name}答應繼續提案，但說仍不清楚自己往後能負責什麼。",
+                "suspected": "{name}答應繼續提案，但說仍不清楚自己往後能負責什麼。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            }
+          ],
+          "kind": "arc",
+          "stage": 2,
+          "arc_id": "recognition"
+        }
+      ],
       "stages": [
-        "{name}在議事門外站了很久：「我只能聽命，還是也能提案？」",
-        "{name}希望主持一次門內分工，必須給出人手與糧餉。",
-        "{name}攤開自己的分工冊，這次要談的是今後的位置。"
+        "{name}在散會後遞來一份巡守提案：「我有不同的安排。能不能留一點時間讓我講完，再決定用不用？」",
+        "{name}指著分工表：「如果出事要我負責，哪些事情我可以自己決定？每一步都回來請示，路上會耽誤。」",
+        "{name}帶著先前的分工表來問：「往後的議事，我是有固定職責，還是每次都要另外請准？」"
       ],
       "choices": [
         {
-          "id": "support",
-          "label": "給其人手試行提案",
-          "tradeoffs": [
-            "人物需要",
-            "糧餉支出"
-          ],
-          "cost": 5,
+          "id": "fund_proposal_0",
+          "label": "給糧試行一段巡線",
+          "hint": "支出試行費，讓人物證明提案是否可行。",
+          "cost": 4,
           "effects": {
-            "defense": -1
+            "defense": 2
           },
+          "tradeoffs": [
+            "協助人物",
+            "門內支出"
+          ],
           "psych": {
-            "trust": 10,
-            "stress": -13,
-            "loyalty": 5
+            "trust": 8,
+            "stress": -9,
+            "loyalty": 4
           },
-          "reaction": "{name}收下安排，卻提醒你門內的缺口仍得補上。",
-          "delayed": null
+          "recovery": 0,
+          "relationship_delta": 0,
+          "goal_progress": 1,
+          "delayed": null,
+          "reaction": "{name}接下試行範圍，答應帶回路程與值勤時間供你核對。",
+          "approach": "support",
+          "callback_flag": "recognition/0/fund_proposal_0",
+          "reactions": {
+            "supported": "{name}接下試行範圍，答應帶回路程與值勤時間供你核對。",
+            "suspected": "{name}接下試行範圍，答應帶回路程與值勤時間供你核對。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+          }
         },
         {
-          "id": "discipline",
-          "label": "按現行規矩共同審議",
-          "tradeoffs": [
-            "門派秩序",
-            "人物距離"
-          ],
+          "id": "joint_review_0",
+          "label": "在全體議事時共同審查",
+          "hint": "維持共同決策；提案必須接受其他人的修改。",
           "cost": 0,
           "effects": {
-            "defense": 3,
-            "treasury": 2
+            "defense": 2
           },
+          "tradeoffs": [
+            "維持門務",
+            "個人需求受限"
+          ],
           "psych": {
-            "trust": -8,
-            "stress": 6,
-            "loyalty": -4
+            "trust": -7,
+            "stress": 5,
+            "loyalty": -3
           },
-          "reaction": "{name}把規矩逐字記下；未被處理的私事仍擱在案邊。",
-          "delayed": null
+          "recovery": 0,
+          "relationship_delta": 0,
+          "goal_progress": 0,
+          "delayed": null,
+          "reaction": "{name}答應在眾人面前說明，也接受其他人提出修改。",
+          "approach": "discipline",
+          "callback_flag": "recognition/0/joint_review_0",
+          "reactions": {
+            "supported": "{name}答應在眾人面前說明，也接受其他人提出修改。",
+            "suspected": "{name}答應在眾人面前說明，也接受其他人提出修改。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+          }
         },
         {
-          "id": "defer",
-          "label": "先給口頭空間，延後落實",
-          "tradeoffs": [
-            "眼前彈性",
-            "延後負擔"
-          ],
+          "id": "promise_seat_0",
+          "label": "先收下提案，稍後再審",
+          "hint": "眼前不改分工；下月需要抽人整理。",
           "cost": 0,
           "effects": {},
+          "tradeoffs": [
+            "保留彈性",
+            "後續代價"
+          ],
           "psych": {
-            "trust": 2,
-            "stress": 6,
-            "loyalty": -2
+            "trust": 1,
+            "stress": 3,
+            "loyalty": -1
           },
-          "reaction": "{name}答應先做眼前的事，也請你不要忘記今日的約定。",
+          "recovery": 0,
+          "relationship_delta": 0,
+          "goal_progress": 0,
           "delayed": {
-            "after": 2,
+            "after": 1,
             "effects": {
-              "treasury": -3,
-              "defense": -1
+              "defense": -2
             },
-            "text": "先前延後的人事安排如今需要補上盤纏與值勤。"
+            "text": "補開先前答應的提案討論，暫抽一班巡守。"
+          },
+          "reaction": "{name}把提案留下，請你給一個確定的回覆時間。",
+          "approach": "defer",
+          "callback_flag": "recognition/0/promise_seat_0",
+          "reactions": {
+            "supported": "{name}把提案留下，請你給一個確定的回覆時間。",
+            "suspected": "{name}把提案留下，請你給一個確定的回覆時間。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
           }
         }
       ],
       "resolutions": {
-        "support": "多次得到實際協助後，終於願意把未來也寫進青崖門的名冊。",
-        "discipline": "幾次請求都落回規矩之內，私事與門內責任之間的裂縫仍未補起。",
-        "defer": "數次約定仍待兌現，決定先把自己的去處留白。"
+        "support": "提案得到試做或負責的空間；議事桌上多了一份須回報的安排，成敗不能只由掌門代為解釋。",
+        "discipline": "提案仍要經共同審查，職責與回報時限取代私下的要求。能參與討論，尚不等於獨自作主。",
+        "defer": "提案有了保留與再議的餘地，但權限還未固定。那張折過的紙仍提醒雙方，答覆尚未全部給完。"
       }
     },
     {
       "id": "protect_other",
       "title": "保護另一名弟子",
+      "scenes": [
+        {
+          "id": "partner_first",
+          "title": "兩張排在一起的班表",
+          "text": "{name}拿著自己與{other}的班表：「我想確認我們的工作會不會撞在一起。有事發生時，我至少要知道該去哪裡找人。」",
+          "choices": [
+            {
+              "id": "ask_both_0",
+              "label": "付替班糧，讓兩人先核對分工",
+              "hint": "支出糧餉，兩人能把互相支援的安排說清楚。",
+              "cost": 3,
+              "effects": {},
+              "tradeoffs": [
+                "協助人物",
+                "門內支出"
+              ],
+              "psych": {
+                "trust": 8,
+                "stress": -9,
+                "loyalty": 4
+              },
+              "recovery": 0,
+              "relationship_delta": 6,
+              "goal_progress": 0,
+              "delayed": null,
+              "reaction": "{name}和{other}核對了集合地點，答應有改動就先通知對方。",
+              "approach": "support",
+              "callback_flag": "protect_other/0/ask_both_0",
+              "reactions": {
+                "supported": "{name}和{other}核對了集合地點，答應有改動就先通知對方。",
+                "suspected": "{name}和{other}核對了集合地點，答應有改動就先通知對方。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            },
+            {
+              "id": "separate_duties_0",
+              "label": "要求各守原班，明訂通報方式",
+              "hint": "守備完整；兩人仍分開工作。",
+              "cost": 0,
+              "effects": {
+                "defense": 3
+              },
+              "tradeoffs": [
+                "維持門務",
+                "個人需求受限"
+              ],
+              "psych": {
+                "trust": -7,
+                "stress": 5,
+                "loyalty": -3
+              },
+              "recovery": 0,
+              "relationship_delta": -2,
+              "goal_progress": 0,
+              "delayed": null,
+              "reaction": "{name}記下通報方式，說會照原班出勤，不再臨時替人換班。",
+              "approach": "discipline",
+              "callback_flag": "protect_other/0/separate_duties_0",
+              "reactions": {
+                "supported": "{name}記下通報方式，說會照原班出勤，不再臨時替人換班。",
+                "suspected": "{name}記下通報方式，說會照原班出勤，不再臨時替人換班。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            },
+            {
+              "id": "let_them_choose_0",
+              "label": "准兩人自行換班",
+              "hint": "留出照應空間；交接期間的守備較薄。",
+              "cost": 0,
+              "effects": {
+                "defense": -2
+              },
+              "tradeoffs": [
+                "保留彈性",
+                "後續代價"
+              ],
+              "psych": {
+                "trust": 1,
+                "stress": 3,
+                "loyalty": -1
+              },
+              "recovery": 0,
+              "relationship_delta": 3,
+              "goal_progress": 0,
+              "delayed": null,
+              "reaction": "{name}與{other}交換班次，答應補交一份新的時間表。",
+              "approach": "defer",
+              "callback_flag": "protect_other/0/let_them_choose_0",
+              "reactions": {
+                "supported": "{name}與{other}交換班次，答應補交一份新的時間表。",
+                "suspected": "{name}與{other}交換班次，答應補交一份新的時間表。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            }
+          ],
+          "kind": "arc",
+          "stage": 0,
+          "arc_id": "protect_other"
+        },
+        {
+          "id": "partner_cost",
+          "title": "不能一直替人多值一班",
+          "text": "{name}把兩人的班表放到你面前：「我可以照應{other}，但要怎麼幫，得先講清楚，不能每次都臨時多值一班。」",
+          "choices": [
+            {
+              "id": "ask_both_1",
+              "label": "僱短工補一班，讓兩人休整",
+              "hint": "花糧餉補班，兩人都有休息時間。",
+              "cost": 5,
+              "effects": {},
+              "tradeoffs": [
+                "協助人物",
+                "門內支出"
+              ],
+              "psych": {
+                "trust": 8,
+                "stress": -9,
+                "loyalty": 4
+              },
+              "recovery": 18,
+              "relationship_delta": 5,
+              "goal_progress": 0,
+              "delayed": null,
+              "reaction": "{name}與{other}約好今後先報備，這次兩人都不必再補一班。",
+              "partner_recovery": 14,
+              "approach": "support",
+              "callback_flag": "protect_other/1/ask_both_1",
+              "reactions": {
+                "supported": "{name}與{other}約好今後先報備，這次兩人都不必再補一班。",
+                "suspected": "{name}與{other}約好今後先報備，這次兩人都不必再補一班。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            },
+            {
+              "id": "separate_duties_1",
+              "label": "分開職責，禁止私下代班",
+              "hint": "守備責任清楚；人物不能再自行替同門擋事。",
+              "cost": 0,
+              "effects": {
+                "defense": 4
+              },
+              "tradeoffs": [
+                "維持門務",
+                "個人需求受限"
+              ],
+              "psych": {
+                "trust": -7,
+                "stress": 5,
+                "loyalty": -3
+              },
+              "recovery": 0,
+              "relationship_delta": -3,
+              "goal_progress": 0,
+              "delayed": null,
+              "reaction": "{name}把私下代班的安排劃掉，同意先完成各自的工作。",
+              "approach": "discipline",
+              "callback_flag": "protect_other/1/separate_duties_1",
+              "reactions": {
+                "supported": "{name}把私下代班的安排劃掉，同意先完成各自的工作。",
+                "suspected": "{name}把私下代班的安排劃掉，同意先完成各自的工作。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            },
+            {
+              "id": "let_them_choose_1",
+              "label": "保留互助，但下月補回缺班",
+              "hint": "眼前能互相照應；下月要多付替班費。",
+              "cost": 0,
+              "effects": {},
+              "tradeoffs": [
+                "保留彈性",
+                "後續代價"
+              ],
+              "psych": {
+                "trust": 1,
+                "stress": 3,
+                "loyalty": -1
+              },
+              "recovery": 0,
+              "relationship_delta": 3,
+              "goal_progress": 0,
+              "delayed": {
+                "after": 1,
+                "effects": {
+                  "treasury": -3
+                },
+                "text": "補上兩名弟子互助換班後留下的值勤缺口。"
+              },
+              "reaction": "{name}接受先互助、再補班的辦法，將缺下的班次清楚記下。",
+              "approach": "defer",
+              "callback_flag": "protect_other/1/let_them_choose_1",
+              "reactions": {
+                "supported": "{name}接受先互助、再補班的辦法，將缺下的班次清楚記下。",
+                "suspected": "{name}接受先互助、再補班的辦法，將缺下的班次清楚記下。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            }
+          ],
+          "kind": "arc",
+          "stage": 1,
+          "arc_id": "protect_other"
+        },
+        {
+          "id": "partner_result",
+          "title": "照應不等於代替決定",
+          "text": "{name}問：「我想幫{other}，但哪些事該讓對方自己說？若一直替人回答，可能反而添麻煩。」",
+          "choices": [
+            {
+              "id": "ask_both_2",
+              "label": "安排兩人當面商量，僱人補班",
+              "hint": "付出糧餉，讓雙方說明需要與界線。",
+              "cost": 3,
+              "effects": {},
+              "tradeoffs": [
+                "協助人物",
+                "門內支出"
+              ],
+              "psych": {
+                "trust": 8,
+                "stress": -9,
+                "loyalty": 4
+              },
+              "recovery": 0,
+              "relationship_delta": 8,
+              "goal_progress": 1,
+              "delayed": null,
+              "reaction": "{name}與{other}各自說明需要的協助，約好先詢問，再替對方作安排。",
+              "approach": "support",
+              "callback_flag": "protect_other/2/ask_both_2",
+              "reactions": {
+                "supported": "{name}與{other}各自說明需要的協助，約好先詢問，再替對方作安排。",
+                "suspected": "{name}與{other}各自說明需要的協助，約好先詢問，再替對方作安排。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            },
+            {
+              "id": "separate_duties_2",
+              "label": "明訂各自負責，不再互代回覆",
+              "hint": "分工清楚；人物必須減少替同門出面的次數。",
+              "cost": 0,
+              "effects": {
+                "defense": 3
+              },
+              "tradeoffs": [
+                "維持門務",
+                "個人需求受限"
+              ],
+              "psych": {
+                "trust": -7,
+                "stress": 5,
+                "loyalty": -3
+              },
+              "recovery": 0,
+              "relationship_delta": 1,
+              "goal_progress": 0,
+              "delayed": null,
+              "reaction": "{name}同意讓{other}自己回答，也請你在對方需要協助時再通知。",
+              "approach": "discipline",
+              "callback_flag": "protect_other/2/separate_duties_2",
+              "reactions": {
+                "supported": "{name}同意讓{other}自己回答，也請你在對方需要協助時再通知。",
+                "suspected": "{name}同意讓{other}自己回答，也請你在對方需要協助時再通知。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            },
+            {
+              "id": "let_them_choose_2",
+              "label": "仍准互相照應，暫不改規矩",
+              "hint": "保留原有互助；遇到衝突仍得再協調。",
+              "cost": 0,
+              "effects": {
+                "defense": -1
+              },
+              "tradeoffs": [
+                "保留彈性",
+                "後續代價"
+              ],
+              "psych": {
+                "trust": 1,
+                "stress": 3,
+                "loyalty": -1
+              },
+              "recovery": 0,
+              "relationship_delta": 3,
+              "goal_progress": 0,
+              "delayed": null,
+              "reaction": "{name}答應遇事先商量，但這次還沒有訂下明確分工。",
+              "approach": "defer",
+              "callback_flag": "protect_other/2/let_them_choose_2",
+              "reactions": {
+                "supported": "{name}答應遇事先商量，但這次還沒有訂下明確分工。",
+                "suspected": "{name}答應遇事先商量，但這次還沒有訂下明確分工。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            }
+          ],
+          "kind": "arc",
+          "stage": 2,
+          "arc_id": "protect_other"
+        }
+      ],
       "stages": [
-        "{name}問起{other}的歸期，自己的晚飯卻一直沒動。",
-        "{name}請求替{other}減少差遣，但缺下的工作仍要有人做。",
-        "{name}把兩人的值勤表放在一起，等你回應先前的承諾。"
+        "{name}拿著自己與{other}的班表：「我想確認我們的工作會不會撞在一起。有事發生時，我至少要知道該去哪裡找人。」",
+        "{name}把兩人的班表放到你面前：「我可以照應{other}，但要怎麼幫，得先講清楚，不能每次都臨時多值一班。」",
+        "{name}問：「我想幫{other}，但哪些事該讓對方自己說？若一直替人回答，可能反而添麻煩。」"
       ],
       "choices": [
         {
-          "id": "support",
-          "label": "付糧僱短工讓同門喘息",
-          "tradeoffs": [
-            "人物需要",
-            "糧餉支出"
-          ],
-          "cost": 5,
-          "effects": {
-            "defense": -1
-          },
-          "psych": {
-            "trust": 10,
-            "stress": -13,
-            "loyalty": 5
-          },
-          "reaction": "{name}收下安排，卻提醒你門內的缺口仍得補上。",
-          "delayed": null
-        },
-        {
-          "id": "discipline",
-          "label": "仍按名冊輪值並查明爭議",
-          "tradeoffs": [
-            "門派秩序",
-            "人物距離"
-          ],
-          "cost": 0,
-          "effects": {
-            "defense": 3,
-            "treasury": 2
-          },
-          "psych": {
-            "trust": -8,
-            "stress": 6,
-            "loyalty": -4
-          },
-          "reaction": "{name}把規矩逐字記下；未被處理的私事仍擱在案邊。",
-          "delayed": null
-        },
-        {
-          "id": "defer",
-          "label": "暫准調班，承擔下月缺口",
-          "tradeoffs": [
-            "眼前彈性",
-            "延後負擔"
-          ],
-          "cost": 0,
+          "id": "ask_both_0",
+          "label": "付替班糧，讓兩人先核對分工",
+          "hint": "支出糧餉，兩人能把互相支援的安排說清楚。",
+          "cost": 3,
           "effects": {},
+          "tradeoffs": [
+            "協助人物",
+            "門內支出"
+          ],
           "psych": {
-            "trust": 2,
-            "stress": 6,
-            "loyalty": -2
+            "trust": 8,
+            "stress": -9,
+            "loyalty": 4
           },
-          "reaction": "{name}答應先做眼前的事，也請你不要忘記今日的約定。",
-          "delayed": {
-            "after": 2,
-            "effects": {
-              "treasury": -3,
-              "defense": -1
-            },
-            "text": "先前延後的人事安排如今需要補上盤纏與值勤。"
+          "recovery": 0,
+          "relationship_delta": 6,
+          "goal_progress": 0,
+          "delayed": null,
+          "reaction": "{name}和{other}核對了集合地點，答應有改動就先通知對方。",
+          "approach": "support",
+          "callback_flag": "protect_other/0/ask_both_0",
+          "reactions": {
+            "supported": "{name}和{other}核對了集合地點，答應有改動就先通知對方。",
+            "suspected": "{name}和{other}核對了集合地點，答應有改動就先通知對方。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+          }
+        },
+        {
+          "id": "separate_duties_0",
+          "label": "要求各守原班，明訂通報方式",
+          "hint": "守備完整；兩人仍分開工作。",
+          "cost": 0,
+          "effects": {
+            "defense": 3
+          },
+          "tradeoffs": [
+            "維持門務",
+            "個人需求受限"
+          ],
+          "psych": {
+            "trust": -7,
+            "stress": 5,
+            "loyalty": -3
+          },
+          "recovery": 0,
+          "relationship_delta": -2,
+          "goal_progress": 0,
+          "delayed": null,
+          "reaction": "{name}記下通報方式，說會照原班出勤，不再臨時替人換班。",
+          "approach": "discipline",
+          "callback_flag": "protect_other/0/separate_duties_0",
+          "reactions": {
+            "supported": "{name}記下通報方式，說會照原班出勤，不再臨時替人換班。",
+            "suspected": "{name}記下通報方式，說會照原班出勤，不再臨時替人換班。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+          }
+        },
+        {
+          "id": "let_them_choose_0",
+          "label": "准兩人自行換班",
+          "hint": "留出照應空間；交接期間的守備較薄。",
+          "cost": 0,
+          "effects": {
+            "defense": -2
+          },
+          "tradeoffs": [
+            "保留彈性",
+            "後續代價"
+          ],
+          "psych": {
+            "trust": 1,
+            "stress": 3,
+            "loyalty": -1
+          },
+          "recovery": 0,
+          "relationship_delta": 3,
+          "goal_progress": 0,
+          "delayed": null,
+          "reaction": "{name}與{other}交換班次，答應補交一份新的時間表。",
+          "approach": "defer",
+          "callback_flag": "protect_other/0/let_them_choose_0",
+          "reactions": {
+            "supported": "{name}與{other}交換班次，答應補交一份新的時間表。",
+            "suspected": "{name}與{other}交換班次，答應補交一份新的時間表。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
           }
         }
       ],
       "resolutions": {
-        "support": "多次得到實際協助後，終於願意把未來也寫進青崖門的名冊。",
-        "discipline": "幾次請求都落回規矩之內，私事與門內責任之間的裂縫仍未補起。",
-        "defer": "數次約定仍待兌現，決定先把自己的去處留白。"
+        "support": "照應改由兩人當面商量，替班與休整列入門內安排。被照顧的一方也能親口說需要什麼。",
+        "discipline": "各自負責的界線被寫清，誰都不能再用好意代替另一人的答覆。互助仍要先得到對方同意。",
+        "defer": "兩人保留互相照應的彈性；少掉的班與沒說清的責任，往後仍須由兩人一起面對。"
       }
     },
     {
       "id": "enemy_ties",
       "title": "與敵派的舊關係",
+      "scenes": [
+        {
+          "id": "ties_first",
+          "title": "認得敵方渡口的人",
+          "text": "{name}把一封尚未拆開的信放在缺角茶盞旁：「收件地址靠近烈川堂。你要問，我可以說明；但我也想知道，你要查的是地址，還是先認定了我替誰做事？」",
+          "choices": [
+            {
+              "id": "register_recipient_0",
+              "label": "把信給我，我不看內容，只記收件人。",
+              "hint": "程序留痕；保留私人內容。",
+              "cost": 0,
+              "effects": {},
+              "tradeoffs": [
+                "程序留痕",
+                "保留私人內容"
+              ],
+              "psych": {
+                "trust": 5,
+                "stress": -3,
+                "loyalty": 2
+              },
+              "recovery": 0,
+              "relationship_delta": 0,
+              "goal_progress": 0,
+              "delayed": null,
+              "reaction": "{name}寫下收件人與日期，把信收回去：「有下一封，我照這個辦。」",
+              "approach": "support",
+              "callback_flag": "enemy_ties/0/register_recipient_0",
+              "reactions": {
+                "supported": "{name}寫下收件人與日期，把信收回去：「有下一封，我照這個辦。」",
+                "suspected": "{name}寫下收件人與日期，把信收回去：「有下一封，我照這個辦。」 他把信壓在掌下，等你把查證範圍說完。"
+              },
+              "grant_thread_clue": false
+            },
+            {
+              "id": "open_together_0",
+              "label": "今晚一起拆。",
+              "hint": "當面查證；放棄部分隱私。",
+              "cost": 0,
+              "effects": {},
+              "tradeoffs": [
+                "當面查證",
+                "放棄部分隱私"
+              ],
+              "psych": {
+                "trust": -3,
+                "stress": 2,
+                "loyalty": 1
+              },
+              "recovery": 0,
+              "relationship_delta": 0,
+              "goal_progress": 0,
+              "delayed": null,
+              "reaction": "{name}親手拆開信封，讓你看過能核對的段落：「看過哪些，你也記著，別讓人再猜。」",
+              "approach": "discipline",
+              "callback_flag": "enemy_ties/0/open_together_0",
+              "reactions": {
+                "supported": "{name}親手拆開信封，讓你看過能核對的段落：「看過哪些，你也記著，別讓人再猜。」",
+                "suspected": "{name}親手拆開信封，讓你看過能核對的段落：「看過哪些，你也記著，別讓人再猜。」 他把信壓在掌下，等你把查證範圍說完。"
+              },
+              "grant_thread_clue": true
+            },
+            {
+              "id": "notify_next_0",
+              "label": "你可以繼續聯絡，但下次先告訴我。",
+              "hint": "保留自主；承擔聯絡風險。",
+              "cost": 0,
+              "effects": {},
+              "tradeoffs": [
+                "保留自主",
+                "承擔聯絡風險"
+              ],
+              "psych": {
+                "trust": 8,
+                "stress": -5,
+                "loyalty": 0
+              },
+              "recovery": 0,
+              "relationship_delta": 0,
+              "goal_progress": 0,
+              "delayed": null,
+              "reaction": "{name}答應先報備下一次聯絡：「這是我答應你的，不是每封信都由你替我寫。」",
+              "approach": "defer",
+              "callback_flag": "enemy_ties/0/notify_next_0",
+              "reactions": {
+                "supported": "{name}答應先報備下一次聯絡：「這是我答應你的，不是每封信都由你替我寫。」",
+                "suspected": "{name}答應先報備下一次聯絡：「這是我答應你的，不是每封信都由你替我寫。」 他把信壓在掌下，等你把查證範圍說完。"
+              },
+              "grant_thread_clue": false
+            }
+          ],
+          "kind": "arc",
+          "stage": 0,
+          "arc_id": "enemy_ties"
+        },
+        {
+          "id": "ties_check",
+          "title": "消息和人情分開處理",
+          "text": "{name}說：「我認得的人，說的話也可能不全對。要我幫忙辨認消息可以，但別要我替沒查過的事作保。」",
+          "choices": [
+            {
+              "id": "register_recipient_1",
+              "label": "花費查證，把私人消息逐項分開",
+              "hint": "支出糧餉，查證過程也占用巡守時間。",
+              "cost": 3,
+              "effects": {
+                "defense": -1
+              },
+              "tradeoffs": [
+                "協助人物",
+                "門內支出"
+              ],
+              "psych": {
+                "trust": 8,
+                "stress": -9,
+                "loyalty": 4
+              },
+              "recovery": 0,
+              "relationship_delta": 0,
+              "goal_progress": 1,
+              "delayed": null,
+              "reaction": "{name}把消息分成親眼所見、聽說與尚待核對三類，沒有替舊識的全部說法作保。",
+              "approach": "support",
+              "callback_flag": "enemy_ties/1/register_recipient_1",
+              "reactions": {
+                "supported": "{name}把消息分成親眼所見、聽說與尚待核對三類，沒有替舊識的全部說法作保。",
+                "suspected": "{name}把消息分成親眼所見、聽說與尚待核對三類，沒有替舊識的全部說法作保。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            },
+            {
+              "id": "open_together_1",
+              "label": "只收可核對的消息，其他不採用",
+              "hint": "減少誤用消息的風險；人物的私人請託暫緩。",
+              "cost": 0,
+              "effects": {
+                "defense": 3
+              },
+              "tradeoffs": [
+                "維持門務",
+                "個人需求受限"
+              ],
+              "psych": {
+                "trust": -7,
+                "stress": 5,
+                "loyalty": -3
+              },
+              "recovery": 0,
+              "relationship_delta": 0,
+              "goal_progress": 0,
+              "delayed": null,
+              "reaction": "{name}交出能核對的部分，接受沒有證據的話暫不採用。",
+              "approach": "discipline",
+              "callback_flag": "enemy_ties/1/open_together_1",
+              "reactions": {
+                "supported": "{name}交出能核對的部分，接受沒有證據的話暫不採用。",
+                "suspected": "{name}交出能核對的部分，接受沒有證據的話暫不採用。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            },
+            {
+              "id": "notify_next_1",
+              "label": "先留存原話，待新證據再查",
+              "hint": "眼前不作判斷；後續整理有成本。",
+              "cost": 0,
+              "effects": {},
+              "tradeoffs": [
+                "保留彈性",
+                "後續代價"
+              ],
+              "psych": {
+                "trust": 1,
+                "stress": 3,
+                "loyalty": -1
+              },
+              "recovery": 0,
+              "relationship_delta": 0,
+              "goal_progress": 0,
+              "delayed": {
+                "after": 1,
+                "effects": {
+                  "treasury": -2
+                },
+                "text": "補查先前留存的渡口消息，支出查證費。"
+              },
+              "reaction": "{name}把原話留在記錄上，請你不要把未採用的說法當成已證實。",
+              "approach": "defer",
+              "callback_flag": "enemy_ties/1/notify_next_1",
+              "reactions": {
+                "supported": "{name}把原話留在記錄上，請你不要把未採用的說法當成已證實。",
+                "suspected": "{name}把原話留在記錄上，請你不要把未採用的說法當成已證實。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            }
+          ],
+          "kind": "arc",
+          "stage": 1,
+          "arc_id": "enemy_ties"
+        },
+        {
+          "id": "ties_result",
+          "title": "往後還能不能來往",
+          "text": "{name}拿著先前登記的聯絡名單：「我想知道往後的規矩。哪些來往可以報備，哪些會讓青崖門承擔風險？」",
+          "choices": [
+            {
+              "id": "register_recipient_2",
+              "label": "訂明可報備的聯絡方式",
+              "hint": "支出整理費，保留有紀錄的私人來往。",
+              "cost": 2,
+              "effects": {
+                "reputation": 2
+              },
+              "tradeoffs": [
+                "協助人物",
+                "門內支出"
+              ],
+              "psych": {
+                "trust": 8,
+                "stress": -9,
+                "loyalty": 4
+              },
+              "recovery": 0,
+              "relationship_delta": 0,
+              "goal_progress": 1,
+              "delayed": null,
+              "reaction": "{name}逐項確認可報備的往來，答應涉及山門的消息一定先交代。",
+              "approach": "support",
+              "callback_flag": "enemy_ties/2/register_recipient_2",
+              "reactions": {
+                "supported": "{name}逐項確認可報備的往來，答應涉及山門的消息一定先交代。",
+                "suspected": "{name}逐項確認可報備的往來，答應涉及山門的消息一定先交代。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            },
+            {
+              "id": "open_together_2",
+              "label": "戰前暫停所有私人聯絡",
+              "hint": "維持守備保密；人物必須暫時切斷舊人情。",
+              "cost": 0,
+              "effects": {
+                "defense": 4
+              },
+              "tradeoffs": [
+                "維持門務",
+                "個人需求受限"
+              ],
+              "psych": {
+                "trust": -7,
+                "stress": 5,
+                "loyalty": -3
+              },
+              "recovery": 0,
+              "relationship_delta": 0,
+              "goal_progress": 0,
+              "delayed": null,
+              "reaction": "{name}收起名單，問戰事結束後能不能再重新討論。",
+              "approach": "discipline",
+              "callback_flag": "enemy_ties/2/open_together_2",
+              "reactions": {
+                "supported": "{name}收起名單，問戰事結束後能不能再重新討論。",
+                "suspected": "{name}收起名單，問戰事結束後能不能再重新討論。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            },
+            {
+              "id": "notify_next_2",
+              "label": "交中立長輩代收代轉",
+              "hint": "保留聯絡，門派日後支付轉遞費。",
+              "cost": 0,
+              "effects": {},
+              "tradeoffs": [
+                "保留彈性",
+                "後續代價"
+              ],
+              "psych": {
+                "trust": 1,
+                "stress": 3,
+                "loyalty": -1
+              },
+              "recovery": 0,
+              "relationship_delta": 0,
+              "goal_progress": 0,
+              "delayed": {
+                "after": 2,
+                "effects": {
+                  "treasury": -3
+                },
+                "text": "支付中立長輩代轉私人信件的費用。"
+              },
+              "reaction": "{name}同意交長輩代轉，說至少不用在舊識與門規之間私下選一邊。",
+              "approach": "defer",
+              "callback_flag": "enemy_ties/2/notify_next_2",
+              "reactions": {
+                "supported": "{name}同意交長輩代轉，說至少不用在舊識與門規之間私下選一邊。",
+                "suspected": "{name}同意交長輩代轉，說至少不用在舊識與門規之間私下選一邊。 對方又確認了一次約定，沒有把這當成以後都能照辦的保證。"
+              }
+            }
+          ],
+          "kind": "arc",
+          "stage": 2,
+          "arc_id": "enemy_ties"
+        }
+      ],
       "stages": [
-        "{name}提起烈川堂的一處渡口：「那裡還住著我認識的人。」",
-        "{name}想赴約核實消息，卻不願讓所有舊識都被當成敵人。",
-        "{name}將幾封往返信擺在案上，問青崖門還容不容得下自己的過去。"
+        "{name}指著烈川堂附近的渡口：「我以前認識的人還在那裡。我想問問近況，但也知道現在來往容易被懷疑。」",
+        "{name}說：「我認得的人，說的話也可能不全對。要我幫忙辨認消息可以，但別要我替沒查過的事作保。」",
+        "{name}拿著先前登記的聯絡名單：「我想知道往後的規矩。哪些來往可以報備，哪些會讓青崖門承擔風險？」"
       ],
       "choices": [
         {
-          "id": "support",
-          "label": "付旅費陪同核實舊識安危",
+          "id": "register_recipient_0",
+          "label": "把信給我，我不看內容，只記收件人。",
+          "hint": "程序留痕；保留私人內容。",
+          "cost": 0,
+          "effects": {},
           "tradeoffs": [
-            "人物需要",
-            "糧餉支出"
+            "程序留痕",
+            "保留私人內容"
           ],
+          "psych": {
+            "trust": 5,
+            "stress": -3,
+            "loyalty": 2
+          },
+          "recovery": 0,
+          "relationship_delta": 0,
+          "goal_progress": 0,
+          "delayed": null,
+          "reaction": "{name}寫下收件人與日期，把信收回去：「有下一封，我照這個辦。」",
+          "approach": "support",
+          "callback_flag": "enemy_ties/0/register_recipient_0",
+          "reactions": {
+            "supported": "{name}寫下收件人與日期，把信收回去：「有下一封，我照這個辦。」",
+            "suspected": "{name}寫下收件人與日期，把信收回去：「有下一封，我照這個辦。」 他把信壓在掌下，等你把查證範圍說完。"
+          },
+          "grant_thread_clue": false
+        },
+        {
+          "id": "open_together_0",
+          "label": "今晚一起拆。",
+          "hint": "當面查證；放棄部分隱私。",
+          "cost": 0,
+          "effects": {},
+          "tradeoffs": [
+            "當面查證",
+            "放棄部分隱私"
+          ],
+          "psych": {
+            "trust": -3,
+            "stress": 2,
+            "loyalty": 1
+          },
+          "recovery": 0,
+          "relationship_delta": 0,
+          "goal_progress": 0,
+          "delayed": null,
+          "reaction": "{name}親手拆開信封，讓你看過能核對的段落：「看過哪些，你也記著，別讓人再猜。」",
+          "approach": "discipline",
+          "callback_flag": "enemy_ties/0/open_together_0",
+          "reactions": {
+            "supported": "{name}親手拆開信封，讓你看過能核對的段落：「看過哪些，你也記著，別讓人再猜。」",
+            "suspected": "{name}親手拆開信封，讓你看過能核對的段落：「看過哪些，你也記著，別讓人再猜。」 他把信壓在掌下，等你把查證範圍說完。"
+          },
+          "grant_thread_clue": true
+        },
+        {
+          "id": "notify_next_0",
+          "label": "你可以繼續聯絡，但下次先告訴我。",
+          "hint": "保留自主；承擔聯絡風險。",
+          "cost": 0,
+          "effects": {},
+          "tradeoffs": [
+            "保留自主",
+            "承擔聯絡風險"
+          ],
+          "psych": {
+            "trust": 8,
+            "stress": -5,
+            "loyalty": 0
+          },
+          "recovery": 0,
+          "relationship_delta": 0,
+          "goal_progress": 0,
+          "delayed": null,
+          "reaction": "{name}答應先報備下一次聯絡：「這是我答應你的，不是每封信都由你替我寫。」",
+          "approach": "defer",
+          "callback_flag": "enemy_ties/0/notify_next_0",
+          "reactions": {
+            "supported": "{name}答應先報備下一次聯絡：「這是我答應你的，不是每封信都由你替我寫。」",
+            "suspected": "{name}答應先報備下一次聯絡：「這是我答應你的，不是每封信都由你替我寫。」 他把信壓在掌下，等你把查證範圍說完。"
+          },
+          "grant_thread_clue": false
+        }
+      ],
+      "resolutions": {
+        "support": "通信改走報備與核對的程序，地址可以留下，私人內容也有界線。願意配合查證並非已被判定無辜。",
+        "discipline": "信件或消息要經共同查核才採用；外部來往被更嚴格看待，但地址本身仍不能當作通敵證據。",
+        "defer": "來往保留等待、報備或中立轉交的餘地。這讓消息仍可能送到，也讓未核實的內容必須繼續存疑。"
+      }
+    }
+  ],
+  "situations": [
+    {
+      "id": "wound_care",
+      "title": "傷後要不要減班",
+      "text": "{name}指著自己尚未痊癒的傷處：「今晚怎麼排？我可以交代工作，但照原來的強度走山路，怕拖累其他人。」",
+      "choices": [
+        {
+          "id": "support",
+          "label": "買藥並安排完整休養",
+          "hint": "支出藥糧，改善傷勢並減輕疲勞。",
           "cost": 5,
           "effects": {
             "defense": -1
           },
+          "tradeoffs": [
+            "協助人物",
+            "門內支出"
+          ],
           "psych": {
-            "trust": 10,
-            "stress": -13,
-            "loyalty": 5
+            "trust": 8,
+            "stress": -9,
+            "loyalty": 4
           },
-          "reaction": "{name}收下安排，卻提醒你門內的缺口仍得補上。",
-          "delayed": null
+          "recovery": 25,
+          "relationship_delta": 0,
+          "goal_progress": 0,
+          "delayed": null,
+          "reaction": "{name}接受治療，將需要別人接手的工作逐件交代。",
+          "heal": 1
         },
         {
           "id": "discipline",
-          "label": "依規留檔查證並限制私行",
-          "tradeoffs": [
-            "門派秩序",
-            "人物距離"
-          ],
+          "label": "改做門內輕勤",
+          "hint": "不用另買藥，稍減疲勞；傷勢仍需時間恢復。",
           "cost": 0,
           "effects": {
-            "defense": 3,
-            "treasury": 2
+            "defense": 1
           },
+          "tradeoffs": [
+            "維持門務",
+            "個人需求受限"
+          ],
           "psych": {
-            "trust": -8,
-            "stress": 6,
-            "loyalty": -4
+            "trust": -7,
+            "stress": 5,
+            "loyalty": -3
           },
-          "reaction": "{name}把規矩逐字記下；未被處理的私事仍擱在案邊。",
-          "delayed": null
+          "recovery": 12,
+          "relationship_delta": 0,
+          "goal_progress": 0,
+          "delayed": null,
+          "reaction": "{name}接下門內登記工作，答應痛得厲害就停止。"
         },
         {
           "id": "defer",
-          "label": "先信其說法，延後查證",
+          "label": "只做交接，次月補藥",
+          "hint": "先停下今晚的工作；下月仍要支付藥費。",
+          "cost": 0,
+          "effects": {
+            "defense": -2
+          },
           "tradeoffs": [
-            "眼前彈性",
-            "延後負擔"
+            "保留彈性",
+            "後續代價"
           ],
+          "psych": {
+            "trust": 1,
+            "stress": 3,
+            "loyalty": -1
+          },
+          "recovery": 18,
+          "relationship_delta": 0,
+          "goal_progress": 0,
+          "delayed": {
+            "after": 1,
+            "effects": {
+              "treasury": -3
+            },
+            "text": "補買先前答應給傷者的藥材。"
+          },
+          "reaction": "{name}完成交接後去休息，藥材留待下月補上。"
+        }
+      ],
+      "trigger": "injury",
+      "kind": "situation"
+    },
+    {
+      "id": "failed_return",
+      "title": "回來後先談哪件事",
+      "text": "{name}帶來本月未能完成的任務記錄：「我想把出錯的地方說清楚。要先找補救辦法，還是先把責任分開？」",
+      "choices": [
+        {
+          "id": "support",
+          "label": "付糧重整準備，先找補救方法",
+          "hint": "支出糧餉，減輕疲勞；暫少一班巡守。",
+          "cost": 4,
+          "effects": {
+            "defense": -1
+          },
+          "tradeoffs": [
+            "協助人物",
+            "門內支出"
+          ],
+          "psych": {
+            "trust": 8,
+            "stress": -9,
+            "loyalty": 4
+          },
+          "recovery": 18,
+          "relationship_delta": 0,
+          "goal_progress": 0,
+          "delayed": null,
+          "reaction": "{name}重新列出缺少的準備，答應下一次出發前先核對。"
+        },
+        {
+          "id": "discipline",
+          "label": "公開檢討分工，補上守備流程",
+          "hint": "改善門內流程；人物須當面說明失誤。",
+          "cost": 0,
+          "effects": {
+            "defense": 4
+          },
+          "tradeoffs": [
+            "維持門務",
+            "個人需求受限"
+          ],
+          "psych": {
+            "trust": -7,
+            "stress": 5,
+            "loyalty": -3
+          },
+          "recovery": 0,
+          "relationship_delta": 0,
+          "goal_progress": 0,
+          "delayed": null,
+          "reaction": "{name}逐項交代判斷與分工，接受把缺少的檢查補進值勤規矩。"
+        },
+        {
+          "id": "defer",
+          "label": "先休整，隔月再檢討",
+          "hint": "眼前減少疲勞；後續檢討仍要挪出人手。",
           "cost": 0,
           "effects": {},
+          "tradeoffs": [
+            "保留彈性",
+            "後續代價"
+          ],
           "psych": {
-            "trust": 2,
-            "stress": 6,
-            "loyalty": -2
+            "trust": 1,
+            "stress": 3,
+            "loyalty": -1
           },
-          "reaction": "{name}答應先做眼前的事，也請你不要忘記今日的約定。",
+          "recovery": 20,
+          "relationship_delta": 0,
+          "goal_progress": 0,
+          "delayed": {
+            "after": 1,
+            "effects": {
+              "defense": -2
+            },
+            "text": "召回人手補開上月任務失利的檢討。"
+          },
+          "reaction": "{name}先將記錄封存，和你約好下月再說，沒有把問題當作已解決。"
+        }
+      ],
+      "trigger": "failure",
+      "kind": "situation"
+    },
+    {
+      "id": "shared_credit",
+      "title": "功勞與下一班工作",
+      "text": "{name}完成本月任務後來問：「事情辦成了，同行者也出了力。要怎麼報功？我們今晚還照原班走嗎？」",
+      "choices": [
+        {
+          "id": "support",
+          "label": "給同行者休班與補給",
+          "hint": "支出糧餉，讓出勤者休整；巡守暫減。",
+          "cost": 4,
+          "effects": {
+            "defense": -1
+          },
+          "tradeoffs": [
+            "協助人物",
+            "門內支出"
+          ],
+          "psych": {
+            "trust": 8,
+            "stress": -9,
+            "loyalty": 4
+          },
+          "recovery": 20,
+          "relationship_delta": 0,
+          "goal_progress": 0,
+          "delayed": null,
+          "reaction": "{name}把同行者的名字補進報功記錄，交班後去休息。",
+          "partner_recovery": 10
+        },
+        {
+          "id": "discipline",
+          "label": "記明各自功勞，照常輪值",
+          "hint": "守備持續；出勤者沒有額外休息。",
+          "cost": 0,
+          "effects": {
+            "defense": 3,
+            "reputation": 2
+          },
+          "tradeoffs": [
+            "維持門務",
+            "個人需求受限"
+          ],
+          "psych": {
+            "trust": -7,
+            "stress": 5,
+            "loyalty": -3
+          },
+          "recovery": 0,
+          "relationship_delta": 0,
+          "goal_progress": 0,
+          "delayed": null,
+          "reaction": "{name}確認大家的工作都有被記下，隨後準備原定的值勤。"
+        },
+        {
+          "id": "defer",
+          "label": "把報酬留作全門公用",
+          "hint": "庫房增加收入；本次沒有個別犒賞。",
+          "cost": 0,
+          "effects": {
+            "treasury": 5
+          },
+          "tradeoffs": [
+            "保留彈性",
+            "後續代價"
+          ],
+          "psych": {
+            "trust": -2,
+            "stress": 2,
+            "loyalty": 2
+          },
+          "recovery": 0,
+          "relationship_delta": 0,
+          "goal_progress": 0,
+          "delayed": null,
+          "reaction": "{name}將這次可支配的報酬留給庫房，也說同行者希望知道這筆錢會用在哪裡。"
+        }
+      ],
+      "trigger": "success",
+      "kind": "situation"
+    },
+    {
+      "id": "work_dispute",
+      "title": "同門對分工有意見",
+      "text": "{name}提到{other}：「我們對誰該先回報的看法不同。下次一起辦事前，能不能把分工說清楚？」",
+      "choices": [
+        {
+          "id": "support",
+          "label": "付替班費，讓兩人當面談",
+          "hint": "花糧餉換時間；兩人有機會釐清誤會。",
+          "cost": 3,
+          "effects": {},
+          "tradeoffs": [
+            "協助人物",
+            "門內支出"
+          ],
+          "psych": {
+            "trust": 8,
+            "stress": -9,
+            "loyalty": 4
+          },
+          "recovery": 0,
+          "relationship_delta": 10,
+          "goal_progress": 0,
+          "delayed": null,
+          "reaction": "{name}與{other}把各自負責的部分寫明，答應有變動先通知對方。"
+        },
+        {
+          "id": "discipline",
+          "label": "由掌門直接定分工",
+          "hint": "守備安排更快落實；兩人沒有自行協商的空間。",
+          "cost": 0,
+          "effects": {
+            "defense": 4
+          },
+          "tradeoffs": [
+            "維持門務",
+            "個人需求受限"
+          ],
+          "psych": {
+            "trust": -7,
+            "stress": 5,
+            "loyalty": -3
+          },
+          "recovery": 0,
+          "relationship_delta": -2,
+          "goal_progress": 0,
+          "delayed": null,
+          "reaction": "{name}收下你定的分工，答應照表做事，但兩人的歧見尚未談完。"
+        },
+        {
+          "id": "defer",
+          "label": "下次先分開值勤",
+          "hint": "暫時減少摩擦；輪值調度較不方便。",
+          "cost": 0,
+          "effects": {
+            "defense": -2
+          },
+          "tradeoffs": [
+            "保留彈性",
+            "後續代價"
+          ],
+          "psych": {
+            "trust": 1,
+            "stress": 3,
+            "loyalty": -1
+          },
+          "recovery": 0,
+          "relationship_delta": 2,
+          "goal_progress": 0,
+          "delayed": null,
+          "reaction": "{name}接受先與{other}分開值勤，說等事情緩一點再談。"
+        }
+      ],
+      "trigger": "conflict",
+      "kind": "situation"
+    },
+    {
+      "id": "empty_granary",
+      "title": "庫房不足時怎麼排班",
+      "text": "{name}看過庫房數目後問：「糧餉不多了。我們要加接差事，還是先減少一些門內支出？」",
+      "choices": [
+        {
+          "id": "support",
+          "label": "保留弟子補給，先縮減其他門務",
+          "hint": "花糧餉確保出勤者吃飽；部分巡守暫緩。",
+          "cost": 3,
+          "effects": {
+            "defense": -2
+          },
+          "tradeoffs": [
+            "協助人物",
+            "門內支出"
+          ],
+          "psych": {
+            "trust": 8,
+            "stress": -9,
+            "loyalty": 4
+          },
+          "recovery": 15,
+          "relationship_delta": 0,
+          "goal_progress": 0,
+          "delayed": null,
+          "reaction": "{name}領走出勤補給，答應提醒其他人節省可省的支出。"
+        },
+        {
+          "id": "discipline",
+          "label": "增加有工錢的門內雜務",
+          "hint": "庫房收入增加；人物要多做工作。",
+          "cost": 0,
+          "effects": {
+            "treasury": 6
+          },
+          "tradeoffs": [
+            "維持門務",
+            "個人需求受限"
+          ],
+          "psych": {
+            "trust": -7,
+            "stress": 5,
+            "loyalty": -3
+          },
+          "recovery": -10,
+          "relationship_delta": 0,
+          "goal_progress": 0,
+          "delayed": null,
+          "reaction": "{name}接下能換取工錢的整理差事，問清楚今晚需要做到何時。"
+        },
+        {
+          "id": "defer",
+          "label": "暫借村中糧食，之後歸還",
+          "hint": "先取得糧食；兩個月後要還一筆糧餉。",
+          "cost": 0,
+          "effects": {
+            "treasury": 8
+          },
+          "tradeoffs": [
+            "保留彈性",
+            "後續代價"
+          ],
+          "psych": {
+            "trust": 1,
+            "stress": 3,
+            "loyalty": -1
+          },
+          "recovery": 0,
+          "relationship_delta": 0,
+          "goal_progress": 0,
           "delayed": {
             "after": 2,
             "effects": {
-              "treasury": -3,
-              "defense": -1
+              "treasury": -10
             },
-            "text": "先前延後的人事安排如今需要補上盤纏與值勤。"
-          }
+            "text": "歸還先前向村中借用的周轉糧。"
+          },
+          "reaction": "{name}把借糧日期記下，提醒你這筆糧食之後要還。"
         }
       ],
-      "resolutions": {
-        "support": "多次得到實際協助後，終於願意把未來也寫進青崖門的名冊。",
-        "discipline": "幾次請求都落回規矩之內，私事與門內責任之間的裂縫仍未補起。",
-        "defer": "數次約定仍待兌現，決定先把自己的去處留白。"
-      }
+      "trigger": "scarcity",
+      "kind": "situation"
+    },
+    {
+      "id": "check_evidence",
+      "title": "消息要查到什麼程度",
+      "text": "{name}看過已取得的消息後說：「有些內容可以互相核對。我想今晚再整理一次，但整理情報的人就不能同時巡山。」",
+      "choices": [
+        {
+          "id": "support",
+          "label": "付糧讓其專心核對",
+          "hint": "支出整理費，人物能練習整理與比對資料。",
+          "cost": 4,
+          "effects": {
+            "defense": -1
+          },
+          "tradeoffs": [
+            "協助人物",
+            "門內支出"
+          ],
+          "psych": {
+            "trust": 8,
+            "stress": -9,
+            "loyalty": 4
+          },
+          "recovery": 0,
+          "relationship_delta": 0,
+          "goal_progress": 0,
+          "delayed": null,
+          "reaction": "{name}將已證實與仍有疑問的部分分開，交回一份更易查閱的記錄。",
+          "growth": "strategy"
+        },
+        {
+          "id": "discipline",
+          "label": "只整理可立即用於守備的部分",
+          "hint": "加強眼前防備；其餘疑點繼續保留。",
+          "cost": 0,
+          "effects": {
+            "defense": 4
+          },
+          "tradeoffs": [
+            "維持門務",
+            "個人需求受限"
+          ],
+          "psych": {
+            "trust": -7,
+            "stress": 5,
+            "loyalty": -3
+          },
+          "recovery": 0,
+          "relationship_delta": 0,
+          "goal_progress": 0,
+          "delayed": null,
+          "reaction": "{name}先標出能用來安排哨位的部分，沒有把未查清的疑點當作定論。"
+        },
+        {
+          "id": "defer",
+          "label": "交同門互相核對，延後整理完稿",
+          "hint": "分攤工作；下月仍有整理成本。",
+          "cost": 0,
+          "effects": {},
+          "tradeoffs": [
+            "保留彈性",
+            "後續代價"
+          ],
+          "psych": {
+            "trust": 1,
+            "stress": 3,
+            "loyalty": -1
+          },
+          "recovery": 0,
+          "relationship_delta": 3,
+          "goal_progress": 0,
+          "delayed": {
+            "after": 1,
+            "effects": {
+              "treasury": -2
+            },
+            "text": "支付前月情報交叉核對的抄錄費。"
+          },
+          "reaction": "{name}把抄本交給同門核對，約好下月將不同意見一起交回。"
+        }
+      ],
+      "trigger": "intel",
+      "kind": "situation"
+    },
+    {
+      "id": "missing_seat",
+      "title": "空下來的位置",
+      "text": "{name}看著本月少了一人的班表：「{loss}不會再接這些工作了。要留時間整理交接，還是立刻把班次分下去？」",
+      "choices": [
+        {
+          "id": "support",
+          "label": "付替班糧，留一晚整理交接",
+          "hint": "支出糧餉，讓留下的人重新安排工作。",
+          "cost": 4,
+          "effects": {},
+          "tradeoffs": [
+            "協助人物",
+            "門內支出"
+          ],
+          "psych": {
+            "trust": 8,
+            "stress": -9,
+            "loyalty": 4
+          },
+          "recovery": 18,
+          "relationship_delta": 0,
+          "goal_progress": 0,
+          "delayed": null,
+          "reaction": "{name}把無人接手的事項逐項列出，請同門一起確認。"
+        },
+        {
+          "id": "discipline",
+          "label": "立即分攤原有班次",
+          "hint": "維持山門守備；留下的人工作增加。",
+          "cost": 0,
+          "effects": {
+            "defense": 4
+          },
+          "tradeoffs": [
+            "維持門務",
+            "個人需求受限"
+          ],
+          "psych": {
+            "trust": -7,
+            "stress": 5,
+            "loyalty": -3
+          },
+          "recovery": -8,
+          "relationship_delta": 0,
+          "goal_progress": 0,
+          "delayed": null,
+          "reaction": "{name}領走分到的班次，說會先把眼前的空缺補起來。"
+        },
+        {
+          "id": "defer",
+          "label": "暫停較不緊急的巡線",
+          "hint": "讓留下的人喘息；部分山路暫少巡守。",
+          "cost": 0,
+          "effects": {
+            "defense": -3
+          },
+          "tradeoffs": [
+            "保留彈性",
+            "後續代價"
+          ],
+          "psych": {
+            "trust": 1,
+            "stress": 3,
+            "loyalty": -1
+          },
+          "recovery": 15,
+          "relationship_delta": 0,
+          "goal_progress": 0,
+          "delayed": null,
+          "reaction": "{name}將較遠的巡線暫時劃去，先顧好能照看的範圍。"
+        }
+      ],
+      "trigger": "loss",
+      "kind": "situation"
+    },
+    {
+      "id": "battle_eve",
+      "title": "決戰前要先準備什麼",
+      "text": "{name}把出勤用具放好：「斷劍臺的日子近了。剩下的時間，要練我的本事、補守備，還是先把人養好？」",
+      "choices": [
+        {
+          "id": "support",
+          "label": "付演練糧，專練其擅長的本事",
+          "hint": "支出糧餉，提升專長；若已精熟便不再成長。",
+          "cost": 4,
+          "effects": {},
+          "tradeoffs": [
+            "協助人物",
+            "門內支出"
+          ],
+          "psych": {
+            "trust": 8,
+            "stress": -9,
+            "loyalty": 4
+          },
+          "recovery": 0,
+          "relationship_delta": 0,
+          "goal_progress": 0,
+          "delayed": null,
+          "reaction": "{name}按自己的專長完成一輪演練，將需要配合的地方告訴同門。",
+          "growth": "role"
+        },
+        {
+          "id": "discipline",
+          "label": "集中補完守山分工",
+          "hint": "加強防備；人物沒有個別演練時間。",
+          "cost": 0,
+          "effects": {
+            "defense": 5
+          },
+          "tradeoffs": [
+            "維持門務",
+            "個人需求受限"
+          ],
+          "psych": {
+            "trust": -7,
+            "stress": 5,
+            "loyalty": -3
+          },
+          "recovery": 0,
+          "relationship_delta": 0,
+          "goal_progress": 0,
+          "delayed": null,
+          "reaction": "{name}核對哨位與通報順序，答應照約定守住自己的位置。"
+        },
+        {
+          "id": "defer",
+          "label": "減少巡線，讓弟子休養",
+          "hint": "守備暫減，人物傷疲得到照顧。",
+          "cost": 0,
+          "effects": {
+            "defense": -3
+          },
+          "tradeoffs": [
+            "保留彈性",
+            "後續代價"
+          ],
+          "psych": {
+            "trust": 1,
+            "stress": 3,
+            "loyalty": -1
+          },
+          "recovery": 25,
+          "relationship_delta": 0,
+          "goal_progress": 0,
+          "delayed": null,
+          "reaction": "{name}交代完工作後接受休養，答應恢復後再檢查用具。",
+          "heal": 1
+        }
+      ],
+      "trigger": "late",
+      "kind": "situation"
+    }
+  ],
+  "quiet_scenes": [
+    {
+      "id": "shared_soup",
+      "title": "湯還熱著",
+      "text": "{name}把灶上的鍋往裡挪了一點，免得{other}經過時碰翻。兩人為最後一碗湯推讓了幾次，話題才轉到明天誰先起來生火。這一晚沒有新的急報，也沒有人需要先證明自己。",
+      "choices": [
+        {
+          "id": "eat_together",
+          "label": "添些糧，讓輪值的人一起吃",
+          "hint": "花少量糧餉，讓輪值前後的人都能歇一會。",
+          "cost": 2,
+          "effects": {},
+          "tradeoffs": [
+            "協助人物",
+            "門內支出"
+          ],
+          "psych": {
+            "trust": 4,
+            "stress": -4,
+            "loyalty": 1
+          },
+          "recovery": 8,
+          "relationship_delta": 1,
+          "goal_progress": 0,
+          "delayed": null,
+          "reaction": "{name}添了兩雙筷子，{other}去叫換班的人，最後一碗湯終於不用推來推去。",
+          "partner_recovery": 5,
+          "approach": "support"
+        },
+        {
+          "id": "leave_for_watch",
+          "label": "把熱湯留給晚班",
+          "hint": "先照顧還在守夜的人，眼前這一桌少分一些。",
+          "cost": 0,
+          "effects": {},
+          "tradeoffs": [
+            "維持門務",
+            "個人需求受限"
+          ],
+          "psych": {
+            "trust": 1,
+            "stress": -2,
+            "loyalty": 2
+          },
+          "recovery": 0,
+          "relationship_delta": 1,
+          "goal_progress": 0,
+          "delayed": null,
+          "reaction": "{name}把湯蓋好留給晚班，{other}在鍋邊壓了一張「還熱著」的紙。",
+          "approach": "discipline",
+          "partner_recovery": 5
+        },
+        {
+          "id": "take_turns",
+          "label": "請兩人自己排明早的火",
+          "hint": "保留兩人的安排空間，也把承諾交給他們自己記。",
+          "cost": 0,
+          "effects": {},
+          "tradeoffs": [
+            "保留彈性",
+            "後續代價"
+          ],
+          "psych": {
+            "trust": 3,
+            "stress": -2,
+            "loyalty": 0
+          },
+          "recovery": 0,
+          "relationship_delta": 4,
+          "goal_progress": 0,
+          "delayed": null,
+          "reaction": "{name}答應先生火，{other}接下洗鍋；兩人約好誰晚起就補下一回。",
+          "approach": "defer",
+          "partner_recovery": 5
+        }
+      ],
+      "trigger": "success",
+      "kind": "quiet_scene"
     }
   ]
 }

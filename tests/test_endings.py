@@ -4,7 +4,7 @@ import pytest
 
 from feedback import save_feedback, survey_options
 from game_engine import (InvalidAction, causal_replay, determine_ending, ending_view,
-                         finish, gain_intel, new_game)
+                         finish, gain_intel, new_game, current_thread)
 from simulate_balance import POLICIES, play_game
 
 
@@ -21,7 +21,7 @@ def ending_fixture():
 def test_five_endings_and_priority(ending):
     state = ending_fixture()
     if ending == "揭破陰謀":
-        for item in ("ledger", "pattern", "leak"):
+        for item in current_thread(state)["required_clues"]:
             gain_intel(state, item, "test")
         state.flags.add("alliance")
         state.resources.update(defense=70, reputation=70)

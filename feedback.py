@@ -32,7 +32,7 @@ def save_feedback(state, answers, response_id, path=DEFAULT_PATH):
             for line in stream:
                 if line.strip() and json.loads(line).get("response_id") == response_id:
                     return False
-    record = {"version": "0.3", "response_id": response_id, "seed": state.seed,
+    record = {"version": state.version, "response_id": response_id, "seed": state.seed,
               "ending": state.ending, "month": state.month, "answers": answers}
     with path.open("a", encoding="utf-8", newline="\n") as stream:
         stream.write(json.dumps(record, ensure_ascii=False) + "\n")

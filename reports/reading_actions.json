@@ -1,0 +1,498 @@
+[
+  {
+    "seed": 0,
+    "thread": "old_letters",
+    "ending": "揭破陰謀",
+    "month": 12,
+    "actions": [
+      {
+        "month": 1,
+        "phase": "day",
+        "option": "ledger",
+        "team": [
+          "c1"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 1,
+        "phase": "night",
+        "choice": "ties_first/open_together_0"
+      },
+      {
+        "month": 2,
+        "phase": "day",
+        "option": "return",
+        "team": [
+          "c1"
+        ],
+        "reason": "因公開背景與場景有關而邀其出勤；此處不以能力最高為唯一準則。"
+      },
+      {
+        "month": 2,
+        "phase": "night",
+        "choice": "work_dispute/discipline"
+      },
+      {
+        "month": 3,
+        "phase": "day",
+        "option": "sell_map",
+        "team": [
+          "c3"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 3,
+        "phase": "night",
+        "choice": "check_evidence/support"
+      },
+      {
+        "month": 4,
+        "phase": "day",
+        "option": "investigate",
+        "team": [
+          "c1",
+          "c2"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 4,
+        "phase": "night",
+        "choice": "ties_check/open_together_1"
+      },
+      {
+        "month": 5,
+        "phase": "day",
+        "option": "assist",
+        "team": [
+          "c3"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 5,
+        "phase": "night",
+        "choice": "partner_cost/separate_duties_1"
+      },
+      {
+        "month": 6,
+        "phase": "day",
+        "option": "pick",
+        "team": [
+          "c2",
+          "c3"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 6,
+        "phase": "night",
+        "choice": "shared_soup/eat_together"
+      },
+      {
+        "month": 7,
+        "phase": "day",
+        "option": "settle",
+        "team": [
+          "c3"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 7,
+        "phase": "night",
+        "choice": "evidence_crosscheck/support"
+      },
+      {
+        "month": 8,
+        "phase": "day",
+        "option": "watch",
+        "team": [
+          "c1"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 8,
+        "phase": "night",
+        "choice": "partner_result/separate_duties_2"
+      },
+      {
+        "month": 9,
+        "phase": "day",
+        "option": "seek",
+        "team": [
+          "c3"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 9,
+        "phase": "night",
+        "choice": "debt_first/keep_shift_0"
+      },
+      {
+        "month": 10,
+        "phase": "day",
+        "option": "labor",
+        "team": [
+          "c0",
+          "c2"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 10,
+        "phase": "night",
+        "choice": "ties_first/register_recipient_0"
+      },
+      {
+        "month": 11,
+        "phase": "day",
+        "option": "revise",
+        "team": [
+          "c3"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 11,
+        "phase": "night",
+        "choice": "show_truth"
+      }
+    ]
+  },
+  {
+    "seed": 4,
+    "thread": "false_cards",
+    "ending": "揭破陰謀",
+    "month": 12,
+    "actions": [
+      {
+        "month": 1,
+        "phase": "day",
+        "option": "ledger",
+        "team": [
+          "c1"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 1,
+        "phase": "night",
+        "choice": "debt_first/keep_shift_0"
+      },
+      {
+        "month": 2,
+        "phase": "day",
+        "option": "records",
+        "team": [
+          "c1"
+        ],
+        "reason": "因公開背景與場景有關而邀其出勤；此處不以能力最高為唯一準則。"
+      },
+      {
+        "month": 2,
+        "phase": "night",
+        "choice": "work_dispute/discipline"
+      },
+      {
+        "month": 3,
+        "phase": "day",
+        "option": "copy",
+        "team": [
+          "c1"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 3,
+        "phase": "night",
+        "choice": "check_evidence/support"
+      },
+      {
+        "month": 4,
+        "phase": "day",
+        "option": "appeal",
+        "team": [
+          "c3"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 4,
+        "phase": "night",
+        "choice": "debt_first/keep_shift_0"
+      },
+      {
+        "month": 5,
+        "phase": "day",
+        "option": "contract",
+        "team": [
+          "c3"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 5,
+        "phase": "night",
+        "choice": "partner_cost/ask_both_1"
+      },
+      {
+        "month": 6,
+        "phase": "day",
+        "option": "shelter",
+        "team": [
+          "c2"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 6,
+        "phase": "night",
+        "choice": "shared_soup/eat_together"
+      },
+      {
+        "month": 7,
+        "phase": "day",
+        "option": "revise",
+        "team": [
+          "c3"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 7,
+        "phase": "night",
+        "choice": "evidence_crosscheck/support"
+      },
+      {
+        "month": 8,
+        "phase": "day",
+        "option": "open",
+        "team": [
+          "c1",
+          "c3"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 8,
+        "phase": "night",
+        "choice": "partner_result/separate_duties_2"
+      },
+      {
+        "month": 9,
+        "phase": "day",
+        "option": "seek",
+        "team": [
+          "c3"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 9,
+        "phase": "night",
+        "choice": "ties_first/register_recipient_0"
+      },
+      {
+        "month": 10,
+        "phase": "day",
+        "option": "service",
+        "team": [
+          "c0",
+          "c2"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 10,
+        "phase": "night",
+        "choice": "ties_first/register_recipient_0"
+      },
+      {
+        "month": 11,
+        "phase": "day",
+        "option": "interview",
+        "team": [
+          "c1",
+          "c3"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 11,
+        "phase": "night",
+        "choice": "keep_people"
+      }
+    ]
+  },
+  {
+    "seed": 6,
+    "thread": "old_road",
+    "ending": "揭破陰謀",
+    "month": 12,
+    "actions": [
+      {
+        "month": 1,
+        "phase": "day",
+        "option": "repair",
+        "team": [
+          "c0",
+          "c3"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 1,
+        "phase": "night",
+        "choice": "voice_first/fund_proposal_0"
+      },
+      {
+        "month": 2,
+        "phase": "day",
+        "option": "labor",
+        "team": [
+          "c0",
+          "c1"
+        ],
+        "reason": "因公開背景與場景有關而邀其出勤；此處不以能力最高為唯一準則。"
+      },
+      {
+        "month": 2,
+        "phase": "night",
+        "choice": "work_dispute/discipline"
+      },
+      {
+        "month": 3,
+        "phase": "day",
+        "option": "treat",
+        "team": [
+          "c1"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 3,
+        "phase": "night",
+        "choice": "check_evidence/support"
+      },
+      {
+        "month": 4,
+        "phase": "day",
+        "option": "investigate",
+        "team": [
+          "c1",
+          "c3"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 4,
+        "phase": "night",
+        "choice": "ties_first/open_together_0"
+      },
+      {
+        "month": 5,
+        "phase": "day",
+        "option": "enter",
+        "team": [
+          "c0",
+          "c3"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 5,
+        "phase": "night",
+        "choice": "partner_cost/ask_both_1"
+      },
+      {
+        "month": 6,
+        "phase": "day",
+        "option": "return",
+        "team": [
+          "c3"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 6,
+        "phase": "night",
+        "choice": "shared_soup/eat_together"
+      },
+      {
+        "month": 7,
+        "phase": "day",
+        "option": "bargain",
+        "team": [
+          "c3"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 7,
+        "phase": "night",
+        "choice": "evidence_crosscheck/support"
+      },
+      {
+        "month": 8,
+        "phase": "day",
+        "option": "watch",
+        "team": [
+          "c2"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 8,
+        "phase": "night",
+        "choice": "partner_result/separate_duties_2"
+      },
+      {
+        "month": 9,
+        "phase": "day",
+        "option": "contract",
+        "team": [
+          "c3"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 9,
+        "phase": "night",
+        "choice": "ties_check/open_together_1"
+      },
+      {
+        "month": 10,
+        "phase": "day",
+        "option": "annotate",
+        "team": [
+          "c2"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 10,
+        "phase": "night",
+        "choice": "voice_limit/joint_review_1"
+      },
+      {
+        "month": 11,
+        "phase": "day",
+        "option": "revise",
+        "team": [
+          "c3"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 11,
+        "phase": "night",
+        "choice": "hold_gate"
+      }
+    ]
+  }
+]

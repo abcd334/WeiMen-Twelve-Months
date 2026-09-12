@@ -46,17 +46,20 @@ def choose_day(state, policy, policy_rng):
 
 def choose_night(state, policy, policy_rng):
     scene = night_view(state)
-    choices = [c["id"] for c in scene["choices"] if c["cost"] <= state.resources["treasury"]]
+    available = [c for c in scene["choices"] if c["cost"] <= state.resources["treasury"]]
+    choices = [c["id"] for c in available]
+    def select(approach):
+        return next((c["id"] for c in available if c["approach"] == approach), choices[0])
     char = state.character(scene["character_id"])
     if policy == "random_policy":
         return policy_rng.choice(choices)
     if policy == "resource_guard_policy":
-        return "discipline" if state.resources["treasury"] < 38 or state.resources["defense"] < 45 else "support"
+        return select("discipline" if state.resources["treasury"] < 38 or state.resources["defense"] < 45 else "support")
     if policy == "conservative_policy":
-        return "support" if visible_fatigue(state, char) and state.resources["treasury"] > 18 else "discipline"
+        return select("support" if visible_fatigue(state, char) and state.resources["treasury"] > 18 else "discipline")
     if char.personality in ("剛直", "謹慎") or state.resources["treasury"] < 25:
-        return "discipline"
-    return "support" if "support" in choices else "defer"
+        return select("discipline")
+    return select("support")
 
 
 def audit_outcomes(state):

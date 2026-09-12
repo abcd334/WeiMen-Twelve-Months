@@ -1,6 +1,7 @@
 """Private simulation models and explicit, allow-listed player projections."""
 from dataclasses import dataclass, field
 from random import Random
+import re
 
 SKILLS = {"combat": "武力", "strategy": "智略", "medicine": "醫術", "diplomacy": "交涉"}
 RESOURCES = {"treasury": "糧餉", "defense": "山門防備", "reputation": "江湖聲望"}
@@ -36,7 +37,11 @@ class Character:
     choices: list = field(default_factory=list)
     experiences: list = field(default_factory=list)
     history: list = field(default_factory=list)
-    recent: str = "初來議事，仍在觀望。"
+    recent: str = "尚未有任務或夜談紀錄。"
+    recent_month: int = 0
+    observed_conditions: set = field(default_factory=set)
+    voice: dict = field(default_factory=dict)
+    stance: str = ""
     goal_progress: int = 0
     leave_intent: bool = False
     betrayal_intent: bool = False
@@ -58,12 +63,22 @@ class Character:
 
     def public(self, month):
         # Never derive this from asdict(): new private fields must stay private by default.
+        recent = self.recent.replace(self.signature, "").strip()
+        experiences, seen = [], {re.sub(r"^第\s*\d+\s*月[：:]\s*", "", recent)}
+        for experience in reversed(self.experiences):
+            text = experience.replace(self.signature, "").strip()
+            content = re.sub(r"^第\s*\d+\s*月[：:]\s*", "", text)
+            if content and content not in seen:
+                seen.add(content)
+                experiences.append(text)
         return {"id": self.id, "name": self.name, "age": self.age, "role": SKILLS[self.role],
                 "skills": {SKILLS[k]: v for k, v in self.skills.items()},
                 "personality": self.personality, "background": self.background["summary"],
                 "signature": self.signature, "physical": self.physical(month),
-                "actionable": self.actionable(month), "recent": self.recent,
-                "experiences": list(self.experiences)}
+                "actionable": self.actionable(month), "recent": recent,
+                "recent_month": self.recent_month,
+                "stance": self.stance,
+                "experiences": experiences}
 
 
 @dataclass
@@ -78,7 +93,7 @@ class Cue:
 
     def public(self):
         return {"month": self.month, "character_id": self.character_id, "text": self.text,
-                "kind": {"strong": "可核對事實", "weak": "言行觀察", "noise": "日常片段"}[self.strength]}
+                "kind": {"strong": "已證實", "weak": "未解異常", "noise": "人物近況"}[self.strength]}
 
 
 @dataclass
@@ -101,6 +116,19 @@ class GameState:
     resolved: set = field(default_factory=set)
     last_participants: list = field(default_factory=list)
     night_character: str = ""
+    night_scene: dict = field(default_factory=dict)
+    used_night_scenes: list = field(default_factory=list)
+    version: str = "0.4"
+    main_thread: str = ""
+    story_flags: dict = field(default_factory=dict)
+    scene_history: list = field(default_factory=list)
+    callback_history: list = field(default_factory=list)
+    spotlight_counts: dict = field(default_factory=dict)
+    clue_metadata: dict = field(default_factory=dict)
+    event_context: dict = field(default_factory=dict)
+    pending_callbacks: list = field(default_factory=list)
+    thread_beats: list = field(default_factory=list)
+    final_priority: str = ""
     last_result: list = field(default_factory=list)
     ending: str = ""
     ending_reason: str = ""

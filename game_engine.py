@@ -2,8 +2,9 @@
 from itertools import combinations
 from random import Random
 
-from data_loader import load_data
+from data_loader import load_data, load_story_data
 from models import Character, Cue, GameState, RESOURCES, RISK_NAMES, SKILLS
+import narrative
 
 ENDINGS = ("揭破陰謀", "聯盟退敵", "正面取勝", "慘勝守山", "門派覆滅")
 
@@ -53,12 +54,133 @@ def new_game(seed):
         raise InvalidAction("種子須為 0 到 4294967295 的整數。")
     rng = Random(seed)
     state = GameState(seed=seed, rng=rng, characters=generate_characters(rng))
+    state.main_thread = rng.choice(load_story_data()["threads"])["id"]
+    state.spotlight_counts = {c.id: 0 for c in state.characters}
+    for char in state.characters:
+        char.voice = dict(load_data()[0].get("voice_profiles", {}).get(char.personality, {}))
+        char.voice["background_line"] = load_data()[0].get("voice_modifiers", {}).get(char.background["id"], "")
+        if "主事" in char.signature:
+            char.voice["address"] = "主事"
+        char.stance = rng.choice(load_data()[0].get("stances", ["同門優先"]))
+    if state.main_thread == "old_letters":
+        contact = next((c for c in state.characters if c.secret["id"] == "contact"), state.characters[-1])
+        if contact.secret["id"] != "contact":
+            contact.secret = next(s for s in load_data()[0]["secrets"] if s["id"] == "contact")
+            contact.arc = "enemy_ties"
+        state.story_flags["contact_character"] = contact.id
     begin_month(state)
     return state
 
 
 def current_event(state):
     return next(e for e in load_data()[1]["events"] if e["id"] == state.event_id)
+
+
+def current_thread(state):
+    return next(t for t in load_story_data()["threads"] if t["id"] == state.main_thread)
+
+
+def public_character_context(state, char):
+    """Boundary for narrative.py: no secret, psychology, or raw relationships."""
+    public = char.public(state.month)
+    public.update(voice=dict(char.voice), background_id=char.background["id"],
+                  stance_line=load_data()[0].get("stance_lines", {}).get(char.stance, "先說清楚今天要守住什麼。"))
+    return public
+
+
+def add_callback(state, fact_id, text, due=None, speaker=None):
+    state.pending_callbacks.append({"due": due or min(11, state.month + 2),
+                                    "source": fact_id, "text": text, "speaker": speaker})
+
+
+def prepare_story_event(state, event):
+    thread = current_thread(state)
+    related = (event["id"] in thread["event_links"] or state.month in (1, 4, 8, 12)
+               or (state.month == 10 and not any(b["beat"] == "payoff" for b in state.thread_beats)))
+    beat = "setup" if state.month <= 3 else "escalation" if state.month <= 8 else "payoff"
+    callbacks = []
+    for pending in list(state.pending_callbacks):
+        if pending["due"] <= state.month and len(callbacks) < 2:
+            source = next(f for f in state.facts if f["id"] == pending["source"])
+            text = pending["text"]
+            if pending.get("speaker"):
+                speaker = state.character(pending["speaker"])
+                if speaker.status != "active":
+                    text = text.replace(speaker.name + "提起", "眾人想起與" + speaker.name + "談過的", 1)
+            callback = {"month": state.month, "source_id": source["id"],
+                        "text": f"第 {source['month']} 月留下的事又被提起：{text}"}
+            callbacks.append(callback)
+            state.callback_history.append(callback)
+            state.pending_callbacks.remove(pending)
+    evidence = []
+    if state.month == 8:
+        # Always choose actual past records, including uncertainty; never fabricate a suspect.
+        prior = [f for f in state.facts if f["month"] < 8 and f["kind"] in ("intel", "story", "evidence")]
+        external_ids = {q.id for q in state.observations if q.category in ("external", "betrayal")}
+        uncertain = [f for f in prior if f["source"] in external_ids]
+        confirmed = [f for f in prior if f["kind"] == "intel"]
+        # Prefer a real suspicious observation, a verified clue, and the original
+        # contradiction. Routine character reactions are not evidence.
+        evidence = list({f["id"]: f for f in uncertain[-1:] + confirmed[-1:] + prior[:1] + prior[-2:]}.values())[:3]
+        state.story_flags["suspicion_evidence"] = [f["id"] for f in evidence]
+        candidates = [q.character_id for q in state.observations if q.category in ("external", "betrayal")]
+        suspect = next((c for c in state.active() if c.id in candidates), None)
+        state.story_flags["suspect"] = suspect.id if suspect else ""
+    opening = event.get("scene_opening", event["description"])
+    for npc_id in event.get("npc_refs", []):
+        memory = state.story_flags.get(f"npc:{npc_id}")
+        if memory and len(callbacks) < 2:
+            npc = next(n for n in load_story_data()["npcs"] if n["id"] == npc_id)
+            response = "這回我願意先把手上的原件留下，再談新的安排。" if memory["success"] else "上回還有沒辦妥的部分，這次請先說明誰負責核對，我再答應。"
+            item = {"month": state.month, "source_id": memory["fact_id"],
+                    "text": f"{npc['name']}提起第 {memory['month']} 月的安排：「你那回選擇『{memory['choice']}』，我還記得。{response}」"}
+            callbacks.append(item)
+            state.callback_history.append(item)
+    beat_index = sum(b["beat"] == beat for b in state.thread_beats)
+    beat_texts = thread["beat_texts"][beat]
+    beat_text = beat_texts[min(beat_index, len(beat_texts) - 1)] if related else ""
+    state.event_context = {"opening": opening, "hooks": event.get("character_hooks", []),
+                           "callbacks": callbacks, "evidence": [dict(f) for f in evidence],
+                           "thread_beat": beat_text, "related": related}
+    if related:
+        fid = record_fact(state, beat_text, "story", state.main_thread)
+        state.thread_beats.append({"month": state.month, "beat": beat, "fact_id": fid})
+        if state.month in (1, 4, 8):
+            add_callback(state, fid, f"{thread['object']}仍留在議事桌上。當時的問題是：{thread['question']}", min(11, state.month + 2))
+    state.scene_history.append({"month": state.month, "type": "day", "scene_id": event["id"],
+                                "related": related, "text": narrative.render_event_opening(state.event_context),
+                                "evidence_ids": [f["id"] for f in evidence]})
+
+
+def choose_story_event(state, events):
+    pool = [e for e in events if event_eligible(state, e)]
+    linked = [e for e in pool if e["id"] in current_thread(state)["event_links"]]
+    if state.month == 2:
+        backgrounds = {c.background["id"] for c in state.active()}
+        personal = [e for e in pool if any(h["background"] in backgrounds for h in e.get("character_hooks", []))]
+        return state.rng.choice([e for e in linked if e in personal] or personal or linked or pool)
+    last = [s for s in state.scene_history if s["type"] == "day"][-2:]
+    if len(last) == 2 and all(s["related"] for s in last):
+        pressure = [e for e in pool if e not in linked]
+        return state.rng.choice(pressure or pool)
+    if state.month in (2, 5, 7, 9) and linked:
+        return state.rng.choice(linked)
+    return state.rng.choice(pool)
+
+
+def next_thread_clue(state):
+    return next((clue for clue in current_thread(state)["required_clues"] if clue not in state.intel), None)
+
+
+def mystery_complete(state):
+    return set(current_thread(state)["required_clues"]) <= state.intel.keys()
+
+
+def contact_unavailable(state):
+    if state.main_thread != "old_letters":
+        return False
+    contact = state.character(state.story_flags["contact_character"])
+    return contact.status != "active" or contact.blocked_until >= state.month
 
 
 def record_fact(state, text, kind="event", source=None):
@@ -136,15 +258,18 @@ def begin_month(state):
         if resting and char.injury:
             char.injury -= 1
             char.experiences.append(f"第 {state.month} 月：留門休養後，傷勢有所好轉。")
+            char.recent = "留門休養後，傷勢有所好轉。"
+            char.recent_month = state.month
     if check_failure(state):
         return
     events = load_data()[1]["events"]
     fixed = next((e for e in events if e.get("fixed_month") == state.month), None)
-    event = fixed or state.rng.choice([e for e in events if event_eligible(state, e)])
+    event = fixed or choose_story_event(state, events)
     state.event_id = event["id"]
     state.seen_events.append(event["id"])
     if check_failure(state, "hostile" in event["tags"]):
         return
+    prepare_story_event(state, event)
     if state.month == 12:
         ending, reason, evidence = determine_ending(state)
         finish(state, ending, reason, evidence)
@@ -162,7 +287,8 @@ def public_option(state, option, participant_ids=()):
             "skill": SKILLS[option["skill"]], "count": option["count"],
             "risk": RISK_NAMES[option["risk"]], "hint": option["visible_hint"],
             "affected_resources": [RESOURCES[k] for k in option["affected_resources"]],
-            "delayed": option["delayed"] is not None, "extra_hints": hints}
+            "delayed": option["delayed"] is not None, "extra_hints": hints,
+            "character_hooks": narrative.render_assignment_preview(state.event_context, [public_character_context(state, c) for c in selected])}
 
 
 def public_state(state):
@@ -170,7 +296,9 @@ def public_state(state):
     return {"seed": state.seed, "month": state.month, "phase": state.phase,
             "resources": {RESOURCES[k]: v for k, v in state.resources.items()},
             "characters": [c.public(state.month) for c in state.characters],
-            "event": {"title": event["title"], "description": event["description"],
+            "chapter": ("人還在一起" if state.month <= 3 else "事情不是表面那樣" if state.month <= 7 else "開始懷疑自己人" if state.month <= 10 else "留下來的人"),
+            "event": {"title": event["title"], "description": narrative.render_event_opening(state.event_context),
+                      "reactions": narrative.render_assignment_preview({**state.event_context, "introduction": True}, [public_character_context(state, c) for c in state.active()]) if state.month == 1 else [],
                       "options": [public_option(state, o) for o in event["options"]]} if event else None,
             "observations": [c.public() for c in state.observations],
             "intel": list(state.intel.values()), "logs": [dict(log) for log in state.logs],
@@ -205,7 +333,9 @@ def mission_score(state, option, team):
 def gain_intel(state, intel_id, source):
     if intel_id in state.intel:
         return None
-    state.intel[intel_id] = load_data()[1]["intel"][intel_id]
+    clue = current_thread(state)["clues"].get(intel_id)
+    state.intel[intel_id] = clue["text"] if clue else load_data()[1]["intel"][intel_id]
+    state.clue_metadata[intel_id] = dict(clue) if clue else {"thread_id": None, "clue_type": "external", "text": state.intel[intel_id]}
     return record_fact(state, "取得情報：" + state.intel[intel_id], "intel", source)
 
 
@@ -241,12 +371,14 @@ def resolve_day(state, option_id, participant_ids, token=None):
     score = mission_score(state, option, team)
     success = score + state.rng.uniform(-2, 2) >= option["difficulty"]
     effects = {k: state.rng.randint(*bounds) for k, bounds in option["success" if success else "failure"].items()}
-    result_text = option["success_text" if success else "failure_text"]
+    variants = option.get("success_narratives" if success else "failure_narratives")
+    result_text = narrative.variant(variants, (state.seed, state.month, option_id, tuple(state.last_participants))) if variants else option["success_text" if success else "failure_text"]
+    result_text = result_text.format(lead=team[0].name, team="、".join(c.name for c in team))
     facts.append(apply_resources(state, effects, result_text))
     state.last_result.append(state.facts[-1]["text"])
     state.option_stats.append({"event": state.event_id, "option": option_id, "success": success})
     if state.event_id == "suspicion" and "pattern" in state.intel:
-        facts.append(record_fact(state, "核對外洩抄件時，沿用了第四月查到的明暗兩路行動模式。", "investigation", "pattern"))
+        facts.append(record_fact(state, "核對外洩抄件時，也參照了先前取得的明暗兩路行動情報。", "investigation", "pattern"))
     for char in team:
         char.fatigue = clamp(char.fatigue + 21)
         char.stress = clamp(char.stress + (5 if success else 15))
@@ -271,11 +403,8 @@ def resolve_day(state, option_id, participant_ids, token=None):
             growth = grow_skill(state, char, option["skill"], success)
             if growth:
                 facts.append(growth)
-            previous = next((q.text for q in reversed(state.observations) if q.character_id == char.id and q.category == "mission"), "")
-            lines = [char.signature + " " + text.format(name=char.name) for text in option["cue_templates"]]
-            observation = state.rng.choice([line for line in lines if line != previous] or lines)
-            state.observations.append(Cue(f"q{len(state.observations)}", state.month, char.id,
-                                          "mission", "noise", observation, {"supported": True, "event": state.event_id}))
+            char.recent = f"參與「{current_event(state)['title']}」，執行「{option['label']}」；" + ("已完成這次差事。" if success else "這次差事受阻，回山後需要調整安排。")
+            char.recent_month = state.month
         state.last_result.append(f"{char.name}：{char.physical(state.month)}")
         if len(team) == 2:
             other = next(c for c in team if c != char)
@@ -299,6 +428,54 @@ def resolve_day(state, option_id, participant_ids, token=None):
         suspect.experiences.append(f"第 {state.month} 月：被要求留門說明，次月暫停派遣；尚無通敵定論。")
         state.last_result.append(suspect.experiences[-1])
         facts.append(record_fact(state, suspect.experiences[-1], "restriction", suspect.id))
+        witness = next((c for c in state.active() if c.id in suspect.relationships and c != suspect), None)
+        if witness:
+            text = narrative.speak(public_character_context(state, witness), f"{suspect.name}不能出門，那原來的工作由誰接？查證之前，我不會把這當成已經定罪。", "conflict")
+            facts.append(record_fact(state, text, "personal", witness.id))
+            state.last_result.append(text)
+        state.story_flags["restricted_character"] = suspect.id
+    if success and state.event_context.get("related") and (option["intel"] or option["skill"] == "strategy"):
+        clue_id = next_thread_clue(state)
+        contact_restricted = contact_unavailable(state)
+        if clue_id and not contact_restricted:
+            fid = gain_intel(state, clue_id, state.event_id)
+            facts.append(fid)
+            state.last_result.append(state.facts[-1]["text"])
+        elif clue_id and contact_restricted:
+            state.last_result.append("接續聯絡的弟子目前無法代領，這次沒拿到原定的回信；眼前的線索仍須另外查證。")
+    if state.event_id == "suspicion":
+        focus = team[0] if option.get("special") == "restrict" else next((c for c in state.active() if c.id == state.story_flags.get("suspect")), team[0])
+        previous = next((h for h in reversed(focus.history) if h["kind"] == "night"), None)
+        memory = f"上回談好的『{previous['text']}』，我記得。" if previous else "之前出入與交班的記錄可以先核對。"
+        request = "房匙留下了，但請告訴我查完哪一項能取回。" if option.get("special") == "restrict" else "有哪一段對不上，請讓我看原件再回答。"
+        text = narrative.speak(public_character_context(state, focus), memory + request, "suspected" if focus.trust < 50 else "question")
+        facts.append(record_fact(state, text, "personal", focus.id))
+        state.last_result.append(text)
+        known = [state.intel[k] for k in current_thread(state)["required_clues"] if k in state.intel]
+        text = "這次議事能用的主線證據：" + "；".join(known) if known else "這次議事尚缺可互相印證的主線原件，不能將異常直接當作通敵結論。"
+        facts.append(record_fact(state, text, "investigation", "suspicion"))
+        state.last_result.append(text)
+    ready_team = [c for c in team if c.status == "active"]
+    bond = "strained" if len(ready_team) == 2 and ready_team[0].relationships.get(ready_team[1].id, {}).get("value", 0) < 0 else "close"
+    aftermath = narrative.render_mission_aftermath({"participants": [public_character_context(state, c) for c in ready_team],
+                                                  "detail": current_event(state).get("concrete_detail", "現場的物件"), "success": success, "bond": bond})
+    for text in aftermath:
+        facts.append(record_fact(state, text, "personal", state.event_id))
+        state.last_result.append(text)
+    for injured in [c for c in team if c.injury and c.status == "active"]:
+        friend = next((c for c in state.active() if c not in team and c.relationships.get(injured.id, {}).get("value", 0) > 15), None)
+        if friend:
+            text = narrative.speak(public_character_context(state, friend), f"先讓{injured.name}坐下。要交代任務，也等傷口看過再說。", "other")
+            facts.append(record_fact(state, text, "personal", friend.id))
+            state.last_result.append(text)
+    outcome_fact = record_fact(state, result_text, "outcome", state.event_id)
+    facts.append(outcome_fact)
+    detail = current_event(state).get("concrete_detail", current_event(state)["title"])
+    if current_event(state)["key_decision"] or state.event_context.get("related"):
+        add_callback(state, outcome_fact, f"談到{detail}時，眾人重新核對了當時「{option['label']}」留下的結果。")
+    state.scene_history.append({"month": state.month, "type": "outcome", "scene_id": state.event_id + "/" + option_id, "text": result_text, "speakers": state.last_participants})
+    for npc_id in current_event(state).get("npc_refs", []):
+        state.story_flags[f"npc:{npc_id}"] = {"month": state.month, "choice": option["label"], "fact_id": outcome_fact, "success": success}
     decision = record_decision(state, current_event(state)["title"] + "／" + option["label"], facts, current_event(state)["key_decision"])
     if option["delayed"] and success:
         queue_delay(state, option["delayed"], decision["id"])
@@ -328,41 +505,150 @@ def emergency_rest(state):
 def start_night(state):
     if state.phase != "day_result":
         raise InvalidAction("請先完成白天結算。")
-    # Participants / affected members take priority, with fewest appearances as the tie break.
     active = state.active()
-    candidates = [c for c in active if c.id in state.last_participants]
-    if not candidates:
-        candidates = active
-    least = min(c.appearances for c in candidates)
-    char = state.rng.choice([c for c in candidates if c.appearances == least])
+    ordered = sorted(active, key=lambda c: (state.spotlight_counts.get(c.id, 0), c.id not in state.last_participants, c.id))
+    kind = {2: "relationship_scene", 3: "mainline_scene", 5: "relationship_scene", 6: "quiet_scene", 7: "mainline_scene", 8: "relationship_scene", 11: "group_scene"}.get(state.month, "personal_scene")
+    if kind == "personal_scene":
+        arcs = {a["id"]: a for a in load_data()[2]["arcs"]}
+        fresh = [c for c in ordered if arcs[c.arc]["scenes"][min(c.stage, 2)]["id"] + "/" + c.id not in state.used_night_scenes]
+        ordered = fresh or ordered
+    count = len(active) if kind == "group_scene" else min(2, len(active)) if kind in ("relationship_scene", "mainline_scene", "quiet_scene") else 1
+    nights = [s for s in state.scene_history if s["type"] in ("personal_scene", "relationship_scene", "mainline_scene", "quiet_scene", "group_scene")][-2:]
+    sole = [s["speakers"][0] for s in nights if len(s["speakers"]) == 1]
+    if count == 1 and len(sole) == 2 and sole[0] == sole[1] and len(ordered) > 1:
+        ordered = [c for c in ordered if c.id != sole[0]] + [c for c in ordered if c.id == sole[0]]
+    speakers = ordered[:count]
+    char = speakers[0]
+    if kind == "personal_scene" and char.arc == "protect_other" and len(active) > 1:
+        speakers = ordered[:2]
+    if len(speakers) == 2:
+        for owner, other in ((speakers[0], speakers[1]), (speakers[1], speakers[0])):
+            owner.relationships.setdefault(other.id, {"id": "discussed", "text": "曾一起討論分工", "value": 0})
     state.night_character = char.id
+    state.night_scene = build_night_scene(state, kind, speakers)
+    for speaker in speakers:
+        state.spotlight_counts[speaker.id] = state.spotlight_counts.get(speaker.id, 0) + 1
+    state.used_night_scenes.append(state.night_scene["id"])
+    state.scene_history.append({"month": state.month, "type": kind, "scene_id": state.night_scene["id"],
+                                "speakers": [c.id for c in speakers], "text": state.night_scene["text"],
+                                "spotlights": dict(state.spotlight_counts)})
     state.phase = "night"
+
+
+def build_night_scene(state, kind, speakers):
+    from copy import deepcopy
+    char = speakers[0]
+    partner = speakers[1] if len(speakers) > 1 else next((c for c in state.active() if c != char), None)
+    other = partner.name if partner else "留守的人"
+    personal = load_data()[2]
+    context = {"name": char.name, "other": other}
+    if kind == "group_scene":
+        characters = []
+        for c in speakers:
+            public = public_character_context(state, c)
+            choices = [h["text"] for h in c.history if h["kind"] == "night"]
+            public["last_choice"] = choices[0] if choices else ""
+            public["tomorrow"] = {"combat": "明日我守石階，先看清退路再拔劍。", "strategy": "明日我帶好原件，先說能證明的事。", "medicine": "明日藥與布放在門邊，誰回來都先讓我看傷。", "diplomacy": "明日山下有人開口，我先把話聽完。"}[c.role]
+            public["attitude"] = "supported" if c.trust >= 60 else "suspected" if c.trust < 40 else "neutral"
+            characters.append(public)
+        absent = [{"name": c.name, "memory": "他留下的值勤空缺仍在那張舊表上。"} for c in state.characters if c.status != "active"]
+        text = narrative.render_group_scene({"characters": characters, "absent": absent, "callbacks": ending_callback_facts(state)})
+        choices = [{"id": key, "label": label, "approach": approach, "hint": "決定明日的共同提醒，不會取代之前累積的人手、證據與資源。", "cost": 0, "effects": {}, "psych": {}, "tradeoffs": [label, "仍須承擔此前選擇"], "delayed": None,
+                    "reaction": "眾人把這句話記在明日的分工旁，沒有撤回先前答應的事。"}
+                   for key, label, approach in [("keep_people", "明日先保人", "support"), ("hold_gate", "明日先守山", "discipline"), ("show_truth", "明日先揭真相", "defer")]]
+        return {"id": "battle_eve_group", "title": "決戰前夕", "kind": kind, "speakers": [c.id for c in speakers], "text": text, "context": "", "choices": choices}
+    arc = next(a for a in personal["arcs"] if a["id"] == char.arc)
+    if kind == "personal_scene":
+        scene = deepcopy(arc["scenes"][min(char.stage, 2)])
+    elif kind == "relationship_scene":
+        if state.month == 2:
+            scene = deepcopy(next(s for s in personal["situations"] if s["id"] == "work_dispute"))
+            scene["title"] = "兩張班表，兩個人的意思"
+            scene["text"] = "{name}把兩張班表攤在桌上，問{other}：『下次誰先報訊，我想先說清楚。』\n\n{other}回答：『可以。但別在我還沒說完之前，替我答應下一班。』"
+        else:
+            relation_arc = next(a for a in personal["arcs"] if a["id"] == "protect_other")
+            scene = deepcopy(relation_arc["scenes"][1 if state.month == 5 else 2])
+            scene["text"] += "\n\n{other}把自己的班表也拿出來：『我在這裡。需要我做什麼，可以直接問我。』"
+    elif kind == "mainline_scene":
+        scene = deepcopy(next(s for s in personal["situations"] if s["id"] == "check_evidence"))
+        scene["title"] = "原件攤開的那一晚"
+        scene["text"] = "{name}把原件推向{other}：『" + current_thread(state)["question"] + "』\n\n{other}回答：『先分清楚親眼見的、查證过的，還有只是聽來的。』"
+        scene["choices"][0]["grant_thread_clue"] = True
+        if state.month >= 7:
+            scene["id"] = "evidence_crosscheck"
+            scene["title"] = "這一頁能替誰作證"
+            scene["text"] = "{name}把先前整理的紙分成两疊：『查到的和還沒查到的，都在這裡。』\n\n{other}壓住其中一角：『明日若有人問這一頁能替誰作證，我們要說到哪裡？』"
+            labels = ["請見證人核對原件，補齊證據來源", "先將已核實的路線交給守門人", "保留不同說法，約好下月再核對"]
+            reactions = ["{name}請見證人只在看過的部分旁落名，{other}將未核實的頁面另夾起來。紙終於不再因為放在同一疊，就被當成一樣可靠。", "{name}將能用於值勤的部分單獨抄出，{other}在空白處寫下『尚待核實』。守門人領到的安排沒有把推測混進去。", "{name}留下各份說法的來源，{other}收好需要再問的名單。今晚沒有要求誰先改口，下一次核對也有了確切的問題。"]
+            for choice, label, reaction in zip(scene["choices"], labels, reactions):
+                choice.update(label=label, reaction=reaction)
+    else:
+        scene = deepcopy(personal.get("quiet_scenes", [next(s for s in personal["situations"] if s["id"] == "shared_credit")])[0])
+    earlier = [h for h in char.history if h["kind"] == "night" and (
+        (scene.get("arc_id") and h.get("arc_id") == scene["arc_id"])
+        or (kind in ("relationship_scene", "mainline_scene") and h.get("scene_kind") == kind))]
+    previous = earlier[-1]["text"] if earlier else ""
+    framing = scene["text"].format(**context).replace("查證过", "查證過").replace("两", "兩")
+    if kind == "mainline_scene":
+        external = next((q for q in state.observations if q.category == "external"), None)
+        if external:
+            framing += f"\n\n兩人也翻到第 {external.month} 月關於{state.character(external.character_id).name}的札記：{external.text}地址是核對的起點，還不能代替對內容的查證。"
+    if kind == "personal_scene":
+        framing += "\n\n" + narrative.speak(public_character_context(state, char), "這次要怎麼安排，我想聽你說清楚。", "question")
+        if char.arc == "protect_other" and partner:
+            framing += "\n\n" + narrative.speak(public_character_context(state, partner), "需要什麼幫忙，讓我自己先說。", "other")
+    signature_key = f"signature:{state.month}:{char.id}"
+    if char.stress >= 55 and signature_key not in state.story_flags:
+        framing += "\n\n" + char.name + load_data()[0]["signature_tension"][char.signature]
+        state.story_flags[signature_key] = True
+    render = narrative.render_relationship_scene if kind == "relationship_scene" else narrative.render_night_scene
+    text = render({"framing": framing, "previous": previous, "dialogue": []})
+    for choice in scene["choices"]:
+        choice.setdefault("approach", choice["id"])
+        choice["id"] = scene["id"] + "/" + choice["id"]
+        reactions = choice.get("reactions", {})
+        choice["reaction"] = reactions.get("supported" if char.trust >= 55 else "suspected", choice["reaction"]).format(**context)
+    return {"id": scene["id"] + "/" + char.id, "title": scene["title"], "kind": kind,
+            "speakers": [c.id for c in speakers], "text": text, "context": "", "arc_id": scene.get("arc_id"),
+            "choices": scene["choices"]}
+
+
+def ending_callback_facts(state):
+    ids = list(dict.fromkeys(c["source_id"] for c in state.callback_history))
+    return [dict(f) for f in state.facts if f["id"] in ids][:3]
 
 
 def night_view(state):
     if state.phase != "night":
         raise InvalidAction("現在不是夜談階段。")
     char = state.character(state.night_character)
-    arc = next(a for a in load_data()[2]["arcs"] if a["id"] == char.arc)
-    other = state.character(next(iter(char.relationships))).name
+    scene = state.night_scene
     return {"name": char.name, "character_id": char.id,
-            "text": char.signature + "\n\n" + arc["stages"][min(char.stage, 2)].format(name=char.name, other=other),
+            "title": scene["title"], "kind": scene["kind"], "context": scene["context"], "text": scene["text"],
             "choices": [{"id": c["id"], "label": c["label"], "cost": c["cost"],
+                         "approach": c.get("approach", "defer"),
                          "tradeoffs": list(c["tradeoffs"]), "delayed": c["delayed"] is not None,
-                         "hint": {"support": "支出糧餉、安排休養，但守備人手暫減。", "discipline": "補回值勤與門內收入；人物的私事仍未解決。", "defer": "眼前不支出，後續須補足盤纏與值勤。"}[c["id"]]}
-                        for c in arc["choices"]]}
+                         "hint": c["hint"]}
+                        for c in scene["choices"]]}
 
 
 def response_effects(char, choice):
     effects = dict(choice["psych"])
-    if char.personality in ("剛直", "謹慎") and choice["id"] == "discipline":
+    approach = choice.get("approach", choice["id"])
+    if char.personality in ("剛直", "謹慎") and approach == "discipline":
         effects.update(trust=3, stress=3, loyalty=4)
-    if char.personality in ("好勝", "多疑") and choice["id"] == "support":
+    if char.personality in ("好勝", "多疑") and approach == "support":
         effects.update(trust=0, stress=-5, loyalty=1)
-    if char.background["id"] in ("refugee", "enemy") and choice["id"] == "discipline":
+    if char.background["id"] in ("refugee", "enemy") and approach == "discipline":
         effects["trust"] -= 5
     if char.arc == "protect_other" and any(r["value"] < 0 for r in char.relationships.values()):
         effects["stress"] += 3
+    if char.stance == "自主優先" and approach == "discipline":
+        effects["trust"] = effects.get("trust", 0) - 3
+    if char.stance == "山門優先" and choice["effects"].get("defense", 0) > 0:
+        effects["loyalty"] = effects.get("loyalty", 0) + 3
+    if char.stance == "真相優先" and choice.get("grant_thread_clue"):
+        effects["trust"] = effects.get("trust", 0) + 4
     return effects
 
 
@@ -371,46 +657,74 @@ def resolve_night(state, choice_id, token=None):
     if state.phase != "night" or expected in state.resolved or (token is not None and token != expected):
         raise InvalidAction("此夜談已結算，或頁面已過期。")
     char = state.character(state.night_character)
-    arc = next(a for a in load_data()[2]["arcs"] if a["id"] == char.arc)
-    choice = next((c for c in arc["choices"] if c["id"] == choice_id), None)
+    scene = state.night_scene
+    choice = next((c for c in scene["choices"] if c["id"] == choice_id), None)
+    if choice is None and choice_id in ("support", "discipline", "defer"):
+        choice = next((c for c in scene["choices"] if c["approach"] == choice_id), None)
     if not choice or choice["cost"] > state.resources["treasury"]:
         raise InvalidAction("此回應無法執行，請確認糧餉。")
     state.resolved.add(expected)
     state.last_result = []
+    if scene["kind"] == "group_scene":
+        state.final_priority = choice["label"]
+        fid = record_fact(state, "決戰前夕，眾人答應「" + choice["label"] + "」。", "personal", "group")
+        record_decision(state, choice["label"], [fid], True)
+        state.last_result = [choice["reaction"]]
+        state.phase = "night_result"
+        return
     effects = dict(choice["effects"])
     effects["treasury"] = effects.get("treasury", 0) - choice["cost"]
     fid = apply_resources(state, effects, char.name + "／" + choice["label"])
     facts = [fid]
     for key, change in response_effects(char, choice).items():
         setattr(char, key, clamp(getattr(char, key) + change))
-    char.choices.append(choice_id)
+    approach = choice["approach"]
+    char.choices.append(approach)
     char.appearances += 1
-    char.stage = min(2, char.stage + 1)
-    if choice_id == "support":
-        char.goal_progress += 1
-        char.fatigue = clamp(char.fatigue - 22)
-        char.injury = max(0, char.injury - 1)
-    for relationship in char.relationships.values():
-        relationship["value"] = max(-40, min(40, relationship["value"] + (3 if choice_id == "support" else -2)))
-    reaction = choice["reaction"].format(name=char.name)
-    if choice_id == "discipline" and char.personality in ("剛直", "謹慎"):
-        reaction = f"{char.name}說把規矩寫清才好辦事，願按此分工；家中的難題仍要另尋出路。"
-    char.history.append({"month": state.month, "kind": "night", "choice": choice_id, "text": choice["label"]})
+    if scene.get("arc_id") == char.arc:
+        arc = next(a for a in load_data()[2]["arcs"] if a["id"] == char.arc)
+        played_stage = next(i for i, s in enumerate(arc["scenes"]) if scene["id"].startswith(s["id"] + "/"))
+        char.stage = min(2, max(char.stage, played_stage) + 1)
+    char.goal_progress += choice.get("goal_progress", 0)
+    char.fatigue = clamp(char.fatigue - choice.get("recovery", 0))
+    char.injury = max(0, char.injury - choice.get("heal", 0))
+    for other_id in scene["speakers"][1:]:
+        other = state.character(other_id)
+        other.fatigue = clamp(other.fatigue - choice.get("partner_recovery", 0))
+        other.trust = clamp(other.trust + response_effects(other, choice).get("trust", 0) // 2)
+        for owner, target in ((char, other), (other, char)):
+            if target.id in owner.relationships:
+                relation = owner.relationships[target.id]
+                relation["value"] = max(-40, min(40, relation["value"] + choice.get("relationship_delta", 0)))
+        other.history.append({"month": state.month, "kind": "night", "choice": approach, "text": choice["label"], "arc_id": scene.get("arc_id"), "scene_kind": scene["kind"]})
+    reaction = choice["reaction"]
+    char.history.append({"month": state.month, "kind": "night", "choice": approach, "text": choice["label"], "scene_id": scene["id"], "arc_id": scene.get("arc_id"), "scene_kind": scene["kind"]})
     facts.append(record_fact(state, reaction, "personal", char.id))
     state.last_result = [state.facts[-2]["text"], reaction, f"{char.name}：{char.physical(state.month)}"]
-    if char.appearances >= 2:
-        if char.choices.count("support") >= 2 and char.trust >= 60:
-            result = arc["resolutions"]["support"]
-        elif char.choices.count("discipline") >= 2:
-            result = arc["resolutions"]["discipline"]
-        elif char.choices.count("defer") >= 2:
-            result = arc["resolutions"]["defer"]
+    char.recent = f"夜談「{scene['title']}」後，接受了「{choice['label']}」的安排。"
+    char.recent_month = state.month
+    if choice.get("growth"):
+        skill = char.role if choice["growth"] == "role" else choice["growth"]
+        if char.skills[skill] < 5:
+            char.skills[skill] += 1
+            text = f"{char.name}經過演練，{SKILLS[skill]}提升至 {char.skills[skill]}。"
+            facts.append(record_fact(state, text, "growth", char.id))
+            state.last_result.append(text)
+    if choice.get("grant_thread_clue") and next_thread_clue(state) and (scene["kind"] == "mainline_scene" or state.main_thread == "old_letters"):
+        if not contact_unavailable(state):
+            fid = gain_intel(state, next_thread_clue(state), scene["id"])
+            facts.append(fid)
+            state.last_result.append(state.facts[-1]["text"])
         else:
-            result = "幾次談話後，安排仍需磨合，暫時留門處理未了的事。"
-        char.recent = result
-        state.last_result.append(result)
-        facts.append(record_fact(state, char.name + "：" + result, "arc", char.id))
-    decision = record_decision(state, char.name + "／" + choice["label"], facts, char.appearances >= 2)
+            state.last_result.append("接續聯絡的人目前無法代領，今晚只能整理手邊的舊記錄，沒有取得新回信。")
+    state.story_flags[f"choice:{char.id}:{scene['id']}"] = choice["id"]
+    personal_fact = next(f for f in state.facts if f["id"] == facts[1])
+    if scene["kind"] in ("personal_scene", "relationship_scene"):
+        arc = next((a for a in load_data()[2]["arcs"] if a["id"] == scene.get("arc_id")), None)
+        followup = arc["resolutions"][approach] if arc else "這次再排班，兩人先把各自能負責的部分說清楚，才在表上落筆。"
+        add_callback(state, personal_fact["id"], f"{char.name}提起「{choice['label']}」。當時定下的界線是：{followup}", speaker=char.id)
+    state.scene_history.append({"month": state.month, "type": "night_reaction", "scene_id": scene["id"], "text": reaction, "speakers": scene["speakers"]})
+    decision = record_decision(state, char.name + "／" + choice["label"], facts, True)
     if choice["delayed"]:
         queue_delay(state, choice["delayed"], decision["id"])
     # Evaluate against prior-month evidence, never the cue just emitted in this response.
@@ -451,16 +765,27 @@ def emit_cue(state, char, category, strength):
     if not evidence["supported"]:
         raise InvalidAction("線索不符合人物事實。")
     existing = [c for c in state.observations if c.character_id == char.id]
+    same = [c for c in existing if c.category == category]
+    warning = category in ("leaving", "betrayal")
     if any(c.month == state.month and c.category == category for c in existing):
+        return None
+    if category == "noise" or (warning and len(same) >= 2):
+        return None
+    if not warning and category in char.observed_conditions:
         return None
     templates = load_data()[0]["cue_templates"][category]
     other_id = next((cid for cid, r in char.relationships.items() if r["value"] < -15), next(iter(char.relationships)))
-    candidates = [char.signature + " " + t.format(other=state.character(other_id).name) for t in templates]
-    recent = next((c.text for c in reversed(existing) if c.category == category), "")
-    text = state.rng.choice([t for t in candidates if t != recent] or candidates)
+    candidates = [t.format(other=state.character(other_id).name) for t in templates]
+    seen = {c.text.replace(char.signature, "").strip() for c in same}
+    candidates = [text for text in candidates if text not in seen]
+    if not candidates:
+        return None
+    text = candidates[0] if warning else narrative.variant(candidates, (state.seed, char.id, category))
     cue = Cue(f"q{len(state.observations)}", state.month, char.id, category, strength, text, evidence)
     state.observations.append(cue)
     char.recent = text
+    char.recent_month = state.month
+    char.observed_conditions.add(category)
     if category in ("external", "concealed_injury"):
         if text not in char.experiences:
             char.experiences.append(text)
@@ -469,6 +794,7 @@ def emit_cue(state, char, category, strength):
 
 def observe_character(state, char):
     update_intentions(char)
+    char.observed_conditions = {category for category in char.observed_conditions if cue_evidence(char, category)["supported"]}
     if char.betrayal_intent:
         category, strength = "betrayal", "strong"
     elif char.leave_intent:
@@ -488,8 +814,10 @@ def observe_character(state, char):
     elif cue_evidence(char, "resentment")["supported"] and state.month % 3 == 0:
         category, strength = "resentment", "weak"
     else:
-        category, strength = "noise", "noise"
-    emit_cue(state, char, category, strength)
+        return
+    cue = emit_cue(state, char, category, strength)
+    if cue and strength == "strong":
+        record_fact(state, char.name + "：" + cue.text, "evidence", cue.id)
 
 
 def qualifying_warnings(state, char, category):
@@ -536,7 +864,7 @@ def determine_ending(state):
     diplomacy = sum(c.skills["diplomacy"] for c in ready)
     combat = sum(c.skills["combat"] for c in ready)
     info_facts = [f["id"] for f in state.facts if f["kind"] == "intel"]
-    if len(state.intel) >= 3 and strategy >= 9 and len(active) >= 2:
+    if mystery_complete(state) and strategy >= 9 and len(active) >= 2:
         return "揭破陰謀", "數份獨立線索經弟子比對後互相印證，烈川堂的藉口在斷劍臺上被揭破。", info_facts
     if state.resources["reputation"] >= 65 and state.flags & {"alliance", "villagers_helped"} and diplomacy >= 9 and len(active) >= 2:
         evidence = [f["id"] for f in state.facts if f["kind"] == "flag" and f["source"] in ("alliance", "villagers_helped")]
@@ -583,22 +911,47 @@ def ending_view(state):
             else:
                 fate = "仍留在山門，與掌門的距離及未完成的私事一併延續。"
         causes = [f"第 {h['month']} 月{h['text']}" for h in char.history if h["kind"] == "night"]
-        heart = f"原本想{char.goal}，最怕{char.fear_text}。{char.secret['text']}"
-        heart += "先後經歷「" + "；".join(causes) + "」，才走到今日。" if causes else "尚未有機會深入夜談，許多事便隨局勢告終。"
+        heart = f"{char.name}入門後一直想{char.goal}。不願先說出口的，是{char.fear_text}這件事；這讓同一句安排，在他耳中與旁人不同。{char.secret['text']}"
+        heart += "回看「" + "；".join(causes[-3:]) + "」，這些答覆才逐漸把兩人的相處帶到今日。" if causes else "尚未有機會深入夜談，許多事便隨局勢告終。"
         if char.choices.count("discipline") >= 2:
             if char.personality in ("剛直", "謹慎"):
                 heart += "明文規矩讓其較能理解掌門的安排，但規矩本身沒有解決私事與傷疲。"
             else:
                 heart += "幾次私事都被要求讓位於門規，逐漸少向掌門開口；任務中的傷疲又加重了負擔。"
         if char.choices.count("support") >= 2:
-            heart += "多次撥糧支持使個人打算往前走了一段。"
+            heart += "幾次回應留出了協助與商量的餘地。"
             if char.personality in ("好勝", "多疑"):
                 heart += "然而直接援助未必就是其想要的認同，仍需要證明自己或核實承諾。"
         if char.choices.count("defer") >= 2:
             heart += "先前保留的彈性也累積成未完的約定，往後仍須有人承擔。"
         outcome = next((m for m in state.major_outcomes if m["character_id"] == char.id), None)
         warnings = [q.public() for q in state.observations if outcome and q.id in outcome["warnings"]]
-        characters.append({"name": char.name, "fate": fate, "heart": heart,
+        memories = [h["text"] for h in char.history if h["kind"] == "night"]
+        epilogue = f"{char.name}的去向是：{fate}"
+        if memories:
+            epilogue += f"回望這些月，『{memories[0]}』是確實談過的一次安排；"
+            epilogue += f"後來又談到『{memories[-1]}』。" if len(memories) > 1 else "那次談話留下的要求，往後仍要有人記得。"
+        else:
+            epilogue += "你們一起經過山門的幾次變動，卻還沒能把私下的難題逐件談清。"
+        arc_history = [h for h in char.history if h.get("arc_id") == char.arc]
+        if arc_history and char.status == "active":
+            arc = next(a for a in load_data()[2]["arcs"] if a["id"] == char.arc)
+            epilogue += arc["resolutions"][arc_history[-1]["choice"]]
+        else:
+            epilogue += ("同門留下這些記錄，沒有讓最後那次任務蓋過他先前做過的所有事。" if char.status == "dead" else "做完的工作與未履行的約定都還在，再提起青崖門時，記得的不會只有最後一日的勝負。")
+        characters.append({"name": char.name, "fate": fate, "heart": heart, "epilogue": epilogue,
                            "warnings": warnings, "risk_notice": outcome.get("risk_notice") if outcome else None})
-    return {"ending": state.ending, "reason": state.ending_reason, "characters": characters,
+    thread = current_thread(state)
+    mystery = thread["ending_reveal"] if mystery_complete(state) else thread["partial_reveal"]
+    if not mystery_complete(state):
+        known = [state.intel[k] for k in thread["required_clues"] if k in state.intel]
+        mystery = "已能確認：" + "；".join(known) + "\n" + mystery if known else "這一局沒有取得足以串起主線的核心證據。" + mystery
+    callbacks = ending_callback_facts(state)
+    personal_callbacks = [{"name": c.name, **h} for c in state.characters for h in c.history if h["kind"] == "night" and h["month"] < state.month]
+    first_choices = list({h["name"]: h for h in reversed(personal_callbacks)}.values())
+    endings = narrative.render_ending_scene({"opening": load_story_data()["ending_scenes"][state.ending],
+                                            "mystery": mystery, "motif": thread["object"], "priority": state.final_priority, "callbacks": callbacks})
+    endings["character_epilogues"] = [{"name": c["name"], "text": c["epilogue"]} for c in characters]
+    endings["personal_callbacks"] = [f"第 {h['month']} 月，你與{h['name']}定下『{h['text']}』。" for h in first_choices[:2]]
+    return {"ending": state.ending, "reason": state.ending_reason, "characters": characters, **endings,
             "replay": causal_replay(state), "resources": {RESOURCES[k]: v for k, v in state.resources.items()}}
