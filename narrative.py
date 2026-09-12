@@ -1,6 +1,5 @@
 """Pure authored-text rendering. Accepts only allow-listed public context, never models."""
 from hashlib import sha256
-import re
 
 
 def variant(texts, key):
@@ -9,14 +8,20 @@ def variant(texts, key):
 
 
 def speak(character, message, mood="neutral"):
-    voice = character.get("voice", {})
-    address = voice.get("address", "掌門")
-    lead = voice.get(mood, voice.get("neutral", ""))
-    text = lead + message if voice.get("conclusion_first", True) else message + lead
-    if voice.get("sentence_length") == "short":
-        clauses = [s for s in re.split(r"(?<=[。！？])", text) if s]
-        return f"{character['name']}向{address}說：" + "\n".join(f"『{s}』" for s in clauses)
-    return f"{character['name']}：『{address}，{text}』"
+    # Message is already authored as complete sentences. Personality may select a
+    # variant elsewhere, but must never prepend/append unrelated stance fragments.
+    return f"{character['name']}：『{message}』"
+
+
+def render_character_opinion(context, character):
+    if not character["actionable"]:
+        if character["physical"] in ("死亡", "離開門派", "倒戈"):
+            return {"thought":"本月未在門內參與議事。", "dialogue":""}
+        return {"thought":"目前不能出勤，可以留門核對已知記錄。", "dialogue":"這次我不能出門，能看過的資料請留一份給我。"}
+    variants = context.get("character_views", {}).get(character["role_id"], [])
+    if not variants:
+        return {"thought":"先看清本月要處理的事。", "dialogue":"請先把已知的經過說完，我再判斷能幫哪一段。"}
+    return dict(variant(variants, (context["key"], character["id"], character["personality"])))
 
 
 def render_event_opening(context):
@@ -32,16 +37,7 @@ def render_event_opening(context):
 
 
 def render_assignment_preview(context, characters):
-    lines = []
-    for char in characters:
-        hook = next((h["text"] for h in context.get("hooks", []) if h["background"] == char["background_id"]), None)
-        message = hook or char.get("stance_line", "先把我們答應做的事說清楚，再出發。")
-        if context.get("introduction"):
-            message = {"武力": "我先試過刀柄了，有兩把得先鎖緊才能拿去守門。", "智略": "欠餉和領糧的兩份單子，我想先放在一起核對。", "醫術": "藥箱我已拿到門邊，誰有傷先說，別到輪值時才撐不住。", "交涉": "山下等著我們答覆的人，我來問清他們各要哪一筆。"}[char["role"]] + char["stance_line"]
-        if hook and char.get("voice", {}).get("background_line"):
-            message += char["voice"]["background_line"]
-        lines.append(speak(char, message, "question" if hook else "neutral"))
-    return lines
+    return [speak(char, render_character_opinion(context, char)["dialogue"]) for char in characters]
 
 
 def render_mission_aftermath(context):
@@ -49,8 +45,8 @@ def render_mission_aftermath(context):
     if not team:
         return []
     if len(team) == 1:
-        message = "說到" + context["detail"] + ("，我先講今日親眼見到的部分。還有疑問的地方，也一起記下。" if context["success"] else "，沒查清的地方，我不想假裝自己知道。")
-        return [speak(team[0], message, "supported" if context["success"] else "tense")]
+        # The authored result and investigation already explain this person's work.
+        return []
     first, second = team
     if context["bond"] == "strained":
         return [speak(first, "事情辦到哪裡，我會說清楚。但下次改分工前，先告訴我。", "conflict"),

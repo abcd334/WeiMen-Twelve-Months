@@ -6,6 +6,7 @@ from feedback import save_feedback, survey_options
 from game_engine import (InvalidAction, causal_replay, determine_ending, ending_view,
                          finish, gain_intel, new_game, current_thread)
 from simulate_balance import POLICIES, play_game
+from investigation import resolve_deduction
 
 
 def ending_fixture():
@@ -23,6 +24,9 @@ def test_five_endings_and_priority(ending):
     if ending == "揭破陰謀":
         for item in current_thread(state)["required_clues"]:
             gain_intel(state, item, "test")
+        state.month, state.phase = 11, "deduction"
+        resolve_deduction(state, evidence_ids=current_thread(state)["required_clues"])
+        state.month = 12
         state.flags.add("alliance")
         state.resources.update(defense=70, reputation=70)
     elif ending == "聯盟退敵":

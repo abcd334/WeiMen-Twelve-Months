@@ -11,6 +11,7 @@ from game_engine import (InvalidAction, begin_month, check_failure, current_even
                          queue_delay, record_decision, resolve_day, resolve_major_outcome,
                          resolve_night, response_effects, start_night, update_intentions)
 from models import Cue
+from investigation import resolve_deduction
 from simulate_balance import POLICIES, audit_outcomes, play_game
 
 
@@ -40,6 +41,9 @@ def test_fixed_months_random_without_replacement():
         start_night(state)
         resolve_night(state, "support")
         begin_month(state)
+        if state.phase == "deduction":
+            resolve_deduction(state, hypothesis="uncertain" if state.month == 4 else None)
+            begin_month(state)
     seen.append((state.month, state.event_id))
     assert dict(seen)[1] == "inventory"
     assert dict(seen)[4] == "provocation"
@@ -209,7 +213,7 @@ def test_false_strong_cue_rejected_and_templates_do_not_repeat():
     assert all(a.text != b.text for a, b in zip(cues, cues[1:]))
 
 
-@pytest.mark.parametrize("seed,kind", [(0, "left"), (13, "left"), (99, "defected"), (113, "defected"), (224, "defected")])
+@pytest.mark.parametrize("seed,kind", [(4, "left"), (5, "left"), (179, "defected"), (113, "defected"), (224, "defected")])
 def test_natural_fixed_seed_permanent_consequences_have_prior_evidence(seed, kind):
     state = play_game(seed, "conservative_policy")
     outcomes = audit_outcomes(state)

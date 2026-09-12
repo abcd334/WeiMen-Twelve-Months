@@ -36,7 +36,12 @@ def audit_game(state):
             "group_complete": group_complete, "ending_callback_count": len(end["callbacks"]),
             "final_scene_length": len(end["final_scene"]), "epilogue_lengths": [len(c["epilogue"]) for c in end["characters"]],
             "chain": [{"month": b["month"], "beat": b["beat"], "text": facts[b["fact_id"]]["text"]} for b in state.thread_beats],
-            "callback_examples": state.callback_history[:4], "required_clues_found": [c for c in thread["required_clues"] if c in state.intel]}
+            "callback_examples": state.callback_history[:4], "required_clues_found": [c for c in thread["required_clues"] if c in state.evidence],
+            "investigation_count": len(state.investigation_history), "confirmed_count": len(state.evidence),
+            "pending_count": len(state.leads), "claim_count": len(state.claims),
+            "deduction_months": [d["month"] for d in state.deduction_history],
+            "deductions_accepted": [d["month"] for d in state.deduction_history if d["accepted"]],
+            "recovered_evidence": [e["id"] for e in state.evidence.values() if e["focus_id"].startswith("recover_")]}
 
 
 def run_audit(count=200):
@@ -46,7 +51,10 @@ def run_audit(count=200):
     reached11 = [r for r in rows if r["month_reached"] >= 12]
     def rate(predicate, population):
         return round(100 * sum(predicate(r) for r in population) / len(population), 2) if population else None
-    report = {"seeds": count, "policy": "resource_guard_policy", "complete_games": len(complete),
+    report = {"version": "0.5", "seeds": count, "policy": "resource_guard_policy", "complete_games": len(complete),
+              "deduction_checkpoint_percent": rate(lambda r: r["deduction_months"] == [4,8,11], complete),
+              "complete_chain_percent": rate(lambda r: r["mystery_complete"], complete),
+              "games_using_recovery": sum(bool(r["recovered_evidence"]) for r in rows),
               "thread_distribution": dict(Counter(r["thread"] for r in rows)),
               "average_callbacks": round(sum(r["callbacks_2_to_10"] for r in rows) / count, 2),
               "callback_coverage_percent": rate(lambda r: r["callbacks_2_to_10"] >= 3, complete),

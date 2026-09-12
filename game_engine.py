@@ -1,10 +1,12 @@
 """Deterministic twelve-month simulation. UI reads only explicit public projections."""
 from itertools import combinations
 from random import Random
+from copy import deepcopy
 
 from data_loader import load_data, load_story_data
 from models import Character, Cue, GameState, RESOURCES, RISK_NAMES, SKILLS
 import narrative
+import investigation
 
 ENDINGS = ("揭破陰謀", "聯盟退敵", "正面取勝", "慘勝守山", "門派覆滅")
 
@@ -73,7 +75,18 @@ def new_game(seed):
 
 
 def current_event(state):
-    return next(e for e in load_data()[1]["events"] if e["id"] == state.event_id)
+    base = next(e for e in load_data()[1]["events"] if e["id"] == state.event_id)
+    overlay = investigation.case_scene(state)
+    if overlay.get("event_id") != state.event_id:
+        return base
+    event = deepcopy(base)
+    event.update({k:v for k,v in overlay.items() if k not in ("event_id", "focus_ids")})
+    event["description"] = event["scene_opening"]
+    event["concrete_detail"] = overlay.get("concrete_detail", base["concrete_detail"])
+    event["npc_identity"] = "、".join(n["identity"] + "・" + n["name"] for n in load_story_data()["npcs"] if n["id"] in event["npc_refs"])
+    for option in event["options"]:
+        option["intel"] = []
+    return event
 
 
 def current_thread(state):
@@ -84,6 +97,7 @@ def public_character_context(state, char):
     """Boundary for narrative.py: no secret, psychology, or raw relationships."""
     public = char.public(state.month)
     public.update(voice=dict(char.voice), background_id=char.background["id"],
+                  role_id=char.role, **load_data()[0]["role_judgments"][char.role],
                   stance_line=load_data()[0].get("stance_lines", {}).get(char.stance, "先說清楚今天要守住什麼。"))
     return public
 
@@ -95,7 +109,7 @@ def add_callback(state, fact_id, text, due=None, speaker=None):
 
 def prepare_story_event(state, event):
     thread = current_thread(state)
-    related = (event["id"] in thread["event_links"] or state.month in (1, 4, 8, 12)
+    related = ((state.main_thread == "false_cards" and state.month != 6) or event["id"] in thread["event_links"] or state.month in (1, 4, 8, 12)
                or (state.month == 10 and not any(b["beat"] == "payoff" for b in state.thread_beats)))
     beat = "setup" if state.month <= 3 else "escalation" if state.month <= 8 else "payoff"
     callbacks = []
@@ -133,15 +147,16 @@ def prepare_story_event(state, event):
             npc = next(n for n in load_story_data()["npcs"] if n["id"] == npc_id)
             response = "這回我願意先把手上的原件留下，再談新的安排。" if memory["success"] else "上回還有沒辦妥的部分，這次請先說明誰負責核對，我再答應。"
             item = {"month": state.month, "source_id": memory["fact_id"],
-                    "text": f"{npc['name']}提起第 {memory['month']} 月的安排：「你那回選擇『{memory['choice']}』，我還記得。{response}」"}
+                    "text": f"{npc['identity']}・{npc['name']}提起第 {memory['month']} 月的安排：「你那回選擇『{memory['choice']}』，我還記得。{response}」"}
             callbacks.append(item)
             state.callback_history.append(item)
     beat_index = sum(b["beat"] == beat for b in state.thread_beats)
     beat_texts = thread["beat_texts"][beat]
-    beat_text = beat_texts[min(beat_index, len(beat_texts) - 1)] if related else ""
+    beat_text = (event["current_question"] if state.main_thread == "false_cards" else beat_texts[min(beat_index, len(beat_texts) - 1)]) if related else ""
     state.event_context = {"opening": opening, "hooks": event.get("character_hooks", []),
+                           "character_views": event["character_views"], "key": (state.seed,state.month,event["id"]),
                            "callbacks": callbacks, "evidence": [dict(f) for f in evidence],
-                           "thread_beat": beat_text, "related": related}
+                           "thread_beat": "" if state.main_thread == "false_cards" else beat_text, "related": related}
     if related:
         fid = record_fact(state, beat_text, "story", state.main_thread)
         state.thread_beats.append({"month": state.month, "beat": beat, "fact_id": fid})
@@ -168,12 +183,8 @@ def choose_story_event(state, events):
     return state.rng.choice(pool)
 
 
-def next_thread_clue(state):
-    return next((clue for clue in current_thread(state)["required_clues"] if clue not in state.intel), None)
-
-
 def mystery_complete(state):
-    return set(current_thread(state)["required_clues"]) <= state.intel.keys()
+    return investigation.chain_complete(state)
 
 
 def contact_unavailable(state):
@@ -238,8 +249,12 @@ def event_eligible(state, event):
 
 
 def begin_month(state):
-    if state.phase not in ("new", "night_result") or state.ending:
+    if state.phase not in ("new", "night_result", "deduction_result") or state.ending:
         raise InvalidAction("尚未完成本月夜談。")
+    if state.phase == "night_result" and state.month in (4,8,11) and f"{state.month}:deduction" not in state.resolved:
+        state.phase = "deduction"
+        state.last_result = []
+        return
     state.month += 1
     state.phase = "day"
     state.last_result = []
@@ -264,12 +279,16 @@ def begin_month(state):
         return
     events = load_data()[1]["events"]
     fixed = next((e for e in events if e.get("fixed_month") == state.month), None)
-    event = fixed or choose_story_event(state, events)
+    schedule = investigation.case_scene(state)
+    event = next(e for e in events if e["id"] == schedule["event_id"]) if schedule else fixed or choose_story_event(state, events)
     state.event_id = event["id"]
+    event = current_event(state)
     state.seen_events.append(event["id"])
     if check_failure(state, "hostile" in event["tags"]):
         return
     prepare_story_event(state, event)
+    if state.month == 1:
+        investigation.store_item(state, investigation.graph_for(state)[state.main_thread + "_claim"], event["npc_identity"])
     if state.month == 12:
         ending, reason, evidence = determine_ending(state)
         finish(state, ending, reason, evidence)
@@ -295,23 +314,30 @@ def public_state(state):
     event = current_event(state) if state.event_id else None
     return {"seed": state.seed, "month": state.month, "phase": state.phase,
             "resources": {RESOURCES[k]: v for k, v in state.resources.items()},
-            "characters": [c.public(state.month) for c in state.characters],
+            "characters": [{**c.public(state.month), **load_data()[0]["role_judgments"][c.role], **narrative.render_character_opinion(state.event_context, public_character_context(state,c))} for c in state.characters],
             "chapter": ("人還在一起" if state.month <= 3 else "事情不是表面那樣" if state.month <= 7 else "開始懷疑自己人" if state.month <= 10 else "留下來的人"),
-            "event": {"title": event["title"], "description": narrative.render_event_opening(state.event_context),
-                      "reactions": narrative.render_assignment_preview({**state.event_context, "introduction": True}, [public_character_context(state, c) for c in state.active()]) if state.month == 1 else [],
+            "event": {"title": event["title"], "description": narrative.render_event_opening({**state.event_context, "callbacks": []}),
+                      "callbacks": [dict(c) for c in state.event_context.get("callbacks", [])],
+                      "npc_identity":event["npc_identity"], "current_question":event["current_question"],
+                      "reactions": [],
                       "options": [public_option(state, o) for o in event["options"]]} if event else None,
+            "evidence_board": investigation.evidence_board(state),
+            "investigations": investigation.public_investigations(state) if state.phase == "day" else [],
             "observations": [c.public() for c in state.observations],
             "intel": list(state.intel.values()), "logs": [dict(log) for log in state.logs],
             "flags": [load_data()[1]["flags"][f] for f in sorted(state.flags)],
             "last_result": list(state.last_result)}
 
 
-def legal_actions(state):
+def legal_actions(state, focus_id="none"):
     if state.phase != "day":
         return []
     actions = []
+    focus = next((o for o in investigation.investigation_options(state) if o["id"] == focus_id), None)
+    if focus is None:
+        return []
     for option in current_event(state)["options"]:
-        if option["cost"] <= state.resources["treasury"]:
+        if option["cost"] + focus["cost"] <= state.resources["treasury"]:
             for team in combinations(state.actionable(), option["count"]):
                 actions.append((option, [c.id for c in team]))
     return actions
@@ -333,6 +359,9 @@ def mission_score(state, option, team):
 def gain_intel(state, intel_id, source):
     if intel_id in state.intel:
         return None
+    node = investigation.graph_for(state).get(intel_id)
+    if node and node["kind"] == "evidence":
+        return investigation.store_item(state, node, source, "explicit_import")
     clue = current_thread(state)["clues"].get(intel_id)
     state.intel[intel_id] = clue["text"] if clue else load_data()[1]["intel"][intel_id]
     state.clue_metadata[intel_id] = dict(clue) if clue else {"thread_id": None, "clue_type": "external", "text": state.intel[intel_id]}
@@ -349,22 +378,25 @@ def grow_skill(state, char, skill, success):
     return None
 
 
-def resolve_day(state, option_id, participant_ids, token=None):
+def resolve_day(state, option_id, participant_ids, token=None, focus_id="none"):
     expected = f"{state.month}:day"
     if state.phase != "day" or expected in state.resolved or (token is not None and token != expected):
         raise InvalidAction("此白天已結算，或頁面已過期。")
+    investigation_focus = next((o for o in investigation.investigation_options(state) if o["id"] == focus_id), None)
+    if investigation_focus is None:
+        raise InvalidAction("請選擇本月提供的調查方向。")
     option = next((o for o in current_event(state)["options"] if o["id"] == option_id), None)
-    if option is None or (option, participant_ids) not in legal_actions(state):
+    if option is None or (option, participant_ids) not in legal_actions(state, focus_id):
         # Canonical team order makes duplicate/unknown/injured IDs impossible.
         if option is None or len(set(participant_ids)) != len(participant_ids) or not any(
-                o["id"] == option_id and set(ids) == set(participant_ids) for o, ids in legal_actions(state)):
+                o["id"] == option_id and set(ids) == set(participant_ids) for o, ids in legal_actions(state, focus_id)):
             raise InvalidAction("請選擇足額糧餉、正確人數及可行動弟子。")
     team = [c for c in state.characters if c.id in participant_ids]
     state.resolved.add(expected)
     state.last_result = []
     state.last_participants = [c.id for c in team]
     option_before = public_option(state, option, state.last_participants)
-    facts = [apply_resources(state, {"treasury": -option["cost"]}, "方案確定成本")]
+    facts = [apply_resources(state, {"treasury": -option["cost"] - investigation_focus["cost"]}, "門務與調查確定成本")]
     if check_failure(state):
         record_decision(state, option["label"], facts, True)
         return
@@ -405,7 +437,7 @@ def resolve_day(state, option_id, participant_ids, token=None):
                 facts.append(growth)
             char.recent = f"參與「{current_event(state)['title']}」，執行「{option['label']}」；" + ("已完成這次差事。" if success else "這次差事受阻，回山後需要調整安排。")
             char.recent_month = state.month
-        state.last_result.append(f"{char.name}：{char.physical(state.month)}")
+        state.last_result.append(f"{char.name}：{char.status_display(state.month)[0]}")
         if len(team) == 2:
             other = next(c for c in team if c != char)
             if other.id in char.relationships:
@@ -434,15 +466,7 @@ def resolve_day(state, option_id, participant_ids, token=None):
             facts.append(record_fact(state, text, "personal", witness.id))
             state.last_result.append(text)
         state.story_flags["restricted_character"] = suspect.id
-    if success and state.event_context.get("related") and (option["intel"] or option["skill"] == "strategy"):
-        clue_id = next_thread_clue(state)
-        contact_restricted = contact_unavailable(state)
-        if clue_id and not contact_restricted:
-            fid = gain_intel(state, clue_id, state.event_id)
-            facts.append(fid)
-            state.last_result.append(state.facts[-1]["text"])
-        elif clue_id and contact_restricted:
-            state.last_result.append("接續聯絡的弟子目前無法代領，這次沒拿到原定的回信；眼前的線索仍須另外查證。")
+    facts.extend(investigation.resolve_investigation(state, investigation_focus, team, success, option_id))
     if state.event_id == "suspicion":
         focus = team[0] if option.get("special") == "restrict" else next((c for c in state.active() if c.id == state.story_flags.get("suspect")), team[0])
         previous = next((h for h in reversed(focus.history) if h["kind"] == "night"), None)
@@ -471,12 +495,12 @@ def resolve_day(state, option_id, participant_ids, token=None):
     outcome_fact = record_fact(state, result_text, "outcome", state.event_id)
     facts.append(outcome_fact)
     detail = current_event(state).get("concrete_detail", current_event(state)["title"])
-    if current_event(state)["key_decision"] or state.event_context.get("related"):
+    if investigation_focus["id"] == "none" and (current_event(state)["key_decision"] or state.event_context.get("related")):
         add_callback(state, outcome_fact, f"談到{detail}時，眾人重新核對了當時「{option['label']}」留下的結果。")
     state.scene_history.append({"month": state.month, "type": "outcome", "scene_id": state.event_id + "/" + option_id, "text": result_text, "speakers": state.last_participants})
     for npc_id in current_event(state).get("npc_refs", []):
         state.story_flags[f"npc:{npc_id}"] = {"month": state.month, "choice": option["label"], "fact_id": outcome_fact, "success": success}
-    decision = record_decision(state, current_event(state)["title"] + "／" + option["label"], facts, current_event(state)["key_decision"])
+    decision = record_decision(state, current_event(state)["title"] + "／" + option["label"] + "／" + investigation_focus["label"], facts, current_event(state)["key_decision"])
     if option["delayed"] and success:
         queue_delay(state, option["delayed"], decision["id"])
     for char in state.active():
@@ -572,14 +596,13 @@ def build_night_scene(state, kind, speakers):
     elif kind == "mainline_scene":
         scene = deepcopy(next(s for s in personal["situations"] if s["id"] == "check_evidence"))
         scene["title"] = "原件攤開的那一晚"
-        scene["text"] = "{name}把原件推向{other}：『" + current_thread(state)["question"] + "』\n\n{other}回答：『先分清楚親眼見的、查證过的，還有只是聽來的。』"
-        scene["choices"][0]["grant_thread_clue"] = True
+        scene["text"] = "{name}把手邊的記錄推向{other}：『" + current_thread(state)["question"] + "』\n\n{other}回答：『先分清楚親眼見的、查證過的，還有只是聽來的。』"
         if state.month >= 7:
             scene["id"] = "evidence_crosscheck"
             scene["title"] = "這一頁能替誰作證"
-            scene["text"] = "{name}把先前整理的紙分成两疊：『查到的和還沒查到的，都在這裡。』\n\n{other}壓住其中一角：『明日若有人問這一頁能替誰作證，我們要說到哪裡？』"
-            labels = ["請見證人核對原件，補齊證據來源", "先將已核實的路線交給守門人", "保留不同說法，約好下月再核對"]
-            reactions = ["{name}請見證人只在看過的部分旁落名，{other}將未核實的頁面另夾起來。紙終於不再因為放在同一疊，就被當成一樣可靠。", "{name}將能用於值勤的部分單獨抄出，{other}在空白處寫下『尚待核實』。守門人領到的安排沒有把推測混進去。", "{name}留下各份說法的來源，{other}收好需要再問的名單。今晚沒有要求誰先改口，下一次核對也有了確切的問題。"]
+            scene["text"] = "{name}把先前整理的紙分成兩疊：『查過的資料和仍待追問的清單，都在這裡。』\n\n{other}壓住其中一角：『明日若有人問這一頁能替誰作證，我們要說到哪裡？』"
+            labels = ["重整已知資料，列出還要問誰", "先將可用的安排交給守門人", "保留不同說法，約好下月再核對"]
+            reactions = ["{name}按現有記錄重列來源，{other}將未核實的頁面另夾起來。還缺的材料寫進待問清單，留待白天安排調查。", "{name}將能用於值勤的部分單獨抄出，{other}在空白處寫下『尚待核實』。守門人領到的安排沒有把推測混進去。", "{name}留下各份說法的來源，{other}收好需要再問的名單。今晚沒有要求誰先改口，下一次核對也有了確切的問題。"]
             for choice, label, reaction in zip(scene["choices"], labels, reactions):
                 choice.update(label=label, reaction=reaction)
     else:
@@ -647,7 +670,7 @@ def response_effects(char, choice):
         effects["trust"] = effects.get("trust", 0) - 3
     if char.stance == "山門優先" and choice["effects"].get("defense", 0) > 0:
         effects["loyalty"] = effects.get("loyalty", 0) + 3
-    if char.stance == "真相優先" and choice.get("grant_thread_clue"):
+    if char.stance == "真相優先" and choice.get("growth") == "strategy":
         effects["trust"] = effects.get("trust", 0) + 4
     return effects
 
@@ -700,7 +723,7 @@ def resolve_night(state, choice_id, token=None):
     reaction = choice["reaction"]
     char.history.append({"month": state.month, "kind": "night", "choice": approach, "text": choice["label"], "scene_id": scene["id"], "arc_id": scene.get("arc_id"), "scene_kind": scene["kind"]})
     facts.append(record_fact(state, reaction, "personal", char.id))
-    state.last_result = [state.facts[-2]["text"], reaction, f"{char.name}：{char.physical(state.month)}"]
+    state.last_result = [state.facts[-2]["text"], reaction, f"{char.name}：{char.status_display(state.month)[0]}"]
     char.recent = f"夜談「{scene['title']}」後，接受了「{choice['label']}」的安排。"
     char.recent_month = state.month
     if choice.get("growth"):
@@ -710,13 +733,6 @@ def resolve_night(state, choice_id, token=None):
             text = f"{char.name}經過演練，{SKILLS[skill]}提升至 {char.skills[skill]}。"
             facts.append(record_fact(state, text, "growth", char.id))
             state.last_result.append(text)
-    if choice.get("grant_thread_clue") and next_thread_clue(state) and (scene["kind"] == "mainline_scene" or state.main_thread == "old_letters"):
-        if not contact_unavailable(state):
-            fid = gain_intel(state, next_thread_clue(state), scene["id"])
-            facts.append(fid)
-            state.last_result.append(state.facts[-1]["text"])
-        else:
-            state.last_result.append("接續聯絡的人目前無法代領，今晚只能整理手邊的舊記錄，沒有取得新回信。")
     state.story_flags[f"choice:{char.id}:{scene['id']}"] = choice["id"]
     personal_fact = next(f for f in state.facts if f["id"] == facts[1])
     if scene["kind"] in ("personal_scene", "relationship_scene"):
@@ -863,7 +879,8 @@ def determine_ending(state):
     strategy = sum(c.skills["strategy"] for c in ready)
     diplomacy = sum(c.skills["diplomacy"] for c in ready)
     combat = sum(c.skills["combat"] for c in ready)
-    info_facts = [f["id"] for f in state.facts if f["kind"] == "intel"]
+    info_facts = [state.evidence[cid]["fact_id"] for cid in current_thread(state)["required_clues"] if cid in state.evidence]
+    info_facts += [fid for row in state.deduction_history if row["month"] == 11 and row["accepted"] for fid in row["fact_ids"]]
     if mystery_complete(state) and strategy >= 9 and len(active) >= 2:
         return "揭破陰謀", "數份獨立線索經弟子比對後互相印證，烈川堂的藉口在斷劍臺上被揭破。", info_facts
     if state.resources["reputation"] >= 65 and state.flags & {"alliance", "villagers_helped"} and diplomacy >= 9 and len(active) >= 2:
@@ -944,7 +961,7 @@ def ending_view(state):
     thread = current_thread(state)
     mystery = thread["ending_reveal"] if mystery_complete(state) else thread["partial_reveal"]
     if not mystery_complete(state):
-        known = [state.intel[k] for k in thread["required_clues"] if k in state.intel]
+        known = [state.evidence[k]["text"] for k in thread["required_clues"] if k in state.evidence]
         mystery = "已能確認：" + "；".join(known) + "\n" + mystery if known else "這一局沒有取得足以串起主線的核心證據。" + mystery
     callbacks = ending_callback_facts(state)
     personal_callbacks = [{"name": c.name, **h} for c in state.characters for h in c.history if h["kind"] == "night" and h["month"] < state.month]

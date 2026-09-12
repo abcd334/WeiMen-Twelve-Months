@@ -71,14 +71,34 @@ class Character:
             if content and content not in seen:
                 seen.add(content)
                 experiences.append(text)
+        status_label, status_level = self.status_display(month)
         return {"id": self.id, "name": self.name, "age": self.age, "role": SKILLS[self.role],
                 "skills": {SKILLS[k]: v for k, v in self.skills.items()},
                 "personality": self.personality, "background": self.background["summary"],
-                "signature": self.signature, "physical": self.physical(month),
+                "signature": self.signature, "physical": status_label,
                 "actionable": self.actionable(month), "recent": recent,
+                "status_label": status_label, "status_level": status_level,
+                "actionable_label": "可派遣" if self.actionable(month) else "不可派遣",
                 "recent_month": self.recent_month,
                 "stance": self.stance,
                 "experiences": experiences}
+
+    def status_display(self, month):
+        if self.status != "active":
+            return {"left": "離開門派", "defected": "倒戈", "dead": "死亡"}[self.status], "unavailable"
+        if self.injury >= 2:
+            return "重傷休養", "danger"
+        if self.blocked_until >= month:
+            return "暫停派遣", "unavailable"
+        if self.injury:
+            return "輕傷", "warning"
+        if self.fatigue >= 65:
+            return "十分疲憊", "danger"
+        if self.fatigue >= 35:
+            return "疲憊", "warning"
+        if self.fatigue >= 15:
+            return "稍有疲勞", "notice"
+        return "健康", "normal"
 
 
 @dataclass
@@ -118,7 +138,13 @@ class GameState:
     night_character: str = ""
     night_scene: dict = field(default_factory=dict)
     used_night_scenes: list = field(default_factory=list)
-    version: str = "0.4"
+    version: str = "0.5"
+    evidence: dict = field(default_factory=dict)
+    leads: list = field(default_factory=list)
+    claims: list = field(default_factory=list)
+    hypotheses: dict = field(default_factory=dict)
+    deduction_history: list = field(default_factory=list)
+    investigation_history: list = field(default_factory=list)
     main_thread: str = ""
     story_flags: dict = field(default_factory=dict)
     scene_history: list = field(default_factory=list)

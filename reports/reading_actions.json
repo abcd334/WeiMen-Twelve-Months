@@ -2,7 +2,7 @@
   {
     "seed": 0,
     "thread": "old_letters",
-    "ending": "揭破陰謀",
+    "ending": "慘勝守山",
     "month": 12,
     "actions": [
       {
@@ -12,6 +12,7 @@
         "team": [
           "c1"
         ],
+        "focus_id": "inspect_receipt",
         "reason": "依本局預定立場與公開資源安排。"
       },
       {
@@ -26,6 +27,7 @@
         "team": [
           "c1"
         ],
+        "focus_id": "date_register",
         "reason": "因公開背景與場景有關而邀其出勤；此處不以能力最高為唯一準則。"
       },
       {
@@ -40,6 +42,7 @@
         "team": [
           "c3"
         ],
+        "focus_id": "date_register",
         "reason": "依本局預定立場與公開資源安排。"
       },
       {
@@ -55,6 +58,7 @@
           "c1",
           "c2"
         ],
+        "focus_id": "verify_reply",
         "reason": "依本局預定立場與公開資源安排。"
       },
       {
@@ -63,12 +67,18 @@
         "choice": "ties_check/open_together_1"
       },
       {
+        "month": 4,
+        "phase": "deduction",
+        "hypothesis": "old_channel"
+      },
+      {
         "month": 5,
         "phase": "day",
         "option": "assist",
         "team": [
           "c3"
         ],
+        "focus_id": "verify_reply",
         "reason": "依本局預定立場與公開資源安排。"
       },
       {
@@ -84,6 +94,7 @@
           "c2",
           "c3"
         ],
+        "focus_id": "check_old_letters_dates",
         "reason": "依本局預定立場與公開資源安排。"
       },
       {
@@ -94,10 +105,11 @@
       {
         "month": 7,
         "phase": "day",
-        "option": "settle",
+        "option": "verify",
         "team": [
-          "c3"
+          "c1"
         ],
+        "focus_id": "check_old_letters_copy",
         "reason": "依本局預定立場與公開資源安排。"
       },
       {
@@ -110,8 +122,9 @@
         "phase": "day",
         "option": "watch",
         "team": [
-          "c1"
+          "c2"
         ],
+        "focus_id": "follow_old_letters_internal",
         "reason": "依本局預定立場與公開資源安排。"
       },
       {
@@ -120,12 +133,21 @@
         "choice": "partner_result/separate_duties_2"
       },
       {
+        "month": 8,
+        "phase": "deduction",
+        "evidence_ids": [
+          "letter_receipt",
+          "letter_register"
+        ]
+      },
+      {
         "month": 9,
         "phase": "day",
         "option": "seek",
         "team": [
           "c3"
         ],
+        "focus_id": "none",
         "reason": "依本局預定立場與公開資源安排。"
       },
       {
@@ -136,17 +158,17 @@
       {
         "month": 10,
         "phase": "day",
-        "option": "labor",
+        "option": "contract",
         "team": [
-          "c0",
-          "c2"
+          "c3"
         ],
+        "focus_id": "follow_old_letters_rumor",
         "reason": "依本局預定立場與公開資源安排。"
       },
       {
         "month": 10,
         "phase": "night",
-        "choice": "ties_first/register_recipient_0"
+        "choice": "debt_plan/keep_shift_1"
       },
       {
         "month": 11,
@@ -155,12 +177,22 @@
         "team": [
           "c3"
         ],
+        "focus_id": "hear_external",
         "reason": "依本局預定立場與公開資源安排。"
       },
       {
         "month": 11,
         "phase": "night",
         "choice": "show_truth"
+      },
+      {
+        "month": 11,
+        "phase": "deduction",
+        "evidence_ids": [
+          "letter_receipt",
+          "letter_register",
+          "letter_reply"
+        ]
       }
     ]
   },
@@ -177,6 +209,7 @@
         "team": [
           "c1"
         ],
+        "focus_id": "inspect_seal",
         "reason": "依本局預定立場與公開資源安排。"
       },
       {
@@ -187,11 +220,12 @@
       {
         "month": 2,
         "phase": "day",
-        "option": "records",
+        "option": "maintain",
         "team": [
-          "c1"
+          "c0"
         ],
-        "reason": "因公開背景與場景有關而邀其出勤；此處不以能力最高為唯一準則。"
+        "focus_id": "inspect_ledger",
+        "reason": "依本局預定立場與公開資源安排。"
       },
       {
         "month": 2,
@@ -201,10 +235,11 @@
       {
         "month": 3,
         "phase": "day",
-        "option": "copy",
+        "option": "record",
         "team": [
           "c1"
         ],
+        "focus_id": "inspect_ink",
         "reason": "依本局預定立場與公開資源安排。"
       },
       {
@@ -219,20 +254,27 @@
         "team": [
           "c3"
         ],
+        "focus_id": "follow_false_cards_internal",
         "reason": "依本局預定立場與公開資源安排。"
       },
       {
         "month": 4,
         "phase": "night",
-        "choice": "debt_first/keep_shift_0"
+        "choice": "debt_first/household_loan_0"
+      },
+      {
+        "month": 4,
+        "phase": "deduction",
+        "hypothesis": "forged_cards"
       },
       {
         "month": 5,
         "phase": "day",
-        "option": "contract",
+        "option": "verify_witness",
         "team": [
           "c3"
         ],
+        "focus_id": "confront_witness",
         "reason": "依本局預定立場與公開資源安排。"
       },
       {
@@ -243,10 +285,11 @@
       {
         "month": 6,
         "phase": "day",
-        "option": "shelter",
+        "option": "rotate",
         "team": [
-          "c2"
+          "c0"
         ],
+        "focus_id": "check_dates",
         "reason": "依本局預定立場與公開資源安排。"
       },
       {
@@ -257,10 +300,11 @@
       {
         "month": 7,
         "phase": "day",
-        "option": "revise",
+        "option": "protect",
         "team": [
-          "c3"
+          "c0"
         ],
+        "focus_id": "trace_cart",
         "reason": "依本局預定立場與公開資源安排。"
       },
       {
@@ -276,35 +320,45 @@
           "c1",
           "c3"
         ],
+        "focus_id": "none",
         "reason": "依本局預定立場與公開資源安排。"
       },
       {
         "month": 8,
         "phase": "night",
-        "choice": "partner_result/separate_duties_2"
+        "choice": "partner_result/ask_both_2"
+      },
+      {
+        "month": 8,
+        "phase": "deduction",
+        "evidence_ids": [
+          "card_original",
+          "card_ink"
+        ]
       },
       {
         "month": 9,
         "phase": "day",
-        "option": "seek",
+        "option": "present",
         "team": [
-          "c3"
+          "c1"
         ],
+        "focus_id": "ink_shop",
         "reason": "依本局預定立場與公開資源安排。"
       },
       {
         "month": 9,
         "phase": "night",
-        "choice": "ties_first/register_recipient_0"
+        "choice": "ties_first/open_together_0"
       },
       {
         "month": 10,
         "phase": "day",
-        "option": "service",
+        "option": "arrange",
         "team": [
-          "c0",
-          "c2"
+          "c3"
         ],
+        "focus_id": "none",
         "reason": "依本局預定立場與公開資源安排。"
       },
       {
@@ -315,17 +369,26 @@
       {
         "month": 11,
         "phase": "day",
-        "option": "interview",
+        "option": "meet",
         "team": [
-          "c1",
           "c3"
         ],
+        "focus_id": "none",
         "reason": "依本局預定立場與公開資源安排。"
       },
       {
         "month": 11,
         "phase": "night",
         "choice": "keep_people"
+      },
+      {
+        "month": 11,
+        "phase": "deduction",
+        "evidence_ids": [
+          "card_original",
+          "card_ink",
+          "card_witness"
+        ]
       }
     ]
   },
@@ -343,6 +406,7 @@
           "c0",
           "c3"
         ],
+        "focus_id": "inspect_map",
         "reason": "依本局預定立場與公開資源安排。"
       },
       {
@@ -358,6 +422,7 @@
           "c0",
           "c1"
         ],
+        "focus_id": "measure_tracks",
         "reason": "因公開背景與場景有關而邀其出勤；此處不以能力最高為唯一準則。"
       },
       {
@@ -372,6 +437,7 @@
         "team": [
           "c1"
         ],
+        "focus_id": "verify_order",
         "reason": "依本局預定立場與公開資源安排。"
       },
       {
@@ -387,12 +453,18 @@
           "c1",
           "c3"
         ],
+        "focus_id": "none",
         "reason": "依本局預定立場與公開資源安排。"
       },
       {
         "month": 4,
         "phase": "night",
         "choice": "ties_first/open_together_0"
+      },
+      {
+        "month": 4,
+        "phase": "deduction",
+        "hypothesis": "smuggling_route"
       },
       {
         "month": 5,
@@ -402,6 +474,7 @@
           "c0",
           "c3"
         ],
+        "focus_id": "none",
         "reason": "依本局預定立場與公開資源安排。"
       },
       {
@@ -416,6 +489,7 @@
         "team": [
           "c3"
         ],
+        "focus_id": "verify_order",
         "reason": "依本局預定立場與公開資源安排。"
       },
       {
@@ -430,6 +504,7 @@
         "team": [
           "c3"
         ],
+        "focus_id": "check_old_road_dates",
         "reason": "依本局預定立場與公開資源安排。"
       },
       {
@@ -444,6 +519,7 @@
         "team": [
           "c2"
         ],
+        "focus_id": "none",
         "reason": "依本局預定立場與公開資源安排。"
       },
       {
@@ -452,12 +528,21 @@
         "choice": "partner_result/separate_duties_2"
       },
       {
+        "month": 8,
+        "phase": "deduction",
+        "evidence_ids": [
+          "road_map",
+          "road_tracks"
+        ]
+      },
+      {
         "month": 9,
         "phase": "day",
         "option": "contract",
         "team": [
           "c3"
         ],
+        "focus_id": "none",
         "reason": "依本局預定立場與公開資源安排。"
       },
       {
@@ -468,10 +553,11 @@
       {
         "month": 10,
         "phase": "day",
-        "option": "annotate",
+        "option": "copy",
         "team": [
-          "c2"
+          "c3"
         ],
+        "focus_id": "check_old_road_copy",
         "reason": "依本局預定立場與公開資源安排。"
       },
       {
@@ -482,16 +568,26 @@
       {
         "month": 11,
         "phase": "day",
-        "option": "revise",
+        "option": "refer",
         "team": [
           "c3"
         ],
+        "focus_id": "none",
         "reason": "依本局預定立場與公開資源安排。"
       },
       {
         "month": 11,
         "phase": "night",
         "choice": "hold_gate"
+      },
+      {
+        "month": 11,
+        "phase": "deduction",
+        "evidence_ids": [
+          "road_map",
+          "road_tracks",
+          "road_order"
+        ]
       }
     ]
   }

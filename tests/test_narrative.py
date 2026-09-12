@@ -11,6 +11,7 @@ from game_engine import (begin_month, build_night_scene, current_event, current_
                          resolve_day, resolve_night, start_night)
 from simulate_balance import POLICIES, play_game
 from audit_narrative import audit_game, NIGHT_TYPES
+from investigation import resolve_deduction
 
 
 @pytest.mark.parametrize("policy", POLICIES)
@@ -118,6 +119,9 @@ def test_mystery_needs_correlated_core_clues_and_preview_stays_private(seed):
     finish(state, "慘勝守山", "test")
     assert thread["ending_reveal"] not in ending_view(state)["mystery_reveal"]
     gain_intel(state, thread["required_clues"][-1], "test")
+    assert not mystery_complete(state)  # Acquisition alone no longer assembles the chain.
+    state.month, state.phase = 11, "deduction"
+    resolve_deduction(state, evidence_ids=thread["required_clues"])
     assert mystery_complete(state)
     assert ending_view(state)["mystery_reveal"] == thread["ending_reveal"]
 
@@ -129,16 +133,18 @@ def test_restricting_contact_blocks_new_letter_from_both_day_and_night():
     state.month = 8
     state.event_id = "suspicion"
     prepare_story_event(state, current_event(state))
-    resolve_day(state, "restrict", [contact.id])
+    resolve_day(state, "restrict", [contact.id], focus_id="verify_reply")
     assert contact.blocked_until == 9
     assert any(contact.name in text and "工作由誰接" in text for text in state.last_result)
     before = dict(state.intel)
+    assert "letter_reply" not in state.evidence
+    assert any("聯絡管道" in n["text"] for n in state.leads)
     state.phase = "night"
     state.night_character = contact.id
     state.night_scene = build_night_scene(state, "mainline_scene", [contact, next(c for c in state.active() if c != contact)])
     resolve_night(state, state.night_scene["choices"][0]["id"])
     assert state.intel == before
-    assert any("沒有取得新回信" in s for s in state.last_result)
+    assert not state.evidence  # Night talks cannot silently award a case clue.
 
 
 def test_successful_pair_mission_still_shows_conflict_and_both_characters():

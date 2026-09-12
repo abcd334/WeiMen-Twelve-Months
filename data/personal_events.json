@@ -2035,8 +2035,7 @@
               "reactions": {
                 "supported": "{name}寫下收件人與日期，把信收回去：「有下一封，我照這個辦。」",
                 "suspected": "{name}寫下收件人與日期，把信收回去：「有下一封，我照這個辦。」 他把信壓在掌下，等你把查證範圍說完。"
-              },
-              "grant_thread_clue": false
+              }
             },
             {
               "id": "open_together_0",
@@ -2063,8 +2062,7 @@
               "reactions": {
                 "supported": "{name}親手拆開信封，讓你看過能核對的段落：「看過哪些，你也記著，別讓人再猜。」",
                 "suspected": "{name}親手拆開信封，讓你看過能核對的段落：「看過哪些，你也記著，別讓人再猜。」 他把信壓在掌下，等你把查證範圍說完。"
-              },
-              "grant_thread_clue": true
+              }
             },
             {
               "id": "notify_next_0",
@@ -2091,8 +2089,7 @@
               "reactions": {
                 "supported": "{name}答應先報備下一次聯絡：「這是我答應你的，不是每封信都由你替我寫。」",
                 "suspected": "{name}答應先報備下一次聯絡：「這是我答應你的，不是每封信都由你替我寫。」 他把信壓在掌下，等你把查證範圍說完。"
-              },
-              "grant_thread_clue": false
+              }
             }
           ],
           "kind": "arc",
@@ -2333,8 +2330,7 @@
           "reactions": {
             "supported": "{name}寫下收件人與日期，把信收回去：「有下一封，我照這個辦。」",
             "suspected": "{name}寫下收件人與日期，把信收回去：「有下一封，我照這個辦。」 他把信壓在掌下，等你把查證範圍說完。"
-          },
-          "grant_thread_clue": false
+          }
         },
         {
           "id": "open_together_0",
@@ -2361,8 +2357,7 @@
           "reactions": {
             "supported": "{name}親手拆開信封，讓你看過能核對的段落：「看過哪些，你也記著，別讓人再猜。」",
             "suspected": "{name}親手拆開信封，讓你看過能核對的段落：「看過哪些，你也記著，別讓人再猜。」 他把信壓在掌下，等你把查證範圍說完。"
-          },
-          "grant_thread_clue": true
+          }
         },
         {
           "id": "notify_next_0",
@@ -2389,8 +2384,7 @@
           "reactions": {
             "supported": "{name}答應先報備下一次聯絡：「這是我答應你的，不是每封信都由你替我寫。」",
             "suspected": "{name}答應先報備下一次聯絡：「這是我答應你的，不是每封信都由你替我寫。」 他把信壓在掌下，等你把查證範圍說完。"
-          },
-          "grant_thread_clue": false
+          }
         }
       ],
       "resolutions": {

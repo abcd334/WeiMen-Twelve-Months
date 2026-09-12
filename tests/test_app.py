@@ -5,7 +5,7 @@ import json
 from streamlit.testing.v1 import AppTest
 import pytest
 
-from simulate_balance import choose_day, choose_night
+from simulate_balance import choose_day, choose_night, choose_focus, choose_deduction
 
 APP = Path(__file__).resolve().parents[1] / "app.py"
 
@@ -20,7 +20,7 @@ def test_streamlit_entire_game_reruns_and_feedback(tmp_path, monkeypatch, seed):
     at.button(key="start").click().run()
     policy_rng = Random(seed ^ 0x574549)
     phases = set()
-    for _ in range(60):
+    for _ in range(70):
         assert not at.exception
         state = at.session_state["game"]
         phases.add(state.phase)
@@ -35,6 +35,8 @@ def test_streamlit_entire_game_reruns_and_feedback(tmp_path, monkeypatch, seed):
                 at.button(key="rest").click().run()
             else:
                 option, team = action
+                focus = choose_focus(state, "highest_skill_policy", policy_rng, action)
+                at.radio(key=f"focus_{state.month}").set_value(focus).run()
                 at.radio(key=f"plan_{state.month}").set_value(option["id"]).run()
                 at.multiselect(key=f"team_{state.month}_{option['id']}").set_value(team).run()
                 assert not at.button(key="confirm_day").disabled
@@ -48,16 +50,29 @@ def test_streamlit_entire_game_reruns_and_feedback(tmp_path, monkeypatch, seed):
             response = choose_night(state, "highest_skill_policy", policy_rng)
             at.radio(key=f"night_{state.month}").set_value(response).run()
             at.button(key="confirm_night").click().run()
+        elif state.phase == "deduction":
+            selection = choose_deduction(state, "highest_skill_policy", policy_rng)
+            if state.month == 4:
+                at.radio(key="hypothesis_4").set_value(selection["hypothesis"]).run()
+            elif not selection["evidence_ids"]:
+                at.checkbox(key=f"deduction_defer_{state.month}").check().run()
+            elif state.month == 8:
+                at.multiselect(key="evidence_pair_8").set_value(selection["evidence_ids"]).run()
+            else:
+                for kind, cid in zip(("document", "physical", "witness"), selection["evidence_ids"]):
+                    at.selectbox(key="chain_" + kind).set_value(cid).run()
+            assert not at.button(key="confirm_deduction").disabled
+            at.button(key="confirm_deduction").click().run()
         else:
             at.button(key="next_month").click().run()
-    assert phases == {"day", "day_result", "night", "night_result", "ended"}
+    assert phases == {"day", "day_result", "night", "night_result", "deduction", "deduction_result", "ended"}
     assert state.month == 12 and state.ending
     assert not at.exception
     submit = next(button for button in at.button if button.label == "保存問卷")
     submit.click().run()
     assert not at.exception and (tmp_path / "survey.jsonl").exists()
     assert len((tmp_path / "survey.jsonl").read_text(encoding="utf-8").splitlines()) == 1
-    assert json.loads((tmp_path / "survey.jsonl").read_text(encoding="utf-8"))["version"] == "0.4"
+    assert json.loads((tmp_path / "survey.jsonl").read_text(encoding="utf-8"))["version"] == "0.5"
 
 
 def test_streamlit_home_seed_change_and_restart():
@@ -68,3 +83,45 @@ def test_streamlit_home_seed_change_and_restart():
     assert not at.exception
     next(b for b in at.button if b.label == "重新開始").click().run()
     assert not at.exception and at.button(key="start")
+
+
+def test_dispatch_statuses_and_npc_identity_visible_before_selection():
+    from game_engine import new_game
+    from data_loader import load_story_data
+    state = new_game(4)
+    state.characters[0].injury = 2
+    state.characters[1].blocked_until = 2
+    state.characters[2].fatigue = 65
+    at = AppTest.from_file(str(APP), default_timeout=10).run()
+    at.session_state['game'] = state
+    at.run()
+    assert not at.exception
+    visible = ' '.join(str(e.value) for group in (at.markdown, at.info, at.warning, at.caption) for e in group)
+    assert '庫房管事・郭問舟' in visible and '商隊掌櫃・程守禾' in visible
+    assert all('### ' + c.name in visible for c in state.characters)
+    for label in ('重傷休養', '暫停派遣', '十分疲憊', '不可派遣', '可派遣'):
+        assert label in visible
+    assert at.radio(key='focus_1').value is None
+    assert at.button(key='confirm_day').disabled
+    selector = next(m for m in at.multiselect if m.key.startswith('team_'))
+    assert len(selector.options) == 2
+    assert all(c.name not in ' '.join(selector.options) for c in state.characters[:2])
+    assert all(n['name'] not in ' '.join(selector.options) for n in load_story_data()['npcs'])
+    assert all('｜' in label and '可派遣' in label for label in selector.options)
+    # The initial screen has one character card per person; no second biography card below.
+    assert len([m for m in at.markdown if str(m.value).startswith('### ')]) == 4
+
+
+def test_previous_version_session_requires_explicit_new_game_without_inventing_evidence():
+    from game_engine import new_game
+    state = new_game(4)
+    state.version = '0.4'
+    state.intel['card_original'] = 'Legacy clue without a selected focus.'
+    at = AppTest.from_file(str(APP), default_timeout=10).run()
+    at.session_state['game'] = state
+    at.run()
+    assert not at.exception and not state.evidence
+    assert any('重新選擇調查' in e.value for e in at.info)
+    assert not at.radio
+    next(b for b in at.button if b.label == '開始新版遊戲').click().run()
+    assert not at.exception and at.button(key='start')

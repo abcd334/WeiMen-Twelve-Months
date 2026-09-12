@@ -1,13 +1,17 @@
 {
+  "version": "0.5",
   "seeds": 200,
   "policy": "resource_guard_policy",
   "complete_games": 200,
+  "deduction_checkpoint_percent": 100.0,
+  "complete_chain_percent": 97.0,
+  "games_using_recovery": 4,
   "thread_distribution": {
     "old_letters": 67,
     "false_cards": 69,
     "old_road": 64
   },
-  "average_callbacks": 16.47,
+  "average_callbacks": 16.7,
   "callback_coverage_percent": 100.0,
   "spotlight_coverage_percent": 100.0,
   "relationship_coverage_percent": 100.0,
@@ -58,7 +62,7 @@
         "payoff",
         "setup"
       ],
-      "mystery_complete": false,
+      "mystery_complete": true,
       "repeated_outcomes": 0,
       "outcome_count": 11,
       "repeated_reactions": 0,
@@ -69,8 +73,8 @@
       "ending_callback_count": 3,
       "final_scene_length": 228,
       "epilogue_lengths": [
-        121,
         119,
+        118,
         119,
         118
       ],
@@ -125,21 +129,40 @@
         {
           "month": 3,
           "source_id": "f5",
-          "text": "第 1 月留下的事又被提起：談到缺角的舊帳時，眾人重新核對了當時「優先補發月錢」留下的結果。"
+          "text": "第 1 月留下的事又被提起：你當時選擇「查驛站收件規矩」，留下的查證結果是：待核實：尚未完成「驛站收件單」的核對。這次未接上來源，之後仍可再查或從補證管道取得。"
         },
         {
           "month": 4,
-          "source_id": "f7",
+          "source_id": "f8",
           "text": "第 1 月留下的事又被提起：陸青禾提起「維持值勤，只准休班時接工」。當時定下的界線是：家債仍須在原有門務之外處理，催款單與班表分放兩邊。門派守住分工，也留下私人負擔。"
         },
         {
           "month": 4,
-          "source_id": "f13",
-          "text": "第 2 月留下的事又被提起：談到重新縫口的來客包袱時，眾人重新核對了當時「護送至中立驛站」留下的結果。"
+          "source_id": "f15",
+          "text": "第 2 月留下的事又被提起：顧晚嶺提起「由掌門直接定分工」。當時定下的界線是：這次再排班，兩人先把各自能負責的部分說清楚，才在表上落筆。"
         }
       ],
       "required_clues_found": [
-        "letter_receipt"
+        "letter_receipt",
+        "letter_register",
+        "letter_reply"
+      ],
+      "investigation_count": 6,
+      "confirmed_count": 4,
+      "pending_count": 0,
+      "claim_count": 1,
+      "deduction_months": [
+        4,
+        8,
+        11
+      ],
+      "deductions_accepted": [
+        4,
+        11
+      ],
+      "recovered_evidence": [
+        "letter_register",
+        "letter_reply"
       ]
     },
     {
@@ -150,8 +173,8 @@
       "spotlights_before_10": {
         "c0": 4,
         "c1": 4,
-        "c2": 3,
-        "c3": 4
+        "c2": 4,
+        "c3": 3
       },
       "scene_counts": {
         "personal_scene": 4,
@@ -165,7 +188,7 @@
         "payoff",
         "setup"
       ],
-      "mystery_complete": false,
+      "mystery_complete": true,
       "repeated_outcomes": 0,
       "outcome_count": 11,
       "repeated_reactions": 0,
@@ -178,61 +201,71 @@
       "epilogue_lengths": [
         119,
         119,
-        128,
-        119
+        127,
+        124
       ],
       "chain": [
         {
           "month": 1,
           "beat": "setup",
-          "text": "程守禾送來一張青崖門名帖，說有人憑它借走糧車。名帖日期被刮過，門內卻找不到對應的用印記錄。"
+          "text": "帳缺頁與借車名帖是否指向同一件事？"
         },
         {
           "month": 2,
           "beat": "setup",
-          "text": "程守禾請人把名帖留底送上山，特意圈出被刮掉的日期。他只要求先核清哪筆承諾出自門內，不肯讓一句口頭否認抹去整批貨。"
+          "text": "商隊所稱的借車，有沒有獨立紀錄？"
+        },
+        {
+          "month": 3,
+          "beat": "setup",
+          "text": "同車同日的兩份記錄，哪一份能核實？"
         },
         {
           "month": 4,
           "beat": "escalation",
-          "text": "第二張名帖出現在另一筆交易裡，借用的卻是同一輛糧車。裴知節請你先別爭名聲：「一個下午，同一輛車怎麼會在兩個渡口？」"
+          "text": "戰帖之外，哪個假說最值得繼續查？"
         },
         {
           "month": 5,
           "beat": "escalation",
-          "text": "程守禾不肯再照轉述簽收，要求所有新約留下經手人。先前一張名帖上的疑問，已變成每一筆交易都得多問的一句話。"
+          "text": "證人親眼看見了什麼，能否與原件接上？"
         },
         {
           "month": 7,
           "beat": "escalation",
-          "text": "裴知節請村民將親見與轉述分開。有人一直說青崖門答應過，問到誰接過名帖時，卻又指向另一個沒到場的人。"
+          "text": "知道墨來自山外，與證明兩帖同源有何差別？"
         },
         {
           "month": 8,
           "beat": "escalation",
-          "text": "郭問舟將互有矛盾的日期分列兩欄，請你保留尚未核實的一邊。若只留下對門派有利的說法，明日便無從說服旁人。"
+          "text": "哪些已取得的資料能互相驗證？"
+        },
+        {
+          "month": 9,
+          "beat": "payoff",
+          "text": "如何回應舊約，而不把未核實的內容說成定案？"
         },
         {
           "month": 10,
           "beat": "payoff",
-          "text": "程守禾把待查的名帖放在桌上，請你當面區分哪些承諾有留底，哪些只有抄件。紙上的矛盾可以追問，造假來源仍要靠證據。"
+          "text": "最後還缺文件、物證，還是證人的核對？"
         },
         {
           "month": 11,
           "beat": "payoff",
-          "text": "裴知節請你先排好願意到場的證人，再整理可供核對的原件。名聲能否挽回，取決於明日是否答得出每一筆從哪裡來。"
+          "text": "哪些已取得的材料能組成完整證據鏈？"
         },
         {
           "month": 12,
           "beat": "payoff",
-          "text": "郭問舟用乾紙分隔名帖，沒有把缺失的用印記錄補齊。到了斷劍臺，已查明與仍存疑的部分都得攤開說。"
+          "text": "關於「被雨水浸濕的戰帖」，哪些是親見，哪些仍需核對？"
         }
       ],
       "callback_examples": [
         {
           "month": 2,
-          "source_id": "f6",
-          "text": "郭問舟提起第 1 月的安排：「你那回選擇『優先補發月錢』，我還記得。這回我願意先把手上的原件留下，再談新的安排。」"
+          "source_id": "f7",
+          "text": "商隊掌櫃・程守禾提起第 1 月的安排：「你那回選擇『優先補發月錢』，我還記得。這回我願意先把手上的原件留下，再談新的安排。」"
         },
         {
           "month": 3,
@@ -242,18 +275,34 @@
         {
           "month": 3,
           "source_id": "f6",
-          "text": "第 1 月留下的事又被提起：談到缺角的舊帳時，眾人重新核對了當時「優先補發月錢」留下的結果。"
+          "text": "第 1 月留下的事又被提起：你當時選擇「核對名帖印痕與原印留底」，留下的查證結果是：已證實：前掌門的用印留底有固定缺口，與債主手上名帖的完整印痕不符。"
         },
         {
           "month": 4,
-          "source_id": "f8",
+          "source_id": "f9",
           "text": "第 1 月留下的事又被提起：顧雲岫提起「維持值勤，只准休班時接工」。當時定下的界線是：家債仍須在原有門務之外處理，催款單與班表分放兩邊。門派守住分工，也留下私人負擔。"
         }
       ],
       "required_clues_found": [
         "card_original",
-        "card_ink"
-      ]
+        "card_ink",
+        "card_witness"
+      ],
+      "investigation_count": 9,
+      "confirmed_count": 7,
+      "pending_count": 2,
+      "claim_count": 1,
+      "deduction_months": [
+        4,
+        8,
+        11
+      ],
+      "deductions_accepted": [
+        4,
+        8,
+        11
+      ],
+      "recovered_evidence": []
     },
     {
       "seed": 6,
@@ -278,7 +327,7 @@
         "payoff",
         "setup"
       ],
-      "mystery_complete": false,
+      "mystery_complete": true,
       "repeated_outcomes": 0,
       "outcome_count": 11,
       "repeated_reactions": 0,
@@ -344,8 +393,8 @@
       "callback_examples": [
         {
           "month": 2,
-          "source_id": "f7",
-          "text": "郭問舟提起第 1 月的安排：「你那回選擇『優先補發月錢』，我還記得。這回我願意先把手上的原件留下，再談新的安排。」"
+          "source_id": "f8",
+          "text": "庫房管事・郭問舟提起第 1 月的安排：「你那回選擇『優先補發月錢』，我還記得。這回我願意先把手上的原件留下，再談新的安排。」"
         },
         {
           "month": 3,
@@ -355,17 +404,34 @@
         {
           "month": 3,
           "source_id": "f7",
-          "text": "第 1 月留下的事又被提起：談到缺角的舊帳時，眾人重新核對了當時「優先補發月錢」留下的結果。"
+          "text": "第 1 月留下的事又被提起：你當時選擇「核對舊換防圖」，留下的查證結果是：已證實：舊換防圖在封路處留有前掌門的核對記號，與門內留底相符。"
         },
         {
           "month": 4,
-          "source_id": "f9",
+          "source_id": "f10",
           "text": "第 1 月留下的事又被提起：岑聽瀾提起「今晚一起拆。」。當時定下的界線是：信件或消息要經共同查核才採用；外部來往被更嚴格看待，但地址本身仍不能當作通敵證據。"
         }
       ],
       "required_clues_found": [
-        "road_map"
-      ]
+        "road_map",
+        "road_tracks",
+        "road_order"
+      ],
+      "investigation_count": 8,
+      "confirmed_count": 5,
+      "pending_count": 3,
+      "claim_count": 2,
+      "deduction_months": [
+        4,
+        8,
+        11
+      ],
+      "deductions_accepted": [
+        4,
+        8,
+        11
+      ],
+      "recovered_evidence": []
     }
   ]
 }

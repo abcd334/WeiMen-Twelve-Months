@@ -4,6 +4,7 @@ from collections import Counter, defaultdict
 import json
 from pathlib import Path
 from random import Random
+from investigation import public_investigations, checkpoint_view, resolve_deduction
 
 from game_engine import (ENDINGS, begin_month, emergency_rest, legal_actions, new_game,
                          night_view, resolve_day, resolve_night, start_night)
@@ -62,6 +63,44 @@ def choose_night(state, policy, policy_rng):
     return select("support")
 
 
+def choose_focus(state, policy, policy_rng, action):
+    budget = state.resources["treasury"] - action[0]["cost"]
+    options = [o for o in public_investigations(state) if o["cost"] < budget]
+    if policy == "random_policy":
+        return policy_rng.choice(options)["id"] if options else "none"
+    if policy == "resource_guard_policy" and budget < 20:
+        return "none"
+    fresh = [o for o in options if not o["already_known"] and o["id"] != "none"]
+    if policy == "conservative_policy":
+        return next((o["id"] for o in fresh if o["cost"] <= 1), "none")
+    return next((o["id"] for o in fresh if o["label"].startswith("逐項補查")), next((o["id"] for o in fresh if o["cost"] == 2), fresh[0]["id"] if fresh else "none"))
+
+
+def choose_deduction(state, policy, policy_rng):
+    # Read only the checkpoint projection, never the answer graph or hidden truth.
+    view = checkpoint_view(state)
+    known = view["evidence"]
+    if state.month == 4:
+        hypothesis = "uncertain"
+        if policy == "random_policy":
+            hypothesis = policy_rng.choice(view["hypotheses"])["id"]
+        elif known and policy != "conservative_policy":
+            texts = "".join(e["text"] for e in known)
+            label = "名帖遭人偽造" if "印" in texts and "不符" in texts else "通信可能延續前掌門的聯絡" if "通信" in texts or "收件" in texts else "有人利用封路掩護運貨" if "換防圖" in texts or "測量" in texts else "目前證據不足"
+            hypothesis = next((h["id"] for h in view["hypotheses"] if h["label"] == label), "uncertain")
+        return {"hypothesis":hypothesis}
+    count = 2 if state.month == 8 else 3
+    if policy == "random_policy":
+        return {"evidence_ids":[e["id"] for e in policy_rng.sample(known,count)] if len(known) >= count else []}
+    selected=[]
+    for slot in ("document","physical","witness")[:count]:
+        choices=[e for e in known if e["type"]==slot]
+        choices.sort(key=lambda e:not any(word in e["title"] for word in ("用印", "墨樣", "核對證詞", "換防", "測量", "通行", "收件", "原始留底", "回信")))
+        if choices:
+            selected.append(choices[0]["id"])
+    return {"evidence_ids":selected if len(selected)==count else []}
+
+
 def audit_outcomes(state):
     cues = {c.id: c for c in state.observations}
     rows = []
@@ -91,21 +130,23 @@ def play_game(seed, policy):
         if state.phase == "day":
             action = choose_day(state, policy, policy_rng)
             if action:
-                resolve_day(state, action[0]["id"], action[1])
+                resolve_day(state, action[0]["id"], action[1], focus_id=choose_focus(state,policy,policy_rng,action))
             else:
                 emergency_rest(state)
         elif state.phase == "day_result":
             start_night(state)
         elif state.phase == "night":
             resolve_night(state, choose_night(state, policy, policy_rng))
-        elif state.phase == "night_result":
+        elif state.phase == "deduction":
+            resolve_deduction(state, **choose_deduction(state,policy,policy_rng))
+        elif state.phase in ("night_result", "deduction_result"):
             begin_month(state)
     audit_outcomes(state)
     return state
 
 
 def simulate(games_per_policy=250, seed_start=0):
-    report = {"games_per_policy": games_per_policy, "seed_start": seed_start,
+    report = {"version": "0.5", "games_per_policy": games_per_policy, "seed_start": seed_start,
               "total_games": games_per_policy * len(POLICIES), "policies": {}, "fairness_examples": []}
     for policy in POLICIES:
         counts, totals, outcomes = Counter(), Counter(), Counter()

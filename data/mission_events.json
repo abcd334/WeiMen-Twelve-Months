@@ -227,6 +227,54 @@
       "callback_fact": "缺角的舊帳",
       "thread_links": [
         "setup"
+      ],
+      "character_views": {
+        "combat": [
+          {
+            "thought": "兵器鬆動是眼前的危險。",
+            "dialogue": "刀柄要先鎖緊，不能等敵人上門才發現拿不穩。"
+          },
+          {
+            "thought": "兵器鬆動是眼前的危險。",
+            "dialogue": "帳可以慢慢查，今晚守門的人得先有能用的兵器。"
+          }
+        ],
+        "strategy": [
+          {
+            "thought": "缺頁需要對照原件。",
+            "dialogue": "先別補這筆帳，我想把前後兩頁的日期對起來。"
+          },
+          {
+            "thought": "缺頁需要對照原件。",
+            "dialogue": "欠餉不一定是有人拿走了錢，先看缺頁原本記了什麼。"
+          }
+        ],
+        "medicine": [
+          {
+            "thought": "欠餉可能影響照護。",
+            "dialogue": "藥箱剩多少我能清點，少了哪一筆錢卻要靠帳冊證明。"
+          },
+          {
+            "thought": "欠餉可能影響照護。",
+            "dialogue": "別讓帶傷的人為了領餉一直站著，核帳可以坐下慢慢說。"
+          }
+        ],
+        "diplomacy": [
+          {
+            "thought": "領款人能補上經手過程。",
+            "dialogue": "誰領過、誰只是聽說領過，我想分開問。"
+          },
+          {
+            "thought": "領款人能補上經手過程。",
+            "dialogue": "郭管事保管帳，我們負責核對；別讓一句猜測變成他的罪名。"
+          }
+        ]
+      },
+      "npc_identity": "庫房管事・郭問舟",
+      "current_question": "關於「缺角的舊帳」，哪些是親見，哪些仍需核對？",
+      "investigation_options": [
+        "none",
+        "thread_focus"
       ]
     },
     {
@@ -432,6 +480,54 @@
       "callback_fact": "紅繩與沾泥紙片",
       "thread_links": [
         "escalation"
+      ],
+      "character_views": {
+        "combat": [
+          {
+            "thought": "台下與後山也需要人看守。",
+            "dialogue": "擂臺的路我能看，但對方為何設擂，不能只看拳腳。"
+          },
+          {
+            "thought": "台下與後山也需要人看守。",
+            "dialogue": "上台前先留好退路，街後那些車也得有人盯著。"
+          }
+        ],
+        "strategy": [
+          {
+            "thought": "戰帖時間與車隊行動值得比對。",
+            "dialogue": "台上每叫一次名字，車就動一段，我想先記下時刻。"
+          },
+          {
+            "thought": "戰帖時間與車隊行動值得比對。",
+            "dialogue": "戰帖說要比武，沒有解釋他們為什麼把車停在後山。"
+          }
+        ],
+        "medicine": [
+          {
+            "thought": "出戰前應確認傷疲。",
+            "dialogue": "傷還沒好的人先別上台，逞強的代價不會只落在他一人身上。"
+          },
+          {
+            "thought": "出戰前應確認傷疲。",
+            "dialogue": "我能判斷誰撐得住，卻不能替烈川堂的用意作證。"
+          }
+        ],
+        "diplomacy": [
+          {
+            "thought": "旁觀者影響這次挑戰的名分。",
+            "dialogue": "先請長老讀清戰帖，別讓圍觀的人只聽見他們喊話。"
+          },
+          {
+            "thought": "旁觀者影響這次挑戰的名分。",
+            "dialogue": "對方想讓我們當眾答應什麼，這一句得先問清楚。"
+          }
+        ]
+      },
+      "npc_identity": "地方長老・裴知節、烈川堂使者・葉秉衡",
+      "current_question": "關於「紅繩與沾泥紙片」，哪些是親見，哪些仍需核對？",
+      "investigation_options": [
+        "none",
+        "thread_focus"
       ]
     },
     {
@@ -649,6 +745,54 @@
       "callback_fact": "起毛的換防抄件",
       "thread_links": [
         "payoff"
+      ],
+      "character_views": {
+        "combat": [
+          {
+            "thought": "限制行動不等於查明外洩。",
+            "dialogue": "房匙留下來容易，原本的守位由誰接，得先說清。"
+          },
+          {
+            "thought": "限制行動不等於查明外洩。",
+            "dialogue": "我能守住門口，不能因此說屋裡的人已經有罪。"
+          }
+        ],
+        "strategy": [
+          {
+            "thought": "原件與抄件要分開。",
+            "dialogue": "先拿出真的見過的資料，不能讓三段傳聞湊成一份證據。"
+          },
+          {
+            "thought": "原件與抄件要分開。",
+            "dialogue": "誰寫的、誰轉交的、什麼時候到的，三件事分開查。"
+          }
+        ],
+        "medicine": [
+          {
+            "thought": "疲倦與避談有多種原因。",
+            "dialogue": "他看起來疲憊是真的，至於為何不開口，不能靠臉色定案。"
+          },
+          {
+            "thought": "疲倦與避談有多種原因。",
+            "dialogue": "有傷的人也會藏事，先問清楚別把所有異常都叫通敵。"
+          }
+        ],
+        "diplomacy": [
+          {
+            "thought": "每份說法要保留來源。",
+            "dialogue": "讓每個人說自己見過的部分，別急著替另一個人回答。"
+          },
+          {
+            "thought": "每份說法要保留來源。",
+            "dialogue": "同一個地址可以寄很多種信，內容沒核實前，我不會跟著指認。"
+          }
+        ]
+      },
+      "npc_identity": "烈川堂使者・葉秉衡、庫房管事・郭問舟",
+      "current_question": "關於「起毛的換防抄件」，哪些是親見，哪些仍需核對？",
+      "investigation_options": [
+        "none",
+        "thread_focus"
       ]
     },
     {
@@ -857,7 +1001,55 @@
           "text": "先讓我看清人的狀況，能走多遠與紙上怎麼排是兩回事。"
         }
       ],
-      "thread_links": []
+      "thread_links": [],
+      "character_views": {
+        "combat": [
+          {
+            "thought": "渡口水勢決定撤離路線。",
+            "dialogue": "先把繩繫在石柱，再去接人，不能兩邊都失去落腳處。"
+          },
+          {
+            "thought": "渡口水勢決定撤離路線。",
+            "dialogue": "糧車陷得深，我去看哪一側能拖，別先把人全叫進水裡。"
+          }
+        ],
+        "strategy": [
+          {
+            "thought": "名冊要與實際接運對得上。",
+            "dialogue": "每船接走誰都留個記號，回頭才知道還缺哪一戶。"
+          },
+          {
+            "thought": "名冊要與實際接運對得上。",
+            "dialogue": "先問船能走幾趟，紙上的人數不等於現場的舟位。"
+          }
+        ],
+        "medicine": [
+          {
+            "thought": "受寒與急傷有處理順序。",
+            "dialogue": "先把最怕失溫的人送上岸，乾布留給濕透的孩子。"
+          },
+          {
+            "thought": "受寒與急傷有處理順序。",
+            "dialogue": "藥不夠就先處理急症，不能每人分一點卻誰也救不了。"
+          }
+        ],
+        "diplomacy": [
+          {
+            "thought": "船家需要清楚的接運承諾。",
+            "dialogue": "何里正認得住戶，我跟他一起問船家先接誰。"
+          },
+          {
+            "thought": "船家需要清楚的接運承諾。",
+            "dialogue": "船夫也惦記家人，先談清楚順序，別只催他快些。"
+          }
+        ]
+      },
+      "npc_identity": "山下里正・何蘭生",
+      "current_question": "關於「泡濕的戶籍簿」，哪些是親見，哪些仍需核對？",
+      "investigation_options": [
+        "none",
+        "thread_focus"
+      ]
     },
     {
       "id": "caravan",
@@ -1041,7 +1233,55 @@
           "text": "這裡的承諾與交接要留憑據，別只問總共能拿多少。"
         }
       ],
-      "thread_links": []
+      "thread_links": [],
+      "character_views": {
+        "combat": [
+          {
+            "thought": "車輪與行程能留下痕跡。",
+            "dialogue": "我去看車軸和輪痕，哪條路能走、哪條走不了，現場會留下東西。"
+          },
+          {
+            "thought": "車輪與行程能留下痕跡。",
+            "dialogue": "契約說走過不等於車真走過，先讓我看那輛車。"
+          }
+        ],
+        "strategy": [
+          {
+            "thought": "契約日期需要獨立核對。",
+            "dialogue": "把借車日期與交貨日期分開記，同一輛車不能憑兩張紙分成兩輛。"
+          },
+          {
+            "thought": "契約日期需要獨立核對。",
+            "dialogue": "程掌櫃的說法有來源，但還得對上原始留底。"
+          }
+        ],
+        "medicine": [
+          {
+            "thought": "趕路時間不能忽略人的體力。",
+            "dialogue": "車夫連夜未睡，說錯時間不一定是說謊，先讓他歇一口氣。"
+          },
+          {
+            "thought": "趕路時間不能忽略人的體力。",
+            "dialogue": "我能看出趕路的疲乏，卻不能因此替整份契約作保。"
+          }
+        ],
+        "diplomacy": [
+          {
+            "thought": "經手人比轉述更可靠。",
+            "dialogue": "我想直接問收帖的人，別讓掌櫃替整支商隊回答。"
+          },
+          {
+            "thought": "經手人比轉述更可靠。",
+            "dialogue": "先留下對方原話，再談責任，現在吵輸贏只會讓證人走掉。"
+          }
+        ]
+      },
+      "npc_identity": "商隊掌櫃・程守禾",
+      "current_question": "關於「半枚折斷的車軸」，哪些是親見，哪些仍需核對？",
+      "investigation_options": [
+        "none",
+        "thread_focus"
+      ]
     },
     {
       "id": "duel_private",
@@ -1218,7 +1458,55 @@
       ],
       "callback_fact": "被踩扁的水壺",
       "character_hooks": [],
-      "thread_links": []
+      "thread_links": [],
+      "character_views": {
+        "combat": [
+          {
+            "thought": "衝突影響交班。",
+            "dialogue": "動手的人先分開，漏掉的守位我去看，原因等兩邊都冷靜再問。"
+          },
+          {
+            "thought": "衝突影響交班。",
+            "dialogue": "贏了私鬥也補不回缺班，先把誰做哪一段講清楚。"
+          }
+        ],
+        "strategy": [
+          {
+            "thought": "責任需要交班紀錄。",
+            "dialogue": "兩張班表可能寫了不同時間，先核對再問誰擅離。"
+          },
+          {
+            "thought": "責任需要交班紀錄。",
+            "dialogue": "別把欠一件物資與討厭某個人寫在同一欄。"
+          }
+        ],
+        "medicine": [
+          {
+            "thought": "情緒與傷勢都需照顧。",
+            "dialogue": "手上的傷先處理，誰先動手之後再說。"
+          },
+          {
+            "thought": "情緒與傷勢都需照顧。",
+            "dialogue": "沒睡好的人更容易急，這能解釋失控，卻不能免掉責任。"
+          }
+        ],
+        "diplomacy": [
+          {
+            "thought": "兩人應分別陳述。",
+            "dialogue": "我想各聽一次，別讓旁人的插話替他們定下說法。"
+          },
+          {
+            "thought": "兩人應分別陳述。",
+            "dialogue": "先問他們希望對方改什麼，再談下一班怎麼排。"
+          }
+        ]
+      },
+      "npc_identity": "地方長老・裴知節",
+      "current_question": "關於「被踩扁的水壺」，哪些是親見，哪些仍需核對？",
+      "investigation_options": [
+        "none",
+        "thread_focus"
+      ]
     },
     {
       "id": "old_debt",
@@ -1414,7 +1702,55 @@
           "text": "我能先查前掌門留下的原件，但不能只因認得筆跡就替它作保。"
         }
       ],
-      "thread_links": []
+      "thread_links": [],
+      "character_views": {
+        "combat": [
+          {
+            "thought": "貨物去向可查實。",
+            "dialogue": "紙上借走的東西，總要走過一條路，我去問守貨的人。"
+          },
+          {
+            "thought": "貨物去向可查實。",
+            "dialogue": "催款的人帶了幾人不是證據，別因聲勢大就先認帳。"
+          }
+        ],
+        "strategy": [
+          {
+            "thought": "日期與押印是查核入口。",
+            "dialogue": "先把押印疊在留底上看，帳上沒有不代表一定沒借過。"
+          },
+          {
+            "thought": "日期與押印是查核入口。",
+            "dialogue": "本金與利息分開核，別讓一筆算錯的錢蓋過整張紙的問題。"
+          }
+        ],
+        "medicine": [
+          {
+            "thought": "急迫的家事容易影響判斷。",
+            "dialogue": "被催債的人睡不好很正常，別把慌張當成心虛。"
+          },
+          {
+            "thought": "急迫的家事容易影響判斷。",
+            "dialogue": "我能陪著問，但簽名與印記要請懂文書的人再看。"
+          }
+        ],
+        "diplomacy": [
+          {
+            "thought": "債主的要求應留底。",
+            "dialogue": "先請他說明哪一筆由誰答應，我們只認能核對的部分。"
+          },
+          {
+            "thought": "債主的要求應留底。",
+            "dialogue": "若要換取證人，也得先說清證人親眼看過什麼。"
+          }
+        ]
+      },
+      "npc_identity": "商隊掌櫃・程守禾、庫房管事・郭問舟",
+      "current_question": "關於「刮過日期的借據」，哪些是親見，哪些仍需核對？",
+      "investigation_options": [
+        "none",
+        "thread_focus"
+      ]
     },
     {
       "id": "manual",
@@ -1600,7 +1936,55 @@
           "text": "我能先查前掌門留下的原件，但不能只因認得筆跡就替它作保。"
         }
       ],
-      "thread_links": []
+      "thread_links": [],
+      "character_views": {
+        "combat": [
+          {
+            "thought": "缺招需要安全試演。",
+            "dialogue": "先拆守勢，不要為接上缺頁硬走完一套劍路。"
+          },
+          {
+            "thought": "缺招需要安全試演。",
+            "dialogue": "我能試出哪裡會撞劍，不能靠招式猜出抄書的人是誰。"
+          }
+        ],
+        "strategy": [
+          {
+            "thought": "補抄與原頁應分開。",
+            "dialogue": "兩色縫線像是後來裝在一起的，先別照現在的頁序練。"
+          },
+          {
+            "thought": "補抄與原頁應分開。",
+            "dialogue": "把後補字另抄一份，原件不要為了好讀就改掉。"
+          }
+        ],
+        "medicine": [
+          {
+            "thought": "缺失招式可能傷身。",
+            "dialogue": "扭轉到這裡會牽舊傷，先停下，別拿人去試一段猜出的動作。"
+          },
+          {
+            "thought": "缺失招式可能傷身。",
+            "dialogue": "能練多少要看身體，抄得完整也不代表今天就能練完。"
+          }
+        ],
+        "diplomacy": [
+          {
+            "thought": "交換抄本要說明缺失。",
+            "dialogue": "賣抄本之前先講明缺了哪幾頁，別再欠下一個承諾。"
+          },
+          {
+            "thought": "交換抄本要說明缺失。",
+            "dialogue": "郭管事保管原件，我們問用法，兩件事別混成搶秘籍。"
+          }
+        ]
+      },
+      "npc_identity": "庫房管事・郭問舟",
+      "current_question": "關於「兩色縫線的殘卷」，哪些是親見，哪些仍需核對？",
+      "investigation_options": [
+        "none",
+        "thread_focus"
+      ]
     },
     {
       "id": "herbs",
@@ -1782,7 +2166,55 @@
           "text": "先讓我看清人的狀況，能走多遠與紙上怎麼排是兩回事。"
         }
       ],
-      "thread_links": []
+      "thread_links": [],
+      "character_views": {
+        "combat": [
+          {
+            "thought": "藥徑可能穿過哨位盲區。",
+            "dialogue": "我沿採藥人的路走一次，看看哪一段守門人看不見。"
+          },
+          {
+            "thought": "藥徑可能穿過哨位盲區。",
+            "dialogue": "新踩出的路要記下，但腳印不能直接告訴我們來者的目的。"
+          }
+        ],
+        "strategy": [
+          {
+            "thought": "採集記錄能核對出入。",
+            "dialogue": "把採藥地點與時辰記在一起，之後比對行程才有用。"
+          },
+          {
+            "thought": "採集記錄能核對出入。",
+            "dialogue": "木牌上沒打勾可能是沒去過，也可能是忘了記，先問清。"
+          }
+        ],
+        "medicine": [
+          {
+            "thought": "辨藥比採得多更重要。",
+            "dialogue": "相似的根葉先分筐，不能回山才發現好藥裡混著毒草。"
+          },
+          {
+            "thought": "辨藥比採得多更重要。",
+            "dialogue": "門內要用的先留下，餘量能不能賣，得等曬乾再算。"
+          }
+        ],
+        "diplomacy": [
+          {
+            "thought": "義診承諾不能超出藥量。",
+            "dialogue": "先告訴何里正今天能看幾戶，別讓村民白等整天。"
+          },
+          {
+            "thought": "義診承諾不能超出藥量。",
+            "dialogue": "等藥的人急，我去說明，藥效請讓懂的人回答。"
+          }
+        ]
+      },
+      "npc_identity": "山下里正・何蘭生",
+      "current_question": "關於「根上帶泥的藥草」，哪些是親見，哪些仍需核對？",
+      "investigation_options": [
+        "none",
+        "thread_focus"
+      ]
     },
     {
       "id": "requisition",
@@ -1980,7 +2412,55 @@
           "text": "我知道那一帶的行走習慣，也願意說清楚我是怎麼知道的。"
         }
       ],
-      "thread_links": []
+      "thread_links": [],
+      "character_views": {
+        "combat": [
+          {
+            "thought": "調走人手會留下空缺。",
+            "dialogue": "先算哪班還能守門，官府要的人也不能一次全給。"
+          },
+          {
+            "thought": "調走人手會留下空缺。",
+            "dialogue": "封路的樁我可以查，誰有權改日期還得看公文。"
+          }
+        ],
+        "strategy": [
+          {
+            "thought": "改過的日期需找原簽。",
+            "dialogue": "抄件改了字不等於原令改過，我想先看簽發的那張。"
+          },
+          {
+            "thought": "改過的日期需找原簽。",
+            "dialogue": "公文與出車單放一起，重複徵調才有地方可指出來。"
+          }
+        ],
+        "medicine": [
+          {
+            "thought": "搬運要按體力分派。",
+            "dialogue": "連日出勤的人不能再整班搬石頭，先換幾個還撐得住的。"
+          },
+          {
+            "thought": "搬運要按體力分派。",
+            "dialogue": "我能看傷疲，不知道官府的目的，這一點別拿我的話作證。"
+          }
+        ],
+        "diplomacy": [
+          {
+            "thought": "口頭允諾不等於改令。",
+            "dialogue": "差役答應緩幾天，就請他寫下幾天，別帶一句好說話回來。"
+          },
+          {
+            "thought": "口頭允諾不等於改令。",
+            "dialogue": "先問誰能批准分批，不要跟沒有權限的人耗到日落。"
+          }
+        ]
+      },
+      "npc_identity": "庫房管事・郭問舟",
+      "current_question": "關於「改過封山日期的公文」，哪些是親見，哪些仍需核對？",
+      "investigation_options": [
+        "none",
+        "thread_focus"
+      ]
     },
     {
       "id": "refugees",
@@ -2185,7 +2665,55 @@
           "text": "我認得附近幾戶人家，可以先問誰親眼見過，不只聽傳言。"
         }
       ],
-      "thread_links": []
+      "thread_links": [],
+      "character_views": {
+        "combat": [
+          {
+            "thought": "安置與守門需兼顧。",
+            "dialogue": "外院先留通道，不能糧車進不來、人也退不出去。"
+          },
+          {
+            "thought": "安置與守門需兼顧。",
+            "dialogue": "有陌生人上山不等於來探路，先看他實際去了哪裡。"
+          }
+        ],
+        "strategy": [
+          {
+            "thought": "住處與人數要逐戶對照。",
+            "dialogue": "按戶記需求，不要把整群人當成同一個數目安排。"
+          },
+          {
+            "thought": "住處與人數要逐戶對照。",
+            "dialogue": "修路能換多少食宿先寫清楚，別到交工再改口。"
+          }
+        ],
+        "medicine": [
+          {
+            "thought": "趕路者未必還有體力出工。",
+            "dialogue": "有熱症的先隔開照護，能不能修路要一個個看。"
+          },
+          {
+            "thought": "趕路者未必還有體力出工。",
+            "dialogue": "孩子和病人的口糧另算，不能照壯年人的份量發。"
+          }
+        ],
+        "diplomacy": [
+          {
+            "thought": "分攤安置需確認接收方。",
+            "dialogue": "我去問鄰村哪戶真的能接人，先有答覆再讓人出發。"
+          },
+          {
+            "thought": "分攤安置需確認接收方。",
+            "dialogue": "請何里正留下接送名單，明天還得知道誰去了哪裡。"
+          }
+        ]
+      },
+      "npc_identity": "山下里正・何蘭生",
+      "current_question": "關於「孩子背著的大竹籃」，哪些是親見，哪些仍需核對？",
+      "investigation_options": [
+        "none",
+        "thread_focus"
+      ]
     },
     {
       "id": "donation",
@@ -2398,7 +2926,55 @@
           "text": "這裡的承諾與交接要留憑據，別只問總共能拿多少。"
         }
       ],
-      "thread_links": []
+      "thread_links": [],
+      "character_views": {
+        "combat": [
+          {
+            "thought": "站進倉地就是可見立場。",
+            "dialogue": "守哪道門得講清楚，別讓弟子站進別人的爭界裡才知道。"
+          },
+          {
+            "thought": "站進倉地就是可見立場。",
+            "dialogue": "我能保護貨物，不能用一把劍決定這塊地歸誰。"
+          }
+        ],
+        "strategy": [
+          {
+            "thought": "附帶條款比捐額更關鍵。",
+            "dialogue": "把契約翻到背面看完，糧袋上的數目不是全部代價。"
+          },
+          {
+            "thought": "附帶條款比捐額更關鍵。",
+            "dialogue": "若只是借糧，就把守地條款刪掉後再簽。"
+          }
+        ],
+        "medicine": [
+          {
+            "thought": "缺糧迫切但不代表任何條件都能接。",
+            "dialogue": "藥飯確實快不夠了，可若為這袋糧再傷幾個人，還得算一次。"
+          },
+          {
+            "thought": "缺糧迫切但不代表任何條件都能接。",
+            "dialogue": "我先算能撐多久，契約的爭議請別用病人的急迫來掩過。"
+          }
+        ],
+        "diplomacy": [
+          {
+            "thought": "需要聽見爭界另一方。",
+            "dialogue": "富商的話我會記，村民沒說完之前先別替任何一邊關門。"
+          },
+          {
+            "thought": "需要聽見爭界另一方。",
+            "dialogue": "找長老作見證不是請他替我們擔保，是讓雙方都能說話。"
+          }
+        ]
+      },
+      "npc_identity": "商隊掌櫃・程守禾、地方長老・裴知節",
+      "current_question": "關於「綁在糧袋上的守倉契約」，哪些是親見，哪些仍需核對？",
+      "investigation_options": [
+        "none",
+        "thread_focus"
+      ]
     },
     {
       "id": "wounded",
@@ -2589,7 +3165,55 @@
           "text": "先讓我看清人的狀況，能走多遠與紙上怎麼排是兩回事。"
         }
       ],
-      "thread_links": []
+      "thread_links": [],
+      "character_views": {
+        "combat": [
+          {
+            "thought": "現場支架應先封鎖。",
+            "dialogue": "先把重物卸下，不能救完一個又讓另一個走進腐木底下。"
+          },
+          {
+            "thought": "現場支架應先封鎖。",
+            "dialogue": "柱子從哪裡斷我能看，不能憑斷口就說有人故意破壞。"
+          }
+        ],
+        "strategy": [
+          {
+            "thought": "事故前後的交班要留記錄。",
+            "dialogue": "傷者何時上架、誰最後檢查，請分開記，別等人醒了才補。"
+          },
+          {
+            "thought": "事故前後的交班要留記錄。",
+            "dialogue": "修繕與追責可以並行，拆下來的木頭先別丟掉。"
+          }
+        ],
+        "medicine": [
+          {
+            "thought": "傷者需要立即照護。",
+            "dialogue": "先固定傷處，再找能輪流換藥的人，別只等我一人回來。"
+          },
+          {
+            "thought": "傷者需要立即照護。",
+            "dialogue": "傷勢比口信說的重，先留足藥，其他事晚一點再談。"
+          }
+        ],
+        "diplomacy": [
+          {
+            "thought": "請醫與募藥要說明用途。",
+            "dialogue": "我下山時會把所需藥具寫清楚，不能借回一堆用不上的東西。"
+          },
+          {
+            "thought": "請醫與募藥要說明用途。",
+            "dialogue": "向少年家人說明時，把已知和仍在查的分開，別先作保證。"
+          }
+        ]
+      },
+      "npc_identity": "庫房管事・郭問舟",
+      "current_question": "關於「折斷的木架支柱」，哪些是親見，哪些仍需核對？",
+      "investigation_options": [
+        "none",
+        "thread_focus"
+      ]
     },
     {
       "id": "assembly",
@@ -2779,7 +3403,55 @@
       ],
       "callback_fact": "角落畫著方桌的請帖",
       "character_hooks": [],
-      "thread_links": []
+      "thread_links": [],
+      "character_views": {
+        "combat": [
+          {
+            "thought": "見證場合也要有秩序。",
+            "dialogue": "入口先分開，說話的人才不會被拔劍的人壓住。"
+          },
+          {
+            "thought": "見證場合也要有秩序。",
+            "dialogue": "我能看守會場，誰說的是真的仍要拿證據比。"
+          }
+        ],
+        "strategy": [
+          {
+            "thought": "聯署前應核對來源。",
+            "dialogue": "每份說法都標上原件在哪裡，不要只抄相同的結論。"
+          },
+          {
+            "thought": "聯署前應核對來源。",
+            "dialogue": "長老的名聲不能代替日期，我想先把兩份記錄對上。"
+          }
+        ],
+        "medicine": [
+          {
+            "thought": "證人身體狀況影響回憶時序。",
+            "dialogue": "累了一夜的人可能記混先後，讓他歇過再問一次。"
+          },
+          {
+            "thought": "證人身體狀況影響回憶時序。",
+            "dialogue": "我能幫忙核對傷後的時辰，不能判斷誰該替誰背書。"
+          }
+        ],
+        "diplomacy": [
+          {
+            "thought": "承諾需要可執行的分工。",
+            "dialogue": "先講清青崖門能負責哪一段，再請別人留下聯絡處。"
+          },
+          {
+            "thought": "承諾需要可執行的分工。",
+            "dialogue": "我會先聽在座各自怕什麼，但答應之前還得核對原件。"
+          }
+        ]
+      },
+      "npc_identity": "商隊掌櫃・程守禾、地方長老・裴知節",
+      "current_question": "關於「角落畫著方桌的請帖」，哪些是親見，哪些仍需核對？",
+      "investigation_options": [
+        "none",
+        "thread_focus"
+      ]
     },
     {
       "id": "asylum",
@@ -2989,7 +3661,55 @@
           "text": "我知道那一帶的行走習慣，也願意說清楚我是怎麼知道的。"
         }
       ],
-      "thread_links": []
+      "thread_links": [],
+      "character_views": {
+        "combat": [
+          {
+            "thought": "接待不能讓追索者直接越門。",
+            "dialogue": "兵器先放下，傷者能進來，追人的不能跟著衝進來。"
+          },
+          {
+            "thought": "接待不能讓追索者直接越門。",
+            "dialogue": "包袱裡有什麼要查，但穿過烈川堂的衣服不是定罪理由。"
+          }
+        ],
+        "strategy": [
+          {
+            "thought": "口供要分時間與來源。",
+            "dialogue": "請他先畫走過的路，再問每次停留，別一口氣替他補完故事。"
+          },
+          {
+            "thought": "口供要分時間與來源。",
+            "dialogue": "說法有空白就保留空白，不能因我們想救人便填成真話。"
+          }
+        ],
+        "medicine": [
+          {
+            "thought": "救治與相信口供是兩件事。",
+            "dialogue": "傷先治，我不會因為還沒查清就讓他流血等著。"
+          },
+          {
+            "thought": "救治與相信口供是兩件事。",
+            "dialogue": "照護可以立刻做，包袱的來歷還得另外核對。"
+          }
+        ],
+        "diplomacy": [
+          {
+            "thought": "中立交接可留下見證。",
+            "dialogue": "若送去驛站，就讓對方當面接收，不能放在路口便算交代。"
+          },
+          {
+            "thought": "中立交接可留下見證。",
+            "dialogue": "他願意讓誰作見證，我先問；這不等於他的說法已可信。"
+          }
+        ]
+      },
+      "npc_identity": "山下里正・何蘭生、烈川堂使者・葉秉衡",
+      "current_question": "關於「重新縫口的來客包袱」，哪些是親見，哪些仍需核對？",
+      "investigation_options": [
+        "none",
+        "thread_focus"
+      ]
     },
     {
       "id": "grain",
@@ -3179,7 +3899,55 @@
           "text": "我認得附近幾戶人家，可以先問誰親眼見過，不只聽傳言。"
         }
       ],
-      "thread_links": []
+      "thread_links": [],
+      "character_views": {
+        "combat": [
+          {
+            "thought": "封路可能解釋運費。",
+            "dialogue": "我去看哪個關口真的擋住車，不能只聽糧商說路不好走。"
+          },
+          {
+            "thought": "封路可能解釋運費。",
+            "dialogue": "能採多少替代糧要看坡地，先別按傳聞算滿庫房。"
+          }
+        ],
+        "strategy": [
+          {
+            "thought": "新舊價格需要拆開運費。",
+            "dialogue": "同一段路若收兩次錢，收據上應該看得出來。"
+          },
+          {
+            "thought": "新舊價格需要拆開運費。",
+            "dialogue": "漲價可能有原因，先核對車票與封路日期，再談是不是欺人。"
+          }
+        ],
+        "medicine": [
+          {
+            "thought": "替代糧食先確認安全。",
+            "dialogue": "能吃的與像能吃的分開，缺糧時更不能亂採。"
+          },
+          {
+            "thought": "替代糧食先確認安全。",
+            "dialogue": "先留足病人的飯，剩下能撐幾天我再算給你看。"
+          }
+        ],
+        "diplomacy": [
+          {
+            "thought": "合購需要各村同意分糧順序。",
+            "dialogue": "先談誰先領、誰作保，再拿總數去議價。"
+          },
+          {
+            "thought": "合購需要各村同意分糧順序。",
+            "dialogue": "程掌櫃不肯降價，我能再談，路費真不真還得有人查。"
+          }
+        ]
+      },
+      "npc_identity": "山下里正・何蘭生、商隊掌櫃・程守禾",
+      "current_question": "關於「寫著兩種糧價的木牌」，哪些是親見，哪些仍需核對？",
+      "investigation_options": [
+        "none",
+        "thread_focus"
+      ]
     },
     {
       "id": "retreat",
@@ -3370,7 +4138,55 @@
       ],
       "callback_fact": "磨白的坐墊與守山手稿",
       "character_hooks": [],
-      "thread_links": []
+      "thread_links": [],
+      "character_views": {
+        "combat": [
+          {
+            "thought": "守備章法需要實際演練。",
+            "dialogue": "手稿寫得順不代表換位不會撞上，我想帶人走一次。"
+          },
+          {
+            "thought": "守備章法需要實際演練。",
+            "dialogue": "長老肯教就先學能用的部分，不要一口氣把守班全抽空。"
+          }
+        ],
+        "strategy": [
+          {
+            "thought": "手稿可能針對不同地形。",
+            "dialogue": "先看這一頁寫的是哪座門，別把別處的退路照抄過來。"
+          },
+          {
+            "thought": "手稿可能針對不同地形。",
+            "dialogue": "能用的留在交班處，還沒試過的要另作標記。"
+          }
+        ],
+        "medicine": [
+          {
+            "thought": "演練量不能超過恢復速度。",
+            "dialogue": "昨天出勤的人今天少練一輪，不然記住招式也抬不起手。"
+          },
+          {
+            "thought": "演練量不能超過恢復速度。",
+            "dialogue": "我先看大家恢復得怎樣，能練多少不由手稿頁數決定。"
+          }
+        ],
+        "diplomacy": [
+          {
+            "thought": "講席承諾應對得上內容。",
+            "dialogue": "請鄉親來之前先說只講守備，別讓人以為能學整套武功。"
+          },
+          {
+            "thought": "講席承諾應對得上內容。",
+            "dialogue": "長老想閉關也有他的安排，我去問可借哪幾個時辰。"
+          }
+        ]
+      },
+      "npc_identity": "地方長老・裴知節",
+      "current_question": "關於「磨白的坐墊與守山手稿」，哪些是親見，哪些仍需核對？",
+      "investigation_options": [
+        "none",
+        "thread_focus"
+      ]
     },
     {
       "id": "murder",
@@ -3571,7 +4387,55 @@
           "text": "我認得附近幾戶人家，可以先問誰親眼見過，不只聽傳言。"
         }
       ],
-      "thread_links": []
+      "thread_links": [],
+      "character_views": {
+        "combat": [
+          {
+            "thought": "足跡與現場物件要保留。",
+            "dialogue": "先別讓人踩過岸邊，我看完足跡再分路追查。"
+          },
+          {
+            "thought": "足跡與現場物件要保留。",
+            "dialogue": "鞋印能指方向，不能單憑它說穿鞋的人為何而來。"
+          }
+        ],
+        "strategy": [
+          {
+            "thought": "名帖應與其他記錄交叉。",
+            "dialogue": "紙上的名字不是署名人的證明，先找第一次交件的人。"
+          },
+          {
+            "thought": "名帖應與其他記錄交叉。",
+            "dialogue": "把日期與渡口記錄一起看，別只追著最響的說法跑。"
+          }
+        ],
+        "medicine": [
+          {
+            "thought": "傷勢能排除部分時間說法。",
+            "dialogue": "傷處與搬動痕跡分開記，現場已動過的地方要說明。"
+          },
+          {
+            "thought": "傷勢能排除部分時間說法。",
+            "dialogue": "我能核對傷勢是否相符，凶手的動機不能由傷口猜出。"
+          }
+        ],
+        "diplomacy": [
+          {
+            "thought": "證詞需分親見與轉述。",
+            "dialogue": "請何里正留下最早到場的人，別讓每個人都替下一個回答。"
+          },
+          {
+            "thought": "證詞需分親見與轉述。",
+            "dialogue": "先聽完整再比對，誰說得斬釘截鐵不代表誰見得最多。"
+          }
+        ]
+      },
+      "npc_identity": "山下里正・何蘭生、庫房管事・郭問舟",
+      "current_question": "關於「渡口泥水裡的濕名帖」，哪些是親見，哪些仍需核對？",
+      "investigation_options": [
+        "none",
+        "thread_focus"
+      ]
     },
     {
       "id": "treasure",
@@ -3776,7 +4640,55 @@
           "text": "這裡的承諾與交接要留憑據，別只問總共能拿多少。"
         }
       ],
-      "thread_links": []
+      "thread_links": [],
+      "character_views": {
+        "combat": [
+          {
+            "thought": "礦道支柱決定能否進退。",
+            "dialogue": "支木已裂，先看退路，不能因為傳聞有錢就把人送到底。"
+          },
+          {
+            "thought": "礦道支柱決定能否進退。",
+            "dialogue": "我只替走過的路說話，木牌上畫得再直也可能已經塌了。"
+          }
+        ],
+        "strategy": [
+          {
+            "thought": "舊圖要核對目前地形。",
+            "dialogue": "這張圖畫於何時得先問，現在多出的岔道不能略過。"
+          },
+          {
+            "thought": "舊圖要核對目前地形。",
+            "dialogue": "搬回多少就算多少，不要把傳聞中的箱數當成庫存。"
+          }
+        ],
+        "medicine": [
+          {
+            "thought": "撤離傷者也需要路線。",
+            "dialogue": "若底下有人受傷，兩個人能不能抬出來，進去前就要想好。"
+          },
+          {
+            "thought": "撤離傷者也需要路線。",
+            "dialogue": "缺糧很急，但換回來的人若都帶傷，山門也守不了。"
+          }
+        ],
+        "diplomacy": [
+          {
+            "thought": "交圖不等於保證寶藏存在。",
+            "dialogue": "若與地方共同管理，未勘查的部分要當面說明。"
+          },
+          {
+            "thought": "交圖不等於保證寶藏存在。",
+            "dialogue": "程掌櫃願出多少我去談，但不能拿沒走過的路替他作保。"
+          }
+        ]
+      },
+      "npc_identity": "商隊掌櫃・程守禾",
+      "current_question": "關於「背面畫路的礦道木牌」，哪些是親見，哪些仍需核對？",
+      "investigation_options": [
+        "none",
+        "thread_focus"
+      ]
     },
     {
       "id": "finale",
@@ -3803,7 +4715,52 @@
       "callback_fact": "被雨水浸濕的戰帖",
       "thread_links": [
         "payoff"
-      ]
+      ],
+      "character_views": {
+        "combat": [
+          {
+            "thought": "先確定同伴的退路。",
+            "dialogue": "我守石階，進退的口令照昨晚說好的辦。"
+          },
+          {
+            "thought": "先確定同伴的退路。",
+            "dialogue": "劍先不拔，哪一段要接人，我記得。"
+          }
+        ],
+        "strategy": [
+          {
+            "thought": "只提出可追溯的證據。",
+            "dialogue": "我帶原件上台，缺的那段就說缺，不讓猜測替我們作證。"
+          },
+          {
+            "thought": "只提出可追溯的證據。",
+            "dialogue": "每一份從哪裡來、和哪份對得上，我會依次說清。"
+          }
+        ],
+        "medicine": [
+          {
+            "thought": "有人回來就先看傷。",
+            "dialogue": "藥和布都在門邊，誰退下來都先讓我看一眼。"
+          },
+          {
+            "thought": "有人回來就先看傷。",
+            "dialogue": "我守著回程，不會因為台上正在爭輸贏就停下照護。"
+          }
+        ],
+        "diplomacy": [
+          {
+            "thought": "讓在場者聽清主張的界線。",
+            "dialogue": "我先聽對方承認哪一筆，再說我們手上能證明的部分。"
+          },
+          {
+            "thought": "讓在場者聽清主張的界線。",
+            "dialogue": "今天說出口的都會被帶下山，我們不能替不知道的事作保。"
+          }
+        ]
+      },
+      "npc_identity": "烈川堂使者・葉秉衡",
+      "current_question": "關於「被雨水浸濕的戰帖」，哪些是親見，哪些仍需核對？",
+      "investigation_options": []
     }
   ]
 }

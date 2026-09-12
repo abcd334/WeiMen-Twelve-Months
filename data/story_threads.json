@@ -83,6 +83,322 @@
           "出發前有人想直接在圖上畫滿路線，郭問舟按住筆：「缺的那段就說缺。明日若有人反問，要能拿出親手查過的東西。」",
           "舊路圖被收進防雨布套。郭問舟把已查的部分摺在外側，提醒你到斷劍臺時先說證據能支持到哪裡。"
         ]
+      },
+      "hypotheses": [
+        {
+          "id": "ordinary_repair",
+          "label": "只是正常修路"
+        },
+        {
+          "id": "smuggling_route",
+          "label": "有人利用封路掩護運貨"
+        },
+        {
+          "id": "internal_guide",
+          "label": "只因弟子熟路便認定其帶路"
+        },
+        {
+          "id": "uncertain",
+          "label": "目前證據不足"
+        }
+      ],
+      "correct_hypothesis": "smuggling_route",
+      "evidence_graph": [
+        {
+          "id": "road_map",
+          "title": "換防圖留底",
+          "type": "document",
+          "critical": true,
+          "kind": "evidence",
+          "thread_id": "old_road",
+          "requires": [
+            "inspect_map"
+          ],
+          "supports": [
+            "smuggling_route"
+          ],
+          "contradicts": [
+            "ordinary_repair"
+          ],
+          "text": "舊換防圖在封路處留有前掌門的核對記號，與門內留底相符。"
+        },
+        {
+          "id": "road_tracks",
+          "title": "測量樁與車輪痕跡",
+          "type": "physical",
+          "critical": true,
+          "kind": "evidence",
+          "thread_id": "old_road",
+          "requires": [
+            "measure_tracks"
+          ],
+          "supports": [
+            "smuggling_route"
+          ],
+          "contradicts": [],
+          "text": "後山測量樁的間距與烈川堂糧車輪距一致，郭問舟已到現場比對。"
+        },
+        {
+          "id": "road_order",
+          "title": "封路經手人核對證詞",
+          "type": "witness",
+          "critical": true,
+          "kind": "evidence",
+          "thread_id": "old_road",
+          "requires": [
+            "verify_order",
+            "follow_cross_lead"
+          ],
+          "supports": [
+            "smuggling_route"
+          ],
+          "contradicts": [
+            "internal_guide"
+          ],
+          "text": "封路經手人對照原件與通行副本，確認相同改期筆跡，並作證副本由烈川堂使者交付。"
+        },
+        {
+          "id": "old_road_dates",
+          "title": "交接日期記錄",
+          "text": "交接簿留下各次到場時刻，能供其他原件核對。",
+          "type": "document",
+          "critical": false,
+          "kind": "evidence",
+          "thread_id": "old_road",
+          "requires": [
+            "check_old_road_dates"
+          ],
+          "supports": [
+            "smuggling_route"
+          ],
+          "contradicts": []
+        },
+        {
+          "id": "old_road_copy",
+          "title": "中立見證留底",
+          "text": "中立見證人保存相同交接的副本，仍需與本案原件比對。",
+          "type": "witness",
+          "critical": false,
+          "kind": "evidence",
+          "thread_id": "old_road",
+          "requires": [
+            "check_old_road_copy"
+          ],
+          "supports": [
+            "smuggling_route"
+          ],
+          "contradicts": []
+        },
+        {
+          "id": "old_road_internal",
+          "title": "可疑的內部來往",
+          "text": "有人把弟子的私下來往當成嫌疑，目前沒有相應案件證據。",
+          "type": "lead",
+          "critical": false,
+          "kind": "lead",
+          "thread_id": "old_road",
+          "requires": [
+            "follow_old_road_internal"
+          ],
+          "supports": [],
+          "contradicts": []
+        },
+        {
+          "id": "old_road_rumor",
+          "title": "街頭轉述",
+          "text": "街頭有人給出另一種解釋，但還說不清誰親眼看過。",
+          "type": "lead",
+          "critical": false,
+          "kind": "lead",
+          "thread_id": "old_road",
+          "requires": [
+            "follow_old_road_rumor"
+          ],
+          "supports": [],
+          "contradicts": []
+        },
+        {
+          "id": "old_road_claim",
+          "title": "來客的主張",
+          "text": "來客聲稱青崖門曾答應配合，尚未拿出可互相核對的完整記錄。",
+          "type": "claim",
+          "critical": false,
+          "kind": "claim",
+          "thread_id": "old_road",
+          "requires": [],
+          "supports": [],
+          "contradicts": []
+        },
+        {
+          "id": "old_road_external_claim",
+          "title": "弟子對外部聯絡的說明",
+          "text": "當事人表示外部聯絡有私人原因；這只是說明，不是已核實的案件事實。",
+          "type": "claim",
+          "critical": false,
+          "kind": "claim",
+          "thread_id": "old_road",
+          "requires": [],
+          "supports": [],
+          "contradicts": []
+        }
+      ],
+      "investigations": [
+        {
+          "id": "inspect_map",
+          "label": "核對舊換防圖",
+          "cost": 2,
+          "skill": "strategy",
+          "targets": [
+            "road_map"
+          ],
+          "hint": "調查專長達到 4，或本次門務順利交接，即能完成核查；否則只留下待查方向。",
+          "stable": false
+        },
+        {
+          "id": "measure_tracks",
+          "label": "實地比對測量樁與車輪",
+          "cost": 2,
+          "skill": "medicine",
+          "targets": [
+            "road_tracks"
+          ],
+          "hint": "調查專長達到 4，或本次門務順利交接，即能完成核查；否則只留下待查方向。",
+          "stable": false
+        },
+        {
+          "id": "verify_order",
+          "label": "查封路命令的交付者",
+          "cost": 2,
+          "skill": "diplomacy",
+          "targets": [
+            "road_order"
+          ],
+          "hint": "調查專長達到 4，或本次門務順利交接，即能完成核查；否則只留下待查方向。",
+          "stable": false
+        },
+        {
+          "id": "check_old_road_dates",
+          "label": "查交接日期記錄",
+          "cost": 1,
+          "skill": "strategy",
+          "targets": [
+            "old_road_dates"
+          ],
+          "stable": true,
+          "hint": "核對既有公開簿冊，提供佐證，不直接代替核心證據。"
+        },
+        {
+          "id": "check_old_road_copy",
+          "label": "查中立見證留底",
+          "cost": 1,
+          "skill": "strategy",
+          "targets": [
+            "old_road_copy"
+          ],
+          "stable": true,
+          "hint": "核對既有公開簿冊，提供佐證，不直接代替核心證據。"
+        },
+        {
+          "id": "follow_old_road_internal",
+          "label": "追問可疑的內部來往",
+          "cost": 1,
+          "skill": "diplomacy",
+          "targets": [
+            "old_road_internal"
+          ],
+          "stable": true,
+          "hint": "先追問來源；傳言與私人聯絡都不能直接定罪。"
+        },
+        {
+          "id": "follow_old_road_rumor",
+          "label": "追問街頭轉述",
+          "cost": 1,
+          "skill": "diplomacy",
+          "targets": [
+            "old_road_rumor"
+          ],
+          "stable": true,
+          "hint": "先追問來源；傳言與私人聯絡都不能直接定罪。"
+        }
+      ],
+      "recovery_paths": [
+        {
+          "evidence_id": "road_map",
+          "focus_id": "recover_road_map",
+          "months": [
+            10,
+            11
+          ],
+          "label": "補證：換防圖留底"
+        },
+        {
+          "evidence_id": "road_tracks",
+          "focus_id": "recover_road_tracks",
+          "months": [
+            10,
+            11
+          ],
+          "label": "補證：測量樁與車輪痕跡"
+        },
+        {
+          "evidence_id": "road_order",
+          "focus_id": "recover_road_order",
+          "months": [
+            10,
+            11
+          ],
+          "label": "補證：封路令與通行副本"
+        }
+      ],
+      "deduction_checkpoints": [
+        {
+          "month": 4,
+          "kind": "hypothesis",
+          "question": "目前哪個方向最值得繼續查？"
+        },
+        {
+          "month": 8,
+          "kind": "crosscheck",
+          "question": "哪兩份已取得的資料可以互相驗證？"
+        },
+        {
+          "month": 11,
+          "kind": "chain",
+          "question": "請以文件、現場物證、人證或佐證，組成最後證據鏈。"
+        }
+      ],
+      "cross_pairs": [
+        [
+          "road_map",
+          "road_tracks"
+        ],
+        [
+          "road_map",
+          "road_order"
+        ]
+      ],
+      "cross_lead": {
+        "id": "old_road_cross_lead",
+        "title": "交叉核對後的新方向",
+        "text": "兩份來源不同的資料接得上，接下來可以沿交付者追問原始委託。",
+        "kind": "lead",
+        "type": "lead",
+        "critical": false,
+        "thread_id": "old_road",
+        "requires": [],
+        "supports": [],
+        "contradicts": []
+      },
+      "cross_followup": {
+        "id": "follow_cross_lead",
+        "label": "沿交叉核對的方向，請見證人再核實",
+        "targets": [
+          "road_order"
+        ],
+        "cost": 1,
+        "skill": "diplomacy",
+        "stable": true,
+        "hint": "沿第八月接上的來源約見證人，核對其親見經過；已有記錄便不重抄。"
       }
     },
     {
@@ -168,6 +484,2544 @@
           "裴知節請你先排好願意到場的證人，再整理可供核對的原件。名聲能否挽回，取決於明日是否答得出每一筆從哪裡來。",
           "郭問舟用乾紙分隔名帖，沒有把缺失的用印記錄補齊。到了斷劍臺，已查明與仍存疑的部分都得攤開說。"
         ]
+      },
+      "hypotheses": [
+        {
+          "id": "internal_theft",
+          "label": "弟子用門內原印私自接單"
+        },
+        {
+          "id": "forged_cards",
+          "label": "名帖遭人偽造"
+        },
+        {
+          "id": "merchant_collusion",
+          "label": "商隊憑空捏造送帖"
+        },
+        {
+          "id": "uncertain",
+          "label": "目前證據不足"
+        }
+      ],
+      "correct_hypothesis": "forged_cards",
+      "evidence_graph": [
+        {
+          "id": "card_original",
+          "title": "名帖原件與用印留底",
+          "type": "document",
+          "critical": true,
+          "kind": "evidence",
+          "thread_id": "false_cards",
+          "requires": [
+            "inspect_seal"
+          ],
+          "supports": [
+            "forged_cards"
+          ],
+          "contradicts": [
+            "internal_theft"
+          ],
+          "text": "前掌門的用印留底有固定缺口，與債主手上名帖的完整印痕不符。"
+        },
+        {
+          "id": "card_ink",
+          "title": "兩份名帖的墨樣比對",
+          "type": "physical",
+          "critical": true,
+          "kind": "evidence",
+          "thread_id": "false_cards",
+          "requires": [
+            "inspect_ink"
+          ],
+          "supports": [
+            "forged_cards"
+          ],
+          "contradicts": [],
+          "text": "兩份爭議名帖使用同批山外墨，日期又聲稱同一輛車同時在兩個渡口。"
+        },
+        {
+          "id": "card_witness",
+          "title": "渡口見證人核對證詞",
+          "type": "witness",
+          "critical": true,
+          "kind": "evidence",
+          "thread_id": "false_cards",
+          "requires": [
+            "confront_witness",
+            "follow_cross_lead"
+          ],
+          "supports": [
+            "forged_cards"
+          ],
+          "contradicts": [
+            "merchant_collusion"
+          ],
+          "text": "渡口見證人核對原件後，指認遞交名帖者是烈川堂固定使者的隨員。"
+        },
+        {
+          "id": "card_dates",
+          "title": "名帖日期矛盾",
+          "text": "兩張名帖把同一輛糧車寫在同日下午的不同渡口。",
+          "type": "physical",
+          "critical": false,
+          "kind": "evidence",
+          "thread_id": "false_cards",
+          "requires": [
+            "check_dates"
+          ],
+          "supports": [
+            "forged_cards"
+          ],
+          "contradicts": []
+        },
+        {
+          "id": "cart_record",
+          "title": "糧車維修紀錄",
+          "text": "車坊原簿記載該車當日拆軸，與其中一張名帖所寫的出車時間衝突。",
+          "type": "document",
+          "critical": false,
+          "kind": "evidence",
+          "thread_id": "false_cards",
+          "requires": [
+            "trace_cart"
+          ],
+          "supports": [
+            "forged_cards"
+          ],
+          "contradicts": []
+        },
+        {
+          "id": "ink_source",
+          "title": "墨行出貨簿",
+          "text": "墨行出貨簿記有同批山外墨，但僅知道墨源還不能指認送帖人。",
+          "type": "physical",
+          "critical": false,
+          "kind": "evidence",
+          "thread_id": "false_cards",
+          "requires": [
+            "ink_shop"
+          ],
+          "supports": [
+            "forged_cards"
+          ],
+          "contradicts": []
+        },
+        {
+          "id": "false_cards_internal",
+          "title": "可疑的內部來往",
+          "text": "有人把弟子的私下來往當成嫌疑，目前沒有相應案件證據。",
+          "type": "lead",
+          "critical": false,
+          "kind": "lead",
+          "thread_id": "false_cards",
+          "requires": [
+            "follow_false_cards_internal"
+          ],
+          "supports": [],
+          "contradicts": []
+        },
+        {
+          "id": "false_cards_rumor",
+          "title": "街頭轉述",
+          "text": "街頭有人給出另一種解釋，但還說不清誰親眼看過。",
+          "type": "lead",
+          "critical": false,
+          "kind": "lead",
+          "thread_id": "false_cards",
+          "requires": [
+            "follow_false_cards_rumor"
+          ],
+          "supports": [],
+          "contradicts": []
+        },
+        {
+          "id": "false_cards_claim",
+          "title": "來客的主張",
+          "text": "來客聲稱青崖門曾答應配合，尚未拿出可互相核對的完整記錄。",
+          "type": "claim",
+          "critical": false,
+          "kind": "claim",
+          "thread_id": "false_cards",
+          "requires": [],
+          "supports": [],
+          "contradicts": []
+        },
+        {
+          "id": "false_cards_external_claim",
+          "title": "弟子對外部聯絡的說明",
+          "text": "當事人表示外部聯絡有私人原因；這只是說明，不是已核實的案件事實。",
+          "type": "claim",
+          "critical": false,
+          "kind": "claim",
+          "thread_id": "false_cards",
+          "requires": [],
+          "supports": [],
+          "contradicts": []
+        },
+        {
+          "id": "ledger_gap",
+          "title": "借車留底缺漏",
+          "text": "庫房借車原簿的日期連續，爭議名帖所列借車日卻沒有相應領車簽收。缺漏尚不能單獨證明有人偽造。",
+          "type": "document",
+          "critical": false,
+          "kind": "evidence",
+          "thread_id": "false_cards",
+          "requires": [
+            "inspect_ledger"
+          ],
+          "supports": [
+            "forged_cards"
+          ],
+          "contradicts": []
+        }
+      ],
+      "investigations": [
+        {
+          "id": "inspect_seal",
+          "label": "核對名帖印痕與原印留底",
+          "cost": 2,
+          "skill": "strategy",
+          "targets": [
+            "card_original"
+          ],
+          "hint": "調查專長達到 4，或本次門務順利交接，即能完成核查；否則只留下待查方向。",
+          "stable": false
+        },
+        {
+          "id": "inspect_ink",
+          "label": "比對兩份名帖的墨樣",
+          "cost": 2,
+          "skill": "medicine",
+          "targets": [
+            "card_ink"
+          ],
+          "hint": "調查專長達到 4，或本次門務順利交接，即能完成核查；否則只留下待查方向。",
+          "stable": false
+        },
+        {
+          "id": "confront_witness",
+          "label": "請渡口證人核對原件",
+          "cost": 2,
+          "skill": "diplomacy",
+          "targets": [
+            "card_witness"
+          ],
+          "hint": "調查專長達到 4，或本次門務順利交接，即能完成核查；否則只留下待查方向。",
+          "stable": false
+        },
+        {
+          "id": "check_dates",
+          "label": "查名帖日期矛盾",
+          "cost": 1,
+          "skill": "strategy",
+          "targets": [
+            "card_dates"
+          ],
+          "stable": true,
+          "hint": "核對既有公開簿冊，提供佐證，不直接代替核心證據。"
+        },
+        {
+          "id": "trace_cart",
+          "label": "查糧車維修紀錄",
+          "cost": 1,
+          "skill": "strategy",
+          "targets": [
+            "cart_record"
+          ],
+          "stable": true,
+          "hint": "核對既有公開簿冊，提供佐證，不直接代替核心證據。"
+        },
+        {
+          "id": "ink_shop",
+          "label": "查墨行出貨簿",
+          "cost": 1,
+          "skill": "strategy",
+          "targets": [
+            "ink_source"
+          ],
+          "stable": true,
+          "hint": "核對既有公開簿冊，提供佐證，不直接代替核心證據。"
+        },
+        {
+          "id": "follow_false_cards_internal",
+          "label": "追問可疑的內部來往",
+          "cost": 1,
+          "skill": "diplomacy",
+          "targets": [
+            "false_cards_internal"
+          ],
+          "stable": true,
+          "hint": "先追問來源；傳言與私人聯絡都不能直接定罪。"
+        },
+        {
+          "id": "follow_false_cards_rumor",
+          "label": "追問街頭轉述",
+          "cost": 1,
+          "skill": "diplomacy",
+          "targets": [
+            "false_cards_rumor"
+          ],
+          "stable": true,
+          "hint": "先追問來源；傳言與私人聯絡都不能直接定罪。"
+        },
+        {
+          "id": "inspect_ledger",
+          "label": "核對庫房借車留底",
+          "targets": [
+            "ledger_gap"
+          ],
+          "cost": 1,
+          "skill": "strategy",
+          "stable": true,
+          "hint": "查既有簿冊有無相應簽收；缺漏只能作為佐證。"
+        }
+      ],
+      "recovery_paths": [
+        {
+          "evidence_id": "card_original",
+          "focus_id": "recover_card_original",
+          "months": [
+            10,
+            11
+          ],
+          "label": "補證：名帖原件與用印留底"
+        },
+        {
+          "evidence_id": "card_ink",
+          "focus_id": "recover_card_ink",
+          "months": [
+            10,
+            11
+          ],
+          "label": "補證：兩份名帖的墨樣比對"
+        },
+        {
+          "evidence_id": "card_witness",
+          "focus_id": "recover_card_witness",
+          "months": [
+            10,
+            11
+          ],
+          "label": "補證：渡口見證人核對證詞"
+        }
+      ],
+      "deduction_checkpoints": [
+        {
+          "month": 4,
+          "kind": "hypothesis",
+          "question": "目前哪個方向最值得繼續查？"
+        },
+        {
+          "month": 8,
+          "kind": "crosscheck",
+          "question": "哪兩份已取得的資料可以互相驗證？"
+        },
+        {
+          "month": 11,
+          "kind": "chain",
+          "question": "請以文件、現場物證、人證或佐證，組成最後證據鏈。"
+        }
+      ],
+      "cross_pairs": [
+        [
+          "card_original",
+          "card_ink"
+        ],
+        [
+          "card_original",
+          "card_witness"
+        ],
+        [
+          "card_original",
+          "ink_source"
+        ],
+        [
+          "card_dates",
+          "cart_record"
+        ]
+      ],
+      "cross_lead": {
+        "id": "false_cards_cross_lead",
+        "title": "交叉核對後的新方向",
+        "text": "兩份來源不同的資料接得上，接下來可以沿交付者追問原始委託。",
+        "kind": "lead",
+        "type": "lead",
+        "critical": false,
+        "thread_id": "false_cards",
+        "requires": [],
+        "supports": [],
+        "contradicts": []
+      },
+      "monthly_scenes": {
+        "1": {
+          "event_id": "inventory",
+          "title": "清點山門",
+          "npc_refs": [
+            "keeper",
+            "merchant"
+          ],
+          "current_question": "帳缺頁與借車名帖是否指向同一件事？",
+          "focus_ids": [
+            "inspect_ledger",
+            "inspect_seal",
+            "hear_claim"
+          ],
+          "character_views": {
+            "combat": [
+              {
+                "thought": "兵器鬆動是眼前的危險。",
+                "dialogue": "刀柄要先鎖緊，不能等敵人上門才發現拿不穩。"
+              },
+              {
+                "thought": "兵器鬆動是眼前的危險。",
+                "dialogue": "帳可以慢慢查，今晚守門的人得先有能用的兵器。"
+              }
+            ],
+            "strategy": [
+              {
+                "thought": "缺頁需要對照原件。",
+                "dialogue": "先別補這筆帳，我想把前後兩頁的日期對起來。"
+              },
+              {
+                "thought": "缺頁需要對照原件。",
+                "dialogue": "欠餉不一定是有人拿走了錢，先看缺頁原本記了什麼。"
+              }
+            ],
+            "medicine": [
+              {
+                "thought": "欠餉可能影響照護。",
+                "dialogue": "藥箱剩多少我能清點，少了哪一筆錢卻要靠帳冊證明。"
+              },
+              {
+                "thought": "欠餉可能影響照護。",
+                "dialogue": "別讓帶傷的人為了領餉一直站著，核帳可以坐下慢慢說。"
+              }
+            ],
+            "diplomacy": [
+              {
+                "thought": "領款人能補上經手過程。",
+                "dialogue": "誰領過、誰只是聽說領過，我想分開問。"
+              },
+              {
+                "thought": "領款人能補上經手過程。",
+                "dialogue": "郭管事保管帳，我們負責核對；別讓一句猜測變成他的罪名。"
+              }
+            ]
+          },
+          "scene_opening": "舊帳缺了一頁，程守禾送來的名帖卻記著借車。郭問舟把用印留底與名帖分開放好，說自己還找不到對應紀錄。欠餉與兵器仍要安排，你得另外決定先查哪一處。",
+          "npc_identity": "商隊掌櫃・程守禾、庫房管事・郭問舟",
+          "character_hooks": [],
+          "investigation_options": [
+            "inspect_ledger",
+            "inspect_seal",
+            "hear_claim"
+          ],
+          "concrete_detail": "缺角舊帳與用印留底"
+        },
+        "2": {
+          "event_id": "caravan",
+          "title": "商隊追帳",
+          "npc_refs": [
+            "merchant"
+          ],
+          "current_question": "商隊所稱的借車，有沒有獨立紀錄？",
+          "focus_ids": [
+            "inspect_ledger",
+            "inspect_seal",
+            "hear_claim"
+          ],
+          "character_views": {
+            "combat": [
+              {
+                "thought": "車輪與行程能留下痕跡。",
+                "dialogue": "我去看車軸和輪痕，哪條路能走、哪條走不了，現場會留下東西。"
+              },
+              {
+                "thought": "車輪與行程能留下痕跡。",
+                "dialogue": "契約說走過不等於車真走過，先讓我看那輛車。"
+              }
+            ],
+            "strategy": [
+              {
+                "thought": "契約日期需要獨立核對。",
+                "dialogue": "把借車日期與交貨日期分開記，同一輛車不能憑兩張紙分成兩輛。"
+              },
+              {
+                "thought": "契約日期需要獨立核對。",
+                "dialogue": "程掌櫃的說法有來源，但還得對上原始留底。"
+              }
+            ],
+            "medicine": [
+              {
+                "thought": "趕路時間不能忽略人的體力。",
+                "dialogue": "車夫連夜未睡，說錯時間不一定是說謊，先讓他歇一口氣。"
+              },
+              {
+                "thought": "趕路時間不能忽略人的體力。",
+                "dialogue": "我能看出趕路的疲乏，卻不能因此替整份契約作保。"
+              }
+            ],
+            "diplomacy": [
+              {
+                "thought": "經手人比轉述更可靠。",
+                "dialogue": "我想直接問收帖的人，別讓掌櫃替整支商隊回答。"
+              },
+              {
+                "thought": "經手人比轉述更可靠。",
+                "dialogue": "先留下對方原話，再談責任，現在吵輸贏只會讓證人走掉。"
+              }
+            ]
+          },
+          "scene_opening": "程守禾帶著借車單到門口，說青崖門用名帖借過糧車。門內找不到相符留底，他卻不願只憑一句否認撤回要求。可以先安排貨物交接，再查日期、印痕或收帖人的原話。",
+          "options": [
+            {
+              "id": "maintain",
+              "label": "安排商隊交接",
+              "skill": "combat",
+              "count": 1,
+              "risk": "low",
+              "cost": 0,
+              "visible_hint": "先把車隊的貨物與守班安頓好。",
+              "affected_resources": [
+                "treasury",
+                "defense",
+                "reputation"
+              ],
+              "focus": "treasury",
+              "success": {
+                "treasury": [
+                  2,
+                  5
+                ],
+                "defense": [
+                  3,
+                  5
+                ],
+                "reputation": [
+                  0,
+                  1
+                ]
+              },
+              "failure": {
+                "treasury": [
+                  -2,
+                  0
+                ],
+                "defense": [
+                  -2,
+                  0
+                ],
+                "reputation": [
+                  -2,
+                  0
+                ]
+              },
+              "difficulty": 3.2,
+              "background_modifiers": {},
+              "ability_modifier": 1,
+              "flags": [],
+              "intel": [],
+              "delayed": null,
+              "extra_hints": [],
+              "success_narratives": [
+                "{lead}完成安排後，清出的庫位接住了商隊的貨，搬運所得補上本月口糧。守班也按時交接，追帳仍等另行核對。",
+                "{lead}完成安排後，車隊按編號卸貨，少走一輪搬運。掌櫃結了當日工錢，借車爭議留在答覆紙上。"
+              ],
+              "failure_narratives": [
+                "{lead}回報，貨位與到車時間對不上，幾車糧在門口多等了半日。工錢少收一筆，守班只好加派人手。",
+                "{lead}回報，交接單漏了一車，商隊折返重點。搬運的空檔吃掉了原先能掙的工錢。"
+              ],
+              "callback_flag": "false_cards/2/maintain",
+              "special": null
+            },
+            {
+              "id": "negotiate",
+              "label": "暫緩追帳，留下雙方說法",
+              "skill": "diplomacy",
+              "count": 1,
+              "risk": "low",
+              "cost": 0,
+              "visible_hint": "先把爭議範圍寫明，爭取核查時間。",
+              "affected_resources": [
+                "treasury",
+                "defense",
+                "reputation"
+              ],
+              "focus": "treasury",
+              "success": {
+                "treasury": [
+                  4,
+                  7
+                ],
+                "defense": [
+                  0,
+                  2
+                ],
+                "reputation": [
+                  1,
+                  3
+                ]
+              },
+              "failure": {
+                "treasury": [
+                  -2,
+                  0
+                ],
+                "defense": [
+                  -2,
+                  0
+                ],
+                "reputation": [
+                  -2,
+                  0
+                ]
+              },
+              "difficulty": 3.2,
+              "background_modifiers": {},
+              "ability_modifier": 1,
+              "flags": [],
+              "intel": [],
+              "delayed": null,
+              "extra_hints": [],
+              "success_narratives": [
+                "{lead}完成安排後，雙方各留一份答覆日期，商隊同意先付本次搬運費。爭議舊帳暫不抵扣，山門有了周轉餘地。",
+                "{lead}完成安排後，程守禾把新貨款與舊帳分開結算，等候核查期間不再到門口催索。約定的期限由雙方署名。"
+              ],
+              "failure_narratives": [
+                "{lead}回報，暫緩追帳的條件沒有談攏，掌櫃扣下部分搬運費。圍觀的人仍在等青崖門交代。",
+                "{lead}回報，答覆期限各說各話，商隊不肯簽名。本日談判拖過交班，人手與盤纏都多耗了一些。"
+              ],
+              "callback_flag": "false_cards/2/negotiate",
+              "special": null
+            },
+            {
+              "id": "records",
+              "label": "核對可公開的借車記錄",
+              "skill": "strategy",
+              "count": 1,
+              "risk": "low",
+              "cost": 0,
+              "visible_hint": "整理借車與交貨的表單。",
+              "affected_resources": [
+                "treasury",
+                "defense",
+                "reputation"
+              ],
+              "focus": "treasury",
+              "success": {
+                "treasury": [
+                  3,
+                  6
+                ],
+                "defense": [
+                  1,
+                  3
+                ],
+                "reputation": [
+                  0,
+                  2
+                ]
+              },
+              "failure": {
+                "treasury": [
+                  -2,
+                  0
+                ],
+                "defense": [
+                  -2,
+                  0
+                ],
+                "reputation": [
+                  -2,
+                  0
+                ]
+              },
+              "difficulty": 3.2,
+              "background_modifiers": {},
+              "ability_modifier": 1,
+              "flags": [],
+              "intel": [],
+              "delayed": null,
+              "extra_hints": [],
+              "success_narratives": [
+                "{lead}完成安排後，借車與交貨表單分櫃保存，重複請領的搬運費被攔下。省出的口糧可留給下一班出勤。",
+                "{lead}完成安排後，郭問舟按經手人排好待答表，商隊補齊本次交接的簽收。門內收回一筆先墊的運費。"
+              ],
+              "failure_narratives": [
+                "{lead}回報，幾份表單的車號抄混，只能請掌櫃重新確認。結款延後，庫房為此多等了一班。",
+                "{lead}回報，交貨簽收少了一位經手人，整疊表暫時不能結算。已留存的案件資料仍另放在封袋裡。"
+              ],
+              "callback_flag": "false_cards/2/records",
+              "special": null
+            }
+          ],
+          "npc_identity": "商隊掌櫃・程守禾",
+          "character_hooks": [],
+          "investigation_options": [
+            "inspect_ledger",
+            "inspect_seal",
+            "hear_claim"
+          ],
+          "concrete_detail": "借車單"
+        },
+        "3": {
+          "event_id": "old_debt",
+          "title": "第二張名帖",
+          "npc_refs": [
+            "keeper",
+            "merchant"
+          ],
+          "current_question": "同車同日的兩份記錄，哪一份能核實？",
+          "focus_ids": [
+            "inspect_ink",
+            "check_dates",
+            "trace_cart"
+          ],
+          "character_views": {
+            "combat": [
+              {
+                "thought": "車況可以核對紙上的行程。",
+                "dialogue": "同一輛車跑過哪條路，車坊和渡口應各有記錄。我去查它當天能不能出車。"
+              },
+              {
+                "thought": "車況可以核對紙上的行程。",
+                "dialogue": "紙上兩個渡口離得不近，先別只比字跡，還得看看車是不是真的能趕到。"
+              }
+            ],
+            "strategy": [
+              {
+                "thought": "兩張紙上的時刻需要排成一條線。",
+                "dialogue": "把日期、渡口和車號分開抄，先找出矛盾在哪一欄。"
+              },
+              {
+                "thought": "兩張紙上的時刻需要排成一條線。",
+                "dialogue": "兩張名帖都寫同一輛車，至少有一處需要更正；現在還不能認定是誰寫錯。"
+              }
+            ],
+            "medicine": [
+              {
+                "thought": "墨樣比肉眼看字色更能查出差異。",
+                "dialogue": "我可以照比藥材的辦法留取墨樣，但得有兩份原件，不能只看抄本。"
+              },
+              {
+                "thought": "墨樣比肉眼看字色更能查出差異。",
+                "dialogue": "兩張紙顏色相近只是起點，墨樣與封存經過都得核對。"
+              }
+            ],
+            "diplomacy": [
+              {
+                "thought": "各自說明比當面爭辯容易留下細節。",
+                "dialogue": "請兩方分開說收帖經過，別讓後說的人照著前一人的話改。"
+              },
+              {
+                "thought": "各自說明比當面爭辯容易留下細節。",
+                "dialogue": "我要問他親眼看見哪一步，不請他替另一個渡口的人作保。"
+              }
+            ]
+          },
+          "scene_opening": "另一張青崖門名帖被送到庫房，與先前那張記了同一輛車，卻寫在另一個渡口。郭問舟只標出兩張紙上的時刻，沒有替矛盾下結論。車坊原簿、紙上墨樣與經手者都可分別查問。",
+          "options": [
+            {
+              "id": "record",
+              "label": "分列兩份名帖的說法",
+              "skill": "strategy",
+              "count": 1,
+              "risk": "low",
+              "cost": 0,
+              "visible_hint": "把兩張名帖的日期與地點分列。",
+              "affected_resources": [
+                "treasury",
+                "defense",
+                "reputation"
+              ],
+              "focus": "reputation",
+              "success": {
+                "treasury": [
+                  3,
+                  6
+                ],
+                "defense": [
+                  1,
+                  3
+                ],
+                "reputation": [
+                  0,
+                  2
+                ]
+              },
+              "failure": {
+                "treasury": [
+                  -2,
+                  0
+                ],
+                "defense": [
+                  -2,
+                  0
+                ],
+                "reputation": [
+                  -2,
+                  0
+                ]
+              },
+              "difficulty": 3.2,
+              "background_modifiers": {},
+              "ability_modifier": 1,
+              "flags": [],
+              "intel": [],
+              "delayed": null,
+              "extra_hints": [],
+              "success_narratives": [
+                "{lead}完成安排後，兩份說法各有一張待答表，庫房先停掉重複列支的運費。省下的糧餉留下，紙上疑點交給另行查證。",
+                "{lead}完成安排後，車號、日期與渡口分欄後，郭問舟不再把兩次請款一起付出。多出來的守班時間用來補整庫房。"
+              ],
+              "failure_narratives": [
+                "{lead}回報，抄錄的人把兩張紙的車號交叉填入，只能回頭重做。結帳未能如期完成，糧餉周轉也慢了一步。",
+                "{lead}回報，待答表少了一個渡口的欄位，商隊退回重填。原先可結的搬運費也被拖到下回。"
+              ],
+              "callback_flag": "false_cards/3/record",
+              "special": null
+            },
+            {
+              "id": "guard",
+              "label": "接手渡口當日輪值",
+              "skill": "combat",
+              "count": 1,
+              "risk": "low",
+              "cost": 0,
+              "visible_hint": "讓渡口照常交班，不讓爭執擋住運貨。",
+              "affected_resources": [
+                "treasury",
+                "defense",
+                "reputation"
+              ],
+              "focus": "treasury",
+              "success": {
+                "treasury": [
+                  2,
+                  5
+                ],
+                "defense": [
+                  3,
+                  5
+                ],
+                "reputation": [
+                  0,
+                  1
+                ]
+              },
+              "failure": {
+                "treasury": [
+                  -2,
+                  0
+                ],
+                "defense": [
+                  -2,
+                  0
+                ],
+                "reputation": [
+                  -2,
+                  0
+                ]
+              },
+              "difficulty": 3.2,
+              "background_modifiers": {},
+              "ability_modifier": 1,
+              "flags": [],
+              "intel": [],
+              "delayed": null,
+              "extra_hints": [],
+              "success_narratives": [
+                "{lead}完成安排後，渡口換班照常完成，押貨工錢按日結清。爭執留在等候區，沒有擋住上山的補給。",
+                "{lead}完成安排後，貨車依次通行，輪值的人也補好了路障。今日的搬運收入留下，兩張名帖另送查驗。"
+              ],
+              "failure_narratives": [
+                "{lead}回報，兩班人都以為對方先接手，渡口短暫無人照看。商隊因耽擱扣下工錢，路障也沒來得及修。",
+                "{lead}回報，爭論堵住卸貨處，輪值一直拖到天黑。門內少收運費，還得多留一班守備。"
+              ],
+              "callback_flag": "false_cards/3/guard",
+              "special": null
+            },
+            {
+              "id": "mediate",
+              "label": "請兩方各留一名經手人",
+              "skill": "diplomacy",
+              "count": 1,
+              "risk": "low",
+              "cost": 0,
+              "visible_hint": "安排經手者逐一說明。",
+              "affected_resources": [
+                "treasury",
+                "defense",
+                "reputation"
+              ],
+              "focus": "defense",
+              "success": {
+                "treasury": [
+                  4,
+                  7
+                ],
+                "defense": [
+                  0,
+                  2
+                ],
+                "reputation": [
+                  1,
+                  3
+                ]
+              },
+              "failure": {
+                "treasury": [
+                  -2,
+                  0
+                ],
+                "defense": [
+                  -2,
+                  0
+                ],
+                "reputation": [
+                  -2,
+                  0
+                ]
+              },
+              "difficulty": 3.2,
+              "background_modifiers": {},
+              "ability_modifier": 1,
+              "flags": [],
+              "intel": [],
+              "delayed": null,
+              "extra_hints": [],
+              "success_narratives": [
+                "{lead}完成安排後，兩方各留一人等候，其他車夫先去交貨。商隊願照常支付當日搬運費，不把未明舊帳混進來。",
+                "{lead}完成安排後，問話時段分開排好，經手人不用在門口互相喊話。郭問舟得以照常結清當月交接。"
+              ],
+              "failure_narratives": [
+                "{lead}回報，兩名經手人的時段撞在一起，互相指責後都不肯先答。貨物晚卸，原訂工錢被扣了一部分。",
+                "{lead}回報，掌櫃只肯留下轉述的人，安排好的問話未能完成。來回聯絡多耗了人手，門內仍等不到答覆。"
+              ],
+              "callback_flag": "false_cards/3/mediate",
+              "special": null
+            }
+          ],
+          "npc_identity": "商隊掌櫃・程守禾、庫房管事・郭問舟",
+          "character_hooks": [],
+          "investigation_options": [
+            "inspect_ink",
+            "check_dates",
+            "trace_cart"
+          ],
+          "concrete_detail": "兩張名帖上的車號"
+        },
+        "4": {
+          "event_id": "provocation",
+          "title": "烈川堂挑釁",
+          "npc_refs": [
+            "enemy",
+            "elder"
+          ],
+          "current_question": "戰帖之外，哪個假說最值得繼續查？",
+          "focus_ids": [
+            "inspect_seal",
+            "inspect_ink",
+            "follow_false_cards_internal"
+          ],
+          "character_views": {
+            "combat": [
+              {
+                "thought": "台下與後山也需要人看守。",
+                "dialogue": "擂臺的路我能看，但對方為何設擂，不能只看拳腳。"
+              },
+              {
+                "thought": "台下與後山也需要人看守。",
+                "dialogue": "上台前先留好退路，街後那些車也得有人盯著。"
+              }
+            ],
+            "strategy": [
+              {
+                "thought": "戰帖時間與車隊行動值得比對。",
+                "dialogue": "台上每叫一次名字，車就動一段，我想先記下時刻。"
+              },
+              {
+                "thought": "戰帖時間與車隊行動值得比對。",
+                "dialogue": "戰帖說要比武，沒有解釋他們為什麼把車停在後山。"
+              }
+            ],
+            "medicine": [
+              {
+                "thought": "出戰前應確認傷疲。",
+                "dialogue": "傷還沒好的人先別上台，逞強的代價不會只落在他一人身上。"
+              },
+              {
+                "thought": "出戰前應確認傷疲。",
+                "dialogue": "我能判斷誰撐得住，卻不能替烈川堂的用意作證。"
+              }
+            ],
+            "diplomacy": [
+              {
+                "thought": "旁觀者影響這次挑戰的名分。",
+                "dialogue": "先請長老讀清戰帖，別讓圍觀的人只聽見他們喊話。"
+              },
+              {
+                "thought": "旁觀者影響這次挑戰的名分。",
+                "dialogue": "對方想讓我們當眾答應什麼，這一句得先問清楚。"
+              }
+            ]
+          },
+          "npc_identity": "地方長老・裴知節、烈川堂使者・葉秉衡",
+          "character_hooks": [],
+          "investigation_options": [
+            "inspect_seal",
+            "inspect_ink",
+            "follow_false_cards_internal"
+          ],
+          "concrete_detail": "烈川堂的戰帖"
+        },
+        "5": {
+          "event_id": "assembly",
+          "title": "渡口見證人",
+          "npc_refs": [
+            "elder",
+            "merchant"
+          ],
+          "current_question": "證人親眼看見了什麼，能否與原件接上？",
+          "focus_ids": [
+            "confront_witness",
+            "hear_claim",
+            "trace_cart"
+          ],
+          "character_views": {
+            "combat": [
+              {
+                "thought": "證人到場與離場都需要照應。",
+                "dialogue": "我看好渡口周圍，讓他能安心看原件；押著人點頭算不上見證。"
+              },
+              {
+                "thought": "證人到場與離場都需要照應。",
+                "dialogue": "若要帶原件過河，我來照看封袋。送帖的人是誰，要讓證人自己說。"
+              }
+            ],
+            "strategy": [
+              {
+                "thought": "核對時不能先把答案塞給證人。",
+                "dialogue": "先請他認出紙上的標記，再問交付的經過，別一開口就問是不是烈川堂。"
+              },
+              {
+                "thought": "核對時不能先把答案塞給證人。",
+                "dialogue": "把原件放到他面前，問他能認出什麼；答不出的部分就留白。"
+              }
+            ],
+            "medicine": [
+              {
+                "thought": "緊張可能讓回憶次序混亂。",
+                "dialogue": "他手在抖，先讓他坐下喝水，再一件件問。緊張不能當作說謊的證據。"
+              },
+              {
+                "thought": "緊張可能讓回憶次序混亂。",
+                "dialogue": "別圍著他連問，讓他把那天的時間慢慢排回來。"
+              }
+            ],
+            "diplomacy": [
+              {
+                "thought": "署名只能涵蓋親眼見過的部分。",
+                "dialogue": "請他只替自己看過的事情署名，別要求他替整個案子下結論。"
+              },
+              {
+                "thought": "署名只能涵蓋親眼見過的部分。",
+                "dialogue": "他願看原件，不代表願意跟著我們公開指控；這兩件事要先講清楚。"
+              }
+            ]
+          },
+          "scene_opening": "裴知節帶來當日站在渡口的人。證人願看原件再說，卻不肯跟著尚未核實的指控署名。程守禾仍在等交代；你可以安排正式核對、直接公開指控，或先封存已有說法。",
+          "options": [
+            {
+              "id": "verify_witness",
+              "label": "請證人核對原件",
+              "skill": "diplomacy",
+              "count": 1,
+              "risk": "low",
+              "cost": 0,
+              "visible_hint": "安排證人對照原件，明訂問話範圍。",
+              "affected_resources": [
+                "treasury",
+                "defense",
+                "reputation"
+              ],
+              "focus": "reputation",
+              "success": {
+                "treasury": [
+                  4,
+                  7
+                ],
+                "defense": [
+                  0,
+                  2
+                ],
+                "reputation": [
+                  1,
+                  3
+                ]
+              },
+              "failure": {
+                "treasury": [
+                  -2,
+                  0
+                ],
+                "defense": [
+                  -2,
+                  0
+                ],
+                "reputation": [
+                  -2,
+                  0
+                ]
+              },
+              "difficulty": 3.2,
+              "background_modifiers": {},
+              "ability_modifier": 1,
+              "flags": [],
+              "intel": [],
+              "delayed": null,
+              "extra_hints": [],
+              "success_narratives": [
+                "{lead}完成安排後，問話範圍寫在桌上，證人願在所見部分署名。裴知節安排的交接照常完成，門內收回先墊的車馬費。",
+                "{lead}完成安排後，原件與待問事項分開擺好，證人知道哪些話要負責。渡口交班按時結束，核查得以在安靜處進行。"
+              ],
+              "failure_narratives": [
+                "{lead}回報，到場時段沒有排好，其他門務因等候耽誤。證人仍留了核對原件的時間，查證結果另記。",
+                "{lead}回報，迎接證人的人走錯渡口，接送多花一程盤纏。裴知節留下問話位置，原件核對仍按選定方向進行。"
+              ],
+              "callback_flag": "false_cards/5/verify_witness",
+              "special": null
+            },
+            {
+              "id": "accuse",
+              "label": "直接公開指控",
+              "skill": "combat",
+              "count": 1,
+              "risk": "low",
+              "cost": 0,
+              "visible_hint": "公開指控可能損害聲望，證人不會因此把傳言改說成親見。",
+              "affected_resources": [
+                "treasury",
+                "defense",
+                "reputation"
+              ],
+              "focus": "reputation",
+              "success": {
+                "treasury": [
+                  2,
+                  5
+                ],
+                "defense": [
+                  3,
+                  5
+                ],
+                "reputation": [
+                  -4,
+                  -2
+                ]
+              },
+              "failure": {
+                "treasury": [
+                  -2,
+                  0
+                ],
+                "defense": [
+                  -2,
+                  0
+                ],
+                "reputation": [
+                  -5,
+                  -3
+                ]
+              },
+              "difficulty": 3.2,
+              "background_modifiers": {},
+              "ability_modifier": 1,
+              "flags": [],
+              "intel": [],
+              "delayed": null,
+              "extra_hints": [],
+              "success_narratives": [
+                "{lead}完成安排後，指控傳到渡口，證人拒絕替沒有親見的內容署名。交接雖辦完，青崖門先下結論的做法卻傷了聲望。",
+                "{lead}完成安排後，在場人記下了指控，也記下證人沒有附和。門務結算照常，日後說理卻得先澄清這次失言。"
+              ],
+              "failure_narratives": [
+                "{lead}回報，爭辯壓過了證人的說明，等候的商隊轉身離開。交接被打斷，門內既少了工錢，也留下失言的議論。",
+                "{lead}回報，沒有人願替指控署名，原先安排的問話散了場。接送費白花，公開說出的話仍得由掌門承擔。"
+              ],
+              "callback_flag": "false_cards/5/accuse",
+              "special": null
+            },
+            {
+              "id": "archive",
+              "label": "暫時封存說法",
+              "skill": "strategy",
+              "count": 1,
+              "risk": "low",
+              "cost": 0,
+              "visible_hint": "把尚未核實的說法分開封存。",
+              "affected_resources": [
+                "treasury",
+                "defense",
+                "reputation"
+              ],
+              "focus": "treasury",
+              "success": {
+                "treasury": [
+                  3,
+                  6
+                ],
+                "defense": [
+                  1,
+                  3
+                ],
+                "reputation": [
+                  0,
+                  2
+                ]
+              },
+              "failure": {
+                "treasury": [
+                  -2,
+                  0
+                ],
+                "defense": [
+                  -2,
+                  0
+                ],
+                "reputation": [
+                  -2,
+                  0
+                ]
+              },
+              "difficulty": 3.2,
+              "background_modifiers": {},
+              "ability_modifier": 1,
+              "flags": [],
+              "intel": [],
+              "delayed": null,
+              "extra_hints": [],
+              "success_narratives": [
+                "{lead}完成安排後，尚待核實的說法分袋封好，郭問舟停止重複抄寫。省出的人手接回守班，車馬費也按時結清。",
+                "{lead}完成安排後，封袋各記來源，沒有把口供填進已確認欄。餘下時間完成了渡口交接，當日所得留給下次出勤。"
+              ],
+              "failure_narratives": [
+                "{lead}回報，兩份說法用了相同封袋編號，庫房只好請經手人回來重標。其他結算因此延後，人手也多耗一輪。",
+                "{lead}回報，到場人未簽封存清單便離開，交接只能暫停。郭問舟另留一份待補項目，門內先付了接送費。"
+              ],
+              "callback_flag": "false_cards/5/archive",
+              "special": null
+            }
+          ],
+          "npc_identity": "商隊掌櫃・程守禾、地方長老・裴知節",
+          "character_hooks": [],
+          "investigation_options": [
+            "confront_witness",
+            "hear_claim",
+            "trace_cart"
+          ],
+          "concrete_detail": "待核對的問話表"
+        },
+        "6": {
+          "event_id": "duel_private",
+          "title": "門內質疑",
+          "npc_refs": [
+            "keeper"
+          ],
+          "current_question": "有外部聯繫，是否就足以證明參與造假？",
+          "focus_ids": [
+            "follow_false_cards_internal",
+            "hear_external",
+            "check_dates"
+          ],
+          "character_views": {
+            "combat": [
+              {
+                "thought": "懷疑不能代替實際的出入紀錄。",
+                "dialogue": "守班誰在、誰離開，我可以對值勤簿；私信裡的心思不能靠我猜。"
+              },
+              {
+                "thought": "懷疑不能代替實際的出入紀錄。",
+                "dialogue": "別先拔劍，先說哪一段路、哪個時刻有問題。"
+              }
+            ],
+            "strategy": [
+              {
+                "thought": "來往、造假與動機需要不同證明。",
+                "dialogue": "有通信只能證明有來往，要指向名帖，還缺交付或用印的記錄。"
+              },
+              {
+                "thought": "來往、造假與動機需要不同證明。",
+                "dialogue": "先把三件事分欄：見過誰、做過什麼、為何這樣做，別用一欄替掉全部。"
+              }
+            ],
+            "medicine": [
+              {
+                "thought": "疲憊與被質問都會讓人退縮。",
+                "dialogue": "他不願開口可能只是被逼急了，不能用這一點診斷誰有罪。"
+              },
+              {
+                "thought": "疲憊與被質問都會讓人退縮。",
+                "dialogue": "先讓昨晚值勤的人休息，再問經過；少睡一夜不是造假的痕跡。"
+              }
+            ],
+            "diplomacy": [
+              {
+                "thought": "私人聯絡可能有尚未說明的原因。",
+                "dialogue": "我願聽他解釋聯絡的原因，再把能核對的部分留下。"
+              },
+              {
+                "thought": "私人聯絡可能有尚未說明的原因。",
+                "dialogue": "說明家事不等於替案件作證，也不該為了證明清白就逼他公開所有私事。"
+              }
+            ]
+          },
+          "scene_opening": "名帖案拖了幾月，門內有人開始把對外通信與造假放在一起談。郭問舟將三張紙分開：實際來往、案件證據、尚未查明的指控。今天先處理同門分工，再決定要追哪一段來源。",
+          "options": [
+            {
+              "id": "separate",
+              "label": "分列來往與指控",
+              "skill": "strategy",
+              "count": 1,
+              "risk": "low",
+              "cost": 0,
+              "visible_hint": "把可核對的經過與猜測分列，減少同門爭執。",
+              "affected_resources": [
+                "treasury",
+                "defense",
+                "reputation"
+              ],
+              "focus": "reputation",
+              "success": {
+                "treasury": [
+                  3,
+                  6
+                ],
+                "defense": [
+                  1,
+                  3
+                ],
+                "reputation": [
+                  0,
+                  2
+                ]
+              },
+              "failure": {
+                "treasury": [
+                  -2,
+                  0
+                ],
+                "defense": [
+                  -2,
+                  0
+                ],
+                "reputation": [
+                  -2,
+                  0
+                ]
+              },
+              "difficulty": 3.2,
+              "background_modifiers": {},
+              "ability_modifier": 1,
+              "flags": [],
+              "intel": [],
+              "delayed": null,
+              "extra_hints": [],
+              "success_narratives": [
+                "{lead}完成安排後，來往與指控分欄後，同門知道哪些問題還要查。停止重複查帳省下一筆紙筆費，輪值也恢復正常。",
+                "{lead}完成安排後，郭問舟收下分列的原話，沒有替任何人的心意下結論。庫房重開交接，拖著的搬運費終於結清。"
+              ],
+              "failure_narratives": [
+                "{lead}回報，幾項猜測被寫進經過欄，當事人要求重抄。整理拖到交班以後，門內只得另留人手值夜。",
+                "{lead}回報，分欄時漏記了說話來源，雙方又爭起原話是什麼。停下的門務沒能補完，糧餉也多耗一日。"
+              ],
+              "callback_flag": "false_cards/6/separate",
+              "special": null
+            },
+            {
+              "id": "rotate",
+              "label": "重新安排門內輪值",
+              "skill": "combat",
+              "count": 1,
+              "risk": "low",
+              "cost": 0,
+              "visible_hint": "恢復守班交接，讓被質問的人有時間答覆。",
+              "affected_resources": [
+                "treasury",
+                "defense",
+                "reputation"
+              ],
+              "focus": "treasury",
+              "success": {
+                "treasury": [
+                  2,
+                  5
+                ],
+                "defense": [
+                  3,
+                  5
+                ],
+                "reputation": [
+                  0,
+                  1
+                ]
+              },
+              "failure": {
+                "treasury": [
+                  -2,
+                  0
+                ],
+                "defense": [
+                  -2,
+                  0
+                ],
+                "reputation": [
+                  -2,
+                  0
+                ]
+              },
+              "difficulty": 3.2,
+              "background_modifiers": {},
+              "ability_modifier": 1,
+              "flags": [],
+              "intel": [],
+              "delayed": null,
+              "extra_hints": [],
+              "success_narratives": [
+                "{lead}完成安排後，新輪值把休息與答覆時段錯開，守門沒有空班。追回的搬運班次帶回工錢，彼此也少了當面爭執。",
+                "{lead}完成安排後，交班重新按人手排好，沒有人因被質問就得獨自守兩班。庫房照常收貨，省下臨時換班的支出。"
+              ],
+              "failure_narratives": [
+                "{lead}回報，輪值只改了一份抄表，兩班人照不同時段到場。守門短暫缺人，倉促補班又花了口糧。",
+                "{lead}回報，答覆與守班撞了時段，兩邊都沒辦完整。貨物交接延後，原訂收入只收回一部分。"
+              ],
+              "callback_flag": "false_cards/6/rotate",
+              "special": null
+            },
+            {
+              "id": "listen",
+              "label": "安排分別說明",
+              "skill": "diplomacy",
+              "count": 1,
+              "risk": "low",
+              "cost": 0,
+              "visible_hint": "各自留下原話，避免公開質問把話題推向私事。",
+              "affected_resources": [
+                "treasury",
+                "defense",
+                "reputation"
+              ],
+              "focus": "defense",
+              "success": {
+                "treasury": [
+                  4,
+                  7
+                ],
+                "defense": [
+                  0,
+                  2
+                ],
+                "reputation": [
+                  1,
+                  3
+                ]
+              },
+              "failure": {
+                "treasury": [
+                  -2,
+                  0
+                ],
+                "defense": [
+                  -2,
+                  0
+                ],
+                "reputation": [
+                  -2,
+                  0
+                ]
+              },
+              "difficulty": 3.2,
+              "background_modifiers": {},
+              "ability_modifier": 1,
+              "flags": [],
+              "intel": [],
+              "delayed": null,
+              "extra_hints": [],
+              "success_narratives": [
+                "{lead}完成安排後，各人的說明分別留底，旁人無法搶著替他回答。談妥後大家回去交班，拖延的運費也得以結清。",
+                "{lead}完成安排後，郭問舟收好親自確認的原話，把猜測另列待查。午後的守班順利接上，門內省去一輪臨時調人。"
+              ],
+              "failure_narratives": [
+                "{lead}回報，問話時仍有人在門外插嘴，當事人不肯繼續。交班因此拖延，庫房多付了等候費。",
+                "{lead}回報，排定的說明時間過短，還沒核對原話就到了換班時刻。兩邊重新約時段，本日門務只完成一半。"
+              ],
+              "callback_flag": "false_cards/6/listen",
+              "special": null
+            }
+          ],
+          "npc_identity": "庫房管事・郭問舟",
+          "character_hooks": [],
+          "investigation_options": [
+            "follow_false_cards_internal",
+            "hear_external",
+            "check_dates"
+          ],
+          "concrete_detail": "分欄記錄的三張紙"
+        },
+        "7": {
+          "event_id": "murder",
+          "title": "墨跡來源",
+          "npc_refs": [
+            "village",
+            "keeper"
+          ],
+          "current_question": "知道墨來自山外，與證明兩帖同源有何差別？",
+          "focus_ids": [
+            "ink_shop",
+            "inspect_ink",
+            "trace_cart"
+          ],
+          "character_views": {
+            "combat": [
+              {
+                "thought": "樣本送交過程也需要留下記錄。",
+                "dialogue": "我能守住送樣路線，確保沒有中途換包；墨的成分還得請懂的人看。"
+              },
+              {
+                "thought": "樣本送交過程也需要留下記錄。",
+                "dialogue": "先給封袋編號，誰接走就簽名，回來才知道比的是哪份。"
+              }
+            ],
+            "strategy": [
+              {
+                "thought": "出貨簿只能指出供應範圍。",
+                "dialogue": "先記批次與交貨時間，墨行賣給過誰，不能只靠掌櫃一句印象。"
+              },
+              {
+                "thought": "出貨簿只能指出供應範圍。",
+                "dialogue": "查到山外墨只是縮小範圍，還要把名帖的墨樣接回這個批次。"
+              }
+            ],
+            "medicine": [
+              {
+                "thought": "墨源與兩份樣本是否相同是兩次核對。",
+                "dialogue": "出貨簿能給方向，兩份名帖仍要實際取樣比對，才知道是不是同批墨。"
+              },
+              {
+                "thought": "墨源與兩份樣本是否相同是兩次核對。",
+                "dialogue": "只認出墨色不夠，我要把樣本與封存批次一起記下。"
+              }
+            ],
+            "diplomacy": [
+              {
+                "thought": "掌櫃能證明販售，未必知道用途。",
+                "dialogue": "問清他親手賣給誰，不要請他猜買家拿墨做了什麼。"
+              },
+              {
+                "thought": "掌櫃能證明販售，未必知道用途。",
+                "dialogue": "他願意借簿冊已經能幫上忙，但不能把他沒看見的送帖經過算進口供。"
+              }
+            ]
+          },
+          "scene_opening": "何蘭生找到一間保存出貨簿的墨行。掌櫃願讓人查批次，提醒同一種墨可能賣給許多人；只有將兩份名帖的墨樣實際比對，才能確認是否相同。簿冊與墨樣，需要不同的查證。",
+          "options": [
+            {
+              "id": "copy",
+              "label": "整理墨行出貨簿",
+              "skill": "strategy",
+              "count": 1,
+              "risk": "low",
+              "cost": 0,
+              "visible_hint": "將批次與交貨日期另抄留底。",
+              "affected_resources": [
+                "treasury",
+                "defense",
+                "reputation"
+              ],
+              "focus": "reputation",
+              "success": {
+                "treasury": [
+                  3,
+                  6
+                ],
+                "defense": [
+                  1,
+                  3
+                ],
+                "reputation": [
+                  0,
+                  2
+                ]
+              },
+              "failure": {
+                "treasury": [
+                  -2,
+                  0
+                ],
+                "defense": [
+                  -2,
+                  0
+                ],
+                "reputation": [
+                  -2,
+                  0
+                ]
+              },
+              "difficulty": 3.2,
+              "background_modifiers": {},
+              "ability_modifier": 1,
+              "flags": [],
+              "intel": [],
+              "delayed": null,
+              "extra_hints": [],
+              "success_narratives": [
+                "{lead}完成安排後，抄簿按批次裝訂，墨行付清協助整理的工錢。庫房也有了查找目錄，樣本結論仍由另行比對決定。",
+                "{lead}完成安排後，出貨表與庫存分開列好，掌櫃收回幾筆重複墊付的款，照約付給門內整理費。核查材料另外封存。"
+              ],
+              "failure_narratives": [
+                "{lead}回報，批次號抄漏一位，整頁得回墨行重核。整理費暫緩結清，往返又多耗了一趟盤纏。",
+                "{lead}回報，出貨日期與到貨日期寫反，掌櫃退回表單。今日未能交卷，原訂工錢便留待重抄後再付。"
+              ],
+              "callback_flag": "false_cards/7/copy",
+              "special": null
+            },
+            {
+              "id": "protect",
+              "label": "看守墨樣與交接",
+              "skill": "combat",
+              "count": 1,
+              "risk": "low",
+              "cost": 0,
+              "visible_hint": "照看物件封存與來往秩序。",
+              "affected_resources": [
+                "treasury",
+                "defense",
+                "reputation"
+              ],
+              "focus": "defense",
+              "success": {
+                "treasury": [
+                  2,
+                  5
+                ],
+                "defense": [
+                  3,
+                  5
+                ],
+                "reputation": [
+                  0,
+                  1
+                ]
+              },
+              "failure": {
+                "treasury": [
+                  -2,
+                  0
+                ],
+                "defense": [
+                  -2,
+                  0
+                ],
+                "reputation": [
+                  -2,
+                  0
+                ]
+              },
+              "difficulty": 3.2,
+              "background_modifiers": {},
+              "ability_modifier": 1,
+              "flags": [],
+              "intel": [],
+              "delayed": null,
+              "extra_hints": [],
+              "success_narratives": [
+                "{lead}完成安排後，封袋交接依次簽收，墨行願付門內護送費。守門班次也照常接上，核查用的墨樣完整送達。",
+                "{lead}完成安排後，物件編號一路對到庫房，沒有在途中混放。護送所得入庫，剩下的守班時間補整了門栓。"
+              ],
+              "failure_narratives": [
+                "{lead}回報，護送與到貨時段錯開，只能在墨行等下一班。費用被扣去等候部分，山門也多留了替班的人。",
+                "{lead}回報，交接清單少了收件者簽名，物件先留原處重辦。護送班次白走一程，庫房等到天黑。"
+              ],
+              "callback_flag": "false_cards/7/protect",
+              "special": null
+            },
+            {
+              "id": "visit",
+              "label": "請墨行安排核查時段",
+              "skill": "diplomacy",
+              "count": 1,
+              "risk": "low",
+              "cost": 0,
+              "visible_hint": "替門內與墨行約定查驗時段。",
+              "affected_resources": [
+                "treasury",
+                "defense",
+                "reputation"
+              ],
+              "focus": "reputation",
+              "success": {
+                "treasury": [
+                  4,
+                  7
+                ],
+                "defense": [
+                  0,
+                  2
+                ],
+                "reputation": [
+                  1,
+                  3
+                ]
+              },
+              "failure": {
+                "treasury": [
+                  -2,
+                  0
+                ],
+                "defense": [
+                  -2,
+                  0
+                ],
+                "reputation": [
+                  -2,
+                  0
+                ]
+              },
+              "difficulty": 3.2,
+              "background_modifiers": {},
+              "ability_modifier": 1,
+              "flags": [],
+              "intel": [],
+              "delayed": null,
+              "extra_hints": [],
+              "success_narratives": [
+                "{lead}完成安排後，掌櫃留出查驗時段，也另請門內協助搬貨。工錢補回出勤口糧，查墨與日常交接不再互相擋路。",
+                "{lead}完成安排後，查簿與取樣各有時段，墨行不用臨時停店。對方結清當日協作費，答應按清單準備材料。"
+              ],
+              "failure_narratives": [
+                "{lead}回報，掌櫃以為只來抄簿，店裡沒有留出取樣空間。安排重談，門內多付了等候的人手費。",
+                "{lead}回報，時段定在墨行收貨最忙的時候，掌櫃無法分身。今日少接了一筆搬運工作，還得另約查驗。"
+              ],
+              "callback_flag": "false_cards/7/visit",
+              "special": null
+            }
+          ],
+          "npc_identity": "山下里正・何蘭生、庫房管事・郭問舟",
+          "character_hooks": [],
+          "investigation_options": [
+            "ink_shop",
+            "inspect_ink",
+            "trace_cart"
+          ],
+          "concrete_detail": "墨行出貨簿與封袋"
+        },
+        "8": {
+          "event_id": "suspicion",
+          "title": "門內疑雲",
+          "npc_refs": [
+            "keeper"
+          ],
+          "current_question": "哪些已取得的資料能互相驗證？",
+          "focus_ids": [
+            "inspect_seal",
+            "inspect_ink",
+            "confront_witness"
+          ],
+          "character_views": {
+            "combat": [
+              {
+                "thought": "限制行動不等於查明外洩。",
+                "dialogue": "房匙留下來容易，原本的守位由誰接，得先說清。"
+              },
+              {
+                "thought": "限制行動不等於查明外洩。",
+                "dialogue": "我能守住門口，不能因此說屋裡的人已經有罪。"
+              }
+            ],
+            "strategy": [
+              {
+                "thought": "原件與抄件要分開。",
+                "dialogue": "先拿出真的見過的資料，不能讓三段傳聞湊成一份證據。"
+              },
+              {
+                "thought": "原件與抄件要分開。",
+                "dialogue": "誰寫的、誰轉交的、什麼時候到的，三件事分開查。"
+              }
+            ],
+            "medicine": [
+              {
+                "thought": "疲倦與避談有多種原因。",
+                "dialogue": "他看起來疲憊是真的，至於為何不開口，不能靠臉色定案。"
+              },
+              {
+                "thought": "疲倦與避談有多種原因。",
+                "dialogue": "有傷的人也會藏事，先問清楚別把所有異常都叫通敵。"
+              }
+            ],
+            "diplomacy": [
+              {
+                "thought": "每份說法要保留來源。",
+                "dialogue": "讓每個人說自己見過的部分，別急著替另一個人回答。"
+              },
+              {
+                "thought": "每份說法要保留來源。",
+                "dialogue": "同一個地址可以寄很多種信，內容沒核實前，我不會跟著指認。"
+              }
+            ]
+          },
+          "npc_identity": "庫房管事・郭問舟",
+          "character_hooks": [],
+          "investigation_options": [
+            "inspect_seal",
+            "inspect_ink",
+            "confront_witness"
+          ],
+          "concrete_detail": "議事廳的換防抄件"
+        },
+        "9": {
+          "event_id": "donation",
+          "title": "烈川堂施壓",
+          "npc_refs": [
+            "enemy",
+            "elder"
+          ],
+          "current_question": "如何回應舊約，而不把未核實的內容說成定案？",
+          "focus_ids": [
+            "inspect_seal",
+            "confront_witness",
+            "ink_shop"
+          ],
+          "character_views": {
+            "combat": [
+              {
+                "thought": "談判期間不能讓守門人手空掉。",
+                "dialogue": "他們催我們簽字，山門仍要有人守。我先把交班安排好。"
+              },
+              {
+                "thought": "談判期間不能讓守門人手空掉。",
+                "dialogue": "拒絕認約也要把送客路線留著，別讓一場爭論變成門口衝突。"
+              }
+            ],
+            "strategy": [
+              {
+                "thought": "答覆只能引用已核實的資料。",
+                "dialogue": "手上證明到哪裡就說到哪裡，空缺別用語氣補上。"
+              },
+              {
+                "thought": "答覆只能引用已核實的資料。",
+                "dialogue": "把原約與後來的主張分開，今天不承認未明部分，也要寫清理由。"
+              }
+            ],
+            "medicine": [
+              {
+                "thought": "連日奔走的人需要保留體力。",
+                "dialogue": "上台問答可能拖很久，今天先別把帶傷的人排滿。契約責任還請懂文書的人核。"
+              },
+              {
+                "thought": "連日奔走的人需要保留體力。",
+                "dialogue": "我照看出勤的人，誰在逼誰簽字，不能只憑疲態判斷。"
+              }
+            ],
+            "diplomacy": [
+              {
+                "thought": "承認收過文件不等於承認全部條款。",
+                "dialogue": "我會把今天答應的範圍逐字留下，免得對方明天說成我們全認了。"
+              },
+              {
+                "thought": "承認收過文件不等於承認全部條款。",
+                "dialogue": "請他也留下要求的原話，不能只有我們的答覆被記錄。"
+              }
+            ]
+          },
+          "scene_opening": "葉秉衡要求青崖門先承認舊約，聲稱改日再談名帖真偽。裴知節把答覆紙留在兩方中間，請你說明今天能證明到哪裡。拿出已查的部分、爭取時間與拒絕承認，都會被在場者記下。",
+          "options": [
+            {
+              "id": "present",
+              "label": "提出已核實的部分",
+              "skill": "strategy",
+              "count": 1,
+              "risk": "low",
+              "cost": 0,
+              "visible_hint": "只向在場者提出手上已有的記錄。",
+              "affected_resources": [
+                "treasury",
+                "defense",
+                "reputation"
+              ],
+              "focus": "treasury",
+              "success": {
+                "treasury": [
+                  3,
+                  6
+                ],
+                "defense": [
+                  1,
+                  3
+                ],
+                "reputation": [
+                  0,
+                  2
+                ]
+              },
+              "failure": {
+                "treasury": [
+                  -2,
+                  0
+                ],
+                "defense": [
+                  -2,
+                  0
+                ],
+                "reputation": [
+                  -2,
+                  0
+                ]
+              },
+              "difficulty": 3.2,
+              "background_modifiers": {},
+              "ability_modifier": 1,
+              "flags": [],
+              "intel": [],
+              "delayed": null,
+              "extra_hints": [],
+              "success_narratives": [
+                "{lead}完成安排後，答覆把已查項目與未明部分分開，裴知節願為這個範圍作見證。場地交接照常，先墊的會面費也退回門內。",
+                "{lead}完成安排後，葉秉衡收下有來源標記的答覆，不能將未承認的部分一併算入。散場按次序完成，守班沒有被拖住。"
+              ],
+              "failure_narratives": [
+                "{lead}回報，答覆的來源欄交代不清，在場人要求另補一份。會面拖長，糧餉與守門人手都多耗了一班。",
+                "{lead}回報，已知與待查的段落混在一起，裴知節不肯替整份答覆署名。文件退回重寫，接待支出也跟著增加。"
+              ],
+              "callback_flag": "false_cards/9/present",
+              "special": null
+            },
+            {
+              "id": "delay",
+              "label": "爭取核對舊約的時間",
+              "skill": "diplomacy",
+              "count": 1,
+              "risk": "low",
+              "cost": 0,
+              "visible_hint": "談妥雙方再次答覆的期限。",
+              "affected_resources": [
+                "treasury",
+                "defense",
+                "reputation"
+              ],
+              "focus": "treasury",
+              "success": {
+                "treasury": [
+                  4,
+                  7
+                ],
+                "defense": [
+                  0,
+                  2
+                ],
+                "reputation": [
+                  1,
+                  3
+                ]
+              },
+              "failure": {
+                "treasury": [
+                  -2,
+                  0
+                ],
+                "defense": [
+                  -2,
+                  0
+                ],
+                "reputation": [
+                  -2,
+                  0
+                ]
+              },
+              "difficulty": 3.2,
+              "background_modifiers": {},
+              "ability_modifier": 1,
+              "flags": [],
+              "intel": [],
+              "delayed": null,
+              "extra_hints": [],
+              "success_narratives": [
+                "{lead}完成安排後，雙方把再次答覆日期寫定，等候期間照常交接貨物。門內收回本次場地費，也保住整班守備時間。",
+                "{lead}完成安排後，裴知節留下到期前再談的約定，葉秉衡沒有拿到認約字據。來客按時離開，當日門務得以結算。"
+              ],
+              "failure_narratives": [
+                "{lead}回報，延期條件沒有談攏，來客在門口繼續等候。招待費增加，守班也只能抽人照看場面。",
+                "{lead}回報，雙方各自理解了不同期限，裴知節要求重談。會面延到交班以後，原定貨物交接只辦了一半。"
+              ],
+              "callback_flag": "false_cards/9/delay",
+              "special": null
+            },
+            {
+              "id": "refuse",
+              "label": "拒絕直接承認舊約",
+              "skill": "combat",
+              "count": 1,
+              "risk": "low",
+              "cost": 0,
+              "visible_hint": "拒絕在來源未清前承認整份舊約。",
+              "affected_resources": [
+                "treasury",
+                "defense",
+                "reputation"
+              ],
+              "focus": "reputation",
+              "success": {
+                "treasury": [
+                  2,
+                  5
+                ],
+                "defense": [
+                  3,
+                  5
+                ],
+                "reputation": [
+                  0,
+                  1
+                ]
+              },
+              "failure": {
+                "treasury": [
+                  -2,
+                  0
+                ],
+                "defense": [
+                  -2,
+                  0
+                ],
+                "reputation": [
+                  -2,
+                  0
+                ]
+              },
+              "difficulty": 3.2,
+              "background_modifiers": {},
+              "ability_modifier": 1,
+              "flags": [],
+              "intel": [],
+              "delayed": null,
+              "extra_hints": [],
+              "success_narratives": [
+                "{lead}完成安排後，拒絕的理由寫進答覆，送客次序也安排清楚。對方拿不到認約字據，門內照常收回接待墊款。",
+                "{lead}完成安排後，守門與說理的人各守分工，拒簽沒有引起推擠。散場後場地費結清，山門防備也未被抽空。"
+              ],
+              "failure_narratives": [
+                "{lead}回報，拒絕的話沒有寫明範圍，來客把它說成拒絕一切核對。澄清拖住人手，江湖議論也對門內不利。",
+                "{lead}回報，送客與守班彼此等候，門口擠成一團。拒簽雖已說出，門內卻多付了一班接待的口糧。"
+              ],
+              "callback_flag": "false_cards/9/refuse",
+              "special": null
+            }
+          ],
+          "npc_identity": "地方長老・裴知節、烈川堂使者・葉秉衡",
+          "character_hooks": [],
+          "investigation_options": [
+            "inspect_seal",
+            "confront_witness",
+            "ink_shop"
+          ],
+          "concrete_detail": "尚未簽認的舊約"
+        },
+        "10": {
+          "event_id": "requisition",
+          "title": "最後補證",
+          "npc_refs": [
+            "keeper",
+            "elder"
+          ],
+          "current_question": "最後還缺文件、物證，還是證人的核對？",
+          "focus_ids": [
+            "hear_claim"
+          ],
+          "character_views": {
+            "combat": [
+              {
+                "thought": "補查要留出安全的往返班次。",
+                "dialogue": "缺哪份先列好，我來安排護送，別讓所有人同時離開山門。"
+              },
+              {
+                "thought": "補查要留出安全的往返班次。",
+                "dialogue": "第二證人若肯來，我去接他；核對什麼要先由你定下。"
+              }
+            ],
+            "strategy": [
+              {
+                "thought": "副本要能交代與原件的關係。",
+                "dialogue": "另存留底可以補查，但得記清誰保管、何時封存，不能把新抄的紙當原件。"
+              },
+              {
+                "thought": "副本要能交代與原件的關係。",
+                "dialogue": "已經核實的不用重查，先把仍缺的文件、物證和見證各列一欄。"
+              }
+            ],
+            "medicine": [
+              {
+                "thought": "保存完好的墨樣仍可補做比對。",
+                "dialogue": "先問墨樣怎麼封存，保存得住才有比對的意義。"
+              },
+              {
+                "thought": "保存完好的墨樣仍可補做比對。",
+                "dialogue": "舊樣本不能混著取，我會按來源一份份核，結果不清楚就照實寫。"
+              }
+            ],
+            "diplomacy": [
+              {
+                "thought": "第二證人必須有獨立經歷。",
+                "dialogue": "找第二人不是請他照念第一人的話，要問他自己看過的部分。"
+              },
+              {
+                "thought": "第二證人必須有獨立經歷。",
+                "dialogue": "我先約好見證時段，再說明要核對的原件，讓他知道不是來替誰站台。"
+              }
+            ]
+          },
+          "scene_opening": "郭問舟與裴知節將尚可補查的管道列出：前掌門另存的用印留底、墨行保存的封存墨樣，以及第二名渡口證人。缺哪一項就明訂要查哪一項；也可花一整班工，請兩人協助逐件補齊。",
+          "options": [
+            {
+              "id": "arrange",
+              "label": "安排補查的班次",
+              "skill": "diplomacy",
+              "count": 1,
+              "risk": "low",
+              "cost": 0,
+              "visible_hint": "聯絡仍可到場的見證人並留好時段。",
+              "affected_resources": [
+                "treasury",
+                "defense",
+                "reputation"
+              ],
+              "focus": "treasury",
+              "success": {
+                "treasury": [
+                  4,
+                  7
+                ],
+                "defense": [
+                  0,
+                  2
+                ],
+                "reputation": [
+                  1,
+                  3
+                ]
+              },
+              "failure": {
+                "treasury": [
+                  -2,
+                  0
+                ],
+                "defense": [
+                  -2,
+                  0
+                ],
+                "reputation": [
+                  -2,
+                  0
+                ]
+              },
+              "difficulty": 3.2,
+              "background_modifiers": {},
+              "ability_modifier": 1,
+              "flags": [],
+              "intel": [],
+              "delayed": null,
+              "extra_hints": [],
+              "success_narratives": [
+                "{lead}完成安排後，補查的往返時段各留一班，其他人照常完成搬運。工錢入庫，見證人也知道應向誰交接。",
+                "{lead}完成安排後，郭問舟與裴知節分頭接洽，沒有重複派車。省出的車馬費留給明日，材料按選定項目另行核查。"
+              ],
+              "failure_narratives": [
+                "{lead}回報，兩路接送排到同一時段，門內臨時加付車馬費。補查管道仍在，餘下的門務要另找人接手。",
+                "{lead}回報，安排漏了回程班次，人手在渡口多等半日。門內先補接送費，已約好的查驗照原清單進行。"
+              ],
+              "callback_flag": "false_cards/10/arrange",
+              "special": null
+            },
+            {
+              "id": "protect",
+              "label": "保護補證原件的交接",
+              "skill": "combat",
+              "count": 1,
+              "risk": "low",
+              "cost": 0,
+              "visible_hint": "照看查證文件的送交路線。",
+              "affected_resources": [
+                "treasury",
+                "defense",
+                "reputation"
+              ],
+              "focus": "defense",
+              "success": {
+                "treasury": [
+                  2,
+                  5
+                ],
+                "defense": [
+                  3,
+                  5
+                ],
+                "reputation": [
+                  0,
+                  1
+                ]
+              },
+              "failure": {
+                "treasury": [
+                  -2,
+                  0
+                ],
+                "defense": [
+                  -2,
+                  0
+                ],
+                "reputation": [
+                  -2,
+                  0
+                ]
+              },
+              "difficulty": 3.2,
+              "background_modifiers": {},
+              "ability_modifier": 1,
+              "flags": [],
+              "intel": [],
+              "delayed": null,
+              "extra_hints": [],
+              "success_narratives": [
+                "{lead}完成安排後，原件交接逐袋簽收，護送班也接回山門輪值。裴知節結清墊款，門內有餘糧照看明日出勤。",
+                "{lead}完成安排後，往返路線事先交代，材料不用在門口久候。省下的護送支出入庫，守門的人按時換班。"
+              ],
+              "failure_narratives": [
+                "{lead}回報，送件人與護送班走了不同路線，只好在渡口重會合。盤纏多花一程，守班也被拖長。",
+                "{lead}回報，收件時間寫錯，護送的人空等了一班。物件仍由原保管者照看，門內先承擔往返費。"
+              ],
+              "callback_flag": "false_cards/10/protect",
+              "special": null
+            },
+            {
+              "id": "catalog",
+              "label": "清點已取得與仍缺的材料",
+              "skill": "strategy",
+              "count": 1,
+              "risk": "low",
+              "cost": 0,
+              "visible_hint": "將所有已查與未查的部分分列。",
+              "affected_resources": [
+                "treasury",
+                "defense",
+                "reputation"
+              ],
+              "focus": "treasury",
+              "success": {
+                "treasury": [
+                  3,
+                  6
+                ],
+                "defense": [
+                  1,
+                  3
+                ],
+                "reputation": [
+                  0,
+                  2
+                ]
+              },
+              "failure": {
+                "treasury": [
+                  -2,
+                  0
+                ],
+                "defense": [
+                  -2,
+                  0
+                ],
+                "reputation": [
+                  -2,
+                  0
+                ]
+              },
+              "difficulty": 3.2,
+              "background_modifiers": {},
+              "ability_modifier": 1,
+              "flags": [],
+              "intel": [],
+              "delayed": null,
+              "extra_hints": [],
+              "success_narratives": [
+                "{lead}完成安排後，已核實與仍缺的材料分欄後，不必再派兩人查同一處。省下的車馬費入庫，剩餘班次接回門務。",
+                "{lead}完成安排後，郭問舟把補查清單逐項簽收，重複報出的費用被劃掉。哪些材料帶回、哪些未成，另由查證結果記錄。"
+              ],
+              "failure_narratives": [
+                "{lead}回報，清單漏記一份封存件，兩人重跑了同一趟。費用已支出，門內只得再補一次交接。",
+                "{lead}回報，未查與未抄的材料混在一欄，保管人要求重列。核點拖過交班，其他門務的結算也延後。"
+              ],
+              "callback_flag": "false_cards/10/catalog",
+              "special": null
+            }
+          ],
+          "npc_identity": "地方長老・裴知節、庫房管事・郭問舟",
+          "character_hooks": [],
+          "investigation_options": [
+            "hear_claim"
+          ],
+          "concrete_detail": "逐項填寫的補查清單"
+        },
+        "11": {
+          "event_id": "retreat",
+          "title": "封存原件，準備上台",
+          "npc_refs": [
+            "keeper",
+            "elder"
+          ],
+          "current_question": "哪些已取得的材料能組成完整證據鏈？",
+          "focus_ids": [
+            "hear_claim"
+          ],
+          "character_views": {
+            "combat": [
+              {
+                "thought": "說理與守山要各有人負責。",
+                "dialogue": "你們上台說明時，我看著守門的換班；證據齊了也不能撤掉防備。"
+              },
+              {
+                "thought": "說理與守山要各有人負責。",
+                "dialogue": "原件要帶走，門裡也得留好封存清單，我來照看交接。"
+              }
+            ],
+            "strategy": [
+              {
+                "thought": "三份材料要能接成同一件事。",
+                "dialogue": "先指出文件記了什麼，再用物證與見證核對；三份毫不相干的紙不能湊成答案。"
+              },
+              {
+                "thought": "三份材料要能接成同一件事。",
+                "dialogue": "最後再看一次來源，能接起來才上台，不能只按份數說已經齊了。"
+              }
+            ],
+            "medicine": [
+              {
+                "thought": "樣本的證明範圍要說得準確。",
+                "dialogue": "墨樣能證明相同與差異，認人的部分還得交給見證人。"
+              },
+              {
+                "thought": "樣本的證明範圍要說得準確。",
+                "dialogue": "明日若有人追問比對方法，我把取樣和封存順序說清楚，不替動機作答。"
+              }
+            ],
+            "diplomacy": [
+              {
+                "thought": "每位見證人只承擔自己的證詞。",
+                "dialogue": "我再和出席的人核一次發言範圍，誰看過哪段就由誰說。"
+              },
+              {
+                "thought": "每位見證人只承擔自己的證詞。",
+                "dialogue": "缺的環節要明說，承認還不知道，比讓證人替我們補一段更能站住腳。"
+              }
+            ]
+          },
+          "scene_opening": "要帶上斷劍臺的紙已攤在桌上，郭問舟請你逐份檢查來源。少一張不能靠多說一句補上；還有可聯絡的見證人，但請他來就得另花人手與糧餉。今晚眾人會先商量明日，再由你排列證據鏈。",
+          "options": [
+            {
+              "id": "prepare",
+              "label": "安排上台與守門分工",
+              "skill": "strategy",
+              "count": 1,
+              "risk": "low",
+              "cost": 0,
+              "visible_hint": "按現有人手安排明日工作。",
+              "affected_resources": [
+                "treasury",
+                "defense",
+                "reputation"
+              ],
+              "focus": "defense",
+              "success": {
+                "treasury": [
+                  3,
+                  6
+                ],
+                "defense": [
+                  1,
+                  3
+                ],
+                "reputation": [
+                  0,
+                  2
+                ]
+              },
+              "failure": {
+                "treasury": [
+                  -2,
+                  0
+                ],
+                "defense": [
+                  -2,
+                  0
+                ],
+                "reputation": [
+                  -2,
+                  0
+                ]
+              },
+              "difficulty": 3.2,
+              "background_modifiers": {},
+              "ability_modifier": 1,
+              "flags": [],
+              "intel": [],
+              "delayed": null,
+              "extra_hints": [],
+              "success_narratives": [
+                "{lead}完成安排後，上台、送件與守門各有接手人，臨時雇車費得以省下。郭問舟收好清單，明日不必再當場爭誰留下。",
+                "{lead}完成安排後，輪值表把上台時段空出，其他人仍能照看貨物交接。當日工錢結清，證據排列留待今晚最後確認。"
+              ],
+              "failure_narratives": [
+                "{lead}回報，上台與守門名單排到同一人，臨時換班多耗了口糧。郭問舟退回安排，請門內在夜前補清楚。",
+                "{lead}回報，送件人沒有排回程，守門缺班只好另請人接手。車馬費多花一筆，明日分工仍須再說一次。"
+              ],
+              "callback_flag": "false_cards/11/prepare",
+              "special": null
+            },
+            {
+              "id": "rest",
+              "label": "留下人手準備照護",
+              "skill": "medicine",
+              "count": 1,
+              "risk": "low",
+              "cost": 0,
+              "visible_hint": "備好回程照護與交班。",
+              "affected_resources": [
+                "treasury",
+                "defense",
+                "reputation"
+              ],
+              "focus": "defense",
+              "success": {
+                "treasury": [
+                  3,
+                  6
+                ],
+                "defense": [
+                  1,
+                  3
+                ],
+                "reputation": [
+                  0,
+                  2
+                ]
+              },
+              "failure": {
+                "treasury": [
+                  -2,
+                  0
+                ],
+                "defense": [
+                  -2,
+                  0
+                ],
+                "reputation": [
+                  -2,
+                  0
+                ]
+              },
+              "difficulty": 3.2,
+              "background_modifiers": {},
+              "ability_modifier": 1,
+              "flags": [],
+              "intel": [],
+              "delayed": null,
+              "extra_hints": [],
+              "success_narratives": [
+                "{lead}完成安排後，照護用品先按人數分好，未用的藥材退回庫房。省出的支出留作糧餉，守班也有能即時接應的人。",
+                "{lead}完成安排後，回程歇腳處與交班時段定下，門內不用重複備兩份車馬。餘下人手完成當日搬運，所得照常入庫。"
+              ],
+              "failure_narratives": [
+                "{lead}回報，照護與送件的車馬撞了時段，只能臨時另雇一輛。物資雖備好，門內已多耗了一筆出勤費。",
+                "{lead}回報，用品按錯人數分裝，庫房請人拆袋重點。整理拖到交班以後，其他門務只好另留人手。"
+              ],
+              "callback_flag": "false_cards/11/rest",
+              "special": null
+            },
+            {
+              "id": "meet",
+              "label": "向見證人說明上台次序",
+              "skill": "diplomacy",
+              "count": 1,
+              "risk": "low",
+              "cost": 0,
+              "visible_hint": "請願意出席的人各記住自己的發言範圍。",
+              "affected_resources": [
+                "treasury",
+                "defense",
+                "reputation"
+              ],
+              "focus": "treasury",
+              "success": {
+                "treasury": [
+                  4,
+                  7
+                ],
+                "defense": [
+                  0,
+                  2
+                ],
+                "reputation": [
+                  1,
+                  3
+                ]
+              },
+              "failure": {
+                "treasury": [
+                  -2,
+                  0
+                ],
+                "defense": [
+                  -2,
+                  0
+                ],
+                "reputation": [
+                  -2,
+                  0
+                ]
+              },
+              "difficulty": 3.2,
+              "background_modifiers": {},
+              "ability_modifier": 1,
+              "flags": [],
+              "intel": [],
+              "delayed": null,
+              "extra_hints": [],
+              "success_narratives": [
+                "{lead}完成安排後，出席的人各自確認發言範圍，沒有要求誰補說未見過的事。會面按時結束，借場墊款也退回門內。",
+                "{lead}完成安排後，裴知節記下每人的上台次序，車馬不必來回接送。省下的費用入庫，守班的人也及時回到山門。"
+              ],
+              "failure_narratives": [
+                "{lead}回報，通知少寫一個時段，兩位出席者都以為自己先說。安排重談，借場與接送多付了一班費用。",
+                "{lead}回報，出席者沒有拿到同一份次序表，會面只能重排。門內先補車馬費，晚間再確認明日分工。"
+              ],
+              "callback_flag": "false_cards/11/meet",
+              "special": null
+            }
+          ],
+          "npc_identity": "地方長老・裴知節、庫房管事・郭問舟",
+          "character_hooks": [],
+          "investigation_options": [
+            "hear_claim"
+          ],
+          "concrete_detail": "上台用的封存清單"
+        }
+      },
+      "cross_followup": {
+        "id": "follow_cross_lead",
+        "label": "沿交叉核對的方向，請見證人再核實",
+        "targets": [
+          "card_witness"
+        ],
+        "cost": 1,
+        "skill": "diplomacy",
+        "stable": true,
+        "hint": "沿第八月接上的來源約見證人，核對其親見經過；已有記錄便不重抄。"
       }
     },
     {
@@ -253,6 +3107,322 @@
           "決戰將近，有人想把整條通信說成通敵，也有人想一概稱作救人。郭問舟請雙方先指著已見過的內容說話，別替缺失的信下結論。",
           "驛站的紙被一張張放回封套。到斷劍臺時，你能說出的只能是取得並核實的部分；尚未送到的答覆，今晚仍沒有到。"
         ]
+      },
+      "hypotheses": [
+        {
+          "id": "address_betrayal",
+          "label": "寄向敵方地址就代表背叛"
+        },
+        {
+          "id": "old_channel",
+          "label": "通信可能延續前掌門的聯絡"
+        },
+        {
+          "id": "only_family",
+          "label": "所有往來都只是家書"
+        },
+        {
+          "id": "uncertain",
+          "label": "目前證據不足"
+        }
+      ],
+      "correct_hypothesis": "old_channel",
+      "evidence_graph": [
+        {
+          "id": "letter_receipt",
+          "title": "驛站收件單",
+          "type": "document",
+          "critical": true,
+          "kind": "evidence",
+          "thread_id": "old_letters",
+          "requires": [
+            "inspect_receipt"
+          ],
+          "supports": [
+            "old_channel"
+          ],
+          "contradicts": [
+            "address_betrayal"
+          ],
+          "text": "驛站收件單上的折痕與記號出自前掌門既有的聯絡規矩。"
+        },
+        {
+          "id": "letter_register",
+          "title": "原始留底的紙張與日期",
+          "type": "physical",
+          "critical": true,
+          "kind": "evidence",
+          "thread_id": "old_letters",
+          "requires": [
+            "date_register"
+          ],
+          "supports": [
+            "old_channel"
+          ],
+          "contradicts": [],
+          "text": "舊留底的紙張、裝訂與連續日期相符，記錄早於現任弟子入門前，並非新近插入。"
+        },
+        {
+          "id": "letter_reply",
+          "title": "收信見證人核對回信",
+          "type": "witness",
+          "critical": true,
+          "kind": "evidence",
+          "thread_id": "old_letters",
+          "requires": [
+            "verify_reply",
+            "follow_cross_lead"
+          ],
+          "supports": [
+            "old_channel"
+          ],
+          "contradicts": [
+            "only_family"
+          ],
+          "text": "收信見證人對照回信與舊留底，確認內容是前掌門要求的糧車消息，未含山門換防資料。"
+        },
+        {
+          "id": "old_letters_dates",
+          "title": "交接日期記錄",
+          "text": "交接簿留下各次到場時刻，能供其他原件核對。",
+          "type": "document",
+          "critical": false,
+          "kind": "evidence",
+          "thread_id": "old_letters",
+          "requires": [
+            "check_old_letters_dates"
+          ],
+          "supports": [
+            "old_channel"
+          ],
+          "contradicts": []
+        },
+        {
+          "id": "old_letters_copy",
+          "title": "中立見證留底",
+          "text": "中立見證人保存相同交接的副本，仍需與本案原件比對。",
+          "type": "witness",
+          "critical": false,
+          "kind": "evidence",
+          "thread_id": "old_letters",
+          "requires": [
+            "check_old_letters_copy"
+          ],
+          "supports": [
+            "old_channel"
+          ],
+          "contradicts": []
+        },
+        {
+          "id": "old_letters_internal",
+          "title": "可疑的內部來往",
+          "text": "有人把弟子的私下來往當成嫌疑，目前沒有相應案件證據。",
+          "type": "lead",
+          "critical": false,
+          "kind": "lead",
+          "thread_id": "old_letters",
+          "requires": [
+            "follow_old_letters_internal"
+          ],
+          "supports": [],
+          "contradicts": []
+        },
+        {
+          "id": "old_letters_rumor",
+          "title": "街頭轉述",
+          "text": "街頭有人給出另一種解釋，但還說不清誰親眼看過。",
+          "type": "lead",
+          "critical": false,
+          "kind": "lead",
+          "thread_id": "old_letters",
+          "requires": [
+            "follow_old_letters_rumor"
+          ],
+          "supports": [],
+          "contradicts": []
+        },
+        {
+          "id": "old_letters_claim",
+          "title": "來客的主張",
+          "text": "來客聲稱青崖門曾答應配合，尚未拿出可互相核對的完整記錄。",
+          "type": "claim",
+          "critical": false,
+          "kind": "claim",
+          "thread_id": "old_letters",
+          "requires": [],
+          "supports": [],
+          "contradicts": []
+        },
+        {
+          "id": "old_letters_external_claim",
+          "title": "弟子對外部聯絡的說明",
+          "text": "當事人表示外部聯絡有私人原因；這只是說明，不是已核實的案件事實。",
+          "type": "claim",
+          "critical": false,
+          "kind": "claim",
+          "thread_id": "old_letters",
+          "requires": [],
+          "supports": [],
+          "contradicts": []
+        }
+      ],
+      "investigations": [
+        {
+          "id": "inspect_receipt",
+          "label": "查驛站收件規矩",
+          "cost": 2,
+          "skill": "strategy",
+          "targets": [
+            "letter_receipt"
+          ],
+          "hint": "調查專長達到 4，或本次門務順利交接，即能完成核查；否則只留下待查方向。",
+          "stable": false
+        },
+        {
+          "id": "date_register",
+          "label": "核對通信起始年份",
+          "cost": 2,
+          "skill": "medicine",
+          "targets": [
+            "letter_register"
+          ],
+          "hint": "調查專長達到 4，或本次門務順利交接，即能完成核查；否則只留下待查方向。",
+          "stable": false
+        },
+        {
+          "id": "verify_reply",
+          "label": "查證回信內容與轉手過程",
+          "cost": 2,
+          "skill": "diplomacy",
+          "targets": [
+            "letter_reply"
+          ],
+          "hint": "調查專長達到 4，或本次門務順利交接，即能完成核查；否則只留下待查方向。",
+          "stable": false
+        },
+        {
+          "id": "check_old_letters_dates",
+          "label": "查交接日期記錄",
+          "cost": 1,
+          "skill": "strategy",
+          "targets": [
+            "old_letters_dates"
+          ],
+          "stable": true,
+          "hint": "核對既有公開簿冊，提供佐證，不直接代替核心證據。"
+        },
+        {
+          "id": "check_old_letters_copy",
+          "label": "查中立見證留底",
+          "cost": 1,
+          "skill": "strategy",
+          "targets": [
+            "old_letters_copy"
+          ],
+          "stable": true,
+          "hint": "核對既有公開簿冊，提供佐證，不直接代替核心證據。"
+        },
+        {
+          "id": "follow_old_letters_internal",
+          "label": "追問可疑的內部來往",
+          "cost": 1,
+          "skill": "diplomacy",
+          "targets": [
+            "old_letters_internal"
+          ],
+          "stable": true,
+          "hint": "先追問來源；傳言與私人聯絡都不能直接定罪。"
+        },
+        {
+          "id": "follow_old_letters_rumor",
+          "label": "追問街頭轉述",
+          "cost": 1,
+          "skill": "diplomacy",
+          "targets": [
+            "old_letters_rumor"
+          ],
+          "stable": true,
+          "hint": "先追問來源；傳言與私人聯絡都不能直接定罪。"
+        }
+      ],
+      "recovery_paths": [
+        {
+          "evidence_id": "letter_receipt",
+          "focus_id": "recover_letter_receipt",
+          "months": [
+            10,
+            11
+          ],
+          "label": "補證：驛站收件單"
+        },
+        {
+          "evidence_id": "letter_register",
+          "focus_id": "recover_letter_register",
+          "months": [
+            10,
+            11
+          ],
+          "label": "補證：原始留底的日期"
+        },
+        {
+          "evidence_id": "letter_reply",
+          "focus_id": "recover_letter_reply",
+          "months": [
+            10,
+            11
+          ],
+          "label": "補證：經核對的回信"
+        }
+      ],
+      "deduction_checkpoints": [
+        {
+          "month": 4,
+          "kind": "hypothesis",
+          "question": "目前哪個方向最值得繼續查？"
+        },
+        {
+          "month": 8,
+          "kind": "crosscheck",
+          "question": "哪兩份已取得的資料可以互相驗證？"
+        },
+        {
+          "month": 11,
+          "kind": "chain",
+          "question": "請以文件、現場物證、人證或佐證，組成最後證據鏈。"
+        }
+      ],
+      "cross_pairs": [
+        [
+          "letter_receipt",
+          "letter_register"
+        ],
+        [
+          "letter_receipt",
+          "letter_reply"
+        ]
+      ],
+      "cross_lead": {
+        "id": "old_letters_cross_lead",
+        "title": "交叉核對後的新方向",
+        "text": "兩份來源不同的資料接得上，接下來可以沿交付者追問原始委託。",
+        "kind": "lead",
+        "type": "lead",
+        "critical": false,
+        "thread_id": "old_letters",
+        "requires": [],
+        "supports": [],
+        "contradicts": []
+      },
+      "cross_followup": {
+        "id": "follow_cross_lead",
+        "label": "沿交叉核對的方向，請見證人再核實",
+        "targets": [
+          "letter_reply"
+        ],
+        "cost": 1,
+        "skill": "diplomacy",
+        "stable": true,
+        "hint": "沿第八月接上的來源約見證人，核對其親見經過；已有記錄便不重抄。"
       }
     }
   ],
@@ -268,7 +3438,8 @@
         "grain",
         "murder"
       ],
-      "memory": "你們那次如何安排村中人，我都記在那本水漬帳上。"
+      "memory": "你們那次如何安排村中人，我都記在那本水漬帳上。",
+      "identity": "山下里正"
     },
     {
       "id": "merchant",
@@ -281,7 +3452,8 @@
         "donation",
         "treasure"
       ],
-      "memory": "前次的約定還在這張夾票裡，這次先照它說清楚。"
+      "memory": "前次的約定還在這張夾票裡，這次先照它說清楚。",
+      "identity": "商隊掌櫃"
     },
     {
       "id": "elder",
@@ -294,7 +3466,8 @@
         "donation",
         "duel_private"
       ],
-      "memory": "上回你肯不肯聽完別人的話，今天在座的人還記得。"
+      "memory": "上回你肯不肯聽完別人的話，今天在座的人還記得。",
+      "identity": "地方長老"
     },
     {
       "id": "enemy",
@@ -306,7 +3479,8 @@
         "suspicion",
         "finale"
       ],
-      "memory": "你在山下作過的答覆，我已原話帶回烈川堂。"
+      "memory": "你在山下作過的答覆，我已原話帶回烈川堂。",
+      "identity": "烈川堂使者"
     },
     {
       "id": "keeper",
@@ -319,7 +3493,8 @@
         "old_debt",
         "suspicion"
       ],
-      "memory": "上次交到你手裡的原件，這次別只剩一段傳言。"
+      "memory": "上次交到你手裡的原件，這次別只剩一段傳言。",
+      "identity": "庫房管事"
     }
   ],
   "ending_scenes": {
