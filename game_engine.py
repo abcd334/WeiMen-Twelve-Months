@@ -4,7 +4,7 @@ from random import Random
 from copy import deepcopy
 
 from data_loader import load_data, load_story_data
-from models import Character, Cue, GameState, RESOURCES, RISK_NAMES, SKILLS
+from models import Character, Cue, GameState, RESOURCES, RISK_NAMES, SKILLS, GAME_VERSION
 import narrative
 import investigation
 
@@ -55,7 +55,7 @@ def new_game(seed):
     if not isinstance(seed, int) or not 0 <= seed <= 2**32 - 1:
         raise InvalidAction("種子須為 0 到 4294967295 的整數。")
     rng = Random(seed)
-    state = GameState(seed=seed, rng=rng, characters=generate_characters(rng))
+    state = GameState(seed=seed, rng=rng, characters=generate_characters(rng), version=GAME_VERSION)
     state.main_thread = rng.choice(load_story_data()["threads"])["id"]
     state.spotlight_counts = {c.id: 0 for c in state.characters}
     for char in state.characters:

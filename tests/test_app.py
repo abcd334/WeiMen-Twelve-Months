@@ -124,4 +124,29 @@ def test_previous_version_session_requires_explicit_new_game_without_inventing_e
     assert any('重新選擇調查' in e.value for e in at.info)
     assert not at.radio
     next(b for b in at.button if b.label == '開始新版遊戲').click().run()
-    assert not at.exception and at.button(key='start')
+    assert not at.exception
+    current = at.session_state['game']
+    assert current.version == '0.5' and current.month == 1 and current.phase == 'day'
+    assert current.seed == 4  # The hidden start-screen widget has been cleaned up.
+    assert not current.evidence and 'card_original' not in current.intel
+    assert at.radio(key='focus_1') and at.button(key='confirm_day')
+    assert not any(b.key in ('start', 'start_current_version') for b in at.button)
+    at.run()
+    assert not at.exception and at.session_state['game'] is current
+
+
+def test_upgrade_retains_previous_seed_when_home_widget_has_been_cleaned_up():
+    from game_engine import new_game
+    state = new_game(4)
+    state.version = '0.4'
+    at = AppTest.from_file(str(APP), default_timeout=10)
+    at.session_state['game'] = state
+    at.session_state['survey_saved'] = True
+    at.session_state['response_id'] = 'previous-response'
+    at.run()
+    at.button(key='start_current_version').click().run()
+    assert not at.exception
+    assert at.session_state['game'].seed == 4
+    assert at.session_state['game'].phase == 'day'
+    assert 'survey_saved' not in at.session_state
+    assert at.session_state['response_id'] != 'previous-response'

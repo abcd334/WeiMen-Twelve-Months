@@ -63,7 +63,7 @@ py -3 -m venv .venv
 
 ## 升級與重現
 
-GameState 版本改為 0.5，新增 evidence、leads、claims、hypotheses、deduction_history、investigation_history。舊版尚未結束的 session 顯示「開始新版遊戲」，由玩家開新局；不把舊 intel 自動認定為已查證資料。沒有跨連線存檔，同版本、同 seed、相同行動可重現，跨版本不保證同一結果。舊問卷仍保留其原版本號。
+GameState 版本改為 0.5，新增 evidence、leads、claims、hypotheses、deduction_history、investigation_history。舊版尚未結束的 session 顯示「開始新版遊戲」，點選後以原種子直接進入第一月；不把舊 intel 自動認定為已查證資料。介面載入時會檢查引擎版本，必要時刷新舊模組，避免新局又被判為舊版而來回跳頁。沒有跨連線存檔，同版本、同 seed、相同行動可重現，跨版本不保證同一結果。舊問卷仍保留其原版本號。
 
 JSON 在原檔擴充，沒有新增執行期依賴。保留 20 個基礎事件，假名帖使用主線中的月份覆寫；沒有另開一套遊戲。
 
@@ -76,7 +76,8 @@ JSON 在原檔擴充，沒有新增執行期依賴。保留 20 個基礎事件�
 & '.\.venv\Scripts\python.exe' review_playthroughs.py
 ~~~
 
-- [實作與驗證報告](reports/verification.md)：155 項測試、架構、升級方式與待驗證事項。
+- [開局跳頁修正](reports/start_game_fix.md)：目前 158 項測試通過，含舊模組刷新與直接開局回歸。
+- [v0.5 實作與驗證報告](reports/verification.md)：改版時的測試、架構、升級方式與待驗證事項。
 - [200 局敘事摘要](reports/narrative_coverage.json)／[每局記錄](reports/narrative_runs.json)。
 - [1,000 局平衡摘要](reports/balance_summary.md)／[完整統計](reports/balance_report.json)。
 - [永久後果公平性案例](reports/fairness_audit.json)。
@@ -87,6 +88,7 @@ JSON 在原檔擴充，沒有新增執行期依賴。保留 20 個基礎事件�
 | 檔案 | 責任 |
 |---|---|
 | app.py | 分開呈現事件、四人觀點、調查、派遣、證據板、推理、夜談與結局 |
+| game_runtime.py | 偵測並刷新過期的遊戲模組，保留版本相同的普通 rerun |
 | models.py | 私有狀態、可讀傷疲、公開欄位白名單、經歷去重 |
 | game_engine.py | 月份排程、門務、人物與關係、事實與回收、結局 |
 | investigation.py | 調查焦點、證據分類、補證、推理驗證及完整證據鏈 |

@@ -3,6 +3,8 @@ from dataclasses import dataclass, field
 from random import Random
 import re
 
+GAME_VERSION = "0.5"
+
 SKILLS = {"combat": "武力", "strategy": "智略", "medicine": "醫術", "diplomacy": "交涉"}
 RESOURCES = {"treasury": "糧餉", "defense": "山門防備", "reputation": "江湖聲望"}
 RISK_NAMES = {"low": "低", "medium": "中", "high": "高", "lethal": "致命風險"}
@@ -138,7 +140,7 @@ class GameState:
     night_character: str = ""
     night_scene: dict = field(default_factory=dict)
     used_night_scenes: list = field(default_factory=list)
-    version: str = "0.5"
+    version: str = GAME_VERSION
     evidence: dict = field(default_factory=dict)
     leads: list = field(default_factory=list)
     claims: list = field(default_factory=list)

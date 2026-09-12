@@ -4,6 +4,17 @@ from uuid import uuid4
 
 import streamlit as st
 
+from game_runtime import load_current_engine
+
+APP_VERSION = "0.5"
+st.set_page_config(page_title="危門十二月", page_icon="⛰️", layout="wide")
+# Refresh an earlier process before binding functions from the game modules.
+try:
+    load_current_engine(APP_VERSION)
+except RuntimeError as exc:
+    st.error(str(exc))
+    st.stop()
+
 from investigation import checkpoint_view, resolve_deduction
 
 from feedback import DEFAULT_PATH, save_feedback, survey_options
@@ -11,13 +22,19 @@ from game_engine import (InvalidAction, begin_month, current_event, emergency_re
                          ending_view, legal_actions, new_game, night_view, public_option,
                          public_state, resolve_day, resolve_night, start_night)
 
-st.set_page_config(page_title="危門十二月", page_icon="⛰️", layout="wide")
-
-
 def restart():
     for key in list(st.session_state):
         if key != "seed_input":
             del st.session_state[key]
+
+
+def start_new_game():
+    previous = st.session_state.get("game")
+    seed = int(st.session_state.get("seed_input", getattr(previous, "seed", 42)))
+    state = new_game(seed)
+    restart()
+    st.session_state.game = state
+    st.session_state.response_id = str(uuid4())
 
 
 def random_seed():
@@ -296,15 +313,12 @@ def main():
         st.info("白天先聽四名弟子的判斷，再選要查什麼與派誰出勤；夜間回應人物需求。證據板分開記錄事實、疑點與說法，第四、八、十一月由你提出推理。")
         st.number_input("遊戲種子", min_value=0, max_value=2**32 - 1, value=42, step=1, key="seed_input")
         st.button("隨機種子", on_click=random_seed)
-        if st.button("開始新遊戲", type="primary", key="start"):
-            st.session_state.game = new_game(int(st.session_state.seed_input))
-            st.session_state.response_id = str(uuid4())
-            st.rerun()
+        st.button("開始新遊戲", type="primary", key="start", on_click=start_new_game)
         return
     state = st.session_state.game
-    if getattr(state, "version", "") != "0.5":
+    if getattr(state, "version", "") != APP_VERSION:
         st.info("這局在更新前開始。新版需要重新選擇調查與排列證據，請開始新局；舊情報不會自動變成已查證資料。")
-        st.button("開始新版遊戲", on_click=restart)
+        st.button("開始新版遊戲", type="primary", key="start_current_version", on_click=start_new_game)
         return
     view = public_state(state)
     draw_sidebar(view)
