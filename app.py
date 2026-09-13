@@ -1,14 +1,20 @@
 """v0.7 Streamlit UI: people, assignments and remembered history."""
 import secrets
+import importlib
 from uuid import uuid4
 
 import streamlit as st
-from game_runtime import load_current_engine
+import game_runtime
 
 APP_VERSION = "0.7"
 st.set_page_config(page_title="危門 · 山門歲月", page_icon="⛰️", layout="wide")
 try:
-    engine = load_current_engine(APP_VERSION)
+    # Cloud can rerun this entrypoint while the v0.6 launcher stays imported.
+    # Refresh the launcher before asking it to select an engine it never knew.
+    if not callable(getattr(game_runtime, "load_sect_engine", None)):
+        importlib.invalidate_caches()
+        importlib.reload(game_runtime)
+    engine = game_runtime.load_current_engine(APP_VERSION)
 except (ImportError, RuntimeError) as exc:
     st.error(str(exc))
     st.stop()
