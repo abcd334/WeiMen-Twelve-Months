@@ -4,12 +4,16 @@ from collections import Counter, defaultdict
 import json
 from pathlib import Path
 from random import Random
-from investigation import public_investigations, checkpoint_view, resolve_deduction
+from investigation import public_investigations, checkpoint_view, resolve_deduction, chain_complete
 
 from game_engine import (ENDINGS, begin_month, emergency_rest, legal_actions, new_game,
                          night_view, resolve_day, resolve_night, start_night)
+from game_engine import resolve_case_action
+from models import GAME_VERSION, SKILLS, RISK_NAMES
+import case_engine
 
 POLICIES = ("random_policy", "highest_skill_policy", "conservative_policy", "resource_guard_policy")
+ALL_ENDINGS = tuple(dict.fromkeys((*ENDINGS, *case_engine.CASE_ENDINGS)))
 RISK_ORDER = {"low": 0, "medium": 1, "high": 2, "lethal": 3}
 
 
@@ -19,6 +23,8 @@ def visible_fatigue(state, char):
 
 
 def choose_day(state, policy, policy_rng):
+    if case_engine.is_case(state):
+        return choose_case_day(state, policy, policy_rng)
     actions = legal_actions(state)
     if not actions:
         return None
@@ -45,6 +51,31 @@ def choose_day(state, policy, policy_rng):
     return policy_rng.choice([a for a in actions if rank(a) == best])
 
 
+def choose_case_day(state, policy, policy_rng):
+    visible = {a['id']: a for a in case_engine.public_actions(state)}
+    actions = [(visible[a.id], team) for a, team in case_engine.legal_case_actions(state)]
+    if not actions:
+        return None
+    if policy == 'random_policy':
+        aid = policy_rng.choice(list(dict.fromkeys(a['id'] for a, _ in actions)))
+        return policy_rng.choice([item for item in actions if item[0]['id'] == aid])
+    def rank(item):
+        a, ids = item
+        skill_id = next(k for k, label in SKILLS.items() if label == a['skill'])
+        skill = max(state.character(cid).skills[skill_id] for cid in ids)
+        fatigue = sum(visible_fatigue(state, state.character(cid)) for cid in ids)
+        risk = next(k for k, label in RISK_NAMES.items() if label == a['risk'])
+        if policy == 'conservative_policy':
+            return (-RISK_ORDER[risk], -a['cost'], -fatigue, skill)
+        if policy == 'resource_guard_policy':
+            return (a['cost'] == 0 if state.resources['treasury'] < 20 else not a['already_known'],
+                    -a['cost'], skill, -fatigue)
+        core_material = any(word in title for title in a['possible_materials'] for word in ('用印留底', '墨樣比對', '核對證詞'))
+        return (a['recovery'], not a['already_known'], core_material, skill, -fatigue, -a['cost'])
+    best = max(rank(a) for a in actions)
+    return policy_rng.choice([a for a in actions if rank(a) == best])
+
+
 def choose_night(state, policy, policy_rng):
     scene = night_view(state)
     available = [c for c in scene["choices"] if c["cost"] <= state.resources["treasury"]]
@@ -64,6 +95,8 @@ def choose_night(state, policy, policy_rng):
 
 
 def choose_focus(state, policy, policy_rng, action):
+    if case_engine.is_case(state):
+        return None
     budget = state.resources["treasury"] - action[0]["cost"]
     options = [o for o in public_investigations(state) if o["cost"] < budget]
     if policy == "random_policy":
@@ -87,6 +120,8 @@ def choose_deduction(state, policy, policy_rng):
         elif known and policy != "conservative_policy":
             texts = "".join(e["text"] for e in known)
             label = "名帖遭人偽造" if "印" in texts and "不符" in texts else "通信可能延續前掌門的聯絡" if "通信" in texts or "收件" in texts else "有人利用封路掩護運貨" if "換防圖" in texts or "測量" in texts else "目前證據不足"
+            if case_engine.is_case(state) and label == '名帖遭人偽造':
+                label = '有人冒用青崖門名義'
             hypothesis = next((h["id"] for h in view["hypotheses"] if h["label"] == label), "uncertain")
         return {"hypothesis":hypothesis}
     count = 2 if state.month == 8 else 3
@@ -130,7 +165,10 @@ def play_game(seed, policy):
         if state.phase == "day":
             action = choose_day(state, policy, policy_rng)
             if action:
-                resolve_day(state, action[0]["id"], action[1], focus_id=choose_focus(state,policy,policy_rng,action))
+                if case_engine.is_case(state):
+                    resolve_case_action(state, action[0]['id'], action[1])
+                else:
+                    resolve_day(state, action[0]["id"], action[1], focus_id=choose_focus(state,policy,policy_rng,action))
             else:
                 emergency_rest(state)
         elif state.phase == "day_result":
@@ -139,6 +177,8 @@ def play_game(seed, policy):
             resolve_night(state, choose_night(state, policy, policy_rng))
         elif state.phase == "deduction":
             resolve_deduction(state, **choose_deduction(state,policy,policy_rng))
+        elif state.phase == 'deduction_result' and case_engine.is_case(state):
+            start_night(state)
         elif state.phase in ("night_result", "deduction_result"):
             begin_month(state)
     audit_outcomes(state)
@@ -146,15 +186,17 @@ def play_game(seed, policy):
 
 
 def simulate(games_per_policy=250, seed_start=0):
-    report = {"version": "0.5", "games_per_policy": games_per_policy, "seed_start": seed_start,
+    report = {"version": GAME_VERSION, "games_per_policy": games_per_policy, "seed_start": seed_start,
               "total_games": games_per_policy * len(POLICIES), "policies": {}, "fairness_examples": []}
     for policy in POLICIES:
-        counts, totals, outcomes = Counter(), Counter(), Counter()
+        counts, totals, outcomes, axes = Counter(), Counter(), Counter(), Counter()
         options = defaultdict(lambda: {"selected": 0, "success": 0})
         examples = []
         for seed in range(seed_start, seed_start + games_per_policy):
             state = play_game(seed, policy)
             counts[state.ending] += 1
+            if case_engine.is_case(state):
+                axes['/'.join(case_engine.ending_axes(state, chain_complete(state)))] += 1
             totals.update(state.resources)
             totals["remaining"] += len(state.active())
             outcomes.update(state.counters)
@@ -167,20 +209,21 @@ def simulate(games_per_policy=250, seed_start=0):
                     row["policy"] = policy
                     examples.append(row)
         report["policies"][policy] = {
-            "endings": {e: {"count": counts[e], "percent": round(100 * counts[e] / games_per_policy, 2)} for e in ENDINGS},
+            "endings": {e: {"count": counts[e], "percent": round(100 * counts[e] / games_per_policy, 2)} for e in ALL_ENDINGS},
+            "case_axes": dict(axes),
             "averages": {k: round(totals[k] / games_per_policy, 2) for k in ("remaining", "treasury", "defense", "reputation")},
             "outcomes": dict(outcomes), "options": dict(sorted(options.items()))}
         report["fairness_examples"].extend(examples)
-    report["ending_leaders"] = {e: sorted(POLICIES, key=lambda p: report["policies"][p]["endings"][e]["count"], reverse=True) for e in ENDINGS}
+    report["ending_leaders"] = {e: sorted(POLICIES, key=lambda p: report["policies"][p]["endings"][e]["count"], reverse=True) for e in ALL_ENDINGS}
     return report
 
 
 def summary_markdown(report):
     lines = ["# 平衡模擬結果", "", f"每策略 {report['games_per_policy']} 局；共 {report['total_games']} 局。種子從 {report['seed_start']} 起連續取樣。", "",
-             "| 策略 | 揭破陰謀 | 聯盟退敵 | 正面取勝 | 慘勝守山 | 門派覆滅 | 平均留門人數 | 糧餉 | 防備 | 聲望 |",
-             "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|"]
+             "| 策略 | " + " | ".join(ALL_ENDINGS) + " | 平均留門人數 | 糧餉 | 防備 | 聲望 |",
+             "|---|" + "---:|" * (len(ALL_ENDINGS) + 4)]
     for name, result in report["policies"].items():
-        values = [f"{result['endings'][e]['percent']}%" for e in ENDINGS]
+        values = [f"{result['endings'][e]['percent']}%" for e in ALL_ENDINGS]
         values += [str(result["averages"][k]) for k in ("remaining", "treasury", "defense", "reputation")]
         lines.append("| " + name + " | " + " | ".join(values) + " |")
     lines += ["", "| 策略 | 永久離開 | 倒戈／背叛 | 重傷次數 | 死亡 |", "|---|---:|---:|---:|---:|"]
@@ -198,7 +241,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--games-per-policy", type=int, default=250)
     parser.add_argument("--seed-start", type=int, default=0)
-    parser.add_argument("--output", type=Path, default=Path(__file__).resolve().parent / "reports")
+    parser.add_argument("--output", type=Path, default=Path(__file__).resolve().parent / "reports" / ("v" + GAME_VERSION))
     args = parser.parse_args()
     if args.games_per_policy < 1:
         parser.error("games-per-policy must be positive")

@@ -36,12 +36,16 @@ def test_streamlit_entire_game_reruns_and_feedback(tmp_path, monkeypatch, seed):
             else:
                 option, team = action
                 focus = choose_focus(state, "highest_skill_policy", policy_rng, action)
-                at.radio(key=f"focus_{state.month}").set_value(focus).run()
-                at.radio(key=f"plan_{state.month}").set_value(option["id"]).run()
+                if state.main_thread == 'false_cards':
+                    at.radio(key=f'case_action_{state.month}').set_value(option['id']).run()
+                    assert not any(r.key.startswith(('focus_', 'plan_')) for r in at.radio)
+                else:
+                    at.radio(key=f"focus_{state.month}").set_value(focus).run()
+                    at.radio(key=f"plan_{state.month}").set_value(option["id"]).run()
                 at.multiselect(key=f"team_{state.month}_{option['id']}").set_value(team).run()
                 assert not at.button(key="confirm_day").disabled
                 at.button(key="confirm_day").click().run()
-        elif state.phase == "day_result":
+        elif state.phase == "day_result" or (state.main_thread == 'false_cards' and state.phase == 'deduction_result'):
             rng_before, resources_before = state.rng.getstate(), dict(state.resources)
             at.run()
             assert state.rng.getstate() == rng_before and state.resources == resources_before
@@ -72,7 +76,7 @@ def test_streamlit_entire_game_reruns_and_feedback(tmp_path, monkeypatch, seed):
     submit.click().run()
     assert not at.exception and (tmp_path / "survey.jsonl").exists()
     assert len((tmp_path / "survey.jsonl").read_text(encoding="utf-8").splitlines()) == 1
-    assert json.loads((tmp_path / "survey.jsonl").read_text(encoding="utf-8"))["version"] == "0.5"
+    assert json.loads((tmp_path / "survey.jsonl").read_text(encoding="utf-8"))["version"] == "0.6"
 
 
 def test_streamlit_home_seed_change_and_restart():
@@ -101,8 +105,9 @@ def test_dispatch_statuses_and_npc_identity_visible_before_selection():
     assert all('### ' + c.name in visible for c in state.characters)
     for label in ('重傷休養', '暫停派遣', '十分疲憊', '不可派遣', '可派遣'):
         assert label in visible
-    assert at.radio(key='focus_1').value is None
+    assert at.radio(key='case_action_1').value is None
     assert at.button(key='confirm_day').disabled
+    at.radio(key='case_action_1').set_value('compare_seal').run()
     selector = next(m for m in at.multiselect if m.key.startswith('team_'))
     assert len(selector.options) == 2
     assert all(c.name not in ' '.join(selector.options) for c in state.characters[:2])
@@ -115,21 +120,21 @@ def test_dispatch_statuses_and_npc_identity_visible_before_selection():
 def test_previous_version_session_requires_explicit_new_game_without_inventing_evidence():
     from game_engine import new_game
     state = new_game(4)
-    state.version = '0.4'
+    state.version = '0.5'
     state.intel['card_original'] = 'Legacy clue without a selected focus.'
     at = AppTest.from_file(str(APP), default_timeout=10).run()
     at.session_state['game'] = state
     at.run()
     assert not at.exception and not state.evidence
-    assert any('重新選擇調查' in e.value for e in at.info)
+    assert any('重新選擇案件行動' in e.value for e in at.info)
     assert not at.radio
     next(b for b in at.button if b.label == '開始新版遊戲').click().run()
     assert not at.exception
     current = at.session_state['game']
-    assert current.version == '0.5' and current.month == 1 and current.phase == 'day'
+    assert current.version == '0.6' and current.month == 1 and current.phase == 'day'
     assert current.seed == 4  # The hidden start-screen widget has been cleaned up.
     assert not current.evidence and 'card_original' not in current.intel
-    assert at.radio(key='focus_1') and at.button(key='confirm_day')
+    assert at.radio(key='case_action_1') and at.button(key='confirm_day')
     assert not any(b.key in ('start', 'start_current_version') for b in at.button)
     at.run()
     assert not at.exception and at.session_state['game'] is current
@@ -138,7 +143,7 @@ def test_previous_version_session_requires_explicit_new_game_without_inventing_e
 def test_upgrade_retains_previous_seed_when_home_widget_has_been_cleaned_up():
     from game_engine import new_game
     state = new_game(4)
-    state.version = '0.4'
+    state.version = '0.5'
     at = AppTest.from_file(str(APP), default_timeout=10)
     at.session_state['game'] = state
     at.session_state['survey_saved'] = True

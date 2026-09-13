@@ -3,7 +3,7 @@ from dataclasses import dataclass, field
 from random import Random
 import re
 
-GAME_VERSION = "0.5"
+GAME_VERSION = "0.6"
 
 SKILLS = {"combat": "武力", "strategy": "智略", "medicine": "醫術", "diplomacy": "交涉"}
 RESOURCES = {"treasury": "糧餉", "defense": "山門防備", "reputation": "江湖聲望"}
@@ -148,6 +148,15 @@ class GameState:
     deduction_history: list = field(default_factory=list)
     investigation_history: list = field(default_factory=list)
     main_thread: str = ""
+    current_episode_id: str = ""
+    current_question_id: str = ""
+    case_history: list = field(default_factory=list)
+    day_context: dict = field(default_factory=dict)
+    next_hooks: list = field(default_factory=list)
+    case_progress: dict = field(default_factory=dict)
+    public_strategy: str = ""
+    mystery_axis: str = ""
+    sect_axis: str = ""
     story_flags: dict = field(default_factory=dict)
     scene_history: list = field(default_factory=list)
     callback_history: list = field(default_factory=list)

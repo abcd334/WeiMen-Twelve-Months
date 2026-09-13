@@ -31,6 +31,10 @@ def validate_views(event):
 def validate_story_data(data):
     assert {t["id"] for t in data["threads"]} == {"old_road", "false_cards", "old_letters"}
     for thread in data["threads"]:
+        if thread.get("engine") == "causal_v06":
+            from case_engine import validate_case_thread
+            validate_case_thread(thread)
+            continue
         assert set(thread["required_clues"]) <= thread["clues"].keys()
         assert all(c["thread_id"] == thread["id"] for c in thread["clues"].values())
         nodes = {n["id"]: n for n in thread["evidence_graph"]}

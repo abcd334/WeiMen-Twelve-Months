@@ -1,0 +1,1360 @@
+[
+  {
+    "version": "0.6",
+    "action_schema": "legacy_v05",
+    "seed": 0,
+    "thread": "old_letters",
+    "ending": "慘勝守山",
+    "month": 12,
+    "actions": [
+      {
+        "month": 1,
+        "phase": "day",
+        "option": "ledger",
+        "team": [
+          "c1"
+        ],
+        "focus_id": "inspect_receipt",
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 1,
+        "phase": "night",
+        "choice": "ties_first/open_together_0"
+      },
+      {
+        "month": 2,
+        "phase": "day",
+        "option": "return",
+        "team": [
+          "c1"
+        ],
+        "focus_id": "date_register",
+        "reason": "因公開背景與場景有關而邀其出勤；此處不以能力最高為唯一準則。"
+      },
+      {
+        "month": 2,
+        "phase": "night",
+        "choice": "work_dispute/discipline"
+      },
+      {
+        "month": 3,
+        "phase": "day",
+        "option": "sell_map",
+        "team": [
+          "c3"
+        ],
+        "focus_id": "date_register",
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 3,
+        "phase": "night",
+        "choice": "check_evidence/support"
+      },
+      {
+        "month": 4,
+        "phase": "day",
+        "option": "investigate",
+        "team": [
+          "c1",
+          "c2"
+        ],
+        "focus_id": "verify_reply",
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 4,
+        "phase": "night",
+        "choice": "ties_check/open_together_1"
+      },
+      {
+        "month": 4,
+        "phase": "deduction",
+        "hypothesis": "old_channel"
+      },
+      {
+        "month": 5,
+        "phase": "day",
+        "option": "assist",
+        "team": [
+          "c3"
+        ],
+        "focus_id": "verify_reply",
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 5,
+        "phase": "night",
+        "choice": "partner_cost/separate_duties_1"
+      },
+      {
+        "month": 6,
+        "phase": "day",
+        "option": "pick",
+        "team": [
+          "c2",
+          "c3"
+        ],
+        "focus_id": "check_old_letters_dates",
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 6,
+        "phase": "night",
+        "choice": "shared_soup/eat_together"
+      },
+      {
+        "month": 7,
+        "phase": "day",
+        "option": "verify",
+        "team": [
+          "c1"
+        ],
+        "focus_id": "check_old_letters_copy",
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 7,
+        "phase": "night",
+        "choice": "evidence_crosscheck/support"
+      },
+      {
+        "month": 8,
+        "phase": "day",
+        "option": "watch",
+        "team": [
+          "c2"
+        ],
+        "focus_id": "follow_old_letters_internal",
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 8,
+        "phase": "night",
+        "choice": "partner_result/separate_duties_2"
+      },
+      {
+        "month": 8,
+        "phase": "deduction",
+        "evidence_ids": [
+          "letter_receipt",
+          "letter_register"
+        ]
+      },
+      {
+        "month": 9,
+        "phase": "day",
+        "option": "seek",
+        "team": [
+          "c3"
+        ],
+        "focus_id": "none",
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 9,
+        "phase": "night",
+        "choice": "debt_first/keep_shift_0"
+      },
+      {
+        "month": 10,
+        "phase": "day",
+        "option": "contract",
+        "team": [
+          "c3"
+        ],
+        "focus_id": "follow_old_letters_rumor",
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 10,
+        "phase": "night",
+        "choice": "debt_plan/keep_shift_1"
+      },
+      {
+        "month": 11,
+        "phase": "day",
+        "option": "revise",
+        "team": [
+          "c3"
+        ],
+        "focus_id": "hear_external",
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 11,
+        "phase": "night",
+        "choice": "show_truth"
+      },
+      {
+        "month": 11,
+        "phase": "deduction",
+        "evidence_ids": [
+          "letter_receipt",
+          "letter_register",
+          "letter_reply"
+        ]
+      }
+    ]
+  },
+  {
+    "version": "0.6",
+    "action_schema": "case_v1",
+    "seed": 4,
+    "thread": "false_cards",
+    "ending": "真相未明但守住山門",
+    "month": 12,
+    "actions": [
+      {
+        "month": 1,
+        "phase": "day",
+        "action_id": "check_cart_log",
+        "team": [
+          "c1"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 1,
+        "phase": "night",
+        "choice": "publish"
+      },
+      {
+        "month": 2,
+        "phase": "day",
+        "action_id": "ask_driver",
+        "team": [
+          "c3"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 2,
+        "phase": "night",
+        "choice": "publish"
+      },
+      {
+        "month": 3,
+        "phase": "day",
+        "action_id": "check_port",
+        "team": [
+          "c0",
+          "c1"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 3,
+        "phase": "night",
+        "choice": "publish"
+      },
+      {
+        "month": 4,
+        "phase": "deduction",
+        "hypothesis": "uncertain"
+      },
+      {
+        "month": 4,
+        "phase": "night",
+        "choice": "publish"
+      },
+      {
+        "month": 5,
+        "phase": "day",
+        "action_id": "anonymous_witness",
+        "team": [
+          "c2"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 5,
+        "phase": "night",
+        "choice": "publish"
+      },
+      {
+        "month": 6,
+        "phase": "day",
+        "action_id": "list_merchants",
+        "team": [
+          "c3"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 6,
+        "phase": "night",
+        "choice": "publish"
+      },
+      {
+        "month": 7,
+        "phase": "day",
+        "action_id": "observe_pickup",
+        "team": [
+          "c0",
+          "c3"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 7,
+        "phase": "night",
+        "choice": "publish"
+      },
+      {
+        "month": 8,
+        "phase": "deduction",
+        "evidence_ids": [
+          "cart_log_gap",
+          "card_dates"
+        ]
+      },
+      {
+        "month": 8,
+        "phase": "night",
+        "choice": "publish"
+      },
+      {
+        "month": 9,
+        "phase": "day",
+        "action_id": "feign_negotiation",
+        "team": [
+          "c3"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 9,
+        "phase": "night",
+        "choice": "publish"
+      },
+      {
+        "month": 10,
+        "phase": "day",
+        "action_id": "record_denial",
+        "team": [
+          "c3"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 10,
+        "phase": "night",
+        "choice": "publish"
+      },
+      {
+        "month": 11,
+        "phase": "deduction",
+        "evidence_ids": []
+      },
+      {
+        "month": 11,
+        "phase": "night",
+        "choice": "keep_people"
+      }
+    ]
+  },
+  {
+    "version": "0.6",
+    "action_schema": "legacy_v05",
+    "seed": 6,
+    "thread": "old_road",
+    "ending": "揭破陰謀",
+    "month": 12,
+    "actions": [
+      {
+        "month": 1,
+        "phase": "day",
+        "option": "repair",
+        "team": [
+          "c0",
+          "c3"
+        ],
+        "focus_id": "inspect_map",
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 1,
+        "phase": "night",
+        "choice": "voice_first/fund_proposal_0"
+      },
+      {
+        "month": 2,
+        "phase": "day",
+        "option": "labor",
+        "team": [
+          "c0",
+          "c1"
+        ],
+        "focus_id": "measure_tracks",
+        "reason": "因公開背景與場景有關而邀其出勤；此處不以能力最高為唯一準則。"
+      },
+      {
+        "month": 2,
+        "phase": "night",
+        "choice": "work_dispute/discipline"
+      },
+      {
+        "month": 3,
+        "phase": "day",
+        "option": "treat",
+        "team": [
+          "c1"
+        ],
+        "focus_id": "verify_order",
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 3,
+        "phase": "night",
+        "choice": "check_evidence/support"
+      },
+      {
+        "month": 4,
+        "phase": "day",
+        "option": "investigate",
+        "team": [
+          "c1",
+          "c3"
+        ],
+        "focus_id": "none",
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 4,
+        "phase": "night",
+        "choice": "ties_first/open_together_0"
+      },
+      {
+        "month": 4,
+        "phase": "deduction",
+        "hypothesis": "smuggling_route"
+      },
+      {
+        "month": 5,
+        "phase": "day",
+        "option": "enter",
+        "team": [
+          "c0",
+          "c3"
+        ],
+        "focus_id": "none",
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 5,
+        "phase": "night",
+        "choice": "partner_cost/ask_both_1"
+      },
+      {
+        "month": 6,
+        "phase": "day",
+        "option": "return",
+        "team": [
+          "c3"
+        ],
+        "focus_id": "verify_order",
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 6,
+        "phase": "night",
+        "choice": "shared_soup/eat_together"
+      },
+      {
+        "month": 7,
+        "phase": "day",
+        "option": "bargain",
+        "team": [
+          "c3"
+        ],
+        "focus_id": "check_old_road_dates",
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 7,
+        "phase": "night",
+        "choice": "evidence_crosscheck/support"
+      },
+      {
+        "month": 8,
+        "phase": "day",
+        "option": "watch",
+        "team": [
+          "c2"
+        ],
+        "focus_id": "none",
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 8,
+        "phase": "night",
+        "choice": "partner_result/separate_duties_2"
+      },
+      {
+        "month": 8,
+        "phase": "deduction",
+        "evidence_ids": [
+          "road_map",
+          "road_tracks"
+        ]
+      },
+      {
+        "month": 9,
+        "phase": "day",
+        "option": "contract",
+        "team": [
+          "c3"
+        ],
+        "focus_id": "none",
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 9,
+        "phase": "night",
+        "choice": "ties_check/open_together_1"
+      },
+      {
+        "month": 10,
+        "phase": "day",
+        "option": "copy",
+        "team": [
+          "c3"
+        ],
+        "focus_id": "check_old_road_copy",
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 10,
+        "phase": "night",
+        "choice": "voice_limit/joint_review_1"
+      },
+      {
+        "month": 11,
+        "phase": "day",
+        "option": "refer",
+        "team": [
+          "c3"
+        ],
+        "focus_id": "none",
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 11,
+        "phase": "night",
+        "choice": "hold_gate"
+      },
+      {
+        "month": 11,
+        "phase": "deduction",
+        "evidence_ids": [
+          "road_map",
+          "road_tracks",
+          "road_order"
+        ]
+      }
+    ]
+  },
+  {
+    "version": "0.6",
+    "action_schema": "case_v1",
+    "branch": "complete",
+    "seed": 4,
+    "thread": "false_cards",
+    "ending": "揭破陰謀",
+    "month": 12,
+    "actions": [
+      {
+        "month": 1,
+        "phase": "day",
+        "action_id": "compare_seal",
+        "team": [
+          "c1"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 1,
+        "phase": "night",
+        "choice": "review"
+      },
+      {
+        "month": 2,
+        "phase": "day",
+        "action_id": "check_workshop",
+        "team": [
+          "c1"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 2,
+        "phase": "night",
+        "choice": "review"
+      },
+      {
+        "month": 3,
+        "phase": "day",
+        "action_id": "compare_ink",
+        "team": [
+          "c2"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 3,
+        "phase": "night",
+        "choice": "review"
+      },
+      {
+        "month": 4,
+        "phase": "deduction",
+        "hypothesis": "forged_cards"
+      },
+      {
+        "month": 4,
+        "phase": "night",
+        "choice": "review"
+      },
+      {
+        "month": 5,
+        "phase": "day",
+        "action_id": "neutral_witness",
+        "team": [
+          "c3"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 5,
+        "phase": "night",
+        "choice": "review"
+      },
+      {
+        "month": 6,
+        "phase": "day",
+        "action_id": "compare_paper",
+        "team": [
+          "c2"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 6,
+        "phase": "night",
+        "choice": "review"
+      },
+      {
+        "month": 7,
+        "phase": "day",
+        "action_id": "ink_accounts",
+        "team": [
+          "c1"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 7,
+        "phase": "night",
+        "choice": "review"
+      },
+      {
+        "month": 8,
+        "phase": "deduction",
+        "evidence_ids": [
+          "card_original",
+          "card_ink"
+        ]
+      },
+      {
+        "month": 8,
+        "phase": "night",
+        "choice": "review"
+      },
+      {
+        "month": 9,
+        "phase": "day",
+        "action_id": "public_reply",
+        "team": [
+          "c1"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 9,
+        "phase": "night",
+        "choice": "review"
+      },
+      {
+        "month": 10,
+        "phase": "day",
+        "action_id": "master_seal_record",
+        "team": [
+          "c1"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 10,
+        "phase": "night",
+        "choice": "review"
+      },
+      {
+        "month": 11,
+        "phase": "deduction",
+        "evidence_ids": [
+          "card_original",
+          "card_ink",
+          "card_witness"
+        ]
+      },
+      {
+        "month": 11,
+        "phase": "night",
+        "choice": "keep_people"
+      }
+    ],
+    "mystery_axis": "complete",
+    "sect_axis": "stable",
+    "replay_verified": true
+  },
+  {
+    "version": "0.6",
+    "action_schema": "case_v1",
+    "branch": "partial",
+    "seed": 4,
+    "thread": "false_cards",
+    "ending": "洗清部分責任",
+    "month": 12,
+    "actions": [
+      {
+        "month": 1,
+        "phase": "day",
+        "action_id": "compare_seal",
+        "team": [
+          "c1"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 1,
+        "phase": "night",
+        "choice": "review"
+      },
+      {
+        "month": 2,
+        "phase": "day",
+        "action_id": "check_workshop",
+        "team": [
+          "c1"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 2,
+        "phase": "night",
+        "choice": "review"
+      },
+      {
+        "month": 3,
+        "phase": "day",
+        "action_id": "compare_ink",
+        "team": [
+          "c2"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 3,
+        "phase": "night",
+        "choice": "review"
+      },
+      {
+        "month": 4,
+        "phase": "deduction",
+        "hypothesis": "uncertain"
+      },
+      {
+        "month": 4,
+        "phase": "night",
+        "choice": "review"
+      },
+      {
+        "month": 5,
+        "phase": "day",
+        "action_id": "neutral_witness",
+        "team": [
+          "c3"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 5,
+        "phase": "night",
+        "choice": "review"
+      },
+      {
+        "month": 6,
+        "phase": "day",
+        "action_id": "compare_paper",
+        "team": [
+          "c2"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 6,
+        "phase": "night",
+        "choice": "review"
+      },
+      {
+        "month": 7,
+        "phase": "day",
+        "action_id": "ink_accounts",
+        "team": [
+          "c1"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 7,
+        "phase": "night",
+        "choice": "review"
+      },
+      {
+        "month": 8,
+        "phase": "deduction",
+        "evidence_ids": []
+      },
+      {
+        "month": 8,
+        "phase": "night",
+        "choice": "review"
+      },
+      {
+        "month": 9,
+        "phase": "day",
+        "action_id": "public_reply",
+        "team": [
+          "c1"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 9,
+        "phase": "night",
+        "choice": "review"
+      },
+      {
+        "month": 10,
+        "phase": "day",
+        "action_id": "master_seal_record",
+        "team": [
+          "c1"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 10,
+        "phase": "night",
+        "choice": "review"
+      },
+      {
+        "month": 11,
+        "phase": "deduction",
+        "evidence_ids": []
+      },
+      {
+        "month": 11,
+        "phase": "night",
+        "choice": "keep_people"
+      }
+    ],
+    "mystery_axis": "partial",
+    "sect_axis": "stable",
+    "replay_verified": true
+  },
+  {
+    "version": "0.6",
+    "action_schema": "case_v1",
+    "branch": "unresolved",
+    "seed": 4,
+    "thread": "false_cards",
+    "ending": "真相未明但守住山門",
+    "month": 12,
+    "actions": [
+      {
+        "month": 1,
+        "phase": "day",
+        "action_id": "question_receiver",
+        "team": [
+          "c3"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 1,
+        "phase": "night",
+        "choice": "hold"
+      },
+      {
+        "month": 2,
+        "phase": "day",
+        "action_id": "ask_driver",
+        "team": [
+          "c3"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 2,
+        "phase": "night",
+        "choice": "hold"
+      },
+      {
+        "month": 3,
+        "phase": "day",
+        "action_id": "timeline",
+        "team": [
+          "c1"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 3,
+        "phase": "night",
+        "choice": "hold"
+      },
+      {
+        "month": 4,
+        "phase": "deduction",
+        "hypothesis": "uncertain"
+      },
+      {
+        "month": 4,
+        "phase": "night",
+        "choice": "hold"
+      },
+      {
+        "month": 5,
+        "phase": "day",
+        "action_id": "anonymous_witness",
+        "team": [
+          "c2"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 5,
+        "phase": "night",
+        "choice": "hold"
+      },
+      {
+        "month": 6,
+        "phase": "day",
+        "action_id": "compare_paper",
+        "team": [
+          "c2"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 6,
+        "phase": "night",
+        "choice": "hold"
+      },
+      {
+        "month": 7,
+        "phase": "day",
+        "action_id": "follow_courier",
+        "team": [
+          "c3"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 7,
+        "phase": "night",
+        "choice": "hold"
+      },
+      {
+        "month": 8,
+        "phase": "deduction",
+        "evidence_ids": []
+      },
+      {
+        "month": 8,
+        "phase": "night",
+        "choice": "hold"
+      },
+      {
+        "month": 9,
+        "phase": "day",
+        "action_id": "public_reply",
+        "team": [
+          "c1"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 9,
+        "phase": "night",
+        "choice": "hold"
+      },
+      {
+        "month": 10,
+        "phase": "day",
+        "action_id": "record_denial",
+        "team": [
+          "c3"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 10,
+        "phase": "night",
+        "choice": "hold"
+      },
+      {
+        "month": 11,
+        "phase": "deduction",
+        "evidence_ids": []
+      },
+      {
+        "month": 11,
+        "phase": "night",
+        "choice": "keep_people"
+      }
+    ],
+    "mystery_axis": "unresolved",
+    "sect_axis": "weakened",
+    "replay_verified": true
+  },
+  {
+    "version": "0.6",
+    "action_schema": "case_v1",
+    "branch": "failure_recovery",
+    "seed": 0,
+    "thread": "false_cards",
+    "ending": "查對案件但門派失和",
+    "month": 12,
+    "actions": [
+      {
+        "month": 1,
+        "phase": "day",
+        "action_id": "compare_seal",
+        "team": [
+          "c1"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 1,
+        "phase": "night",
+        "choice": "review"
+      },
+      {
+        "month": 2,
+        "phase": "day",
+        "action_id": "check_workshop",
+        "team": [
+          "c1"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 2,
+        "phase": "night",
+        "choice": "review"
+      },
+      {
+        "month": 3,
+        "phase": "day",
+        "action_id": "compare_ink",
+        "team": [
+          "c2"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 3,
+        "phase": "night",
+        "choice": "review"
+      },
+      {
+        "month": 4,
+        "phase": "deduction",
+        "hypothesis": "forged_cards"
+      },
+      {
+        "month": 4,
+        "phase": "night",
+        "choice": "review"
+      },
+      {
+        "month": 5,
+        "phase": "day",
+        "action_id": "public_witness",
+        "team": [
+          "c0"
+        ],
+        "reason": "刻意派交涉能力較低的弟子公開查問，觀察自然失敗後的補證；未改動成功率或遊戲狀態。"
+      },
+      {
+        "month": 5,
+        "phase": "night",
+        "choice": "review"
+      },
+      {
+        "month": 6,
+        "phase": "day",
+        "action_id": "compare_paper",
+        "team": [
+          "c2"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 6,
+        "phase": "night",
+        "choice": "review"
+      },
+      {
+        "month": 7,
+        "phase": "day",
+        "action_id": "ink_accounts",
+        "team": [
+          "c1"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 7,
+        "phase": "night",
+        "choice": "review"
+      },
+      {
+        "month": 8,
+        "phase": "deduction",
+        "evidence_ids": [
+          "card_original",
+          "card_ink"
+        ]
+      },
+      {
+        "month": 8,
+        "phase": "night",
+        "choice": "review"
+      },
+      {
+        "month": 9,
+        "phase": "day",
+        "action_id": "public_reply",
+        "team": [
+          "c1"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 9,
+        "phase": "night",
+        "choice": "review"
+      },
+      {
+        "month": 10,
+        "phase": "day",
+        "action_id": "recover_missing",
+        "team": [
+          "c3"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 10,
+        "phase": "night",
+        "choice": "review"
+      },
+      {
+        "month": 11,
+        "phase": "deduction",
+        "evidence_ids": [
+          "card_original",
+          "card_ink",
+          "card_witness"
+        ]
+      },
+      {
+        "month": 11,
+        "phase": "night",
+        "choice": "keep_people"
+      }
+    ],
+    "mystery_axis": "complete",
+    "sect_axis": "weakened",
+    "replay_verified": true
+  },
+  {
+    "version": "0.6",
+    "action_schema": "case_v1",
+    "branch": "damaged",
+    "seed": 4,
+    "thread": "false_cards",
+    "ending": "查對案件但門派失和",
+    "month": 12,
+    "actions": [
+      {
+        "month": 1,
+        "phase": "day",
+        "action_id": "compare_seal",
+        "team": [
+          "c1"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 1,
+        "phase": "night",
+        "choice": "publish"
+      },
+      {
+        "month": 2,
+        "phase": "day",
+        "action_id": "check_workshop",
+        "team": [
+          "c1"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 2,
+        "phase": "night",
+        "choice": "publish"
+      },
+      {
+        "month": 3,
+        "phase": "day",
+        "action_id": "compare_ink",
+        "team": [
+          "c2"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 3,
+        "phase": "night",
+        "choice": "publish"
+      },
+      {
+        "month": 4,
+        "phase": "deduction",
+        "hypothesis": "forged_cards"
+      },
+      {
+        "month": 4,
+        "phase": "night",
+        "choice": "publish"
+      },
+      {
+        "month": 5,
+        "phase": "day",
+        "action_id": "neutral_witness",
+        "team": [
+          "c3"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 5,
+        "phase": "night",
+        "choice": "publish"
+      },
+      {
+        "month": 6,
+        "phase": "day",
+        "action_id": "compare_paper",
+        "team": [
+          "c2"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 6,
+        "phase": "night",
+        "choice": "publish"
+      },
+      {
+        "month": 7,
+        "phase": "day",
+        "action_id": "ink_accounts",
+        "team": [
+          "c1"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 7,
+        "phase": "night",
+        "choice": "publish"
+      },
+      {
+        "month": 8,
+        "phase": "deduction",
+        "evidence_ids": [
+          "card_original",
+          "card_ink"
+        ]
+      },
+      {
+        "month": 8,
+        "phase": "night",
+        "choice": "publish"
+      },
+      {
+        "month": 9,
+        "phase": "day",
+        "action_id": "public_reply",
+        "team": [
+          "c1"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 9,
+        "phase": "night",
+        "choice": "publish"
+      },
+      {
+        "month": 10,
+        "phase": "day",
+        "action_id": "master_seal_record",
+        "team": [
+          "c1"
+        ],
+        "reason": "依本局預定立場與公開資源安排。"
+      },
+      {
+        "month": 10,
+        "phase": "night",
+        "choice": "publish"
+      },
+      {
+        "month": 11,
+        "phase": "deduction",
+        "evidence_ids": [
+          "card_original",
+          "card_ink",
+          "card_witness"
+        ]
+      },
+      {
+        "month": 11,
+        "phase": "night",
+        "choice": "keep_people"
+      }
+    ],
+    "mystery_axis": "complete",
+    "sect_axis": "weakened",
+    "replay_verified": true
+  }
+]

@@ -6,7 +6,7 @@ import streamlit as st
 
 from game_runtime import load_current_engine
 
-APP_VERSION = "0.5"
+APP_VERSION = "0.6"
 st.set_page_config(page_title="危門十二月", page_icon="⛰️", layout="wide")
 # Refresh an earlier process before binding functions from the game modules.
 try:
@@ -21,6 +21,8 @@ from feedback import DEFAULT_PATH, save_feedback, survey_options
 from game_engine import (InvalidAction, begin_month, current_event, emergency_rest,
                          ending_view, legal_actions, new_game, night_view, public_option,
                          public_state, resolve_day, resolve_night, start_night)
+from game_engine import resolve_case_action
+from case_engine import legal_case_actions
 
 def restart():
     for key in list(st.session_state):
@@ -107,7 +109,19 @@ def draw_event_scene(view):
     st.header(event["title"])
     st.markdown("**事件人物：" + event["npc_identity"] + "**")
     st.write(event["description"])
-    st.info("目前疑點：" + event["current_question"])
+    if view['case_question']:
+        question = view['case_question']
+        st.info('核心問題：' + question['text'])
+        st.caption('查明程度：' + {'open':'尚待核查', 'partial':'部分查明', 'resolved':'本題已有依據'}[question['status']])
+        with st.expander('目前已知／尚未確認', expanded=True):
+            st.markdown('**目前已知**')
+            for fact in question['known_facts'] or ['尚無已核實材料；人物的主張請見證據板「人物說法」。']:
+                st.write(fact)
+            st.markdown('**尚未確認**')
+            for part in question['unresolved_parts'] or ['本題必要核對已完成；其他問題仍各自保留缺口。']:
+                st.write(part)
+    else:
+        st.info("目前疑點：" + event["current_question"])
     if event["callbacks"]:
         with st.expander("與本月有關的前事"):
             for callback in event["callbacks"]:
@@ -191,6 +205,9 @@ def draw_dispatch_selector(state, view, option, focus_id):
 def draw_day(state, view):
     draw_event_scene(view)
     draw_character_opinions(view)
+    if view['causal_case']:
+        draw_case_actions(state, view)
+        return
     focus_id=draw_investigation_options(state,view)
     st.subheader("安排門務與派遣")
     if not legal_actions(state):
@@ -210,7 +227,44 @@ def draw_day(state, view):
     draw_dispatch_selector(state,view,option,focus_id)
 
 
+def draw_case_actions(state, view):
+    st.subheader('你打算怎麼處理這件事？')
+    legal = legal_case_actions(state)
+    if not legal:
+        st.warning('目前人手無法出勤，先留門休整並保留待查事項。')
+        if st.button('全員留門休整', key='rest'):
+            run_action(emergency_rest, state)
+        return
+    options = {a['id']: a for a in view['case_actions']}
+    for option in options.values():
+        with st.container(border=True):
+            st.markdown('**' + option['label'] + '**')
+            st.write('回答：' + option['question_part'])
+            st.write(option['description'])
+            st.caption(f"成本 {option['cost']} 糧餉 · 建議{option['skill']} · {option['count']} 人 · 風險{option['risk']}")
+            st.write(option['hint'])
+            if option['already_known']:
+                st.caption('這項材料已有記錄；再查不會重複加入證據。')
+    action_id = st.radio('選擇處理方法', list(options), index=None,
+                         format_func=lambda aid: options[aid]['label'], key=f'case_action_{state.month}')
+    if action_id is None:
+        st.button('確認派遣', disabled=True, key='confirm_day')
+        return
+    option = options[action_id]
+    available = {c['id']: c for c in view['characters'] if c['actionable']}
+    team = st.multiselect('派遣弟子（確認前可更換）', list(available),
+        format_func=lambda cid: f"{available[cid]['name']}｜{available[cid]['role']}｜{available[cid]['status_label']}｜可派遣",
+        max_selections=option['count'], key=f"team_{state.month}_{action_id}")
+    valid = any(a.id == action_id and set(ids) == set(team) for a, ids in legal)
+    st.write(f"本次總成本：{option['cost']} 糧餉")
+    if st.button('確認派遣', disabled=not valid, type='primary', key='confirm_day'):
+        run_action(resolve_case_action, state, action_id, team, f'{state.month}:day')
+
+
 def draw_deduction_checkpoint(state, view):
+    if view['causal_case']:
+        draw_event_scene(view)
+        draw_character_opinions(view)
     checkpoint=checkpoint_view(state)
     st.header({4:"初步假說",8:"證據交叉",11:"最後證據鏈"}[state.month])
     st.write(checkpoint["question"])
@@ -235,7 +289,7 @@ def draw_deduction_checkpoint(state, view):
                 chosen.append(cid)
         defer=st.checkbox("證據鏈尚未完整，只提出已知部分",key="deduction_defer_11")
         valid=defer or len(chosen)==3
-        if defer:
+        if defer and not view['causal_case']:
             chosen=[]
     st.caption("只可使用已取得資料。判斷失誤不會立即結束遊戲，也不會刪除證據。")
     if st.button("提出推理",disabled=not valid,type="primary",key="confirm_deduction"):
@@ -263,6 +317,10 @@ def draw_night(state, view):
 def draw_ending(state):
     end = ending_view(state)
     st.header("青崖門結局 · " + end["ending"])
+    if end['mystery_axis']:
+        st.info('案件：' + {'complete':'完整證據鏈', 'partial':'部分查明', 'unresolved':'尚未查明'}[end['mystery_axis']]
+                + ' · 門派：' + {'stable':'穩定', 'weakened':'受損', 'collapsed':'覆滅'}[end['sect_axis']])
+        st.write(end['reason'])
     st.write(end["final_scene"])
     with st.expander("這一局的謎底與未解之處", expanded=True):
         st.write(end["mystery_reveal"])
@@ -310,14 +368,14 @@ def main():
     st.caption("十二個月，四名弟子，一座不能輕易放棄的山門。")
     if "game" not in st.session_state:
         st.write("前任掌門失蹤，青崖門糧餉短缺。烈川堂送來戰帖，十二個月後將在斷劍臺決定青崖山的歸屬。你被推舉為代理掌門，必須與四名各懷心事的弟子一起度過危局。")
-        st.info("白天先聽四名弟子的判斷，再選要查什麼與派誰出勤；夜間回應人物需求。證據板分開記錄事實、疑點與說法，第四、八、十一月由你提出推理。")
+        st.info("假名帖主線：先看核心問題與四名弟子的看法，選一種處理方法並派遣；晚上回應當日後果。第四、八、十一月由劇情人物要求你提出推理，夜間再討論其影響。種子 4 可體驗此線。")
         st.number_input("遊戲種子", min_value=0, max_value=2**32 - 1, value=42, step=1, key="seed_input")
         st.button("隨機種子", on_click=random_seed)
         st.button("開始新遊戲", type="primary", key="start", on_click=start_new_game)
         return
     state = st.session_state.game
     if getattr(state, "version", "") != APP_VERSION:
-        st.info("這局在更新前開始。新版需要重新選擇調查與排列證據，請開始新局；舊情報不會自動變成已查證資料。")
+        st.info("這局在更新前開始。新版需要重新選擇案件行動與排列證據，請開始新局；舊情報不會自動變成已查證資料。")
         st.button("開始新版遊戲", type="primary", key="start_current_version", on_click=start_new_game)
         return
     view = public_state(state)
@@ -336,10 +394,10 @@ def main():
         for line in view["last_result"]:
             st.write(line)
         st.caption("新的言行或事實，可在側邊欄「掌門札記」查看。")
-        if view["phase"] == "day_result":
+        if view["phase"] == "day_result" or (view['causal_case'] and view['phase'] == 'deduction_result'):
             if st.button("進入夜間互動", key="next_phase", type="primary"):
                 run_action(start_night, state)
-        elif st.button("進入本月推理" if view["phase"] == "night_result" and view["month"] in (4,8,11) else "前往斷劍臺" if view["month"] == 11 else "進入下一月", key="next_month", type="primary"):
+        elif st.button("進入本月推理" if not view['causal_case'] and view["phase"] == "night_result" and view["month"] in (4,8,11) else "前往斷劍臺" if view["month"] == 11 else "進入下一月", key="next_month", type="primary"):
             run_action(begin_month, state)
     else:
         draw_ending(state)

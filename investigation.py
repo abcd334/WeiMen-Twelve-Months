@@ -19,6 +19,8 @@ def case_scene(state):
 
 def investigation_options(state):
     thread = thread_for(state)
+    if thread.get('engine') == 'causal_v06':
+        return []
     options = deepcopy(thread["investigations"])
     options += [
         {"id":"hear_claim", "label":"找經手人，留下原話", "targets":[state.main_thread+"_claim"], "cost":0, "skill":"diplomacy", "stable":True, "hint":"只記人物說法，尚不能列為已證實。"},
@@ -53,6 +55,9 @@ def store_item(state, node, source, focus_id=""):
         return None
     item = {k: node[k] for k in ("id", "title", "text", "type", "thread_id")}
     item.update(month=state.month, source=source, focus_id=focus_id)
+    if state.main_thread == 'false_cards':
+        item.update(action_id=focus_id, episode_id=state.current_episode_id,
+                    question_id=state.current_question_id)
     label = {"evidence":"已證實", "lead":"待核實", "claim":"人物說法"}[kind]
     item["fact_id"] = record_fact(state, label + "：" + item["text"], "intel" if kind == "evidence" else kind, source)
     if kind == "evidence":
@@ -132,6 +137,13 @@ def resolve_deduction(state, hypothesis=None, evidence_ids=(), token=None):
     if state.phase != "deduction" or expected in state.resolved or (token is not None and token != expected):
         raise InvalidAction("此推理已結算，或頁面已過期。")
     thread, graph = thread_for(state), graph_for(state)
+    causal = thread.get('engine') == 'causal_v06'
+    if causal:
+        import case_engine
+        episode = case_engine.current_episode(state)
+        if episode['kind'] != 'deduction':
+            raise InvalidAction('本月事件沒有要求推理答覆。')
+        before = case_engine.snapshot(state)
     evidence_ids = list(evidence_ids)
     if state.month != 4 and hypothesis is not None:
         raise InvalidAction("本次請選證據，不接受假說代替證據。")
@@ -151,8 +163,11 @@ def resolve_deduction(state, hypothesis=None, evidence_ids=(), token=None):
         accepted = any(set(pair) == set(evidence_ids) for pair in thread["cross_pairs"])
         label = "交叉核對：" + "、".join(state.evidence[cid]["title"] for cid in evidence_ids) if evidence_ids else "目前無法交叉核對"
         text = label + ("。兩份不同來源可以接上，已打開追問交付者的方向。" if accepted else "。仍不足以證明兩份資料指向同一件事；既有證據保留，下一步可重新追問來源。")
+        if causal and accepted:
+            index = next(i for i, pair in enumerate(thread['cross_pairs']) if set(pair) == set(evidence_ids))
+            text += thread['cross_reasons'][index]
     elif state.month == 11:
-        if len(evidence_ids) not in (0,3):
+        if len(evidence_ids) not in ((0, 1, 2, 3) if causal else (0,3)):
             raise InvalidAction("請選文件、物證、見證各一份，或保留為證據鏈不足。")
         slots = [state.evidence[cid]["type"] for cid in evidence_ids]
         accepted = set(thread["required_clues"]) <= set(evidence_ids) and slots == ["document","physical","witness"]
@@ -175,7 +190,13 @@ def resolve_deduction(state, hypothesis=None, evidence_ids=(), token=None):
     row = {"month":state.month,"hypothesis":hypothesis,"evidence_ids":evidence_ids,"accepted":accepted,"text":text,"fact_ids":facts}
     state.deduction_history.append(row)
     record_decision(state, label, facts, True)
-    if state.month < 11:
+    if state.month < 11 and not causal:
         add_callback(state, facts[0], text, due=state.month+1)
     state.last_result = [text]
     state.phase = "deduction_result"
+    if causal:
+        action_id = case_engine.current_episode(state)['action_ids'][0]
+        state.resolved.add(f'{state.month}:day')
+        state.last_participants = []
+        case_engine.capture_day(state, action_id, [], accepted and hypothesis != 'uncertain',
+                                before, facts, deduction=row)

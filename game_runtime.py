@@ -5,7 +5,7 @@ from threading import Lock
 
 
 _reload_lock = Lock()
-_MODULES = ("models", "data_loader", "narrative", "investigation", "game_engine")
+_MODULES = ("models", "case_models", "data_loader", "narrative", "case_engine", "investigation", "game_engine")
 
 
 def load_current_engine(expected_version):

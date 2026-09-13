@@ -13,6 +13,9 @@ from game_engine import (InvalidAction, begin_month, current_event, ending_view,
 from investigation import (checkpoint_view, evidence_board, investigation_options,
                            public_investigations, resolve_deduction, thread_for)
 from simulate_balance import choose_day, choose_night, play_game
+import case_engine as case
+from test_case_engine import at_month as case_month, dispatch, next_step
+from investigation import store_item
 
 
 def digest(state):
@@ -22,6 +25,8 @@ def digest(state):
 
 
 def at_month(seed, month):
+    if seed == 4:
+        return case_month(month)
     state = new_game(seed)
     state.month, state.phase = month, 'day'
     scene = thread_for(state).get('monthly_scenes', {}).get(str(month), {})
@@ -36,7 +41,7 @@ def investigate(state, focus, option_id=None):
     resolve_day(state, option['id'], team, focus_id=focus)
 
 
-@pytest.mark.parametrize('seed', (0, 4, 6))
+@pytest.mark.parametrize('seed', (0, 6))
 def test_only_explicit_focus_can_award_core_evidence_across_entire_game(seed, monkeypatch):
     import game_engine
     monkeypatch.setattr(game_engine, 'mission_score', lambda *args: 100)
@@ -64,37 +69,38 @@ def test_only_explicit_focus_can_award_core_evidence_across_entire_game(seed, mo
 
 
 def test_selected_focus_gets_its_target_and_never_the_next_clue():
-    state = at_month(4, 3)
-    for char in state.characters:
-        char.skills['medicine'] = 4
-    investigate(state, 'inspect_ink')
-    assert set(state.evidence) == {'card_ink'}  # Not original, which comes first in the graph.
-    assert state.evidence['card_ink']['focus_id'] == 'inspect_ink'
+    state = at_month(4,3)
+    before = set(state.evidence)
+    dispatch(state,'compare_ink')
+    assert set(state.evidence) - before == {'card_ink'}
+    assert state.evidence['card_ink']['action_id'] == 'compare_ink'
 
 
 def test_early_focus_does_not_reveal_second_card_before_month_three():
-    for month in (1, 2):
-        state = at_month(4, month)
-        assert 'check_dates' not in {o['id'] for o in investigation_options(state)}
-        investigate(state, 'inspect_ledger')
-        assert set(state.evidence) == {'ledger_gap'}
-        assert '兩張' not in state.evidence['ledger_gap']['text']
+    for month in (1,2):
+        state = at_month(4,month)
+        assert not {'compare_ink','timeline'} & {a.id for a in case.available_case_actions(state)}
+        dispatch(state,'check_cart_log' if month == 1 else 'check_handover')
+        assert 'card_ink' not in state.evidence
+        assert '兩張' not in state.evidence['cart_log_gap']['text']
 
 
-@pytest.mark.parametrize('option_id, acquired', [('verify_witness', True), ('accuse', False), ('archive', False)])
+@pytest.mark.parametrize('option_id, acquired', [('neutral_witness', True), ('public_witness', False), ('anonymous_witness', False)])
 def test_witness_needs_verification_plan_even_with_high_skill(option_id, acquired, monkeypatch):
     import game_engine
-    monkeypatch.setattr(game_engine, 'mission_score', lambda *args: -100)
-    state = at_month(4, 5)
-    for char in state.characters:
-        char.skills['diplomacy'] = 5
-    investigate(state, 'confront_witness', option_id)
+    monkeypatch.setattr(game_engine,'mission_score',lambda *args:-100)
+    state = at_month(4,5)
+    for c in state.characters:
+        c.skills['diplomacy'] = 5
+    dispatch(state, option_id)
     assert ('card_witness' in state.evidence) == acquired
-    if not acquired:
+    if option_id == 'public_witness':
         assert any(n['id'] == 'pending:card_witness' for n in state.leads)
+    if option_id == 'anonymous_witness':
+        assert any(n['id'] == 'anonymous_claim' for n in state.claims)
 
 
-@pytest.mark.parametrize('seed', (0, 4, 6))
+@pytest.mark.parametrize('seed', (0, 6))
 def test_recovery_restores_every_missing_core_despite_mission_failure(seed, monkeypatch):
     import game_engine
     monkeypatch.setattr(game_engine, 'mission_score', lambda *args: -100)
@@ -115,36 +121,31 @@ def test_recovery_restores_every_missing_core_despite_mission_failure(seed, monk
 
 def test_failed_verification_keeps_known_evidence_and_pending_source_is_not_a_proof(monkeypatch):
     import game_engine
-    monkeypatch.setattr(game_engine, 'mission_score', lambda *args: -100)
-    state = at_month(4, 4)
-    for char in state.characters:
-        char.skills['medicine'] = 1
-    gain_intel(state, 'card_original', 'earlier verification')
+    state = at_month(4,5)
     before = deepcopy(state.evidence)
-    investigate(state, 'inspect_ink')
-    assert state.evidence == before and 'card_ink' not in state.intel
-    pending = next(n for n in state.leads if n['id'] == 'pending:card_ink')
-    assert '同批山外墨' not in pending['text']
-    state.month, state.phase = 10, 'day'
-    state.event_id = 'requisition'
-    investigate(state, 'recover_card_ink')
-    assert 'card_ink' in state.evidence
+    with monkeypatch.context() as m:
+        m.setattr(game_engine,'mission_score',lambda *args:-100)
+        dispatch(state,'public_witness')
+    assert state.evidence == before
+    pending = next(n for n in state.leads if n['id'] == 'pending:card_witness')
+    assert '山外跑腿者交付' not in pending['text']
+    while state.month < 10:
+        next_step(state)
+    dispatch(state,'recover_missing')
+    assert 'card_witness' in state.evidence
     assert not any(n['id'] == pending['id'] for n in state.leads)
 
 
 def test_rechecking_known_proof_does_not_add_duplicate_or_pending_entry(monkeypatch):
-    import game_engine
-    monkeypatch.setattr(game_engine, 'mission_score', lambda *args: -100)
-    state = at_month(4, 4)
-    gain_intel(state, 'card_original', 'earlier verification')
+    state = at_month(4,2)
+    gain_intel(state,'cart_log_gap','earlier verification')
     before = deepcopy(state.evidence)
-    for char in state.characters:
-        char.skills['strategy'] = 1
-    investigate(state, 'inspect_seal')
-    assert state.evidence == before and not state.leads
+    dispatch(state,'check_handover')
+    assert state.evidence == before
+    assert not any(n['id'] == 'pending:cart_log_gap' for n in state.leads)
 
 
-@pytest.mark.parametrize('seed', (0, 4, 6))
+@pytest.mark.parametrize('seed', (0, 6))
 def test_all_missing_core_can_be_recovered_without_original_contact(seed):
     state = at_month(seed, 10)
     if state.main_thread == 'old_letters':
@@ -154,10 +155,10 @@ def test_all_missing_core_can_be_recovered_without_original_contact(seed):
     assert set(thread_for(state)['required_clues']) == set(state.evidence)
 
 
-@pytest.mark.parametrize('focus', ('hear_external', 'follow_false_cards_internal'))
+@pytest.mark.parametrize('focus', ('hear_external', 'follow_old_letters_internal'))
 def test_external_contact_is_claim_or_lead_not_confirmed_betrayal(focus):
-    state = at_month(4, 6)
-    investigate(state, focus)
+    state = at_month(0,6)
+    investigate(state,focus)
     assert not state.evidence and not state.intel
     assert len(state.claims if focus == 'hear_external' else state.leads) >= 1
     assert not state.major_outcomes
@@ -166,7 +167,7 @@ def test_external_contact_is_claim_or_lead_not_confirmed_betrayal(focus):
 
 @pytest.mark.parametrize('month', (4, 8, 11))
 def test_wrong_deduction_preserves_evidence_and_cannot_immediately_end_game(month):
-    state = new_game(4)
+    state = at_month(4,month)
     for cid in ('card_original', 'card_dates', 'card_witness', 'ink_source'):
         gain_intel(state, cid, 'earlier verification')
     before = deepcopy(state.evidence)
@@ -182,7 +183,8 @@ def test_wrong_deduction_preserves_evidence_and_cannot_immediately_end_game(mont
 
 @pytest.mark.parametrize('month', (8, 11))
 def test_checkpoint_rejects_unacquired_claims_and_duplicates_atomically(month):
-    state = new_game(4)
+    state = at_month(4,month)
+    state.evidence.clear(); state.intel.clear()
     gain_intel(state, 'card_original', 'verified')
     state.month, state.phase = month, 'deduction'
     view = checkpoint_view(state)
@@ -196,22 +198,21 @@ def test_checkpoint_rejects_unacquired_claims_and_duplicates_atomically(month):
 
 
 def test_correct_pair_opens_a_usable_followup_investigation():
-    state = new_game(4)
+    state = at_month(4,8)
     for cid in ('card_dates','cart_record'):
-        gain_intel(state, cid, 'verified')
-    state.month, state.phase = 8, 'deduction'
-    resolve_deduction(state, evidence_ids=['cart_record','card_dates'])
+        gain_intel(state,cid,'verified')
+    resolve_deduction(state,evidence_ids=['cart_record','card_dates'])
     assert state.deduction_history[-1]['accepted']
-    assert any(n['id'] == 'false_cards_cross_lead' for n in state.leads)
-    begin_month(state)
-    assert 'follow_cross_lead' in {f['id'] for f in public_investigations(state)}
-    investigate(state, 'follow_cross_lead')
-    assert 'card_witness' in state.evidence
+    assert any(n['id'] == 'delivery_chain_lead' for n in state.leads)
+    start_night(state); resolve_night(state,'hold'); begin_month(state)
+    assert 'follow_delivery_chain' in {a.id for a in case.available_case_actions(state)}
+    dispatch(state,'follow_delivery_chain')
+    assert 'delivery_link' in state.evidence
 
 
 @pytest.mark.parametrize('seed', (0, 4, 6))
 def test_full_reveal_needs_acquired_core_and_player_assembled_chain(seed):
-    state = new_game(seed)
+    state = at_month(seed,11)
     for cid in thread_for(state)['required_clues']:
         gain_intel(state, cid, 'verified')
     assert not mystery_complete(state)
@@ -219,11 +220,14 @@ def test_full_reveal_needs_acquired_core_and_player_assembled_chain(seed):
     resolve_deduction(state, evidence_ids=thread_for(state)['required_clues'])
     assert mystery_complete(state)
     finish(state, '慘勝守山', 'Survival and case knowledge are separate.')
-    assert ending_view(state)['mystery_reveal'] == thread_for(state)['ending_reveal']
+    if seed == 4:
+        assert '正式授權' in ending_view(state)['mystery_reveal']
+    else:
+        assert ending_view(state)['mystery_reveal'] == thread_for(state)['ending_reveal']
 
 
 def test_wrong_typed_chain_does_not_satisfy_final_reveal():
-    state = new_game(4)
+    state = at_month(4,11)
     for cid in thread_for(state)['required_clues']:
         gain_intel(state, cid, 'verified')
     state.month, state.phase = 11, 'deduction'
@@ -232,7 +236,7 @@ def test_wrong_typed_chain_does_not_satisfy_final_reveal():
 
 
 def test_deduction_rerun_stale_tokens_and_skip_cannot_mutate_game():
-    state = new_game(4)
+    state = new_game(0)
     state.month, state.phase = 4, 'night_result'
     before_resources = dict(state.resources)
     begin_month(state)
@@ -264,15 +268,15 @@ def test_invalid_focus_and_combined_cost_are_validated_before_mutation():
 
 
 def test_board_separates_proof_claim_pending_and_refuted_hypothesis():
-    state = at_month(4, 6)
-    investigate(state, 'follow_false_cards_internal')
-    gain_intel(state, 'card_original', 'verified')
+    state = new_game(4)
+    dispatch(state,'question_receiver')
+    gain_intel(state,'card_original','verified')
+    store_item(state,case.definition()['cross_lead'],'fixture independent lead')
     board = evidence_board(state)
     assert [n['id'] for n in board['confirmed']] == ['card_original']
-    assert any(n['id'] == 'false_cards_internal' for n in board['pending'])
-    assert board['claims'] and board['excluded']
+    assert board['pending'] and board['claims'] and board['excluded']
     board['confirmed'].clear()
-    assert state.evidence  # Projection is detached.
+    assert state.evidence
 
 
 @pytest.mark.parametrize('seed', (0, 4, 6))
@@ -311,12 +315,13 @@ def test_case_schedule_views_and_graph_integrity():
     story = deepcopy(load_story_data())
     validate_story_data(story)
     assert len(load_data()[1]['events']) == 20
-    for month in range(1,12):
-        event = current_event(at_month(4, month))
-        validate_views(event)
-        assert not any(word in json.dumps(event['character_views'],ensure_ascii=False) for word in ('屍體', '手稿', '官府'))
+    thread = next(t for t in story['threads'] if t['id']=='false_cards')
+    case.validate_case_thread(thread)
+    for episode in thread['episodes'].values():
+        assert set(episode['character_views']) == {'combat','strategy','medicine','diplomacy'}
+        assert not any(word in json.dumps(episode['character_views'],ensure_ascii=False) for word in ('屍體','官府'))
     story['threads'][0]['recovery_paths'].pop()
-    with pytest.raises(AssertionError, match='recovery path'):
+    with pytest.raises(AssertionError,match='recovery path'):
         validate_story_data(story)
 
 

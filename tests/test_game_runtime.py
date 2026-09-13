@@ -13,7 +13,7 @@ def test_current_runtime_does_not_reload_or_mutate_existing_game(monkeypatch):
     state = game_engine.new_game(4)
     before = state.rng.getstate()
     monkeypatch.setattr(game_runtime.importlib, 'reload', lambda module: (_ for _ in ()).throw(AssertionError('Unexpected reload')))
-    assert load_current_engine('0.5') is game_engine
+    assert load_current_engine('0.6') is game_engine
     assert state.rng.getstate() == before and state.month == 1
 
 
@@ -25,8 +25,8 @@ import types
 from streamlit.testing.v1 import AppTest
 
 # Simulate old module objects held by a long-running Streamlit process. These
-# intentionally lack the v0.5 API, so reloading only the version string fails.
-for name in ('models', 'data_loader', 'narrative', 'investigation', 'game_engine'):
+# intentionally lack the v0.6 API, so reloading only the version string fails.
+for name in ('models', 'case_models', 'data_loader', 'narrative', 'case_engine', 'investigation', 'game_engine'):
     module = types.ModuleType(name)
     module.__file__ = name + '.py'
     sys.modules[name] = module
@@ -34,7 +34,7 @@ for name in ('models', 'data_loader', 'narrative', 'investigation', 'game_engine
 @dataclass
 class LegacyGame:
     seed: int
-    version: str = '0.4'
+    version: str = '0.5'
 
 sys.modules['game_engine'].new_game = LegacyGame
 at = AppTest.from_file('app.py', default_timeout=10).run()
@@ -43,15 +43,14 @@ at.number_input(key='seed_input').set_value(4).run()
 at.button(key='start').click().run()
 assert not at.exception
 state = at.session_state['game']
-assert state.version == '0.5' and state.month == 1 and state.phase == 'day'
+assert state.version == '0.6' and state.month == 1 and state.phase == 'day'
 assert state.seed == 4 and state.main_thread == 'false_cards'
-assert at.radio(key='focus_1')
+assert at.radio(key='case_action_1')
 assert not any(b.key in ('start', 'start_current_version') for b in at.button)
 
 # The first dispatch must use the refreshed engine and evidence rules too.
-at.radio(key='focus_1').set_value('inspect_seal').run()
-at.radio(key='plan_1').set_value('ledger').run()
-at.multiselect(key='team_1_ledger').set_value(['c1']).run()
+at.radio(key='case_action_1').set_value('compare_seal').run()
+at.multiselect(key='team_1_compare_seal').set_value(['c1']).run()
 at.button(key='confirm_day').click().run()
 assert not at.exception and state.phase == 'day_result'
 assert 'card_original' in state.evidence
@@ -65,7 +64,7 @@ assert not at.exception and at.button(key='start_current_version')
 at.button(key='start_current_version').click().run()
 assert not at.exception
 current = at.session_state['game']
-assert current.version == '0.5' and current.phase == 'day' and current.month == 1
+assert current.version == '0.6' and current.phase == 'day' and current.month == 1
 assert not current.evidence
 at.run()
 assert not at.exception and at.session_state['game'] is current

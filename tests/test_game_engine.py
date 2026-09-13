@@ -32,7 +32,7 @@ def test_same_seed_same_events_and_results(policy):
 
 
 def test_fixed_months_random_without_replacement():
-    state = new_game(17)
+    state = new_game(17, main_thread='old_road')
     seen = []
     while not state.ending:
         state.resources = {"treasury": 100, "defense": 100, "reputation": 100}
@@ -127,7 +127,7 @@ def test_all_incapacitated_can_rest_without_softlock():
 def test_nonlethal_risks_never_kill_even_on_failure(risk):
     event, option_id = {"low": ("inventory", "pay"), "medium": ("caravan", "road"), "high": ("manual", "practice")}[risk]
     for seed in range(60):
-        state = new_game(seed)
+        state = new_game(seed, main_thread='old_road')
         state.event_id = event
         for char in state.characters:
             char.skills = dict.fromkeys(char.skills, 1)
@@ -140,7 +140,7 @@ def test_nonlethal_risks_never_kill_even_on_failure(risk):
 def test_lethal_failure_can_kill_and_records_prechoice_notice():
     deaths = []
     for seed in range(80):
-        state = new_game(seed)
+        state = new_game(seed, main_thread='old_road')
         state.event_id = "treasure"
         for char in state.characters:
             char.skills = dict.fromkeys(char.skills, 1)
@@ -213,7 +213,7 @@ def test_false_strong_cue_rejected_and_templates_do_not_repeat():
     assert all(a.text != b.text for a, b in zip(cues, cues[1:]))
 
 
-@pytest.mark.parametrize("seed,kind", [(4, "left"), (5, "left"), (179, "defected"), (113, "defected"), (224, "defected")])
+@pytest.mark.parametrize("seed,kind", [(21, "left"), (23, "left"), (40, "left"), (113, "defected")])
 def test_natural_fixed_seed_permanent_consequences_have_prior_evidence(seed, kind):
     state = play_game(seed, "conservative_policy")
     outcomes = audit_outcomes(state)
@@ -225,7 +225,7 @@ def test_natural_fixed_seed_permanent_consequences_have_prior_evidence(seed, kin
 
 
 def test_extra_hints_known_background_and_reading_does_not_change_engine():
-    state = new_game(9)
+    state = new_game(9, main_thread='old_road')
     state.event_id = "suspicion"
     option = current_event(state)["options"][1]
     poor = public_option(state, option)

@@ -1,0 +1,102 @@
+[
+  {
+    "policy": "conservative_policy",
+    "seed": 21,
+    "month": 7,
+    "name": "黎晚嶺",
+    "kind": "left",
+    "warnings": [
+      {
+        "month": 5,
+        "strength": "strong",
+        "text": "將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
+      },
+      {
+        "month": 6,
+        "strength": "strong",
+        "text": "把未完的值勤逐項交給同門，明言離山之日已在考慮。"
+      }
+    ]
+  },
+  {
+    "policy": "conservative_policy",
+    "seed": 23,
+    "month": 10,
+    "name": "蘇初霽",
+    "kind": "left",
+    "warnings": [
+      {
+        "month": 8,
+        "strength": "strong",
+        "text": "將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
+      },
+      {
+        "month": 9,
+        "strength": "strong",
+        "text": "把未完的值勤逐項交給同門，明言離山之日已在考慮。"
+      }
+    ]
+  },
+  {
+    "policy": "conservative_policy",
+    "seed": 40,
+    "month": 10,
+    "name": "蘇照微",
+    "kind": "left",
+    "warnings": [
+      {
+        "month": 8,
+        "strength": "strong",
+        "text": "將自己的鋪蓋捲起，交還備用房匙，說正在安排離山。"
+      },
+      {
+        "month": 9,
+        "strength": "strong",
+        "text": "把未完的值勤逐項交給同門，明言離山之日已在考慮。"
+      }
+    ]
+  },
+  {
+    "policy": "conservative_policy",
+    "seed": 113,
+    "month": 6,
+    "name": "黎青禾",
+    "kind": "defected",
+    "warnings": [
+      {
+        "month": 4,
+        "strength": "strong",
+        "text": "拿出烈川堂允諾接納的信，說若門內再無位置便會過去。"
+      },
+      {
+        "month": 5,
+        "strength": "strong",
+        "text": "當面表示已向烈川堂詢問投靠條件，交出的回信可以核對。"
+      }
+    ]
+  },
+  {
+    "policy": "random_policy",
+    "seed": 20,
+    "month": 7,
+    "name": "柳疏桐",
+    "kind": "dead",
+    "risk_notice": "致命風險：礦道坍塌可能造成弟子死亡。"
+  },
+  {
+    "policy": "random_policy",
+    "seed": 70,
+    "month": 6,
+    "name": "蘇懷朔",
+    "kind": "dead",
+    "risk_notice": "致命風險：礦道坍塌可能造成弟子死亡。"
+  },
+  {
+    "policy": "random_policy",
+    "seed": 83,
+    "month": 5,
+    "name": "賀知遙",
+    "kind": "dead",
+    "risk_notice": "致命風險：礦道坍塌可能造成弟子死亡。"
+  }
+]
