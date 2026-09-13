@@ -1,0 +1,2016 @@
+{
+  "campaigns": 90,
+  "turns": 40,
+  "counts": {
+    "callback_runs": 90,
+    "core_runs": 90,
+    "year_two_runs": 90
+  },
+  "coverage": {
+    "herbal_trip": 34,
+    "market": 145,
+    "village_fever": 47,
+    "memory_return": 745,
+    "patrol": 46,
+    "cards_0": 90,
+    "build": 180,
+    "caravan_talk": 150,
+    "cards_1": 90,
+    "appoint": 85,
+    "lost_child": 24,
+    "cards_2": 90,
+    "bridge": 45,
+    "petition": 160,
+    "dispute": 154,
+    "sparring": 106,
+    "goal": 116,
+    "guest": 147,
+    "night_watch": 127,
+    "granary": 24,
+    "frost": 33,
+    "wood": 101,
+    "medicine_order": 39,
+    "escort": 97,
+    "bandits": 106,
+    "water": 27,
+    "suspicion": 15,
+    "old_manual": 25,
+    "wounded_traveler": 35,
+    "roof": 35,
+    "failure_request": 1,
+    "injury_request": 1,
+    "train": 480
+  },
+  "runs": [
+    {
+      "seed": 0,
+      "policy": "focus",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 24,
+      "memories": 44,
+      "core_people": 4,
+      "offices": [
+        "唐見川：leader"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 208,
+        "defense": 94,
+        "reputation": 72
+      },
+      "at_24_decisions": {
+        "core_people": 3,
+        "callbacks": 13
+      }
+    },
+    {
+      "seed": 1,
+      "policy": "focus",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 26,
+      "memories": 44,
+      "core_people": 4,
+      "offices": [
+        "唐見川：leader"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 236,
+        "defense": 92,
+        "reputation": 67
+      },
+      "at_24_decisions": {
+        "core_people": 2,
+        "callbacks": 12
+      }
+    },
+    {
+      "seed": 2,
+      "policy": "focus",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 23,
+      "memories": 41,
+      "core_people": 6,
+      "offices": [
+        "唐見川：leader"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 204,
+        "defense": 93,
+        "reputation": 64
+      },
+      "at_24_decisions": {
+        "core_people": 2,
+        "callbacks": 9
+      }
+    },
+    {
+      "seed": 3,
+      "policy": "focus",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 24,
+      "memories": 38,
+      "core_people": 6,
+      "offices": [
+        "唐見川：leader"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 186,
+        "defense": 100,
+        "reputation": 98
+      },
+      "at_24_decisions": {
+        "core_people": 4,
+        "callbacks": 8
+      }
+    },
+    {
+      "seed": 4,
+      "policy": "focus",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 27,
+      "memories": 39,
+      "core_people": 5,
+      "offices": [
+        "唐見川：leader"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 228,
+        "defense": 75,
+        "reputation": 78
+      },
+      "at_24_decisions": {
+        "core_people": 4,
+        "callbacks": 12
+      }
+    },
+    {
+      "seed": 5,
+      "policy": "focus",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 24,
+      "memories": 43,
+      "core_people": 5,
+      "offices": [
+        "唐見川：leader"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 303,
+        "defense": 86,
+        "reputation": 90
+      },
+      "at_24_decisions": {
+        "core_people": 4,
+        "callbacks": 10
+      }
+    },
+    {
+      "seed": 6,
+      "policy": "focus",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 25,
+      "memories": 40,
+      "core_people": 4,
+      "offices": [
+        "唐見川：leader"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 234,
+        "defense": 91,
+        "reputation": 88
+      },
+      "at_24_decisions": {
+        "core_people": 2,
+        "callbacks": 10
+      }
+    },
+    {
+      "seed": 7,
+      "policy": "focus",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 25,
+      "memories": 47,
+      "core_people": 5,
+      "offices": [
+        "唐見川：leader"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 220,
+        "defense": 63,
+        "reputation": 81
+      },
+      "at_24_decisions": {
+        "core_people": 3,
+        "callbacks": 12
+      }
+    },
+    {
+      "seed": 8,
+      "policy": "focus",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 26,
+      "memories": 43,
+      "core_people": 6,
+      "offices": [
+        "唐見川：leader"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 222,
+        "defense": 70,
+        "reputation": 92
+      },
+      "at_24_decisions": {
+        "core_people": 1,
+        "callbacks": 11
+      }
+    },
+    {
+      "seed": 9,
+      "policy": "focus",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 25,
+      "memories": 38,
+      "core_people": 6,
+      "offices": [
+        "唐見川：leader"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 272,
+        "defense": 67,
+        "reputation": 100
+      },
+      "at_24_decisions": {
+        "core_people": 3,
+        "callbacks": 13
+      }
+    },
+    {
+      "seed": 10,
+      "policy": "focus",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 24,
+      "memories": 40,
+      "core_people": 5,
+      "offices": [
+        "唐見川：leader"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 274,
+        "defense": 92,
+        "reputation": 74
+      },
+      "at_24_decisions": {
+        "core_people": 1,
+        "callbacks": 11
+      }
+    },
+    {
+      "seed": 11,
+      "policy": "focus",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 24,
+      "memories": 36,
+      "core_people": 6,
+      "offices": [
+        "唐見川：leader"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 306,
+        "defense": 93,
+        "reputation": 82
+      },
+      "at_24_decisions": {
+        "core_people": 1,
+        "callbacks": 13
+      }
+    },
+    {
+      "seed": 12,
+      "policy": "focus",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 24,
+      "memories": 43,
+      "core_people": 5,
+      "offices": [
+        "唐見川：leader"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 241,
+        "defense": 100,
+        "reputation": 100
+      },
+      "at_24_decisions": {
+        "core_people": 4,
+        "callbacks": 9
+      }
+    },
+    {
+      "seed": 13,
+      "policy": "focus",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 21,
+      "memories": 43,
+      "core_people": 6,
+      "offices": [
+        "唐見川：leader"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 208,
+        "defense": 91,
+        "reputation": 59
+      },
+      "at_24_decisions": {
+        "core_people": 3,
+        "callbacks": 9
+      }
+    },
+    {
+      "seed": 14,
+      "policy": "focus",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 24,
+      "memories": 43,
+      "core_people": 6,
+      "offices": [
+        "唐見川：leader"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 246,
+        "defense": 92,
+        "reputation": 86
+      },
+      "at_24_decisions": {
+        "core_people": 3,
+        "callbacks": 8
+      }
+    },
+    {
+      "seed": 15,
+      "policy": "focus",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 24,
+      "memories": 42,
+      "core_people": 5,
+      "offices": [
+        "唐見川：leader"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 236,
+        "defense": 77,
+        "reputation": 78
+      },
+      "at_24_decisions": {
+        "core_people": 4,
+        "callbacks": 13
+      }
+    },
+    {
+      "seed": 16,
+      "policy": "focus",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 26,
+      "memories": 39,
+      "core_people": 6,
+      "offices": [
+        "唐見川：leader"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 306,
+        "defense": 89,
+        "reputation": 49
+      },
+      "at_24_decisions": {
+        "core_people": 4,
+        "callbacks": 11
+      }
+    },
+    {
+      "seed": 17,
+      "policy": "focus",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 25,
+      "memories": 41,
+      "core_people": 5,
+      "offices": [
+        "唐見川：leader"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 272,
+        "defense": 93,
+        "reputation": 88
+      },
+      "at_24_decisions": {
+        "core_people": 3,
+        "callbacks": 13
+      }
+    },
+    {
+      "seed": 18,
+      "policy": "focus",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 24,
+      "memories": 37,
+      "core_people": 5,
+      "offices": [
+        "唐見川：leader"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 252,
+        "defense": 86,
+        "reputation": 80
+      },
+      "at_24_decisions": {
+        "core_people": 3,
+        "callbacks": 12
+      }
+    },
+    {
+      "seed": 19,
+      "policy": "focus",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 22,
+      "memories": 39,
+      "core_people": 5,
+      "offices": [
+        "唐見川：leader"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 217,
+        "defense": 91,
+        "reputation": 75
+      },
+      "at_24_decisions": {
+        "core_people": 4,
+        "callbacks": 10
+      }
+    },
+    {
+      "seed": 20,
+      "policy": "focus",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 25,
+      "memories": 41,
+      "core_people": 5,
+      "offices": [
+        "唐見川：leader"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 261,
+        "defense": 98,
+        "reputation": 93
+      },
+      "at_24_decisions": {
+        "core_people": 4,
+        "callbacks": 10
+      }
+    },
+    {
+      "seed": 21,
+      "policy": "focus",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 23,
+      "memories": 35,
+      "core_people": 5,
+      "offices": [
+        "唐見川：leader"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 256,
+        "defense": 89,
+        "reputation": 98
+      },
+      "at_24_decisions": {
+        "core_people": 3,
+        "callbacks": 10
+      }
+    },
+    {
+      "seed": 22,
+      "policy": "focus",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 27,
+      "memories": 39,
+      "core_people": 6,
+      "offices": [
+        "唐見川：leader"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 254,
+        "defense": 82,
+        "reputation": 100
+      },
+      "at_24_decisions": {
+        "core_people": 2,
+        "callbacks": 12
+      }
+    },
+    {
+      "seed": 23,
+      "policy": "focus",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 22,
+      "memories": 40,
+      "core_people": 5,
+      "offices": [
+        "唐見川：leader"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 231,
+        "defense": 86,
+        "reputation": 98
+      },
+      "at_24_decisions": {
+        "core_people": 3,
+        "callbacks": 9
+      }
+    },
+    {
+      "seed": 24,
+      "policy": "focus",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 21,
+      "memories": 43,
+      "core_people": 4,
+      "offices": [
+        "唐見川：leader"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 229,
+        "defense": 74,
+        "reputation": 98
+      },
+      "at_24_decisions": {
+        "core_people": 4,
+        "callbacks": 8
+      }
+    },
+    {
+      "seed": 25,
+      "policy": "focus",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 23,
+      "memories": 32,
+      "core_people": 5,
+      "offices": [
+        "唐見川：leader"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 295,
+        "defense": 100,
+        "reputation": 65
+      },
+      "at_24_decisions": {
+        "core_people": 3,
+        "callbacks": 12
+      }
+    },
+    {
+      "seed": 26,
+      "policy": "focus",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 23,
+      "memories": 39,
+      "core_people": 5,
+      "offices": [
+        "唐見川：leader"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 250,
+        "defense": 89,
+        "reputation": 80
+      },
+      "at_24_decisions": {
+        "core_people": 1,
+        "callbacks": 10
+      }
+    },
+    {
+      "seed": 27,
+      "policy": "focus",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 26,
+      "memories": 46,
+      "core_people": 6,
+      "offices": [
+        "唐見川：leader"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 224,
+        "defense": 79,
+        "reputation": 76
+      },
+      "at_24_decisions": {
+        "core_people": 4,
+        "callbacks": 11
+      }
+    },
+    {
+      "seed": 28,
+      "policy": "focus",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 23,
+      "memories": 42,
+      "core_people": 6,
+      "offices": [
+        "唐見川：leader"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 235,
+        "defense": 78,
+        "reputation": 100
+      },
+      "at_24_decisions": {
+        "core_people": 3,
+        "callbacks": 11
+      }
+    },
+    {
+      "seed": 29,
+      "policy": "focus",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 25,
+      "memories": 42,
+      "core_people": 5,
+      "offices": [
+        "沈照溪：leader"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 219,
+        "defense": 58,
+        "reputation": 92
+      },
+      "at_24_decisions": {
+        "core_people": 1,
+        "callbacks": 10
+      }
+    },
+    {
+      "seed": 0,
+      "policy": "rotation",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 22,
+      "memories": 40,
+      "core_people": 6,
+      "offices": [
+        "沈照溪：medic"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 113,
+        "defense": 94,
+        "reputation": 99
+      },
+      "at_24_decisions": {
+        "core_people": 5,
+        "callbacks": 12
+      }
+    },
+    {
+      "seed": 1,
+      "policy": "rotation",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 21,
+      "memories": 40,
+      "core_people": 6,
+      "offices": [
+        "沈照溪：medic"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 93,
+        "defense": 93,
+        "reputation": 66
+      },
+      "at_24_decisions": {
+        "core_people": 4,
+        "callbacks": 9
+      }
+    },
+    {
+      "seed": 2,
+      "policy": "rotation",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 22,
+      "memories": 40,
+      "core_people": 6,
+      "offices": [
+        "沈照溪：medic"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 108,
+        "defense": 84,
+        "reputation": 94
+      },
+      "at_24_decisions": {
+        "core_people": 4,
+        "callbacks": 10
+      }
+    },
+    {
+      "seed": 3,
+      "policy": "rotation",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 24,
+      "memories": 37,
+      "core_people": 5,
+      "offices": [
+        "沈照溪：medic"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 61,
+        "defense": 100,
+        "reputation": 100
+      },
+      "at_24_decisions": {
+        "core_people": 3,
+        "callbacks": 11
+      }
+    },
+    {
+      "seed": 4,
+      "policy": "rotation",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 23,
+      "memories": 39,
+      "core_people": 4,
+      "offices": [
+        "沈照溪：medic"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 122,
+        "defense": 100,
+        "reputation": 93
+      },
+      "at_24_decisions": {
+        "core_people": 2,
+        "callbacks": 10
+      }
+    },
+    {
+      "seed": 5,
+      "policy": "rotation",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 26,
+      "memories": 42,
+      "core_people": 6,
+      "offices": [],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 123,
+        "defense": 96,
+        "reputation": 97
+      },
+      "at_24_decisions": {
+        "core_people": 2,
+        "callbacks": 11
+      }
+    },
+    {
+      "seed": 6,
+      "policy": "rotation",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 22,
+      "memories": 39,
+      "core_people": 6,
+      "offices": [
+        "沈照溪：medic"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 53,
+        "defense": 100,
+        "reputation": 98
+      },
+      "at_24_decisions": {
+        "core_people": 5,
+        "callbacks": 13
+      }
+    },
+    {
+      "seed": 7,
+      "policy": "rotation",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 23,
+      "memories": 36,
+      "core_people": 4,
+      "offices": [],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 99,
+        "defense": 100,
+        "reputation": 77
+      },
+      "at_24_decisions": {
+        "core_people": 1,
+        "callbacks": 10
+      }
+    },
+    {
+      "seed": 8,
+      "policy": "rotation",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 24,
+      "memories": 40,
+      "core_people": 6,
+      "offices": [
+        "沈照溪：medic"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 102,
+        "defense": 77,
+        "reputation": 67
+      },
+      "at_24_decisions": {
+        "core_people": 6,
+        "callbacks": 11
+      }
+    },
+    {
+      "seed": 9,
+      "policy": "rotation",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 24,
+      "memories": 41,
+      "core_people": 5,
+      "offices": [
+        "沈照溪：medic"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 117,
+        "defense": 85,
+        "reputation": 81
+      },
+      "at_24_decisions": {
+        "core_people": 4,
+        "callbacks": 12
+      }
+    },
+    {
+      "seed": 10,
+      "policy": "rotation",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 24,
+      "memories": 35,
+      "core_people": 6,
+      "offices": [
+        "沈照溪：medic"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 90,
+        "defense": 88,
+        "reputation": 74
+      },
+      "at_24_decisions": {
+        "core_people": 3,
+        "callbacks": 13
+      }
+    },
+    {
+      "seed": 11,
+      "policy": "rotation",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 24,
+      "memories": 43,
+      "core_people": 6,
+      "offices": [
+        "沈照溪：medic"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 137,
+        "defense": 93,
+        "reputation": 60
+      },
+      "at_24_decisions": {
+        "core_people": 3,
+        "callbacks": 13
+      }
+    },
+    {
+      "seed": 12,
+      "policy": "rotation",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 23,
+      "memories": 37,
+      "core_people": 6,
+      "offices": [
+        "沈照溪：medic"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 84,
+        "defense": 93,
+        "reputation": 100
+      },
+      "at_24_decisions": {
+        "core_people": 5,
+        "callbacks": 11
+      }
+    },
+    {
+      "seed": 13,
+      "policy": "rotation",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 23,
+      "memories": 36,
+      "core_people": 5,
+      "offices": [
+        "沈照溪：medic"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 124,
+        "defense": 84,
+        "reputation": 100
+      },
+      "at_24_decisions": {
+        "core_people": 3,
+        "callbacks": 12
+      }
+    },
+    {
+      "seed": 14,
+      "policy": "rotation",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 21,
+      "memories": 40,
+      "core_people": 5,
+      "offices": [
+        "沈照溪：medic"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 62,
+        "defense": 100,
+        "reputation": 100
+      },
+      "at_24_decisions": {
+        "core_people": 2,
+        "callbacks": 9
+      }
+    },
+    {
+      "seed": 15,
+      "policy": "rotation",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 24,
+      "memories": 37,
+      "core_people": 6,
+      "offices": [],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 134,
+        "defense": 86,
+        "reputation": 90
+      },
+      "at_24_decisions": {
+        "core_people": 2,
+        "callbacks": 11
+      }
+    },
+    {
+      "seed": 16,
+      "policy": "rotation",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 27,
+      "memories": 42,
+      "core_people": 5,
+      "offices": [],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 122,
+        "defense": 89,
+        "reputation": 100
+      },
+      "at_24_decisions": {
+        "core_people": 3,
+        "callbacks": 13
+      }
+    },
+    {
+      "seed": 17,
+      "policy": "rotation",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 22,
+      "memories": 40,
+      "core_people": 6,
+      "offices": [
+        "沈照溪：medic"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 122,
+        "defense": 90,
+        "reputation": 91
+      },
+      "at_24_decisions": {
+        "core_people": 3,
+        "callbacks": 10
+      }
+    },
+    {
+      "seed": 18,
+      "policy": "rotation",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 21,
+      "memories": 39,
+      "core_people": 6,
+      "offices": [
+        "沈照溪：medic"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 125,
+        "defense": 100,
+        "reputation": 66
+      },
+      "at_24_decisions": {
+        "core_people": 4,
+        "callbacks": 12
+      }
+    },
+    {
+      "seed": 19,
+      "policy": "rotation",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 23,
+      "memories": 40,
+      "core_people": 6,
+      "offices": [
+        "沈照溪：medic"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 109,
+        "defense": 85,
+        "reputation": 66
+      },
+      "at_24_decisions": {
+        "core_people": 4,
+        "callbacks": 10
+      }
+    },
+    {
+      "seed": 20,
+      "policy": "rotation",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 26,
+      "memories": 44,
+      "core_people": 6,
+      "offices": [
+        "沈照溪：medic"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 108,
+        "defense": 80,
+        "reputation": 86
+      },
+      "at_24_decisions": {
+        "core_people": 3,
+        "callbacks": 13
+      }
+    },
+    {
+      "seed": 21,
+      "policy": "rotation",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 23,
+      "memories": 36,
+      "core_people": 6,
+      "offices": [
+        "沈照溪：medic"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 121,
+        "defense": 90,
+        "reputation": 92
+      },
+      "at_24_decisions": {
+        "core_people": 2,
+        "callbacks": 12
+      }
+    },
+    {
+      "seed": 22,
+      "policy": "rotation",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 23,
+      "memories": 41,
+      "core_people": 6,
+      "offices": [
+        "沈照溪：medic"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 89,
+        "defense": 99,
+        "reputation": 100
+      },
+      "at_24_decisions": {
+        "core_people": 3,
+        "callbacks": 12
+      }
+    },
+    {
+      "seed": 23,
+      "policy": "rotation",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 22,
+      "memories": 42,
+      "core_people": 6,
+      "offices": [
+        "沈照溪：medic"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 68,
+        "defense": 100,
+        "reputation": 82
+      },
+      "at_24_decisions": {
+        "core_people": 5,
+        "callbacks": 12
+      }
+    },
+    {
+      "seed": 24,
+      "policy": "rotation",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 25,
+      "memories": 36,
+      "core_people": 6,
+      "offices": [],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 95,
+        "defense": 91,
+        "reputation": 100
+      },
+      "at_24_decisions": {
+        "core_people": 2,
+        "callbacks": 10
+      }
+    },
+    {
+      "seed": 25,
+      "policy": "rotation",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 24,
+      "memories": 38,
+      "core_people": 5,
+      "offices": [
+        "沈照溪：medic"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 101,
+        "defense": 93,
+        "reputation": 100
+      },
+      "at_24_decisions": {
+        "core_people": 1,
+        "callbacks": 11
+      }
+    },
+    {
+      "seed": 26,
+      "policy": "rotation",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 24,
+      "memories": 43,
+      "core_people": 6,
+      "offices": [
+        "沈照溪：medic"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 72,
+        "defense": 100,
+        "reputation": 95
+      },
+      "at_24_decisions": {
+        "core_people": 1,
+        "callbacks": 11
+      }
+    },
+    {
+      "seed": 27,
+      "policy": "rotation",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 26,
+      "memories": 43,
+      "core_people": 6,
+      "offices": [
+        "沈照溪：medic"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 109,
+        "defense": 80,
+        "reputation": 100
+      },
+      "at_24_decisions": {
+        "core_people": 1,
+        "callbacks": 14
+      }
+    },
+    {
+      "seed": 28,
+      "policy": "rotation",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 23,
+      "memories": 37,
+      "core_people": 6,
+      "offices": [
+        "沈照溪：medic"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 111,
+        "defense": 97,
+        "reputation": 99
+      },
+      "at_24_decisions": {
+        "core_people": 3,
+        "callbacks": 11
+      }
+    },
+    {
+      "seed": 29,
+      "policy": "rotation",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 23,
+      "memories": 38,
+      "core_people": 5,
+      "offices": [
+        "沈照溪：medic"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 154,
+        "defense": 100,
+        "reputation": 72
+      },
+      "at_24_decisions": {
+        "core_people": 2,
+        "callbacks": 11
+      }
+    },
+    {
+      "seed": 0,
+      "policy": "mentor",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 14,
+      "memories": 42,
+      "core_people": 2,
+      "offices": [
+        "唐見川：mentor"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 140,
+        "defense": 82,
+        "reputation": 39
+      },
+      "at_24_decisions": {
+        "core_people": 2,
+        "callbacks": 8
+      }
+    },
+    {
+      "seed": 1,
+      "policy": "mentor",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 13,
+      "memories": 41,
+      "core_people": 2,
+      "offices": [
+        "唐見川：mentor"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 156,
+        "defense": 62,
+        "reputation": 51
+      },
+      "at_24_decisions": {
+        "core_people": 2,
+        "callbacks": 7
+      }
+    },
+    {
+      "seed": 2,
+      "policy": "mentor",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 13,
+      "memories": 38,
+      "core_people": 3,
+      "offices": [
+        "唐見川：mentor"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 136,
+        "defense": 74,
+        "reputation": 35
+      },
+      "at_24_decisions": {
+        "core_people": 2,
+        "callbacks": 7
+      }
+    },
+    {
+      "seed": 3,
+      "policy": "mentor",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 13,
+      "memories": 39,
+      "core_people": 2,
+      "offices": [
+        "唐見川：mentor"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 142,
+        "defense": 71,
+        "reputation": 52
+      },
+      "at_24_decisions": {
+        "core_people": 2,
+        "callbacks": 7
+      }
+    },
+    {
+      "seed": 4,
+      "policy": "mentor",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 16,
+      "memories": 39,
+      "core_people": 2,
+      "offices": [
+        "唐見川：mentor"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 163,
+        "defense": 90,
+        "reputation": 51
+      },
+      "at_24_decisions": {
+        "core_people": 2,
+        "callbacks": 8
+      }
+    },
+    {
+      "seed": 5,
+      "policy": "mentor",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 16,
+      "memories": 42,
+      "core_people": 2,
+      "offices": [
+        "唐見川：mentor"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 148,
+        "defense": 96,
+        "reputation": 38
+      },
+      "at_24_decisions": {
+        "core_people": 2,
+        "callbacks": 8
+      }
+    },
+    {
+      "seed": 6,
+      "policy": "mentor",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 16,
+      "memories": 43,
+      "core_people": 2,
+      "offices": [
+        "唐見川：mentor"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 162,
+        "defense": 75,
+        "reputation": 52
+      },
+      "at_24_decisions": {
+        "core_people": 2,
+        "callbacks": 8
+      }
+    },
+    {
+      "seed": 7,
+      "policy": "mentor",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 12,
+      "memories": 40,
+      "core_people": 2,
+      "offices": [
+        "唐見川：mentor"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 136,
+        "defense": 73,
+        "reputation": 57
+      },
+      "at_24_decisions": {
+        "core_people": 2,
+        "callbacks": 7
+      }
+    },
+    {
+      "seed": 8,
+      "policy": "mentor",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 16,
+      "memories": 40,
+      "core_people": 2,
+      "offices": [
+        "唐見川：mentor"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 147,
+        "defense": 92,
+        "reputation": 43
+      },
+      "at_24_decisions": {
+        "core_people": 2,
+        "callbacks": 8
+      }
+    },
+    {
+      "seed": 9,
+      "policy": "mentor",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 15,
+      "memories": 40,
+      "core_people": 2,
+      "offices": [
+        "唐見川：mentor"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 166,
+        "defense": 64,
+        "reputation": 49
+      },
+      "at_24_decisions": {
+        "core_people": 2,
+        "callbacks": 8
+      }
+    },
+    {
+      "seed": 10,
+      "policy": "mentor",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 14,
+      "memories": 41,
+      "core_people": 2,
+      "offices": [
+        "唐見川：mentor"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 165,
+        "defense": 62,
+        "reputation": 51
+      },
+      "at_24_decisions": {
+        "core_people": 2,
+        "callbacks": 8
+      }
+    },
+    {
+      "seed": 11,
+      "policy": "mentor",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 16,
+      "memories": 42,
+      "core_people": 2,
+      "offices": [
+        "唐見川：mentor"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 136,
+        "defense": 90,
+        "reputation": 66
+      },
+      "at_24_decisions": {
+        "core_people": 2,
+        "callbacks": 8
+      }
+    },
+    {
+      "seed": 12,
+      "policy": "mentor",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 16,
+      "memories": 39,
+      "core_people": 2,
+      "offices": [
+        "唐見川：mentor"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 151,
+        "defense": 83,
+        "reputation": 51
+      },
+      "at_24_decisions": {
+        "core_people": 2,
+        "callbacks": 8
+      }
+    },
+    {
+      "seed": 13,
+      "policy": "mentor",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 15,
+      "memories": 38,
+      "core_people": 3,
+      "offices": [
+        "唐見川：mentor"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 122,
+        "defense": 72,
+        "reputation": 61
+      },
+      "at_24_decisions": {
+        "core_people": 2,
+        "callbacks": 8
+      }
+    },
+    {
+      "seed": 14,
+      "policy": "mentor",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 13,
+      "memories": 39,
+      "core_people": 2,
+      "offices": [
+        "唐見川：mentor"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 132,
+        "defense": 91,
+        "reputation": 44
+      },
+      "at_24_decisions": {
+        "core_people": 2,
+        "callbacks": 7
+      }
+    },
+    {
+      "seed": 15,
+      "policy": "mentor",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 13,
+      "memories": 42,
+      "core_people": 2,
+      "offices": [
+        "唐見川：mentor"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 157,
+        "defense": 64,
+        "reputation": 44
+      },
+      "at_24_decisions": {
+        "core_people": 2,
+        "callbacks": 7
+      }
+    },
+    {
+      "seed": 16,
+      "policy": "mentor",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 16,
+      "memories": 42,
+      "core_people": 2,
+      "offices": [
+        "唐見川：mentor"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 151,
+        "defense": 87,
+        "reputation": 51
+      },
+      "at_24_decisions": {
+        "core_people": 2,
+        "callbacks": 8
+      }
+    },
+    {
+      "seed": 17,
+      "policy": "mentor",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 16,
+      "memories": 37,
+      "core_people": 2,
+      "offices": [
+        "唐見川：mentor"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 137,
+        "defense": 100,
+        "reputation": 39
+      },
+      "at_24_decisions": {
+        "core_people": 2,
+        "callbacks": 8
+      }
+    },
+    {
+      "seed": 18,
+      "policy": "mentor",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 16,
+      "memories": 38,
+      "core_people": 2,
+      "offices": [
+        "唐見川：mentor"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 149,
+        "defense": 64,
+        "reputation": 65
+      },
+      "at_24_decisions": {
+        "core_people": 2,
+        "callbacks": 8
+      }
+    },
+    {
+      "seed": 19,
+      "policy": "mentor",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 14,
+      "memories": 41,
+      "core_people": 2,
+      "offices": [
+        "唐見川：mentor"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 137,
+        "defense": 83,
+        "reputation": 53
+      },
+      "at_24_decisions": {
+        "core_people": 2,
+        "callbacks": 8
+      }
+    },
+    {
+      "seed": 20,
+      "policy": "mentor",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 13,
+      "memories": 38,
+      "core_people": 2,
+      "offices": [
+        "唐見川：mentor"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 138,
+        "defense": 62,
+        "reputation": 58
+      },
+      "at_24_decisions": {
+        "core_people": 2,
+        "callbacks": 7
+      }
+    },
+    {
+      "seed": 21,
+      "policy": "mentor",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 13,
+      "memories": 40,
+      "core_people": 3,
+      "offices": [
+        "唐見川：mentor"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 140,
+        "defense": 60,
+        "reputation": 49
+      },
+      "at_24_decisions": {
+        "core_people": 2,
+        "callbacks": 7
+      }
+    },
+    {
+      "seed": 22,
+      "policy": "mentor",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 16,
+      "memories": 44,
+      "core_people": 2,
+      "offices": [
+        "唐見川：mentor"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 176,
+        "defense": 66,
+        "reputation": 50
+      },
+      "at_24_decisions": {
+        "core_people": 2,
+        "callbacks": 8
+      }
+    },
+    {
+      "seed": 23,
+      "policy": "mentor",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 16,
+      "memories": 44,
+      "core_people": 2,
+      "offices": [
+        "唐見川：mentor"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 158,
+        "defense": 87,
+        "reputation": 51
+      },
+      "at_24_decisions": {
+        "core_people": 2,
+        "callbacks": 8
+      }
+    },
+    {
+      "seed": 24,
+      "policy": "mentor",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 16,
+      "memories": 39,
+      "core_people": 2,
+      "offices": [
+        "唐見川：mentor"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 151,
+        "defense": 87,
+        "reputation": 57
+      },
+      "at_24_decisions": {
+        "core_people": 2,
+        "callbacks": 8
+      }
+    },
+    {
+      "seed": 25,
+      "policy": "mentor",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 15,
+      "memories": 41,
+      "core_people": 2,
+      "offices": [
+        "唐見川：mentor"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 144,
+        "defense": 80,
+        "reputation": 52
+      },
+      "at_24_decisions": {
+        "core_people": 2,
+        "callbacks": 8
+      }
+    },
+    {
+      "seed": 26,
+      "policy": "mentor",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 15,
+      "memories": 45,
+      "core_people": 2,
+      "offices": [
+        "唐見川：mentor"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 155,
+        "defense": 73,
+        "reputation": 52
+      },
+      "at_24_decisions": {
+        "core_people": 2,
+        "callbacks": 8
+      }
+    },
+    {
+      "seed": 27,
+      "policy": "mentor",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 13,
+      "memories": 42,
+      "core_people": 2,
+      "offices": [
+        "唐見川：mentor"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 119,
+        "defense": 93,
+        "reputation": 52
+      },
+      "at_24_decisions": {
+        "core_people": 2,
+        "callbacks": 7
+      }
+    },
+    {
+      "seed": 28,
+      "policy": "mentor",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 13,
+      "memories": 41,
+      "core_people": 3,
+      "offices": [
+        "唐見川：mentor"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 133,
+        "defense": 74,
+        "reputation": 59
+      },
+      "at_24_decisions": {
+        "core_people": 2,
+        "callbacks": 8
+      }
+    },
+    {
+      "seed": 29,
+      "policy": "mentor",
+      "decisions": 40,
+      "ending": "",
+      "callbacks": 16,
+      "memories": 40,
+      "core_people": 2,
+      "offices": [
+        "唐見川：mentor"
+      ],
+      "entered_year_two": true,
+      "resources": {
+        "treasury": 139,
+        "defense": 72,
+        "reputation": 71
+      },
+      "at_24_decisions": {
+        "core_people": 2,
+        "callbacks": 8
+      }
+    }
+  ]
+}

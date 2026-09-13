@@ -1,28 +1,23 @@
-"""Local Streamlit presentation; hidden data never enters a display component."""
+"""v0.7 Streamlit UI: people, assignments and remembered history."""
 import secrets
 from uuid import uuid4
 
 import streamlit as st
-
 from game_runtime import load_current_engine
 
-APP_VERSION = "0.6"
-st.set_page_config(page_title="危門十二月", page_icon="⛰️", layout="wide")
-# Refresh an earlier process before binding functions from the game modules.
+APP_VERSION = "0.7"
+st.set_page_config(page_title="危門 · 山門歲月", page_icon="⛰️", layout="wide")
 try:
-    load_current_engine(APP_VERSION)
-except RuntimeError as exc:
+    engine = load_current_engine(APP_VERSION)
+except (ImportError, RuntimeError) as exc:
     st.error(str(exc))
     st.stop()
 
-from investigation import checkpoint_view, resolve_deduction
+from sect_models import JOBS, date_label
+from models import SKILLS, RISK_NAMES
+import sect_feedback
+import sect_save
 
-from feedback import DEFAULT_PATH, save_feedback, survey_options
-from game_engine import (InvalidAction, begin_month, current_event, emergency_rest,
-                         ending_view, legal_actions, new_game, night_view, public_option,
-                         public_state, resolve_day, resolve_night, start_night)
-from game_engine import resolve_case_action
-from case_engine import legal_case_actions
 
 def restart():
     for key in list(st.session_state):
@@ -33,9 +28,9 @@ def restart():
 def start_new_game():
     previous = st.session_state.get("game")
     seed = int(st.session_state.get("seed_input", getattr(previous, "seed", 42)))
-    state = new_game(seed)
+    current = engine.new_game(seed)
     restart()
-    st.session_state.game = state
+    st.session_state.game = current
     st.session_state.response_id = str(uuid4())
 
 
@@ -43,367 +38,203 @@ def random_seed():
     st.session_state.seed_input = secrets.randbelow(2**32)
 
 
-def run_action(action, *args):
+def draw_save(state=None):
+    with st.expander("本機存檔／讀檔"):
+        st.caption("下載 JSON 保存進度；日後可讀回。存檔需使用相同版本規則，最多支援 1000 旬。")
+        if state is not None:
+            try:
+                payload = sect_save.export_save(state)
+            except ValueError as exc:
+                st.info(str(exc))
+            else:
+                st.download_button("下載這局存檔", payload, file_name=f"weimen_v07_{state.seed}_{state.tick}.json", mime="application/json", key="download_save")
+        uploaded = st.file_uploader("選擇 v0.7 存檔", type=["json"], key="save_file")
+        if st.button("讀取並切換至此存檔", disabled=uploaded is None, key="load_save"):
+            try:
+                restored = sect_save.import_save(uploaded.getvalue())
+            except ValueError as exc:
+                st.error(str(exc))
+            else:
+                restart()
+                st.session_state.game = restored
+                st.session_state.response_id = str(uuid4())
+                st.rerun()
+
+
+def run_action(fn, *args):
     try:
-        action(*args)
-    except (InvalidAction, ValueError) as exc:
+        fn(*args)
+    except (engine.InvalidAction, ValueError) as exc:
         st.error(str(exc))
     else:
+        # Prune controls for completed turns in this open-ended campaign.
+        for key in list(st.session_state):
+            if key.startswith(("action_", "team_", "job_")):
+                del st.session_state[key]
         st.rerun()
 
 
-def draw_sidebar(view):
-    names = {c["id"]: c["name"] for c in view["characters"]}
-    with st.sidebar:
-        draw_evidence_board(view)
-        st.header("掌門札記")
-        st.caption(f"本局種子：{view['seed']}")
-        with st.expander("人物與異常", expanded=False):
-            st.caption("只記錄新的言行或事實；沒有新變化便不新增。重大警示若有後續進展，會另記一筆。")
-            if not view["observations"]:
-                st.write("尚未留下觀察。")
-            for cue in reversed(view["observations"]):
-                st.markdown(f"**第 {cue['month']} 月 · {names[cue['character_id']]} · {cue['kind']}**")
-                st.write(cue["text"])
-        with st.expander("已知情報"):
-            for text in view["intel"] or ["尚未取得可核對的敵方情報。"]:
-                st.write(text)
-        with st.expander("事件紀錄"):
-            for log in reversed(view["logs"]):
-                st.write(f"第 {log['month']} 月：{log['text']}")
-        with st.expander("已知往事"):
-            for flag in view["flags"] or ["尚無已公開事項。"]:
-                st.write(flag)
-        st.button("重新開始", on_click=restart)
-        st.caption("單局保留在目前瀏覽器工作階段；重新整理連線或關閉伺服器可能重置。")
-
-
-def draw_cards(view):
-    columns = st.columns(2)
-    for index, char in enumerate(view["characters"]):
-        column = columns[index % 2]
-        with column, st.container(border=True):
-            st.subheader(char["name"])
-            st.caption(f"{char['age']} 歲 · {char['role']}專長 · {char['personality']}")
-            st.write(" · ".join(f"{k} {v}" for k, v in char["skills"].items()))
-            st.markdown(f"**{char['physical']}**")
-            st.write(char["signature"])
-            with st.expander("人物小傳與近況"):
-                st.write("小傳：" + char["background"])
-                when = f"（第 {char['recent_month']} 月）" if char["recent_month"] else ""
-                st.write("近況" + when + "：" + char["recent"])
-                if char["experiences"]:
-                    st.write("已知經歷：")
-                    for experience in char["experiences"]:
-                        st.write("• " + experience)
-
-
-def draw_resources(view):
-    st.subheader(f"第 {view['month']} 月 · {view['chapter']}")
-    for col, (name, value) in zip(st.columns(3), view["resources"].items()):
-        col.metric(name, value)
-
-
-def draw_event_scene(view):
-    event = view["event"]
-    st.header(event["title"])
-    st.markdown("**事件人物：" + event["npc_identity"] + "**")
-    st.write(event["description"])
-    if view['case_question']:
-        question = view['case_question']
-        st.info('核心問題：' + question['text'])
-        st.caption('查明程度：' + {'open':'尚待核查', 'partial':'部分查明', 'resolved':'本題已有依據'}[question['status']])
-        with st.expander('目前已知／尚未確認', expanded=True):
-            st.markdown('**目前已知**')
-            for fact in question['known_facts'] or ['尚無已核實材料；人物的主張請見證據板「人物說法」。']:
-                st.write(fact)
-            st.markdown('**尚未確認**')
-            for part in question['unresolved_parts'] or ['本題必要核對已完成；其他問題仍各自保留缺口。']:
-                st.write(part)
-    else:
-        st.info("目前疑點：" + event["current_question"])
-    if event["callbacks"]:
-        with st.expander("與本月有關的前事"):
-            for callback in event["callbacks"]:
-                st.write(callback["text"])
-
-
-def draw_character_opinions(view):
-    st.subheader("四名弟子的判斷")
+def draw_people(view):
     columns = st.columns(2)
     for index, char in enumerate(view["characters"]):
         with columns[index % 2], st.container(border=True):
-            st.markdown("### " + char["name"])
-            st.write(f"{char['role']}專長 · {char['personality']}")
-            status = f"狀態：{char['status_label']} · {char['actionable_label']}"
-            if char["status_level"] in ("danger", "unavailable"):
-                st.warning(status)
-            else:
-                st.write(status)
-            st.markdown("**判斷**")
-            st.write(char["thought"])
-            if char["dialogue"]:
-                st.markdown("**他說**")
-                st.write("「" + char["dialogue"] + "」")
-            with st.expander("能力、背景與判斷範圍"):
-                st.write(" · ".join(f"{k} {v}" for k,v in char["skills"].items()))
-                st.write("小傳：" + char["background"])
-                when = f"（第 {char['recent_month']} 月）" if char["recent_month"] else ""
-                st.write("近況" + when + "：" + char["recent"])
-                for experience in char["experiences"]:
-                    st.write("• " + experience)
-                st.write("較熟悉：" + char["reliable_domain"])
-                st.write("需另找人核對：" + char["blind_spot"])
+            st.subheader(char["name"])
+            st.caption(f"{char['age']} 歲 · {char['background']} · {char['personality']}")
+            st.write(f"**{char['stage']}**" + (f" · {char['office']}" if char["office"] else "") + f" · {char['status']}")
+            st.write(" · ".join(f"{k} {v}" for k, v in char["skills"].items()))
+            st.caption(char["signature"])
+            st.write(char["recent"])
+            if char["goal"]:
+                st.info("想走的方向：" + char["goal"])
+            if char["development"]:
+                st.write("經歷留下的變化：" + "、".join(char["development"]))
+            with st.expander("人際與共同記憶"):
+                for relation in char["relationships"]:
+                    st.write(relation["name"] + " · " + relation["label"])
+                for memory in reversed(char["memories"][-12:]):
+                    st.write(f"{memory['date']} · {memory['text']}" + ("（後來又被提起）" if memory["recalled"] else ""))
+                if not char["memories"]:
+                    st.caption("尚未一起經歷事情。")
+            with st.expander("人物經歷"):
+                for exp in reversed(char["experiences"]):
+                    st.write(f"{exp['date']} · {exp['text']}")
 
 
-def draw_evidence_board(view):
-    board = view["evidence_board"]
-    st.subheader("證據板")
-    for key, label in (("confirmed","已證實"),("pending","待核實"),("claims","人物說法"),("excluded","排除事項")):
-        with st.expander(f"{label} · {len(board[key])}", expanded=key == "confirmed"):
-            if not board[key]:
-                st.write("目前沒有這類記錄。")
-            for item in board[key]:
-                st.markdown("**" + item["title"] + "**")
-                if key == "excluded":
-                    st.write("與已核實資料不符：" + "、".join(item["sources"]))
-                else:
-                    st.write(item["text"])
-                    st.caption(f"第 {item['month']} 月 · 來源：{item['source']}")
-
-
-def draw_investigation_options(state, view):
-    options = {o["id"]:o for o in view["investigations"]}
-    st.subheader("決定查什麼")
-    focus_id = st.radio("本月調查方向", list(options), index=None,
-                        format_func=lambda key:options[key]["label"] + ("（已有記錄）" if options[key]["already_known"] else ""),
-                        key=f"focus_{state.month}")
-    if focus_id is not None:
-        option=options[focus_id]
-        st.write(option["hint"])
-        st.caption(f"調查成本 {option['cost']} 糧餉 · 建議{option['skill']}")
-    return focus_id
-
-
-def draw_dispatch_selector(state, view, option, focus_id):
-    available = {c["id"]:c for c in view["characters"] if c["actionable"]}
-    def name(cid):
-        c=available[cid]
-        return f"{c['name']}｜{c['role']}｜{c['status_label']}｜{c['actionable_label']}"
-    members=st.multiselect("派遣弟子（確認前可更換）", list(available), format_func=name,
-                           max_selections=option["count"],key=f"team_{view['month']}_{option['id']}")
-    valid=focus_id is not None and any(o["id"] == option["id"] and set(ids)==set(members) for o,ids in legal_actions(state,focus_id))
-    if focus_id is not None:
-        focus=next(o for o in view["investigations"] if o["id"]==focus_id)
-        st.write(f"本次總成本：{option['cost'] + focus['cost']} 糧餉（門務 {option['cost']}＋調查 {focus['cost']}）")
-        if not legal_actions(state,focus_id):
-            st.warning("此調查搭配目前的人手或糧餉無法執行，可改選其他方向或只處理門務。")
-    if st.button("確認派遣",type="primary",disabled=not valid,key="confirm_day"):
-        run_action(resolve_day,state,option["id"],members,f"{view['month']}:day",focus_id)
-
-
-def draw_day(state, view):
-    draw_event_scene(view)
-    draw_character_opinions(view)
-    if view['causal_case']:
-        draw_case_actions(state, view)
-        return
-    focus_id=draw_investigation_options(state,view)
-    st.subheader("安排門務與派遣")
-    if not legal_actions(state):
-        st.warning("目前沒有可執行的門務方案，需要留門休整。")
-        if st.button("全員留門休整",key="rest"):
-            run_action(emergency_rest,state)
-        return
-    options={o["id"]:o for o in view["event"]["options"]}
-    option_id=st.radio("選擇本月方案",list(options),format_func=lambda key:options[key]["label"],key=f"plan_{view['month']}")
-    option=options[option_id]
-    st.write(option["hint"])
-    st.write(f"門務成本 {option['cost']} · 建議{option['skill']} · 派遣 {option['count']} 人")
-    if option["risk"] == "致命風險":
-        st.error("致命風險：可能造成弟子死亡")
+def draw_planning(state, view):
+    st.subheader("這一旬，把事情交給誰？")
+    st.caption("選一項主要安排，再分配其他門人的留門工作。第一位出勤者帶隊；同旬每人只有一份安排。")
+    by_id = {a["id"]: a for a in view["actions"]}
+    pending = [a for a in view["actions"] if a["kind"] in ("personal", "appoint")]
+    if pending:
+        st.info("有人在等你回應：" + "；".join(a["title"] for a in pending[:4]) + (f"；另有 {len(pending) - 4} 件，可在下方選單查看。" if len(pending) > 4 else "。"))
     else:
-        st.write("風險："+option["risk"])
-    draw_dispatch_selector(state,view,option,focus_id)
+        st.caption("門人今日沒有特別的請求，你可以自行安排外勤與門務。")
+    action_id = st.selectbox("本旬要處理的事", list(by_id), format_func=lambda aid: by_id[aid]["title"], key=f"action_{view['tick']}")
+    action = by_id[action_id]
+    st.write(action["description"])
+    st.caption(f"花費 {action['cost']} 糧餉 · 風險：{RISK_NAMES[action['risk']]} · 人數 {action['minimum']}～{action['maximum']}" +
+               (f" · 適合{SKILLS[action['skill']]}專長" if action.get("skill") else ""))
+    if action["risk"] != "low" and action.get("injury_risk"):
+        st.warning("失手可能負傷；高風險失敗可能重傷。同行者能在危急時接應，備妥支援也能降低風險。")
+    elif action["risk"] != "low":
+        st.caption("這項風險影響辦事成果；交涉或查問失利不會直接造成負傷。")
+    if action["kind"] == "appoint":
+        st.info("職務效果在留門工作時生效；安排休養、外勤或過度疲憊時暫停。")
+    people = {c["id"]: c for c in view["characters"]}
+    eligible = [c["id"] for c in view["characters"] if c["active"] and (action.get("allow_injured") or c["actionable"])]
+    required = action.get("required", [])
+    if required:
+        eligible = required
+    team = st.multiselect("參與門人（第一位帶隊）", eligible, default=required,
+        format_func=lambda cid: f"{people[cid]['name']}｜{people[cid]['status']}｜" + " · ".join(f"{key}{value}" for key, value in people[cid]["skills"].items()),
+        key=f"team_{view['tick']}_{action_id}", disabled=bool(required) or action["maximum"] == 0,
+        max_selections=action["maximum"] or None)
+    jobs = {}
+    with st.expander("留門分工", expanded=True):
+        st.caption("休養減輕傷疲；守山增加防備；藥圃與客舍補充糧餉；修煉累積本事。疲勞達 65 時，工作收穫會減少，請輪替休息。")
+        remaining = [c for c in view["characters"] if c["active"] and c["id"] not in team]
+        columns = st.columns(2)
+        for index, char in enumerate(remaining):
+            with columns[index % 2]:
+                options = list(JOBS) if char["actionable"] else ["rest"]
+                default = "rest" if char["fatigue"] >= 45 or char["injury"] or not char["actionable"] else ("host", "guard", "herbs", "train")[index % 4]
+                jobs[char["id"]] = st.selectbox(f"{char['name']} · {char['status']} · 疲勞 {char['fatigue']}", options,
+                    index=options.index(default), format_func=lambda key: JOBS[key], key=f"job_{view['tick']}_{action_id}_{char['id']}")
+    st.caption(f"本旬另需 {max(1, (sum(c['active'] for c in view['characters']) + 1) // 2)} 糧餉伙食及 1 防備維護耗損。")
+    try:
+        engine.validate_plan(state, action_id, team, jobs)
+        valid = True
+    except engine.InvalidAction as exc:
+        valid = False
+        st.info(str(exc))
+    if st.button("確定安排，度過這一旬", type="primary", key="confirm_turn", disabled=not valid):
+        run_action(engine.resolve_turn, state, action_id, team, jobs, f"{view['tick']}:plan")
 
 
-def draw_case_actions(state, view):
-    st.subheader('你打算怎麼處理這件事？')
-    legal = legal_case_actions(state)
-    if not legal:
-        st.warning('目前人手無法出勤，先留門休整並保留待查事項。')
-        if st.button('全員留門休整', key='rest'):
-            run_action(emergency_rest, state)
+def draw_review(state):
+    if len(state.decisions) < 24 and state.phase != "ended":
         return
-    options = {a['id']: a for a in view['case_actions']}
-    for option in options.values():
-        with st.container(border=True):
-            st.markdown('**' + option['label'] + '**')
-            st.write('回答：' + option['question_part'])
-            st.write(option['description'])
-            st.caption(f"成本 {option['cost']} 糧餉 · 建議{option['skill']} · {option['count']} 人 · 風險{option['risk']}")
-            st.write(option['hint'])
-            if option['already_known']:
-                st.caption('這項材料已有記錄；再查不會重複加入證據。')
-    action_id = st.radio('選擇處理方法', list(options), index=None,
-                         format_func=lambda aid: options[aid]['label'], key=f'case_action_{state.month}')
-    if action_id is None:
-        st.button('確認派遣', disabled=True, key='confirm_day')
-        return
-    option = options[action_id]
-    available = {c['id']: c for c in view['characters'] if c['actionable']}
-    team = st.multiselect('派遣弟子（確認前可更換）', list(available),
-        format_func=lambda cid: f"{available[cid]['name']}｜{available[cid]['role']}｜{available[cid]['status_label']}｜可派遣",
-        max_selections=option['count'], key=f"team_{state.month}_{action_id}")
-    valid = any(a.id == action_id and set(ids) == set(team) for a, ids in legal)
-    st.write(f"本次總成本：{option['cost']} 糧餉")
-    if st.button('確認派遣', disabled=not valid, type='primary', key='confirm_day'):
-        run_action(resolve_case_action, state, action_id, team, f'{state.month}:day')
-
-
-def draw_deduction_checkpoint(state, view):
-    if view['causal_case']:
-        draw_event_scene(view)
-        draw_character_opinions(view)
-    checkpoint=checkpoint_view(state)
-    st.header({4:"初步假說",8:"證據交叉",11:"最後證據鏈"}[state.month])
-    st.write(checkpoint["question"])
-    evidence={e["id"]:e for e in checkpoint["evidence"]}
-    chosen=[]
-    hypothesis=None
-    if state.month == 4:
-        hypotheses={h["id"]:h["label"] for h in checkpoint["hypotheses"]}
-        hypothesis=st.radio("目前的假說",list(hypotheses),index=None,format_func=lambda h:hypotheses[h],key="hypothesis_4")
-        valid=hypothesis is not None
-    elif state.month == 8:
-        chosen=st.multiselect("選兩份已取得的證據",list(evidence),format_func=lambda cid:evidence[cid]["title"],max_selections=2,key="evidence_pair_8")
-        defer=st.checkbox("目前證據不足，保留判斷",key="deduction_defer_8")
-        valid=defer or len(chosen)==2
-        if defer:
-            chosen=[]
-    else:
-        for slot,label in (("document","原件／文件"),("physical","現場／物證"),("witness","人證／佐證")):
-            ids=[cid for cid,e in evidence.items() if e["type"]==slot]
-            cid=st.selectbox(label,ids,index=None,format_func=lambda cid:evidence[cid]["title"],key="chain_"+slot)
-            if cid:
-                chosen.append(cid)
-        defer=st.checkbox("證據鏈尚未完整，只提出已知部分",key="deduction_defer_11")
-        valid=defer or len(chosen)==3
-        if defer and not view['causal_case']:
-            chosen=[]
-    st.caption("只可使用已取得資料。判斷失誤不會立即結束遊戲，也不會刪除證據。")
-    if st.button("提出推理",disabled=not valid,type="primary",key="confirm_deduction"):
-        run_action(resolve_deduction,state,hypothesis,chosen,f"{state.month}:deduction")
-
-
-def draw_night(state, view):
-    scene = night_view(state)
-    st.header("夜間 · " + {"personal_scene": scene["name"], "relationship_scene": "同門之間", "mainline_scene": "追查舊事", "quiet_scene": "歇一口氣", "group_scene": "留下來的人"}[scene["kind"]])
-    st.subheader(scene["title"])
-    if scene["context"]:
-        st.write(scene["context"])
-    st.write(scene["text"])
-    choices = {c["id"]: c for c in scene["choices"]}
-    for choice in choices.values():
-        st.markdown(f"**{choice['label']}** · 糧餉成本 {choice['cost']}")
-        st.write(choice["hint"])
-        st.caption("取捨：" + "／".join(choice["tradeoffs"]))
-    choice_id = st.radio("固定回應", list(choices), format_func=lambda key: choices[key]["label"], key=f"night_{view['month']}")
-    if st.button("確認回應", type="primary", key="confirm_night",
-                 disabled=choices[choice_id]["cost"] > view["resources"]["糧餉"]):
-        run_action(resolve_night, state, choice_id, f"{view['month']}:night")
-
-
-def draw_ending(state):
-    end = ending_view(state)
-    st.header("青崖門結局 · " + end["ending"])
-    if end['mystery_axis']:
-        st.info('案件：' + {'complete':'完整證據鏈', 'partial':'部分查明', 'unresolved':'尚未查明'}[end['mystery_axis']]
-                + ' · 門派：' + {'stable':'穩定', 'weakened':'受損', 'collapsed':'覆滅'}[end['sect_axis']])
-        st.write(end['reason'])
-    st.write(end["final_scene"])
-    with st.expander("這一局的謎底與未解之處", expanded=True):
-        st.write(end["mystery_reveal"])
-        for callback in end["callbacks"]:
-            st.write(callback)
-        for callback in end["personal_callbacks"]:
-            st.write(callback)
-    st.subheader("四名弟子的去向")
-    for char in end["characters"]:
-        with st.expander(char["name"], expanded=True):
-            st.write(char["epilogue"])
-            st.markdown("**人物心跡（結局後解鎖）**")
-            st.write(char["heart"])
-            for cue in char["warnings"]:
-                st.write(f"事前警示 · 第 {cue['month']} 月：{cue['text']}")
-            if char["risk_notice"]:
-                st.write("派遣前風險提示：" + char["risk_notice"])
-    st.subheader("關鍵決策因果回放")
-    for item in end["replay"]:
-        st.write(item["text"])
-    with st.expander("可選填 · 本機遊戲後問卷"):
-        st.caption("只保存於這台電腦的 feedback/responses.jsonl，不上傳。全部為固定選項。")
+    with st.expander("回看這一局 · 你最記得誰？", expanded=len(state.decisions) == 24 or state.phase == "ended"):
+        st.write("先不用看數字：這一局你最記得誰？為什麼？如果重新開始，同一批人會不會變得不同？")
+        st.caption("這是第一段山門歲月的回看，可以填完後繼續遊玩。回答只保存在本機。")
         if st.session_state.get("survey_saved"):
-            st.success("問卷已保存，謝謝你留下這局的感受。")
+            st.success("這局的回看已保存。")
         else:
-            options = survey_options(state)
-            labels = {"memorable": "你最記得哪一名弟子？", "habit": "你記得最明顯的性格或習慣是什麼？",
-                      "hardest": "哪一次派遣或人物選擇最難決定？", "unfair": "哪一個重大結果讓你覺得事前完全沒有合理線索？",
-                      "replay": "換一個種子，你是否願意再玩一局？"}
-            with st.form("survey"):
-                answers = {key: st.selectbox(labels[key], values, key="survey_" + key) for key, values in options.items()}
-                submit = st.form_submit_button("保存問卷")
-            if submit:
+            with st.form("history_feedback"):
+                who = st.selectbox("你最記得誰？", [c.name for c in state.characters] + ["沒有特別記得的人"], key="memorable")
+                why = st.text_area("因為發生過什麼？", max_chars=2000, key="reason")
+                replay = st.radio("再玩一局，同一批人可能不一樣嗎？", ["可能很不一樣", "也許", "感覺差不多"], key="replay")
+                submitted = st.form_submit_button("保存這局的感受")
+            if submitted:
                 try:
-                    save_feedback(state, answers, st.session_state.response_id, DEFAULT_PATH)
-                except (OSError, ValueError) as exc:
-                    st.error("問卷未能保存：" + str(exc))
+                    response_id = st.session_state.get("response_id") or str(uuid4())
+                    st.session_state.response_id = response_id
+                    sect_feedback.save_feedback(state, who, why, replay, response_id)
+                except (ValueError, OSError) as exc:
+                    st.error(str(exc))
                 else:
                     st.session_state.survey_saved = True
                     st.rerun()
+        for char in engine.history_review(state):
+            st.markdown(f"**{char['name']} · {char['stage']}**")
+            for line in char["story"]:
+                st.write(line)
 
 
 def main():
-    st.title("危門十二月")
-    st.caption("十二個月，四名弟子，一座不能輕易放棄的山門。")
+    st.title("危門 · 山門歲月")
+    st.caption("六名普通門人，一座山門；誰會被記住，要由往後的日子決定。 · v0.7")
     if "game" not in st.session_state:
-        st.write("前任掌門失蹤，青崖門糧餉短缺。烈川堂送來戰帖，十二個月後將在斷劍臺決定青崖山的歸屬。你被推舉為代理掌門，必須與四名各懷心事的弟子一起度過危局。")
-        st.info("假名帖主線：先看核心問題與四名弟子的看法，選一種處理方法並派遣；晚上回應當日後果。第四、八、十一月由劇情人物要求你提出推理，夜間再討論其影響。種子 4 可體驗此線。")
+        st.write("你接下青崖門的門務。山下有要辦的差事，山上有漏雨的屋舍，也有人等著第一次獨自出門。每旬安排誰出勤、誰照顧山門、誰安心養傷；日後再遇到事情，同門會記起曾經一起走過的路。")
+        st.info("先玩 24 旬，看看你會記得誰。每月三旬，跨年後仍可繼續；十二月是年度危機。")
         st.number_input("遊戲種子", min_value=0, max_value=2**32 - 1, value=42, step=1, key="seed_input")
         st.button("隨機種子", on_click=random_seed)
         st.button("開始新遊戲", type="primary", key="start", on_click=start_new_game)
+        draw_save()
         return
     state = st.session_state.game
     if getattr(state, "version", "") != APP_VERSION:
-        st.info("這局在更新前開始。新版需要重新選擇案件行動與排列證據，請開始新局；舊情報不會自動變成已查證資料。")
+        st.info("這局使用舊版月份與案件規則。v0.7 改為六人門派與旬制經營，需要以原種子另開新局。")
         st.button("開始新版遊戲", type="primary", key="start_current_version", on_click=start_new_game)
         return
-    view = public_state(state)
-    draw_sidebar(view)
-    draw_resources(view)
-    if view["phase"] == "day":
-        for text in view["last_result"]:
-            st.info(text)
-        draw_day(state, view)
-    elif view["phase"] == "deduction":
-        draw_deduction_checkpoint(state, view)
-    elif view["phase"] == "night":
-        draw_night(state, view)
-    elif view["phase"] in ("day_result", "night_result", "deduction_result"):
-        st.header("本階段結果")
-        for line in view["last_result"]:
-            st.write(line)
-        st.caption("新的言行或事實，可在側邊欄「掌門札記」查看。")
-        if view["phase"] == "day_result" or (view['causal_case'] and view['phase'] == 'deduction_result'):
-            if st.button("進入夜間互動", key="next_phase", type="primary"):
-                run_action(start_night, state)
-        elif st.button("進入本月推理" if not view['causal_case'] and view["phase"] == "night_result" and view["month"] in (4,8,11) else "前往斷劍臺" if view["month"] == 11 else "進入下一月", key="next_month", type="primary"):
-            run_action(begin_month, state)
-    else:
-        draw_ending(state)
-    if view["phase"] != "day":
-        with st.expander("門內眾人", expanded=False):
-            draw_cards(view)
+    view = engine.public_state(state)
+    with st.sidebar:
+        st.header("青崖門")
+        st.write(view["date"])
+        st.caption(f"種子 {view['seed']} · 已完成 {len(state.decisions)} 次決策")
+        for label, level in view["facilities"].items():
+            st.write(f"{label} · {level} 級")
+        st.caption("二級藥圃＋長期醫療工作可任藥堂主事；二級客舍＋帶隊經歷可任外務領隊；二級練武場＋帶新人可任教習。人物也需累積為核心人物。")
+        st.write("假名帖：" + view["chain"]["status"])
+        for faction, relation in view["factions"].items():
+            st.write(f"{faction}：" + ("友好" if relation > 0 else "緊張" if relation < 0 else "平常往來"))
+        draw_save(state)
+        st.button("重新開始", on_click=restart)
+        st.caption("離開前可下載存檔，避免連線中斷後失去進度。")
+    st.subheader(view["date"])
+    for column, (label, value) in zip(st.columns(3), view["resources"].items()):
+        column.metric(label, value, delta=view["changes"].get(label) if view["phase"] != "planning" else None)
+    if (view["tick"] - 1) % 36 >= 30 and view["phase"] != "ended":
+        st.warning("歲末守山將在十二月下旬到來。山門防備、聲望、能行動的門人武力及與烈川堂的關係，都會影響能否守住山口。")
+    planning, people, history = st.tabs(["本旬安排", "門人與共同歷史", "山門記事"])
+    with planning:
+        if view["phase"] == "planning":
+            draw_planning(state, view)
+        else:
+            st.subheader("這旬發生的事" if view["phase"] == "result" else view["ending"])
+            for line in view["last_result"]:
+                st.write(line)
+            if view["phase"] == "result" and st.button("進入下一旬", type="primary", key="next_tick"):
+                run_action(engine.next_tick, state, f"{view['tick']}:next")
+        draw_review(state)
+    with people:
+        draw_people(view)
+    with history:
+        st.subheader("山門記得的事")
+        for entry in reversed(view["logs"]):
+            st.write(f"{date_label(entry['tick'])} · {entry['text']}")
+        if not view["logs"]:
+            st.caption("這座山門的故事還未開始。")
 
 
 if __name__ == "__main__":

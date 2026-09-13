@@ -1,0 +1,2420 @@
+{
+  "focus": {
+    "seed": 4,
+    "version": "0.7",
+    "decisions": [
+      {
+        "tick": 1,
+        "action_id": "night_watch/direct",
+        "label": "山口的火光 · 出面處理",
+        "participants": [
+          "c0",
+          "c1"
+        ],
+        "assignments": {
+          "c2": "guard",
+          "c3": "host",
+          "c4": "host",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 5,
+          "defense": -1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 2,
+        "action_id": "guest/direct",
+        "label": "不肯卸劍的客人 · 出面處理",
+        "participants": [
+          "c0",
+          "c2"
+        ],
+        "assignments": {
+          "c1": "rest",
+          "c3": "guard",
+          "c4": "host",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 3,
+          "defense": 1,
+          "reputation": 6
+        }
+      },
+      {
+        "tick": 3,
+        "action_id": "wood/direct",
+        "label": "林場缺人 · 出面處理",
+        "participants": [
+          "c0",
+          "c3"
+        ],
+        "assignments": {
+          "c1": "rest",
+          "c2": "guard",
+          "c4": "host",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 1,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 4,
+        "action_id": "personal/memory_return:c0:m:1",
+        "label": "又到那條山路 · 唐見川",
+        "participants": [
+          "c0",
+          "c1"
+        ],
+        "assignments": {
+          "c2": "guard",
+          "c3": "rest",
+          "c4": "host",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 7,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 5,
+        "action_id": "dispute/direct",
+        "label": "田界爭執 · 出面處理",
+        "participants": [
+          "c0",
+          "c1"
+        ],
+        "assignments": {
+          "c2": "guard",
+          "c3": "rest",
+          "c4": "host",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 3,
+          "defense": 1,
+          "reputation": -2
+        }
+      },
+      {
+        "tick": 6,
+        "action_id": "cards_0/ally",
+        "label": "第一張假名帖 · 請地方行會協助",
+        "participants": [
+          "c0",
+          "c3"
+        ],
+        "assignments": {
+          "c1": "rest",
+          "c2": "rest",
+          "c4": "guard",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": -4,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 7,
+        "action_id": "build/lodge",
+        "label": "整修客舍 · 升至 2 級",
+        "participants": [
+          "c1",
+          "c3"
+        ],
+        "assignments": {
+          "c0": "rest",
+          "c2": "guard",
+          "c4": "rest",
+          "c5": "rest"
+        },
+        "changes": {
+          "treasury": -13,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 8,
+        "action_id": "appoint/c0/leader",
+        "label": "任命唐見川為外務領隊",
+        "participants": [
+          "c0"
+        ],
+        "assignments": {
+          "c1": "rest",
+          "c2": "guard",
+          "c3": "host",
+          "c4": "host",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 9,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 9,
+        "action_id": "dispute/direct",
+        "label": "田界爭執 · 出面處理",
+        "participants": [
+          "c0",
+          "c1"
+        ],
+        "assignments": {
+          "c2": "guard",
+          "c3": "host",
+          "c4": "host",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 9,
+          "defense": 1,
+          "reputation": 6
+        }
+      },
+      {
+        "tick": 10,
+        "action_id": "cards_1/ally",
+        "label": "另一個交貨地點 · 請地方行會協助",
+        "participants": [
+          "c1",
+          "c4"
+        ],
+        "assignments": {
+          "c0": "rest",
+          "c2": "rest",
+          "c3": "rest",
+          "c5": "guard"
+        },
+        "changes": {
+          "treasury": -7,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 11,
+        "action_id": "caravan_talk/direct",
+        "label": "商隊改走別路 · 出面處理",
+        "participants": [
+          "c0",
+          "c3"
+        ],
+        "assignments": {
+          "c1": "guard",
+          "c2": "herbs",
+          "c4": "rest",
+          "c5": "rest"
+        },
+        "changes": {
+          "treasury": 10,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 12,
+        "action_id": "personal/goal:c0:",
+        "label": "想做得更長遠 · 唐見川",
+        "participants": [
+          "c0"
+        ],
+        "assignments": {
+          "c1": "guard",
+          "c2": "herbs",
+          "c3": "host",
+          "c4": "host",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 10,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 13,
+        "action_id": "old_manual/direct",
+        "label": "散頁拳譜 · 出面處理",
+        "participants": [
+          "c5",
+          "c2"
+        ],
+        "assignments": {
+          "c0": "rest",
+          "c1": "rest",
+          "c3": "rest",
+          "c4": "rest"
+        },
+        "changes": {
+          "treasury": -4,
+          "defense": -1,
+          "reputation": -2
+        }
+      },
+      {
+        "tick": 14,
+        "action_id": "cards_2/ally",
+        "label": "送帖人現身 · 請地方行會協助",
+        "participants": [
+          "c0",
+          "c4"
+        ],
+        "assignments": {
+          "c1": "guard",
+          "c2": "rest",
+          "c3": "host",
+          "c5": "rest"
+        },
+        "changes": {
+          "treasury": -3,
+          "defense": 1,
+          "reputation": 8
+        }
+      },
+      {
+        "tick": 15,
+        "action_id": "wounded_traveler/direct",
+        "label": "受傷的過客 · 出面處理",
+        "participants": [
+          "c0",
+          "c5"
+        ],
+        "assignments": {
+          "c1": "guard",
+          "c2": "herbs",
+          "c3": "host",
+          "c4": "host"
+        },
+        "changes": {
+          "treasury": 5,
+          "defense": 1,
+          "reputation": 9
+        }
+      },
+      {
+        "tick": 16,
+        "action_id": "personal/memory_return:c0:m:3",
+        "label": "又到那條山路 · 唐見川",
+        "participants": [
+          "c0",
+          "c2"
+        ],
+        "assignments": {
+          "c1": "rest",
+          "c3": "guard",
+          "c4": "rest",
+          "c5": "rest"
+        },
+        "changes": {
+          "treasury": 1,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 17,
+        "action_id": "guest/direct",
+        "label": "不肯卸劍的客人 · 出面處理",
+        "participants": [
+          "c1",
+          "c4"
+        ],
+        "assignments": {
+          "c0": "rest",
+          "c2": "guard",
+          "c3": "rest",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 1,
+          "defense": 1,
+          "reputation": 6
+        }
+      },
+      {
+        "tick": 18,
+        "action_id": "market/direct",
+        "label": "山下趕集 · 出面處理",
+        "participants": [
+          "c0",
+          "c3"
+        ],
+        "assignments": {
+          "c1": "guard",
+          "c2": "rest",
+          "c4": "rest",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 11,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 19,
+        "action_id": "night_watch/direct",
+        "label": "山口的火光 · 出面處理",
+        "participants": [
+          "c4",
+          "c2"
+        ],
+        "assignments": {
+          "c0": "rest",
+          "c1": "rest",
+          "c3": "rest",
+          "c5": "guard"
+        },
+        "changes": {
+          "treasury": -4,
+          "defense": -1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 20,
+        "action_id": "personal/memory_return:c0:m:5",
+        "label": "又到那條山路 · 唐見川",
+        "participants": [
+          "c0",
+          "c3"
+        ],
+        "assignments": {
+          "c1": "guard",
+          "c2": "rest",
+          "c4": "rest",
+          "c5": "rest"
+        },
+        "changes": {
+          "treasury": 1,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 21,
+        "action_id": "build/lodge",
+        "label": "整修客舍 · 升至 3 級",
+        "participants": [
+          "c0",
+          "c3"
+        ],
+        "assignments": {
+          "c1": "guard",
+          "c2": "herbs",
+          "c4": "rest",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": -17,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 22,
+        "action_id": "escort/direct",
+        "label": "雨中的護送 · 出面處理",
+        "participants": [
+          "c0",
+          "c4"
+        ],
+        "assignments": {
+          "c1": "guard",
+          "c2": "herbs",
+          "c3": "host",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 21,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 23,
+        "action_id": "caravan_talk/direct",
+        "label": "商隊改走別路 · 出面處理",
+        "participants": [
+          "c4",
+          "c3"
+        ],
+        "assignments": {
+          "c0": "rest",
+          "c1": "rest",
+          "c2": "guard",
+          "c5": "rest"
+        },
+        "changes": {
+          "treasury": 9,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 24,
+        "action_id": "personal/memory_return:c0:m:7",
+        "label": "又到那條山路 · 唐見川",
+        "participants": [
+          "c0",
+          "c1"
+        ],
+        "assignments": {
+          "c2": "rest",
+          "c3": "rest",
+          "c4": "rest",
+          "c5": "guard"
+        },
+        "changes": {
+          "treasury": 1,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 25,
+        "action_id": "water/direct",
+        "label": "山泉改道 · 出面處理",
+        "participants": [
+          "c0",
+          "c4"
+        ],
+        "assignments": {
+          "c1": "guard",
+          "c2": "herbs",
+          "c3": "host",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 8,
+          "defense": 9,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 26,
+        "action_id": "wood/direct",
+        "label": "林場缺人 · 出面處理",
+        "participants": [
+          "c0",
+          "c1"
+        ],
+        "assignments": {
+          "c2": "guard",
+          "c3": "host",
+          "c4": "rest",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 19,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 27,
+        "action_id": "escort/direct",
+        "label": "雨中的護送 · 出面處理",
+        "participants": [
+          "c4",
+          "c2"
+        ],
+        "assignments": {
+          "c0": "rest",
+          "c1": "rest",
+          "c3": "rest",
+          "c5": "rest"
+        },
+        "changes": {
+          "treasury": 10,
+          "defense": -1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 28,
+        "action_id": "personal/goal:c1:",
+        "label": "想做得更長遠 · 裴青禾",
+        "participants": [
+          "c1"
+        ],
+        "assignments": {
+          "c0": "rest",
+          "c2": "rest",
+          "c3": "guard",
+          "c4": "host",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 7,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 29,
+        "action_id": "petition/direct",
+        "label": "一封聯名信 · 出面處理",
+        "participants": [
+          "c0",
+          "c1"
+        ],
+        "assignments": {
+          "c2": "guard",
+          "c3": "host",
+          "c4": "host",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 11,
+          "defense": 10,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 30,
+        "action_id": "guest/direct",
+        "label": "不肯卸劍的客人 · 出面處理",
+        "participants": [
+          "c0",
+          "c1"
+        ],
+        "assignments": {
+          "c2": "rest",
+          "c3": "guard",
+          "c4": "host",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 7,
+          "defense": 1,
+          "reputation": 6
+        }
+      },
+      {
+        "tick": 31,
+        "action_id": "wood/direct",
+        "label": "林場缺人 · 出面處理",
+        "participants": [
+          "c2",
+          "c5"
+        ],
+        "assignments": {
+          "c0": "rest",
+          "c1": "rest",
+          "c3": "rest",
+          "c4": "rest"
+        },
+        "changes": {
+          "treasury": 9,
+          "defense": -1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 32,
+        "action_id": "personal/memory_return:c0:m:9",
+        "label": "又到那條山路 · 唐見川",
+        "participants": [
+          "c0",
+          "c3"
+        ],
+        "assignments": {
+          "c1": "guard",
+          "c2": "herbs",
+          "c4": "host",
+          "c5": "rest"
+        },
+        "changes": {
+          "treasury": 7,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 33,
+        "action_id": "escort/direct",
+        "label": "雨中的護送 · 出面處理",
+        "participants": [
+          "c0",
+          "c3"
+        ],
+        "assignments": {
+          "c1": "guard",
+          "c2": "rest",
+          "c4": "host",
+          "c5": "rest"
+        },
+        "changes": {
+          "treasury": -2,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 34,
+        "action_id": "dispute/direct",
+        "label": "田界爭執 · 出面處理",
+        "participants": [
+          "c0",
+          "c5"
+        ],
+        "assignments": {
+          "c1": "rest",
+          "c2": "guard",
+          "c3": "rest",
+          "c4": "rest"
+        },
+        "changes": {
+          "treasury": -3,
+          "defense": 1,
+          "reputation": 6
+        }
+      },
+      {
+        "tick": 35,
+        "action_id": "caravan_talk/direct",
+        "label": "商隊改走別路 · 出面處理",
+        "participants": [
+          "c4",
+          "c1"
+        ],
+        "assignments": {
+          "c0": "rest",
+          "c2": "guard",
+          "c3": "rest",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 14,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 36,
+        "action_id": "personal/memory_return:c0:m:11",
+        "label": "又到那條山路 · 唐見川",
+        "participants": [
+          "c0",
+          "c1"
+        ],
+        "assignments": {
+          "c2": "guard",
+          "c3": "rest",
+          "c4": "host",
+          "c5": "rest"
+        },
+        "changes": {
+          "treasury": 0,
+          "defense": -11,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 37,
+        "action_id": "wounded_traveler/direct",
+        "label": "受傷的過客 · 出面處理",
+        "participants": [
+          "c0",
+          "c3"
+        ],
+        "assignments": {
+          "c1": "guard",
+          "c2": "rest",
+          "c4": "rest",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 1,
+          "defense": 1,
+          "reputation": -2
+        }
+      },
+      {
+        "tick": 38,
+        "action_id": "bandits/direct",
+        "label": "渡口收路錢 · 出面處理",
+        "participants": [
+          "c0",
+          "c3"
+        ],
+        "assignments": {
+          "c1": "guard",
+          "c2": "herbs",
+          "c4": "host",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 6,
+          "defense": 1,
+          "reputation": 12
+        }
+      },
+      {
+        "tick": 39,
+        "action_id": "bridge/direct",
+        "label": "斷橋與糧袋 · 出面處理",
+        "participants": [
+          "c3",
+          "c4"
+        ],
+        "assignments": {
+          "c0": "rest",
+          "c1": "rest",
+          "c2": "guard",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 13,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 40,
+        "action_id": "personal/memory_return:c0:m:13",
+        "label": "又到那條山路 · 唐見川",
+        "participants": [
+          "c0",
+          "c3"
+        ],
+        "assignments": {
+          "c1": "guard",
+          "c2": "rest",
+          "c4": "rest",
+          "c5": "rest"
+        },
+        "changes": {
+          "treasury": 1,
+          "defense": 1,
+          "reputation": 0
+        }
+      }
+    ]
+  },
+  "rotation": {
+    "seed": 4,
+    "version": "0.7",
+    "decisions": [
+      {
+        "tick": 1,
+        "action_id": "night_watch/supported",
+        "label": "山口的火光 · 備妥支援再出發",
+        "participants": [
+          "c0",
+          "c1"
+        ],
+        "assignments": {
+          "c2": "guard",
+          "c3": "host",
+          "c4": "host",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 2,
+          "defense": -1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 2,
+        "action_id": "frost/supported",
+        "label": "霜前收藥 · 備妥支援再出發",
+        "participants": [
+          "c2",
+          "c3"
+        ],
+        "assignments": {
+          "c0": "guard",
+          "c1": "rest",
+          "c4": "host",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 10,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 3,
+        "action_id": "wood/supported",
+        "label": "林場缺人 · 備妥支援再出發",
+        "participants": [
+          "c5",
+          "c4"
+        ],
+        "assignments": {
+          "c0": "guard",
+          "c1": "rest",
+          "c2": "herbs",
+          "c3": "host"
+        },
+        "changes": {
+          "treasury": 10,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 4,
+        "action_id": "personal/memory_return:c0:m:1",
+        "label": "又到那條山路 · 唐見川",
+        "participants": [
+          "c0",
+          "c1"
+        ],
+        "assignments": {
+          "c2": "guard",
+          "c3": "host",
+          "c4": "host",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 10,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 5,
+        "action_id": "dispute/supported",
+        "label": "田界爭執 · 備妥支援再出發",
+        "participants": [
+          "c2",
+          "c3"
+        ],
+        "assignments": {
+          "c0": "guard",
+          "c1": "host",
+          "c4": "host",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 3,
+          "defense": 1,
+          "reputation": -2
+        }
+      },
+      {
+        "tick": 6,
+        "action_id": "cards_0/ally",
+        "label": "第一張假名帖 · 請地方行會協助",
+        "participants": [
+          "c1",
+          "c4"
+        ],
+        "assignments": {
+          "c0": "guard",
+          "c2": "rest",
+          "c3": "rest",
+          "c5": "rest"
+        },
+        "changes": {
+          "treasury": -7,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 7,
+        "action_id": "build/herbs",
+        "label": "整修藥圃 · 升至 2 級",
+        "participants": [
+          "c2",
+          "c3"
+        ],
+        "assignments": {
+          "c0": "guard",
+          "c1": "host",
+          "c4": "rest",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": -7,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 8,
+        "action_id": "personal/suspicion:c0:m:2",
+        "label": "一封引起疑心的信 · 唐見川",
+        "participants": [
+          "c0",
+          "c1"
+        ],
+        "assignments": {
+          "c2": "rest",
+          "c3": "rest",
+          "c4": "rest",
+          "c5": "guard"
+        },
+        "changes": {
+          "treasury": -3,
+          "defense": 1,
+          "reputation": 6
+        }
+      },
+      {
+        "tick": 9,
+        "action_id": "caravan_talk/supported",
+        "label": "商隊改走別路 · 備妥支援再出發",
+        "participants": [
+          "c4",
+          "c2"
+        ],
+        "assignments": {
+          "c0": "guard",
+          "c1": "host",
+          "c3": "host",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 15,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 10,
+        "action_id": "cards_1/ally",
+        "label": "另一個交貨地點 · 請地方行會協助",
+        "participants": [
+          "c3",
+          "c5"
+        ],
+        "assignments": {
+          "c0": "rest",
+          "c1": "guard",
+          "c2": "rest",
+          "c4": "host"
+        },
+        "changes": {
+          "treasury": -4,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 11,
+        "action_id": "dispute/supported",
+        "label": "田界爭執 · 備妥支援再出發",
+        "participants": [
+          "c5",
+          "c2"
+        ],
+        "assignments": {
+          "c0": "guard",
+          "c1": "host",
+          "c3": "rest",
+          "c4": "rest"
+        },
+        "changes": {
+          "treasury": -3,
+          "defense": 1,
+          "reputation": 6
+        }
+      },
+      {
+        "tick": 12,
+        "action_id": "personal/memory_return:c5:m:5",
+        "label": "又到那條山路 · 賀小滿",
+        "participants": [
+          "c5",
+          "c4"
+        ],
+        "assignments": {
+          "c0": "guard",
+          "c1": "rest",
+          "c2": "herbs",
+          "c3": "host"
+        },
+        "changes": {
+          "treasury": 6,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 13,
+        "action_id": "guest/supported",
+        "label": "不肯卸劍的客人 · 備妥支援再出發",
+        "participants": [
+          "c3",
+          "c4"
+        ],
+        "assignments": {
+          "c0": "guard",
+          "c1": "host",
+          "c2": "rest",
+          "c5": "rest"
+        },
+        "changes": {
+          "treasury": -3,
+          "defense": 1,
+          "reputation": 6
+        }
+      },
+      {
+        "tick": 14,
+        "action_id": "cards_2/ally",
+        "label": "送帖人現身 · 請地方行會協助",
+        "participants": [
+          "c2",
+          "c3"
+        ],
+        "assignments": {
+          "c0": "rest",
+          "c1": "guard",
+          "c4": "host",
+          "c5": "rest"
+        },
+        "changes": {
+          "treasury": -4,
+          "defense": 1,
+          "reputation": 8
+        }
+      },
+      {
+        "tick": 15,
+        "action_id": "water/supported",
+        "label": "山泉改道 · 備妥支援再出發",
+        "participants": [
+          "c5",
+          "c0"
+        ],
+        "assignments": {
+          "c1": "guard",
+          "c2": "rest",
+          "c3": "rest",
+          "c4": "rest"
+        },
+        "changes": {
+          "treasury": -6,
+          "defense": 9,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 16,
+        "action_id": "personal/memory_return:c2:m:7",
+        "label": "又到那條山路 · 沈照溪",
+        "participants": [
+          "c2",
+          "c3"
+        ],
+        "assignments": {
+          "c0": "rest",
+          "c1": "rest",
+          "c4": "guard",
+          "c5": "rest"
+        },
+        "changes": {
+          "treasury": 1,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 17,
+        "action_id": "market/supported",
+        "label": "山下趕集 · 備妥支援再出發",
+        "participants": [
+          "c1",
+          "c4"
+        ],
+        "assignments": {
+          "c0": "guard",
+          "c2": "herbs",
+          "c3": "rest",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 9,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 18,
+        "action_id": "caravan_talk/supported",
+        "label": "商隊改走別路 · 備妥支援再出發",
+        "participants": [
+          "c5",
+          "c3"
+        ],
+        "assignments": {
+          "c0": "guard",
+          "c1": "rest",
+          "c2": "herbs",
+          "c4": "rest"
+        },
+        "changes": {
+          "treasury": 8,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 19,
+        "action_id": "village_fever/supported",
+        "label": "村中急病 · 備妥支援再出發",
+        "participants": [
+          "c1",
+          "c4"
+        ],
+        "assignments": {
+          "c0": "guard",
+          "c2": "herbs",
+          "c3": "host",
+          "c5": "rest"
+        },
+        "changes": {
+          "treasury": -2,
+          "defense": 1,
+          "reputation": 8
+        }
+      },
+      {
+        "tick": 20,
+        "action_id": "personal/memory_return:c4:m:10",
+        "label": "又到那條山路 · 許知微",
+        "participants": [
+          "c4",
+          "c2"
+        ],
+        "assignments": {
+          "c0": "rest",
+          "c1": "guard",
+          "c3": "rest",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 4,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 21,
+        "action_id": "build/herbs",
+        "label": "整修藥圃 · 升至 3 級",
+        "participants": [
+          "c5",
+          "c2"
+        ],
+        "assignments": {
+          "c0": "guard",
+          "c1": "rest",
+          "c3": "host",
+          "c4": "host"
+        },
+        "changes": {
+          "treasury": -17,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 22,
+        "action_id": "petition/supported",
+        "label": "一封聯名信 · 備妥支援再出發",
+        "participants": [
+          "c5",
+          "c1"
+        ],
+        "assignments": {
+          "c0": "guard",
+          "c2": "herbs",
+          "c3": "host",
+          "c4": "rest"
+        },
+        "changes": {
+          "treasury": -1,
+          "defense": 10,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 23,
+        "action_id": "appoint/c2/medic",
+        "label": "任命沈照溪為藥堂主事",
+        "participants": [
+          "c2"
+        ],
+        "assignments": {
+          "c0": "guard",
+          "c1": "rest",
+          "c3": "host",
+          "c4": "host",
+          "c5": "rest"
+        },
+        "changes": {
+          "treasury": 3,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 24,
+        "action_id": "personal/memory_return:c5:m:12",
+        "label": "又到那條山路 · 賀小滿",
+        "participants": [
+          "c5",
+          "c2"
+        ],
+        "assignments": {
+          "c0": "rest",
+          "c1": "guard",
+          "c3": "rest",
+          "c4": "host"
+        },
+        "changes": {
+          "treasury": 4,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 25,
+        "action_id": "night_watch/supported",
+        "label": "山口的火光 · 備妥支援再出發",
+        "participants": [
+          "c5",
+          "c0"
+        ],
+        "assignments": {
+          "c1": "guard",
+          "c2": "herbs",
+          "c3": "host",
+          "c4": "host"
+        },
+        "changes": {
+          "treasury": 2,
+          "defense": 13,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 26,
+        "action_id": "caravan_talk/supported",
+        "label": "商隊改走別路 · 備妥支援再出發",
+        "participants": [
+          "c3",
+          "c1"
+        ],
+        "assignments": {
+          "c0": "rest",
+          "c2": "rest",
+          "c4": "rest",
+          "c5": "rest"
+        },
+        "changes": {
+          "treasury": 6,
+          "defense": -1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 27,
+        "action_id": "bandits/supported",
+        "label": "渡口收路錢 · 備妥支援再出發",
+        "participants": [
+          "c2",
+          "c5"
+        ],
+        "assignments": {
+          "c0": "guard",
+          "c1": "rest",
+          "c3": "rest",
+          "c4": "host"
+        },
+        "changes": {
+          "treasury": -5,
+          "defense": 1,
+          "reputation": 12
+        }
+      },
+      {
+        "tick": 28,
+        "action_id": "personal/goal:c2:",
+        "label": "想做得更長遠 · 沈照溪",
+        "participants": [
+          "c2"
+        ],
+        "assignments": {
+          "c0": "guard",
+          "c1": "host",
+          "c3": "host",
+          "c4": "host",
+          "c5": "rest"
+        },
+        "changes": {
+          "treasury": 6,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 29,
+        "action_id": "market/supported",
+        "label": "山下趕集 · 備妥支援再出發",
+        "participants": [
+          "c0",
+          "c5"
+        ],
+        "assignments": {
+          "c1": "rest",
+          "c2": "guard",
+          "c3": "host",
+          "c4": "host"
+        },
+        "changes": {
+          "treasury": 10,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 30,
+        "action_id": "escort/supported",
+        "label": "雨中的護送 · 備妥支援再出發",
+        "participants": [
+          "c4",
+          "c1"
+        ],
+        "assignments": {
+          "c0": "rest",
+          "c2": "rest",
+          "c3": "rest",
+          "c5": "rest"
+        },
+        "changes": {
+          "treasury": 7,
+          "defense": -1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 31,
+        "action_id": "petition/supported",
+        "label": "一封聯名信 · 備妥支援再出發",
+        "participants": [
+          "c0",
+          "c3"
+        ],
+        "assignments": {
+          "c1": "guard",
+          "c2": "herbs",
+          "c4": "rest",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": -1,
+          "defense": 7,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 32,
+        "action_id": "personal/goal:c3:",
+        "label": "想做得更長遠 · 陸停雲",
+        "participants": [
+          "c3"
+        ],
+        "assignments": {
+          "c0": "rest",
+          "c1": "rest",
+          "c2": "guard",
+          "c4": "rest",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 0,
+          "defense": 0,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 33,
+        "action_id": "night_watch/supported",
+        "label": "山口的火光 · 備妥支援再出發",
+        "participants": [
+          "c4",
+          "c1"
+        ],
+        "assignments": {
+          "c0": "guard",
+          "c2": "herbs",
+          "c3": "host",
+          "c5": "rest"
+        },
+        "changes": {
+          "treasury": -1,
+          "defense": 0,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 34,
+        "action_id": "bandits/supported",
+        "label": "渡口收路錢 · 備妥支援再出發",
+        "participants": [
+          "c5",
+          "c0"
+        ],
+        "assignments": {
+          "c1": "rest",
+          "c2": "rest",
+          "c3": "rest",
+          "c4": "guard"
+        },
+        "changes": {
+          "treasury": -8,
+          "defense": 0,
+          "reputation": 12
+        }
+      },
+      {
+        "tick": 35,
+        "action_id": "medicine_order/supported",
+        "label": "藥鋪的急單 · 備妥支援再出發",
+        "participants": [
+          "c2",
+          "c4"
+        ],
+        "assignments": {
+          "c0": "rest",
+          "c1": "guard",
+          "c3": "host",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 11,
+          "defense": 0,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 36,
+        "action_id": "personal/memory_return:c3:m:13",
+        "label": "又到那條山路 · 陸停雲",
+        "participants": [
+          "c3",
+          "c4"
+        ],
+        "assignments": {
+          "c0": "guard",
+          "c1": "host",
+          "c2": "rest",
+          "c5": "rest"
+        },
+        "changes": {
+          "treasury": -2,
+          "defense": -11,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 37,
+        "action_id": "caravan_talk/supported",
+        "label": "商隊改走別路 · 備妥支援再出發",
+        "participants": [
+          "c5",
+          "c3"
+        ],
+        "assignments": {
+          "c0": "rest",
+          "c1": "guard",
+          "c2": "herbs",
+          "c4": "rest"
+        },
+        "changes": {
+          "treasury": 9,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 38,
+        "action_id": "bandits/supported",
+        "label": "渡口收路錢 · 備妥支援再出發",
+        "participants": [
+          "c0",
+          "c2"
+        ],
+        "assignments": {
+          "c1": "rest",
+          "c3": "guard",
+          "c4": "host",
+          "c5": "rest"
+        },
+        "changes": {
+          "treasury": -5,
+          "defense": 1,
+          "reputation": 12
+        }
+      },
+      {
+        "tick": 39,
+        "action_id": "night_watch/supported",
+        "label": "山口的火光 · 備妥支援再出發",
+        "participants": [
+          "c1",
+          "c4"
+        ],
+        "assignments": {
+          "c0": "guard",
+          "c2": "rest",
+          "c3": "rest",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": -4,
+          "defense": 9,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 40,
+        "action_id": "personal/memory_return:c2:m:15",
+        "label": "又到那條山路 · 沈照溪",
+        "participants": [
+          "c2",
+          "c3"
+        ],
+        "assignments": {
+          "c0": "rest",
+          "c1": "guard",
+          "c4": "rest",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 4,
+          "defense": 0,
+          "reputation": 0
+        }
+      }
+    ]
+  },
+  "mentor": {
+    "seed": 4,
+    "version": "0.7",
+    "decisions": [
+      {
+        "tick": 1,
+        "action_id": "train",
+        "label": "修煉與帶新人",
+        "participants": [
+          "c0",
+          "c1"
+        ],
+        "assignments": {
+          "c2": "guard",
+          "c3": "host",
+          "c4": "host",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 6,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 2,
+        "action_id": "train",
+        "label": "修煉與帶新人",
+        "participants": [
+          "c0",
+          "c1"
+        ],
+        "assignments": {
+          "c2": "guard",
+          "c3": "host",
+          "c4": "host",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 6,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 3,
+        "action_id": "wood/supported",
+        "label": "林場缺人 · 備妥支援再出發",
+        "participants": [
+          "c0",
+          "c1"
+        ],
+        "assignments": {
+          "c2": "guard",
+          "c3": "host",
+          "c4": "host",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 15,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 4,
+        "action_id": "personal/memory_return:c0:m:1",
+        "label": "又到那條山路 · 唐見川",
+        "participants": [
+          "c0",
+          "c1"
+        ],
+        "assignments": {
+          "c2": "guard",
+          "c3": "host",
+          "c4": "host",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 10,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 5,
+        "action_id": "train",
+        "label": "修煉與帶新人",
+        "participants": [
+          "c0",
+          "c1"
+        ],
+        "assignments": {
+          "c2": "guard",
+          "c3": "host",
+          "c4": "host",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 6,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 6,
+        "action_id": "cards_0/ally",
+        "label": "第一張假名帖 · 請地方行會協助",
+        "participants": [
+          "c0",
+          "c1"
+        ],
+        "assignments": {
+          "c2": "guard",
+          "c3": "host",
+          "c4": "host",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 2,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 7,
+        "action_id": "build/training",
+        "label": "整修練武場 · 升至 2 級",
+        "participants": [
+          "c0",
+          "c1"
+        ],
+        "assignments": {
+          "c2": "rest",
+          "c3": "rest",
+          "c4": "rest",
+          "c5": "rest"
+        },
+        "changes": {
+          "treasury": -13,
+          "defense": -1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 8,
+        "action_id": "personal/memory_return:c0:m:2",
+        "label": "又到那條山路 · 唐見川",
+        "participants": [
+          "c0",
+          "c1"
+        ],
+        "assignments": {
+          "c2": "guard",
+          "c3": "host",
+          "c4": "host",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 10,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 9,
+        "action_id": "night_watch/supported",
+        "label": "山口的火光 · 備妥支援再出發",
+        "participants": [
+          "c0",
+          "c2"
+        ],
+        "assignments": {
+          "c1": "rest",
+          "c3": "guard",
+          "c4": "host",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": -1,
+          "defense": 13,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 10,
+        "action_id": "cards_1/ally",
+        "label": "另一個交貨地點 · 請地方行會協助",
+        "participants": [
+          "c1",
+          "c3"
+        ],
+        "assignments": {
+          "c0": "rest",
+          "c2": "rest",
+          "c4": "guard",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": -4,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 11,
+        "action_id": "train",
+        "label": "修煉與帶新人",
+        "participants": [
+          "c0",
+          "c2"
+        ],
+        "assignments": {
+          "c1": "guard",
+          "c3": "rest",
+          "c4": "rest",
+          "c5": "rest"
+        },
+        "changes": {
+          "treasury": -3,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 12,
+        "action_id": "personal/memory_return:c0:m:3",
+        "label": "又到那條山路 · 唐見川",
+        "participants": [
+          "c0",
+          "c1"
+        ],
+        "assignments": {
+          "c2": "guard",
+          "c3": "host",
+          "c4": "host",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 10,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 13,
+        "action_id": "train",
+        "label": "修煉與帶新人",
+        "participants": [
+          "c0",
+          "c4"
+        ],
+        "assignments": {
+          "c1": "guard",
+          "c2": "herbs",
+          "c3": "rest",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 1,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 14,
+        "action_id": "cards_2/ally",
+        "label": "送帖人現身 · 請地方行會協助",
+        "participants": [
+          "c0",
+          "c3"
+        ],
+        "assignments": {
+          "c1": "rest",
+          "c2": "rest",
+          "c4": "guard",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": -4,
+          "defense": 1,
+          "reputation": 8
+        }
+      },
+      {
+        "tick": 15,
+        "action_id": "dispute/supported",
+        "label": "田界爭執 · 備妥支援再出發",
+        "participants": [
+          "c0",
+          "c1"
+        ],
+        "assignments": {
+          "c2": "guard",
+          "c3": "host",
+          "c4": "rest",
+          "c5": "rest"
+        },
+        "changes": {
+          "treasury": -3,
+          "defense": 1,
+          "reputation": 6
+        }
+      },
+      {
+        "tick": 16,
+        "action_id": "personal/memory_return:c0:m:5",
+        "label": "又到那條山路 · 唐見川",
+        "participants": [
+          "c0",
+          "c1"
+        ],
+        "assignments": {
+          "c2": "guard",
+          "c3": "rest",
+          "c4": "host",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 7,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 17,
+        "action_id": "train",
+        "label": "修煉與帶新人",
+        "participants": [
+          "c3",
+          "c4"
+        ],
+        "assignments": {
+          "c0": "rest",
+          "c1": "guard",
+          "c2": "rest",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 0,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 18,
+        "action_id": "market/supported",
+        "label": "山下趕集 · 備妥支援再出發",
+        "participants": [
+          "c0",
+          "c2"
+        ],
+        "assignments": {
+          "c1": "rest",
+          "c3": "guard",
+          "c4": "host",
+          "c5": "rest"
+        },
+        "changes": {
+          "treasury": 7,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 19,
+        "action_id": "train",
+        "label": "修煉與帶新人",
+        "participants": [
+          "c5",
+          "c1"
+        ],
+        "assignments": {
+          "c0": "rest",
+          "c2": "guard",
+          "c3": "host",
+          "c4": "rest"
+        },
+        "changes": {
+          "treasury": 0,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 20,
+        "action_id": "personal/memory_return:c0:m:6",
+        "label": "又到那條山路 · 唐見川",
+        "participants": [
+          "c0",
+          "c1"
+        ],
+        "assignments": {
+          "c2": "rest",
+          "c3": "rest",
+          "c4": "guard",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 4,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 21,
+        "action_id": "build/training",
+        "label": "整修練武場 · 升至 3 級",
+        "participants": [
+          "c0",
+          "c1"
+        ],
+        "assignments": {
+          "c2": "guard",
+          "c3": "host",
+          "c4": "host",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": -14,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 22,
+        "action_id": "train",
+        "label": "修煉與帶新人",
+        "participants": [
+          "c0",
+          "c1"
+        ],
+        "assignments": {
+          "c2": "guard",
+          "c3": "host",
+          "c4": "host",
+          "c5": "rest"
+        },
+        "changes": {
+          "treasury": 3,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 23,
+        "action_id": "appoint/c0/mentor",
+        "label": "任命唐見川為教習",
+        "participants": [
+          "c0"
+        ],
+        "assignments": {
+          "c1": "guard",
+          "c2": "herbs",
+          "c3": "host",
+          "c4": "rest",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 4,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 24,
+        "action_id": "personal/memory_return:c1:m:8",
+        "label": "又到那條山路 · 裴青禾",
+        "participants": [
+          "c1",
+          "c3"
+        ],
+        "assignments": {
+          "c0": "rest",
+          "c2": "rest",
+          "c4": "guard",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 4,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 25,
+        "action_id": "train",
+        "label": "修煉與帶新人",
+        "participants": [
+          "c0",
+          "c2"
+        ],
+        "assignments": {
+          "c1": "guard",
+          "c3": "host",
+          "c4": "host",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 6,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 26,
+        "action_id": "train",
+        "label": "修煉與帶新人",
+        "participants": [
+          "c0",
+          "c2"
+        ],
+        "assignments": {
+          "c1": "rest",
+          "c3": "rest",
+          "c4": "guard",
+          "c5": "rest"
+        },
+        "changes": {
+          "treasury": -3,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 27,
+        "action_id": "escort/supported",
+        "label": "雨中的護送 · 備妥支援再出發",
+        "participants": [
+          "c0",
+          "c1"
+        ],
+        "assignments": {
+          "c2": "guard",
+          "c3": "host",
+          "c4": "rest",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 13,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 28,
+        "action_id": "personal/memory_return:c0:m:9",
+        "label": "又到那條山路 · 唐見川",
+        "participants": [
+          "c0",
+          "c2"
+        ],
+        "assignments": {
+          "c1": "guard",
+          "c3": "host",
+          "c4": "host",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 10,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 29,
+        "action_id": "train",
+        "label": "修煉與帶新人",
+        "participants": [
+          "c0",
+          "c4"
+        ],
+        "assignments": {
+          "c1": "rest",
+          "c2": "guard",
+          "c3": "rest",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 0,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 30,
+        "action_id": "escort/supported",
+        "label": "雨中的護送 · 備妥支援再出發",
+        "participants": [
+          "c0",
+          "c3"
+        ],
+        "assignments": {
+          "c1": "guard",
+          "c2": "rest",
+          "c4": "host",
+          "c5": "rest"
+        },
+        "changes": {
+          "treasury": 10,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 31,
+        "action_id": "train",
+        "label": "修煉與帶新人",
+        "participants": [
+          "c2",
+          "c5"
+        ],
+        "assignments": {
+          "c0": "rest",
+          "c1": "guard",
+          "c3": "host",
+          "c4": "rest"
+        },
+        "changes": {
+          "treasury": 0,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 32,
+        "action_id": "personal/memory_return:c0:m:11",
+        "label": "又到那條山路 · 唐見川",
+        "participants": [
+          "c0",
+          "c4"
+        ],
+        "assignments": {
+          "c1": "rest",
+          "c2": "guard",
+          "c3": "rest",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 4,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 33,
+        "action_id": "bandits/supported",
+        "label": "渡口收路錢 · 備妥支援再出發",
+        "participants": [
+          "c0",
+          "c4"
+        ],
+        "assignments": {
+          "c1": "guard",
+          "c2": "herbs",
+          "c3": "host",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": -1,
+          "defense": 1,
+          "reputation": 12
+        }
+      },
+      {
+        "tick": 34,
+        "action_id": "train",
+        "label": "修煉與帶新人",
+        "participants": [
+          "c1",
+          "c3"
+        ],
+        "assignments": {
+          "c0": "rest",
+          "c2": "rest",
+          "c4": "guard",
+          "c5": "rest"
+        },
+        "changes": {
+          "treasury": -3,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 35,
+        "action_id": "train",
+        "label": "修煉與帶新人",
+        "participants": [
+          "c0",
+          "c2"
+        ],
+        "assignments": {
+          "c1": "guard",
+          "c3": "host",
+          "c4": "rest",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 3,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 36,
+        "action_id": "personal/memory_return:c0:m:14",
+        "label": "又到那條山路 · 唐見川",
+        "participants": [
+          "c0",
+          "c1"
+        ],
+        "assignments": {
+          "c2": "guard",
+          "c3": "rest",
+          "c4": "host",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 1,
+          "defense": -11,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 37,
+        "action_id": "train",
+        "label": "修煉與帶新人",
+        "participants": [
+          "c0",
+          "c3"
+        ],
+        "assignments": {
+          "c1": "guard",
+          "c2": "herbs",
+          "c4": "host",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 4,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 38,
+        "action_id": "train",
+        "label": "修煉與帶新人",
+        "participants": [
+          "c0",
+          "c3"
+        ],
+        "assignments": {
+          "c1": "guard",
+          "c2": "rest",
+          "c4": "host",
+          "c5": "rest"
+        },
+        "changes": {
+          "treasury": 0,
+          "defense": 1,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 39,
+        "action_id": "night_watch/supported",
+        "label": "山口的火光 · 備妥支援再出發",
+        "participants": [
+          "c0",
+          "c2"
+        ],
+        "assignments": {
+          "c1": "rest",
+          "c3": "guard",
+          "c4": "rest",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": -4,
+          "defense": 13,
+          "reputation": 0
+        }
+      },
+      {
+        "tick": 40,
+        "action_id": "personal/memory_return:c3:m:15",
+        "label": "又到那條山路 · 陸停雲",
+        "participants": [
+          "c3",
+          "c4"
+        ],
+        "assignments": {
+          "c0": "rest",
+          "c1": "guard",
+          "c2": "herbs",
+          "c5": "host"
+        },
+        "changes": {
+          "treasury": 5,
+          "defense": 1,
+          "reputation": 0
+        }
+      }
+    ]
+  }
+}

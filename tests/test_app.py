@@ -7,7 +7,7 @@ import pytest
 
 from simulate_balance import choose_day, choose_night, choose_focus, choose_deduction
 
-APP = Path(__file__).resolve().parents[1] / "app.py"
+APP = Path(__file__).resolve().parents[1] / "app_v06.py"
 
 
 @pytest.mark.parametrize("seed", (0, 4, 6))
